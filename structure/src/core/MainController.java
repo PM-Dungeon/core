@@ -1,28 +1,46 @@
 package core;
 
+import core.controls.ControlsController;
+import core.graphic.GraphicController;
 import core.interfaces.IEntity;
+import core.level.LevelController;
 
 import java.util.ArrayList;
 
 public class MainController {
 
-    private final ArrayList<IEntity> dungeonEntities = new ArrayList<>();
+    protected GraphicController gc;
+    protected ControlsController cc;
+    protected LevelController lc;
 
-    private void updateEntities() {
-        dungeonEntities.removeIf(obj -> obj.deleteable());
-        dungeonEntities.forEach(obj -> obj.update());
+    public MainController(GraphicController gc, ControlsController cc, LevelController lc) throws InterruptedException {
+        this.gc=gc;
+        this.cc=cc;
+        this.lc=lc;
+        this.loop();
     }
 
-    public void loop(){
-        //firstFrame
-        beginFrame();
-        updateEntities();
-        //updateLevel
-        //updateGrafik
-        //update Camera
-        //update GameBatch
-        //update hud
-        endFrame();
+    private void loop() throws InterruptedException {
+        final int TARGET_FPS = 30;
+        final long OPTIMAL_TIME = 1000 / TARGET_FPS;
+        while (true) {
+            //update game
+
+            //firstFrame
+            beginFrame();
+
+            //updateLevel
+            //updateGrafik
+            gc.draw(null,null);
+            //update Camera
+            //update GameBatch
+            //update hud
+            endFrame();
+
+            long sleepTime = (OPTIMAL_TIME - System.currentTimeMillis()) % OPTIMAL_TIME + OPTIMAL_TIME;
+            System.out.println("Sleep for: " + sleepTime);
+            Thread.sleep(sleepTime);
+        }
     }
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
