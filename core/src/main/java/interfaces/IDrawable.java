@@ -1,4 +1,4 @@
 package interfaces;
 
-public class IDrawable {
+public interface IDrawable {
 }

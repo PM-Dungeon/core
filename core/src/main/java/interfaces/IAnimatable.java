@@ -1,4 +1,4 @@
 package interfaces;
 
-public class IAnimatable {
+public interface IAnimatable {
 }

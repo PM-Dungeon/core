@@ -1,4 +1,4 @@
 package interfaces;
 
-public class IEntity {
+public interface IEntity {
 }

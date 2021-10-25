@@ -1,4 +1,4 @@
 package launcher;
 
-public class HTMLLauncher {
+public final class HTMLLauncher {
 }

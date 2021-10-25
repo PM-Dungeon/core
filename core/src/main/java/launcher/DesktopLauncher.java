@@ -1,4 +1,4 @@
 package launcher;
 
-public class DesktopLauncher {
+public final class DesktopLauncher {
 }

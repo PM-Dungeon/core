@@ -1,4 +1,4 @@
 package interfaces;
 
-public class IHUDElement {
+public interface IHUDElement {
 }

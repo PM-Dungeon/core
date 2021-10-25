@@ -1,4 +1,4 @@
 package controller;
 
-public class GameSetup {
+public final class GameSetup {
 }
