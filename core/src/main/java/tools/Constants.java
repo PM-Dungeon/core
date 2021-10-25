@@ -1,4 +1,4 @@
 package tools;
 
-public class Constants {
+public final class Constants {
 }
