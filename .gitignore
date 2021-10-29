@@ -161,4 +161,4 @@ latex.out/
 
 # Gradle #
 #########
-core/.gradle
+code/.gradle/
