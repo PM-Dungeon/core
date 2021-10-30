@@ -29,7 +29,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     name: Unit Test Results
-                    path: gradlewtest.xml
+                    path: code/build/test-results/
 
     publish-test-results:
         name: "Publish Unit Tests Results"
@@ -40,8 +40,8 @@ jobs:
             -   name: Download Artifacts
                 uses: actions/download-artifact@v2
                 with:
-                    path: artifacts
+                    path: code/build/test-results/
             -   name: Publish Unit Test Results
                 uses: EnricoMi/publish-unit-test-result-action@v1
                 with:
-                    files: artifacts/**/*.xml
+                    files: code/build/test-results/**/*.xml
