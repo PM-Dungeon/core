@@ -28,5 +28,5 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
-          path: code
+          entryPoint: code
           files: build/test-results/**/*.xml
