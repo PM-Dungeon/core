@@ -9,6 +9,7 @@ on:
         workflows: [ 'Java CI' ]  # runs after CI workflow
         types:
             - completed
+            - requested
 
 jobs:
     publish-test-results:
