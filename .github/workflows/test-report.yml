@@ -6,10 +6,8 @@
 name: 'Test Report'
 on:
     workflow_run:
-        workflows: [ 'Java CI' ]  # runs after CI workflow
-        types:
-            - completed
-            - requested
+        workflows: [ "Java CI" ]
+        types: [ completed ]
 
 jobs:
     publish-test-results:
