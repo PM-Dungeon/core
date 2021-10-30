@@ -1,0 +1,28 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI
+
+on:
+    workflow_run:
+        workflows: [ 'Java CI' ]                     # runs after CI workflow
+        types:
+            - completed
+
+jobs:
+    publish-test-results:
+        name: "Publish Unit Tests Results"
+        needs: build-and-test
+        runs-on: ubuntu-latest
+        if: always()
+        steps:
+            -   name: Download Artifacts
+                uses: actions/download-artifact@v2
+                with:
+                    path: artifacts
+            -   name: Publish Unit Test Results
+                uses: EnricoMi/publish-unit-test-result-action@v1
+                with:
+                    files: artifacts/**/*.xml
