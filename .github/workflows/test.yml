@@ -8,9 +8,8 @@ name: Java CI
 on: [pull_request]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -23,8 +22,14 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
         working-directory: code
+
+  publish-test-results:
+    name: "Publish Unit Tests Results"
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
         with:
-          files: code/build/test-results/test/*.xml
+          files: code/build/**/*.xml
