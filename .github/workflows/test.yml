@@ -29,8 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - name: Publish Unit Test Results
       - uses: actions/checkout@v2
+      - name: Publish Unit Test Results
       - uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           files: code/build/test-results/**/*.xml
