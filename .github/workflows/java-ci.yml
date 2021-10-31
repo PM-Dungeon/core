@@ -4,7 +4,7 @@ on: [ pull_request ]
 
 jobs:
     build-and-test:
-        name: "Build and Test"
+        name: Build and Test
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout
@@ -19,19 +19,7 @@ jobs:
             -   name: Build with Gradle
                 run: ./gradlew build
                 working-directory: code
-            -   name: Upload Unit Test Results
-                if: always()
-                uses: actions/upload-artifact@v2
-                with:
-                    name: Unit Test Results
-                    path: code/build/test-results/**/*.xml
-            -   name: Download Artifacts
-                uses: actions/download-artifact@v2
-                with:
-                    path: artifacts
             -   name: Publish Unit Test Results
                 uses: EnricoMi/publish-unit-test-result-action@v1
                 with:
-                    log_level: DEBUG
-                    root_log_level: DEBUG
-                    files: artifacts/**/*.xml
+                    files: core/build/test-results/**/*.xml
