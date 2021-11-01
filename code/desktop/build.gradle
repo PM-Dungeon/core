@@ -1,5 +1,5 @@
 sourceCompatibility = 11
-sourceSets.main.java.srcDirs = [  "/" ]
+sourceSets.main.java.srcDirs = ["/"]
 sourceSets.main.resources.srcDirs = ["../assets"]
 
 project.ext.mainClassName = "desktop.DesktopLauncher"
@@ -32,7 +32,6 @@ task dist(type: Jar) {
     }
     with jar
 }
-
 
 dist.dependsOn classes
 
