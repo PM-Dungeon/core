@@ -17,9 +17,8 @@ jobs:
             -   name: Validate Gradle wrapper
                 uses: gradle/wrapper-validation-action@v1
             -   name: Build with Gradle
-                run: |
-                    cd code
-                    ./gradlew build
+                run: ./gradlew build --warning-mode all
+                working-directory: code
             -   name: Publish Test Report
                 uses: mikepenz/action-junit-report@v2
                 if: always() # always run even if the previous step fails
