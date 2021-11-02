@@ -20,12 +20,11 @@ public final class HtmlLauncher extends GwtApplication {
     @Override
     public ApplicationListener createApplicationListener() {
         return new Game() {
-            public  SpriteBatch batch;
+            public SpriteBatch batch;
 
             @Override
             public void create() {
                 batch = new SpriteBatch();
-
             }
 
             @Override
