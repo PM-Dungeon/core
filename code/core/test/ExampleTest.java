@@ -1,8 +1,8 @@
 import jdk.jfr.Description;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -16,11 +16,7 @@ public class ExampleTest {
      * example: isAdult_AgeLessThan18_False
      */
 
-    private List mockedList;
-    @BeforeAll
-    public void init(){
-        mockedList=mock(List.class);
-    }
+    private List mockedList=mock(List.class);;
 
     @Test
     @Description("Example on how to use mockito")
@@ -32,7 +28,7 @@ public class ExampleTest {
     @Test
     @Description("Example on how to use mockito")
     public void get_negativeParameter_False(){
-        when(mockedList.get(-1)).thenReturn("DONT DO THAT");
-        assertEquals("First",mockedList.get(-1));
+        when(mockedList.get(-1)).thenReturn(false);
+        assertFalse((boolean)mockedList.get(-1));
     }
 }
