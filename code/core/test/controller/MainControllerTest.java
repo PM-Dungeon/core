@@ -1,4 +1,3 @@
 package controller;
 
-public class MainControllerTest {
-}
+public class MainControllerTest {}

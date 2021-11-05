@@ -1,4 +1,3 @@
 package controller;
 
-public class EntityControllerTest {
-}
+public class EntityControllerTest {}

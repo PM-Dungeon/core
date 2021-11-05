@@ -1,4 +1,3 @@
 package graphic;
 
-public class DungeonCameraTest {
-}
+public class DungeonCameraTest {}
