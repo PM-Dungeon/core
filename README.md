@@ -2,15 +2,8 @@
 
 ## Docker
 
-**Linux/MacOS:**
+To run the Web/HTML project with Docker open a Shell/PowerShell and follow this steps:
 - `cd code`
-- Run: `docker run --rm -it -p 8080:8080 -u "$(id -u):$(id -g)" -v "$(pwd):/code" -w "/code" gradle:7.2.0-jdk11 gradle html:superDev`
-- Or run: `./docker_run.sh`
-
-**Windows:**
-- Open Windows PowerShell (in Administrator Mode)
-- `cd code`
-- Run: `docker run --rm -it -p 8080:8080 -u "${id -u}:${id -g}" -v "${pwd}:/code" -w "/code" gradle:7.2.0-jdk11 gradle html:superDev`
-- Or run: `.\docker_run.ps1`
-
-(**Hints:** To run the PowerShell script, you have to allow such scripts: `set-executionpolicy remotesigned`)
+- **Linux/MacOS:** run `./docker_run.sh`
+- **Windows:** run `.\docker_run.ps1`
+- See also the [Wiki page](https://github.com/PM-Dungeon/pmdungeon/wiki/Hinweise-zum-Docker).
