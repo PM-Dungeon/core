@@ -1,3 +1,7 @@
 package graphic;
 
-public class DungeonCamera {}
+public class DungeonCamera {
+    private void aMethod() {
+        // a provocated violation
+    }
+}
