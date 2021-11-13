@@ -1,7 +1,9 @@
 package graphic;
 
 public class DungeonCamera {
-    private void aMethod() {
+    static String aMethod() {
         // a provocated violation
+        int i = 42;
+        return "hello";
     }
 }
