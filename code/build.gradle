@@ -92,6 +92,8 @@ project(":core") {
 
     spotbugs {
         toolVersion = '4.2.2'
+        ignoreFailures = true
+        showStackTraces = false
     }
 
     spotbugsMain {
