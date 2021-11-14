@@ -1,9 +1,9 @@
-name: Java CI
+name: Google Java Format
 
 on: [ pull_request ]
 
 jobs:
-    build-and-test:
+    google-format:
         name: Google Java Format
         runs-on: ubuntu-latest
         steps:
