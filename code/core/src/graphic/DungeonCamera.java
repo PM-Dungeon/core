@@ -1,3 +1,3 @@
 package graphic;
 
-public class DungeonCamera {}
+public class DungeonCamera { private  int anInt = 42;}

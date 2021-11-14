@@ -8,7 +8,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   uses: axel-op/googlejavaformat-action@v3
+            -   name: Java format
+                uses: axel-op/googlejavaformat-action@v3
                 with:
                     args: "--set-exit-if-changed --aosp --skip-sorting-imports --skip-javadoc-formatting"
             -   name: Set up JDK 11
