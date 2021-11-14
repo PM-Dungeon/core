@@ -21,7 +21,7 @@ public class ExampleTest {
     @Description("Example on how to use mockito")
     public void get_positiveParameter_True() {
         when(mockedList.get(0)).thenReturn("First");
-        assertEquals("First", mockedList.get(0));
+        assertEquals("Firstt", mockedList.get(0));
     }
 
     @Test
