@@ -34,4 +34,4 @@ jobs:
             -   name: Java format
                 uses: axel-op/googlejavaformat-action@v3
                 with:
-                    args: "--set-exit-if-changed --aosp --skip-sorting-imports --skip-javadoc-formatting"
+                    args: "--dry-run --aosp --skip-sorting-imports --skip-javadoc-formatting"
