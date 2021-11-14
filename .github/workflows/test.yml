@@ -58,3 +58,11 @@ jobs:
                 uses: jwgmeligmeyling/spotbugs-github-action@master
                 with:
                     path: '**/spotbugsXml.xml'
+    google-format:
+        needs: build
+        name: Google Java Format
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: axel-op/googlejavaformat-action@v3
+                with:
+                    args: "--set-exit-if-changed --aosp --skip-sorting-imports --skip-javadoc-formatting"
