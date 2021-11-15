@@ -3,8 +3,8 @@ package client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import controller.GameSetup;
+import controller.MainController;
 
 public final class HtmlLauncher extends GwtApplication {
     @Override
@@ -19,18 +19,6 @@ public final class HtmlLauncher extends GwtApplication {
 
     @Override
     public ApplicationListener createApplicationListener() {
-        return new Game() {
-            public SpriteBatch batch;
-
-            @Override
-            public void create() {
-                batch = new SpriteBatch();
-            }
-
-            @Override
-            public void dispose() {
-                batch.dispose();
-            }
-        };
+        return new GameSetup(new MainController());
     }
 }
