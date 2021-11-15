@@ -8,11 +8,11 @@ import graphic.DungeonCamera;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class MainController extends ScreenAdapter {
-    private SpriteBatch batch;
-    private LevelController levelController;
-    private EntityController entityController;
-    private DungeonCamera camera;
-    private HUDController hud;
+    protected SpriteBatch batch;
+    protected LevelController levelController;
+    protected EntityController entityController;
+    protected DungeonCamera camera;
+    protected HUDController hud;
 
     private boolean doFirstFrame =true;
 
@@ -52,7 +52,7 @@ public class MainController extends ScreenAdapter {
         this.entityController=new EntityController(batch);
         //the hud needs its own batch
         this.hud=new HUDController(new SpriteBatch());
-        this.camera=new DungeonCamera();
+        this.camera=new DungeonCamera(null,0,0);
         this.levelController=new LevelController(batch);
         setup();
     }
