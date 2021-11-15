@@ -3,28 +3,32 @@ package interfaces;
 import com.badlogic.gdx.graphics.Texture;
 import graphic.TextureFactory;
 import tools.Point;
-/** Should be implement by all hud objects */
+
+/**
+ * Should be implemented by all hud objects
+ */
 public interface IHUDElement {
     /**
      * The position of hud elements are based on virtual coordinates.
      *
-     * @return
+     * @return the position
      */
-    public Point getPosition();
+    Point getPosition();
 
-    public Texture getTexture();
+    Texture getTexture();
+
     /**
      * Each hud-element should use this controller to draw itself
      *
-     * @return
+     * @return TextureFactory
      */
-    public TextureFactory getTextureFactory();
+    TextureFactory getTextureFactory();
 
     default float getWidth() {
         return 0.5f;
     }
 
     default float getHeight() {
-        return (float) (getTexture().getHeight() / 2);
+        return Math.floorDiv(getTexture().getHeight(), 2);
     }
 }
