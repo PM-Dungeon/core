@@ -14,6 +14,7 @@ public class MainController extends ScreenAdapter {
     protected EntityController entityController;
     protected DungeonCamera camera;
     protected HUDController hud;
+    protected GraphicController graphicController;
 
     private boolean doFirstFrame = true;
 
@@ -52,9 +53,10 @@ public class MainController extends ScreenAdapter {
         doFirstFrame = false;
         this.entityController = new EntityController();
         // the hud needs its own batch
+        this.graphicController=new GraphicController();
         this.hud = new HUDController(new SpriteBatch());
         this.camera = new DungeonCamera(null, 0, 0);
-        this.levelController = new LevelController(batch);
+        this.levelController = new LevelController(batch, graphicController);
         setup();
     }
 
