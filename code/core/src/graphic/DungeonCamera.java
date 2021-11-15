@@ -1,3 +1,11 @@
 package graphic;
 
-public class DungeonCamera {}
+import interfaces.IDrawable;
+import tools.Point;
+
+public class DungeonCamera {
+
+    public void update() {
+
+    }
+}
