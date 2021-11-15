@@ -49,7 +49,7 @@ public class MainController extends ScreenAdapter {
 
     private void firstFrame(){
         doFirstFrame=false;
-        this.entityController=new EntityController(batch);
+        this.entityController=new EntityController();
         //the hud needs its own batch
         this.hud=new HUDController(new SpriteBatch());
         this.camera=new DungeonCamera(null,0,0);
