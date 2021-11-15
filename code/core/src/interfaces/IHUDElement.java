@@ -25,6 +25,6 @@ public interface IHUDElement {
     }
 
     default float getHeight() {
-        return getTexture().getHeight() / 2f;
+        return (float) (getTexture().getHeight() / 2);
     }
 }
