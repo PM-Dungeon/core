@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import controller.GameSetup;
 import controller.MainController;
+import tools.Constants;
 
 public final class HtmlLauncher extends GwtApplication {
     @Override
@@ -12,7 +13,7 @@ public final class HtmlLauncher extends GwtApplication {
         // Resizable application, uses available space in browser
         // return new GwtApplicationConfiguration(true);
         // Fixed size application:
-        GwtApplicationConfiguration config = new GwtApplicationConfiguration(640, 480);
+        GwtApplicationConfiguration config = new GwtApplicationConfiguration(Constants.WIDTH, Constants.HEIGHT);
         config.disableAudio = true;
         return config;
     }

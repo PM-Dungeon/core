@@ -4,13 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import controller.GameSetup;
 import controller.MainController;
+import tools.Constants;
 
 public final class DesktopLauncher {
     public static void run(MainController mc) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 640;
-        config.height = 480;
-        config.foregroundFPS = 30;
+        config.width = Constants.WIDTH;
+        config.height = Constants.HEIGHT;
+        config.foregroundFPS = Constants.FRAMERATE;
         new LwjglApplication(new GameSetup(mc),config);
     }
 
