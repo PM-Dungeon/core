@@ -56,8 +56,7 @@ public class MainController extends ScreenAdapter {
         this.entityController = new EntityController();
         setupCamera();
         this.graphicController = new GraphicController(camera);
-        // the hud needs its own batch
-        this.hud = new HUDController(new SpriteBatch());
+        this.hud = new HUDController(new SpriteBatch(),graphicController);
         this.levelController = new LevelController(batch, graphicController);
         setup();
     }

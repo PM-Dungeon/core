@@ -103,6 +103,7 @@ public class GraphicController {
                 batch);
     }
 
+
     private boolean isPointInFrustum(int x, int y) {
         int buffer = 2;
         return camera.frustum.pointInFrustum(x + buffer, y - buffer, 0)
