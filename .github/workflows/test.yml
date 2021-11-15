@@ -31,11 +31,11 @@ jobs:
                 with:
                     java-version: '11'
                     distribution: 'adopt'
-            -   name: Test with Gradle
+            -   name: Test with JUnit
                 run: |
                     ./gradlew test
                 working-directory: code
-            -   name: Publish Test Report
+            -   name: JUnit Report
                 uses: mikepenz/action-junit-report@v2
                 if: always() # always run even if the previous step fails
                 with:
@@ -52,15 +52,16 @@ jobs:
                 with:
                     java-version: '11'
                     distribution: 'adopt'
-            -   name: Test with Gradle
+            -   name: Test with SpotBugs
                 run: |
                     ./gradlew spotbugsMain
                     ./gradlew spotbugsTest
                 working-directory: code
-            -   name: Publish SpotBugs Report
+            -   name: SpotBugs Report
                 uses: jwgmeligmeyling/spotbugs-github-action@master
                 with:
                     path: '**/spotbugsXml.xml'
+                    name: 'SpotBugs Report'
     google-format:
         name: Google Java Format
         runs-on: ubuntu-latest
