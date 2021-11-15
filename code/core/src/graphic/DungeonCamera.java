@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 import interfaces.IDrawable;
 import tools.Point;
 
+/**
+ * Sauron's eye
+ */
 public class DungeonCamera extends OrthographicCamera {
     private IDrawable follows;
     private Point focusPoint;

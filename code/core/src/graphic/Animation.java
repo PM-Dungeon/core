@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.List;
 
+/** A list of textures form an animation */
 public class Animation {
 
     /** The set of textures that build the animation. */

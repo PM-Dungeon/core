@@ -1,13 +1,18 @@
 package controller;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import interfaces.IEntity;
 import java.util.ArrayList;
 
+/**
+ * Keeps a list of entities and calls their update method every frame
+ */
 public class EntityController {
     /** Contains all the entities this controller handles. */
     private final ArrayList<IEntity> dungeonEntities;
 
+    /**
+     * Keeps a list of entities and calls their update method every frame
+     */
     public EntityController() {
         this.dungeonEntities = new ArrayList<>();
     }

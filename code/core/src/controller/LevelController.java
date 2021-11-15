@@ -13,6 +13,5 @@ public class LevelController {
 
     public void update() {
         System.out.println("Level update");
-
     }
 }

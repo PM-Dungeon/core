@@ -6,10 +6,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.DungeonCamera;
 import tools.Point;
 
+/** Uses libGDX to draw sprites on the various SpriteBatches. */
 public class GraphicController {
-
     private DungeonCamera camera;
 
+    /**
+     * Uses libGDX to draw sprites on the various SpriteBatches.
+     *
+     * @param camera only objects that are in the camera are drawn
+     */
     public GraphicController(DungeonCamera camera) {
         this.camera = camera;
     }
@@ -102,7 +107,6 @@ public class GraphicController {
                 position,
                 batch);
     }
-
 
     private boolean isPointInFrustum(int x, int y) {
         int buffer = 2;
