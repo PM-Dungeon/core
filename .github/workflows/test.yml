@@ -35,12 +35,11 @@ jobs:
                 run: |
                     ./gradlew test
                 working-directory: code
-            -   name: JUnit Report
+            -   name: JUnit Test Report
                 uses: mikepenz/action-junit-report@v2
                 if: always() # always run even if the previous step fails
                 with:
                     report_paths: '**/build/test-results/test/TEST-*.xml'
-                    name: 'JUnit Report'
     spotbugs-test:
         needs: build
         name: SpotBugs Test
@@ -58,11 +57,11 @@ jobs:
                     ./gradlew spotbugsMain
                     ./gradlew spotbugsTest
                 working-directory: code
-            -   name: SpotBugs Report
+            -   name: SpotBugs Test Report
                 uses: jwgmeligmeyling/spotbugs-github-action@master
                 with:
                     path: '**/spotbugsXml.xml'
-                    name: 'SpotBugs Report'
+                    name: 'SpotBugs Test Report'
     google-format:
         name: Google Java Format
         runs-on: ubuntu-latest
