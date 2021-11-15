@@ -36,6 +36,7 @@ public class MainController extends ScreenAdapter {
      */
     @Override
     public final void render(float delta) {
+        System.out.println("MainController render");
         if (doFirstFrame) this.firstFrame();
 
         beginFrame();
@@ -44,18 +45,19 @@ public class MainController extends ScreenAdapter {
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         levelController.update();
         entityController.update();
-        setupCamera();
+        camera.update();
         hud.update();
         endFrame();
     }
 
     private void firstFrame() {
+        System.out.println("MainController firstFrame");
         doFirstFrame = false;
         this.entityController = new EntityController();
         // the hud needs its own batch
-        this.graphicController=new GraphicController();
+        this.graphicController = new GraphicController();
         this.hud = new HUDController(new SpriteBatch());
-        this.camera = new DungeonCamera(null, 0, 0);
+        setupCamera();
         this.levelController = new LevelController(batch, graphicController);
         setup();
     }
@@ -73,6 +75,5 @@ public class MainController extends ScreenAdapter {
                         Constants.VIRTUALHEIGHT);
         camera.position.set(0, 0, 0);
         camera.zoom += 1;
-        camera.update();
     }
 }

@@ -22,6 +22,8 @@ public class DungeonCamera extends OrthographicCamera {
 
     /** update camera position */
     public void update() {
+        System.out.println("DungeonCamera update");
+
         if (follows != null)
             this.position.set(
                     this.getFollowedObject().getPosition().x,

@@ -10,5 +10,7 @@ public class HUDController extends Stage {
         this.batch = batch;
     }
 
-    public void update() {}
+    public void update() {
+        System.out.println("HUD update");
+    }
 }

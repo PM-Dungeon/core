@@ -11,5 +11,8 @@ public class LevelController {
         this.graphicController = graphicController;
     }
 
-    public void update() {}
+    public void update() {
+        System.out.println("Level update");
+
+    }
 }
