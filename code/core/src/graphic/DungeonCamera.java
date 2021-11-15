@@ -1,6 +1,8 @@
 package graphic;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import interfaces.IDrawable;
 import tools.Point;
 
@@ -59,4 +61,22 @@ public class DungeonCamera extends OrthographicCamera {
         this.follows = null;
         this.focusPoint = focusPoint;
     }
+
+    /**
+     * Checks, if the point (x,y) is probably been seen on the screen. Otherwise, don't redender
+     * this point.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return if the point is displayable
+     */
+    public boolean isPointInFrustum(float x, float y) {
+        final float OFFSET = 1f;
+        BoundingBox bounds =
+                new BoundingBox(
+                        new Vector3(x - OFFSET, y - OFFSET, 0),
+                        new Vector3(x + OFFSET, y + OFFSET, 0));
+        return frustum.boundsInFrustum(bounds);
+    }
+
 }

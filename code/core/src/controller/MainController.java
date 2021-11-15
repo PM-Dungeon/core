@@ -54,10 +54,10 @@ public class MainController extends ScreenAdapter {
         System.out.println("MainController firstFrame");
         doFirstFrame = false;
         this.entityController = new EntityController();
-        // the hud needs its own batch
-        this.graphicController = new GraphicController();
-        this.hud = new HUDController(new SpriteBatch());
         setupCamera();
+        this.graphicController = new GraphicController(camera);
+        // the hud needs its own batch
+        this.hud = new HUDController(new SpriteBatch());
         this.levelController = new LevelController(batch, graphicController);
         setup();
     }

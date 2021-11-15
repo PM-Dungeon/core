@@ -3,10 +3,16 @@ package controller;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import graphic.DungeonCamera;
 import tools.Point;
 
 public class GraphicController {
 
+    private DungeonCamera camera;
+
+    public GraphicController(DungeonCamera camera) {
+        this.camera = camera;
+    }
     /**
      * Draws the instance based on its position.
      *
@@ -26,18 +32,21 @@ public class GraphicController {
             Texture texture,
             Point position,
             SpriteBatch batch) {
-        Sprite sprite = new Sprite(texture);
-        // this will resize the texture. this is setuped for the textures used in the thesis
-        sprite.setSize(xScaling, yScaling);
-        // where to draw the sprite
-        sprite.setPosition(position.x + xOffset, position.y + yOffset);
+        if (isPointInFrustum((int) position.x, (int) position.y)) {
 
-        // need to be called before drawing
-        batch.begin();
-        // draw sprite
-        sprite.draw(batch);
-        // need to be called after drawing
-        batch.end();
+            Sprite sprite = new Sprite(texture);
+            // this will resize the texture. this is setuped for the textures used in the thesis
+            sprite.setSize(xScaling, yScaling);
+            // where to draw the sprite
+            sprite.setPosition(position.x + xOffset, position.y + yOffset);
+
+            // need to be called before drawing
+            batch.begin();
+            // draw sprite
+            sprite.draw(batch);
+            // need to be called after drawing
+            batch.end();
+        }
     }
 
     /**
@@ -92,5 +101,13 @@ public class GraphicController {
                 texture,
                 position,
                 batch);
+    }
+
+    private boolean isPointInFrustum(int x, int y) {
+        int buffer = 2;
+        return camera.frustum.pointInFrustum(x + buffer, y - buffer, 0)
+                || camera.frustum.pointInFrustum(x + buffer, y + buffer, 0)
+                || camera.frustum.pointInFrustum(x - buffer, y - buffer, 0)
+                || camera.frustum.pointInFrustum(x - buffer, y + buffer, 0);
     }
 }
