@@ -8,9 +8,7 @@ import tools.Constants;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
-/**
- * The heart of the framework. From here all strings are pulled.
- */
+/** The heart of the framework. From here all strings are pulled. */
 public class MainController extends ScreenAdapter {
     protected SpriteBatch batch;
     protected LevelController levelController;
@@ -59,7 +57,7 @@ public class MainController extends ScreenAdapter {
         this.entityController = new EntityController();
         setupCamera();
         this.graphicController = new GraphicController(camera);
-        this.hud = new HUDController(new SpriteBatch(),graphicController);
+        this.hud = new HUDController(new SpriteBatch(), graphicController);
         this.levelController = new LevelController(batch, graphicController);
         setup();
     }

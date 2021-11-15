@@ -3,9 +3,7 @@ package controller;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/**
- * ApplicationListener that delegates to the MainGameController. Just some setup.
- */
+/** ApplicationListener that delegates to the MainGameController. Just some setup. */
 public final class GameSetup extends Game {
 
     /**
@@ -13,10 +11,9 @@ public final class GameSetup extends Game {
      * THIS INSTANCE
      */
     private SpriteBatch batch;
+
     private final MainController mc;
-    /**
-     * ApplicationListener that delegates to the MainGameController. Just some setup.
-     */
+    /** ApplicationListener that delegates to the MainGameController. Just some setup. */
     public GameSetup(MainController mc) {
         this.mc = mc;
     }
