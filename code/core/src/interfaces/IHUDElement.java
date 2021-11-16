@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import graphic.TextureFactory;
 import tools.Point;
 
-/**
- * Should be implemented by all hud objects
- */
+/* Should be implemented by all hud objects */
 public interface IHUDElement {
     /**
      * The position of hud elements are based on virtual coordinates.
@@ -29,6 +27,6 @@ public interface IHUDElement {
     }
 
     default float getHeight() {
-        return Math.floorDiv(getTexture().getHeight(), 2);
+        return getTexture().getHeight() / 2f;
     }
 }
