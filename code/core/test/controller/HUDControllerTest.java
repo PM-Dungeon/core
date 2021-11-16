@@ -1,4 +1,3 @@
 package controller;
 
-public class HUDControllerTest {
-}
+public class HUDControllerTest {}

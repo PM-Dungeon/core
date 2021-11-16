@@ -17,7 +17,7 @@ public class AnimationTest {
 
     @Test
     @Description("Create Animation with empty list")
-    public void testa() {
+    public void constructor_EmptyTextureList_ThrowsException() {
         when(mockedList.isEmpty()).thenReturn(true);
         IllegalArgumentException exception =
                 assertThrows(
@@ -30,7 +30,7 @@ public class AnimationTest {
 
     @Test
     @Description("Create Animation with 0 frameTime")
-    public void testb() {
+    public void constructor_0FrameTime_NoException() {
         when(mockedList.isEmpty()).thenReturn(false);
         when(mockedList.size()).thenReturn(2);
         new Animation(mockedList, 0);
@@ -38,7 +38,7 @@ public class AnimationTest {
 
     @Test
     @Description("Create Animation with negative frameTime")
-    public void testc() {
+    public void constructor_NegativeFrameTime_ThrowsException() {
         when(mockedList.isEmpty()).thenReturn(false);
         when(mockedList.size()).thenReturn(2);
         IllegalArgumentException exception =
@@ -52,7 +52,7 @@ public class AnimationTest {
 
     @Test
     @Description("Rotate Animation with frameTime=1")
-    public void testd() {
+    public void getNextAnimation_FrameTime1_True() {
         Texture mockedTexture1 = mock(Texture.class);
         Texture mockedTexture2 = mock(Texture.class);
         when(mockedList.isEmpty()).thenReturn(false);
@@ -67,12 +67,13 @@ public class AnimationTest {
         assertEquals(mockedTexture1, a.getNextAnimationTexture());
         assertEquals(mockedTexture1, a.getNextAnimationTexture());
         assertEquals(mockedTexture2, a.getNextAnimationTexture());
-        assertEquals(mockedTexture2, a.getNextAnimationTexture());;
+        assertEquals(mockedTexture2, a.getNextAnimationTexture());
+        ;
     }
 
     @Test
     @Description("Rotate Animation with frameTime=0")
-    public void teste() {
+    public void getNextAnimation_FrameTime0_True() {
         Texture mockedTexture1 = mock(Texture.class);
         Texture mockedTexture2 = mock(Texture.class);
         when(mockedList.isEmpty()).thenReturn(false);
@@ -88,7 +89,7 @@ public class AnimationTest {
 
     @Test
     @Description("Rotate Animation with frameTime=2")
-    public void testf() {
+    public void getNextAnimation_FrameTime2_True() {
         Texture mockedTexture1 = mock(Texture.class);
         Texture mockedTexture2 = mock(Texture.class);
         when(mockedList.isEmpty()).thenReturn(false);

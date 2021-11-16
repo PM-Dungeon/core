@@ -1,4 +1,3 @@
 package controller;
 
-public class GraphicControllerTest {
-}
+public class GraphicControllerTest {}
