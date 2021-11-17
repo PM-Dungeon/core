@@ -37,7 +37,8 @@ public class HUDController extends Stage {
      * @param element
      */
     public void addElement(IHUDElement element) {
-        this.elements.add(element);
+        if (element == null) throw new IllegalArgumentException("null can not be added.");
+        if (!elements.contains(element)) this.elements.add(element);
     }
 
     /**
@@ -46,7 +47,12 @@ public class HUDController extends Stage {
      * @param element
      */
     public void removeElement(IHUDElement element) {
+        if (element == null) throw new IllegalArgumentException("null can not be deleted.");
         if (elements.contains(element)) elements.remove(element);
+    }
+
+    public void clearHUD() {
+        this.elements.clear();
     }
 
     /** @return List with all the elements on the hud */

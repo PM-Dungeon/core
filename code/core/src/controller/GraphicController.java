@@ -110,9 +110,10 @@ public class GraphicController {
 
     private boolean isPointInFrustum(int x, int y) {
         int buffer = 2;
-        return camera.frustum.pointInFrustum(x + buffer, y - buffer, 0)
-                || camera.frustum.pointInFrustum(x + buffer, y + buffer, 0)
-                || camera.frustum.pointInFrustum(x - buffer, y - buffer, 0)
-                || camera.frustum.pointInFrustum(x - buffer, y + buffer, 0);
+
+        return camera.getFrustum().pointInFrustum(x + buffer, y - buffer, 0)
+                || camera.getFrustum().pointInFrustum(x + buffer, y + buffer, 0)
+                || camera.getFrustum().pointInFrustum(x - buffer, y - buffer, 0)
+                || camera.getFrustum().pointInFrustum(x - buffer, y + buffer, 0);
     }
 }
