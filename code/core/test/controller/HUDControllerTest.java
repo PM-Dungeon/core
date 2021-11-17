@@ -1,10 +1,8 @@
 package controller;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +23,10 @@ public class HUDControllerTest {
     @BeforeEach
     public void init() {
         this.gc = mock(GraphicController.class);
-        this.batch=mock(SpriteBatch.class);
-        this.camera=mock(HUDCamera.class);
+        this.batch = mock(SpriteBatch.class);
+        this.camera = mock(HUDCamera.class);
         when(camera.getPosition()).thenReturn(new Vector3());
-        this.hc = new HUDController(this.batch, this.gc,this.camera);
+        this.hc = new HUDController(this.batch, this.gc, this.camera);
     }
 
     @Test

@@ -1,20 +1,7 @@
 package controller;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Frustum;
-import graphic.DungeonCamera;
-import interfaces.IDrawable;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tools.Point;
-
-import static org.mockito.ArgumentMatchers.anyFloat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class GraphicControllerTest {
-/*
+    /*
     GraphicController gc;
     DungeonCamera camera;
     IDrawable drawable;

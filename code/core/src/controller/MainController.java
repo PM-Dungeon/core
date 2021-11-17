@@ -2,9 +2,7 @@ package controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import graphic.DungeonCamera;
 import graphic.HUDCamera;
 import tools.Constants;

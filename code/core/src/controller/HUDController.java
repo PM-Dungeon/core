@@ -1,17 +1,13 @@
 package controller;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
 
 import java.util.ArrayList;
 
 /** Keeps a list of Hud elements and makes sure they are drawn */
-public class HUDController
-{
+public class HUDController {
     private GraphicController graphicController;
     private HUDCamera hudCamera;
     private SpriteBatch batch;
