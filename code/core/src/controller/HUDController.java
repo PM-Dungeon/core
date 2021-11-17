@@ -4,14 +4,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import graphic.HUDCamera;
 import interfaces.IHUDElement;
 
 import java.util.ArrayList;
 
 /** Keeps a list of Hud elements and makes sure they are drawn */
-public class HUDController extends Stage {
+public class HUDController
+{
     private GraphicController graphicController;
-    private OrthographicCamera hudCamera;
+    private HUDCamera hudCamera;
     private SpriteBatch batch;
     private ArrayList<IHUDElement> elements;
 
@@ -21,11 +23,10 @@ public class HUDController extends Stage {
      * @param batch batch for the hud
      * @param graphicController
      */
-    public HUDController(SpriteBatch batch, GraphicController graphicController) {
-        super(new ScreenViewport(), batch);
+    public HUDController(SpriteBatch batch, GraphicController graphicController, HUDCamera camera) {
         this.batch = batch;
-        hudCamera = new OrthographicCamera();
-        hudCamera.position.set(0, 0, 0);
+        hudCamera = camera;
+        hudCamera.getPosition().set(0, 0, 0);
         hudCamera.update();
         elements = new ArrayList<>();
         this.graphicController = graphicController;

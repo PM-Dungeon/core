@@ -2,8 +2,11 @@ package controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import graphic.DungeonCamera;
+import graphic.HUDCamera;
 import tools.Constants;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
@@ -57,7 +60,7 @@ public class MainController extends ScreenAdapter {
         this.entityController = new EntityController();
         setupCamera();
         this.graphicController = new GraphicController(camera);
-        this.hud = new HUDController(new SpriteBatch(), graphicController);
+        this.hud = new HUDController(new SpriteBatch(), graphicController, new HUDCamera());
         this.levelController = new LevelController(batch, graphicController);
         setup();
     }
