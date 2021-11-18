@@ -7,6 +7,8 @@
     <source path="interfaces"/>
     <source path="tools"/>
 
+    <source path="myimplementation"/>
+
     <!--    <inherits name="com.google.gwt.logging.Logging"/>-->
 
     <!--	<extend-configuration-property name="gdx.reflect.include" value="de.pmdungeon.dungeonCreator.dungeonconverter.Room" />-->
