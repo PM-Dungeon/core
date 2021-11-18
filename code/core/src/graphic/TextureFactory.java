@@ -10,7 +10,7 @@ public class TextureFactory {
      * @param path to file
      * @return the texture
      */
-    public Texture getTexture(String path) {
+    public static Texture getTexture(String path) {
         return new Texture(path);
     }
 }
