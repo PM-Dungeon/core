@@ -52,7 +52,7 @@ public class EntityController {
     }
 
     /** returns entity list */
-    public ArrayList<IEntity> getList() {
+    public ArrayList<IEntity> getEntities() {
         return dungeonEntities;
     }
 }
