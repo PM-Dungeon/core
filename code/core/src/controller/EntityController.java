@@ -2,24 +2,23 @@ package controller;
 
 import interfaces.IEntity;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-/** Keeps a list of entities and calls their update method every frame */
+/** Keeps a set of entities and calls their update method every frame */
 public class EntityController {
     /** Contains all the entities this controller handles. */
-    private final ArrayList<IEntity> dungeonEntities;
+    private final Set<IEntity> dungeonEntities;
 
     /** Keeps a list of entities and calls their update method every frame */
     public EntityController() {
-        dungeonEntities = new ArrayList<>();
+        dungeonEntities = new LinkedHashSet<>();
     }
 
     /**
      * calls the update method for every entity in the list. removes entity if deletable is set true
      */
     public void update() {
-        System.out.println("EntityController update");
-
         dungeonEntities.removeIf(obj -> obj.removable());
         dungeonEntities.forEach(obj -> obj.update());
     }
@@ -28,22 +27,18 @@ public class EntityController {
      * add an entity to the list
      *
      * @param entity
-     * @throws IllegalArgumentException
      */
-    public void addEntity(IEntity entity) throws IllegalArgumentException {
-        if (entity == null) throw new IllegalArgumentException("null can not be added.");
-        if (!dungeonEntities.contains(entity)) dungeonEntities.add(entity);
+    public void addEntity(IEntity entity) {
+        dungeonEntities.add(entity);
     }
 
     /**
      * removes entity from the list
      *
      * @param entity
-     * @throws IllegalArgumentException
      */
-    public void removeEntity(IEntity entity) throws IllegalArgumentException {
-        if (entity == null) throw new IllegalArgumentException("null can not be deleted.");
-        if (dungeonEntities.contains(entity)) dungeonEntities.remove(entity);
+    public void removeEntity(IEntity entity) {
+        dungeonEntities.remove(entity);
     }
 
     /** removes all entities from the list */
@@ -52,7 +47,7 @@ public class EntityController {
     }
 
     /** returns entity list */
-    public ArrayList<IEntity> getEntities() {
+    public Set<IEntity> getEntities() {
         return dungeonEntities;
     }
 }
