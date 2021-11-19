@@ -74,20 +74,6 @@ public class GraphicController {
     }
 
     /**
-     * Draws the instance based on its position with default offset and specific scaling.
-     *
-     * @param xScaling
-     * @param yScaling
-     * @param texture
-     * @param position
-     * @param batch
-     */
-    public void drawWithScaling(
-            float xScaling, float yScaling, Texture texture, Point position, SpriteBatch batch) {
-        draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);
-    }
-
-    /**
      * Draws the instance based on its position with default scaling and specific offset
      *
      * @param xOffset
@@ -106,6 +92,20 @@ public class GraphicController {
                 texture,
                 position,
                 batch);
+    }
+
+    /**
+     * Draws the instance based on its position with default offset and specific scaling.
+     *
+     * @param xScaling
+     * @param yScaling
+     * @param texture
+     * @param position
+     * @param batch
+     */
+    public void drawWithScaling(
+            float xScaling, float yScaling, Texture texture, Point position, SpriteBatch batch) {
+        draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);
     }
 
     private boolean isPointInFrustum(int x, int y) {
