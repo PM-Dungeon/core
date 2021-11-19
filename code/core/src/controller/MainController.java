@@ -38,7 +38,6 @@ public class MainController extends ScreenAdapter {
      */
     @Override
     public final void render(float delta) {
-        System.out.println("MainController render");
         if (doFirstFrame) this.firstFrame();
         // clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -54,7 +53,6 @@ public class MainController extends ScreenAdapter {
     }
 
     private void firstFrame() {
-        System.out.println("MainController firstFrame");
         doFirstFrame = false;
         entityController = new EntityController();
         setupCamera();
