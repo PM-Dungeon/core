@@ -56,11 +56,11 @@ public class MainController extends ScreenAdapter {
     private void firstFrame() {
         System.out.println("MainController firstFrame");
         doFirstFrame = false;
-        this.entityController = new EntityController();
+        entityController = new EntityController();
         setupCamera();
-        this.graphicController = new GraphicController(camera);
-        this.hud = new HUDController(new SpriteBatch(), graphicController, new HUDCamera());
-        this.levelController = new LevelController(batch, graphicController);
+        graphicController = new GraphicController(camera);
+        hud = new HUDController(new SpriteBatch(), graphicController, new HUDCamera());
+        levelController = new LevelController(batch, graphicController);
         setup();
     }
 
