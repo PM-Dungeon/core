@@ -34,8 +34,8 @@ public class DungeonCamera extends OrthographicCamera {
                     this.getFollowedObject().getPosition().y,
                     0);
         else {
-            if (this.focusPoint == null) this.focusPoint = new Point(0, 0);
-            this.position.set(this.focusPoint.x, this.focusPoint.y, 0);
+            if (focusPoint == null) focusPoint = new Point(0, 0);
+            position.set(focusPoint.x, focusPoint.y, 0);
         }
         super.update();
     }
@@ -60,7 +60,7 @@ public class DungeonCamera extends OrthographicCamera {
      * @param focusPoint Point to set the camera on
      */
     public void setFocusPoint(Point focusPoint) {
-        this.follows = null;
+        follows = null;
         this.focusPoint = focusPoint;
     }
 
@@ -82,6 +82,6 @@ public class DungeonCamera extends OrthographicCamera {
     }
 
     public Frustum getFrustum() {
-        return this.frustum;
+        return frustum;
     }
 }

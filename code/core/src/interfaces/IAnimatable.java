@@ -11,6 +11,6 @@ public interface IAnimatable extends IDrawable {
 
     @Override
     default Texture getTexture() {
-        return this.getActiveAnimation().getNextAnimationTexture();
+        return getActiveAnimation().getNextAnimationTexture();
     }
 }

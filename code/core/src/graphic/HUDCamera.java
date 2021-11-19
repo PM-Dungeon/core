@@ -6,6 +6,6 @@ import com.badlogic.gdx.math.Vector3;
 public class HUDCamera extends OrthographicCamera {
 
     public Vector3 getPosition() {
-        return this.position;
+        return position;
     }
 }

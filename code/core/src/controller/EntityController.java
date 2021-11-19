@@ -11,7 +11,7 @@ public class EntityController {
 
     /** Keeps a list of entities and calls their update method every frame */
     public EntityController() {
-        this.dungeonEntities = new ArrayList<>();
+        dungeonEntities = new ArrayList<>();
     }
 
     /**
@@ -32,7 +32,7 @@ public class EntityController {
      */
     public void addEntity(IEntity entity) throws IllegalArgumentException {
         if (entity == null) throw new IllegalArgumentException("null can not be added.");
-        if (!dungeonEntities.contains(entity)) this.dungeonEntities.add(entity);
+        if (!dungeonEntities.contains(entity)) dungeonEntities.add(entity);
     }
 
     /**
@@ -43,16 +43,16 @@ public class EntityController {
      */
     public void removeEntity(IEntity entity) throws IllegalArgumentException {
         if (entity == null) throw new IllegalArgumentException("null can not be deleted.");
-        if (dungeonEntities.contains(entity)) this.dungeonEntities.remove(entity);
+        if (dungeonEntities.contains(entity)) dungeonEntities.remove(entity);
     }
 
     /** removes all entities from the list */
     public void removeAll() {
-        this.dungeonEntities.clear();
+        dungeonEntities.clear();
     }
 
     /** returns entity list */
     public ArrayList<IEntity> getList() {
-        return this.dungeonEntities;
+        return dungeonEntities;
     }
 }

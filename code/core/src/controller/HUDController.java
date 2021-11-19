@@ -35,7 +35,7 @@ public class HUDController {
      */
     public void addElement(IHUDElement element) {
         if (element == null) throw new IllegalArgumentException("null can not be added.");
-        if (!elements.contains(element)) this.elements.add(element);
+        if (!elements.contains(element)) elements.add(element);
     }
 
     /**
@@ -54,7 +54,7 @@ public class HUDController {
 
     /** @return List with all the elements on the hud */
     public ArrayList<IHUDElement> getElements() {
-        return this.elements;
+        return elements;
     }
 
     /** redraw hud and hud elements */
