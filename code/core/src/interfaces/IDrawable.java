@@ -3,14 +3,17 @@ package interfaces;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import controller.GraphicController;
+import graphic.TextureFactory;
 import tools.Point;
 /** Should be implement by all objects that are drawable but have no animation */
 public interface IDrawable {
-    public SpriteBatch getBatch();
+    SpriteBatch getBatch();
     /** @return the exact position in the dungeon of this instance */
     public Point getPosition();
     /** @return the (current)texture of the object. */
-    public Texture getTexture();
+    Texture getTexture();
+
+    TextureFactory getFactory();
 
     /**
      * Each drawable should use this controller to draw itself

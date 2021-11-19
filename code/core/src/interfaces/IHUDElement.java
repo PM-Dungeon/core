@@ -1,6 +1,7 @@
 package interfaces;
 
 import com.badlogic.gdx.graphics.Texture;
+import graphic.TextureFactory;
 import tools.Point;
 
 /* Should be implemented by all hud objects */
@@ -13,6 +14,8 @@ public interface IHUDElement {
     Point getPosition();
 
     Texture getTexture();
+
+    TextureFactory getFactory();
 
     default float getWidth() {
         return 0.5f;
