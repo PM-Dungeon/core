@@ -12,7 +12,10 @@
     <inherits name='MyGame'/>
     <entry-point class='client.HtmlLauncher'/>
     <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
+
+    <!--  ?  -->
     <set-configuration-property name="gdx.assetpath" value="core/assets"/>
+    <!--  ?  -->
 
     <set-property name="user.agent" value="gecko1_8, safari"/>
     <collapse-property name="user.agent" values="*"/>

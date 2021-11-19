@@ -1,9 +1,9 @@
 sourceCompatibility = 11
 sourceSets.main.java.srcDirs = ["src/"]
-sourceSets.main.resources.srcDirs = ["../core/assets"]
+sourceSets.main.resources.srcDirs = ["../" + assetsDirPath]
 
 project.ext.mainClassName = "desktop.DesktopLauncher"
-project.ext.assetsDir = new File("../core/assets")
+project.ext.assetsDir = new File("../" + assetsDirPath)
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName

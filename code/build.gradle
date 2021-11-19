@@ -23,6 +23,8 @@ allprojects {
 
     version = '1.0'
     ext {
+        // Add your assets directory path here:
+        assetsDirPath = "core/assets1"
         appName = "pmdungeon"
         gdxVersion = '1.10.0'
         roboVMVersion = '2.3.12'
