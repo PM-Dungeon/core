@@ -9,7 +9,7 @@ import tools.Point;
 public interface IDrawable {
     SpriteBatch getBatch();
     /** @return the exact position in the dungeon of this instance */
-    public Point getPosition();
+    Point getPosition();
     /** @return the (current)texture of the object. */
     Texture getTexture();
 
@@ -20,7 +20,7 @@ public interface IDrawable {
      *
      * @return
      */
-    public GraphicController getGraphicController();
+    GraphicController getGraphicController();
 
     /** draws this instance on the spritebatch */
     default void draw() {
