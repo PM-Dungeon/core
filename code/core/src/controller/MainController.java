@@ -40,11 +40,12 @@ public class MainController extends ScreenAdapter {
     public final void render(float delta) {
         System.out.println("MainController render");
         if (doFirstFrame) this.firstFrame();
-
-        beginFrame();
         // clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(camera.combined);
+
+        beginFrame();
         levelController.update();
         entityController.update();
         camera.update();
