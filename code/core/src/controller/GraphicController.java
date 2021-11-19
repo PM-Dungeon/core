@@ -84,7 +84,7 @@ public class GraphicController {
      */
     public void drawWithScaling(
             float xScaling, float yScaling, Texture texture, Point position, SpriteBatch batch) {
-        this.draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);
+        draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);
     }
 
     /**

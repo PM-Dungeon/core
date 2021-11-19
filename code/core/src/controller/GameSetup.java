@@ -22,7 +22,7 @@ public final class GameSetup extends Game {
     public void create() {
         batch = new SpriteBatch();
         mc.setSpriteBatch(batch);
-        this.setScreen(mc);
+        setScreen(mc);
     }
 
     @Override
