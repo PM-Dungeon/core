@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools.Point;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -27,42 +26,6 @@ public class HUDControllerTest {
         this.camera = mock(HUDCamera.class);
         when(camera.getPosition()).thenReturn(new Vector3());
         this.hc = new HUDController(this.batch, this.gc, this.camera);
-    }
-
-    @Test
-    public void addElement_addNonAddedElements_True() {
-        IHUDElement e1 = mock(IHUDElement.class);
-        IHUDElement e2 = mock(IHUDElement.class);
-        hc.addElement(e1);
-        hc.addElement(e2);
-        assertEquals(hc.getElements().get(0), e1);
-        assertEquals(hc.getElements().get(1), e2);
-    }
-
-    @Test
-    public void addElement_addAddedElements_False() {
-        IHUDElement e1 = mock(IHUDElement.class);
-        hc.addElement(e1);
-        hc.addElement(e1);
-        assertEquals(hc.getElements().get(0), e1);
-        assertEquals(hc.getElements().size(), 1);
-    }
-
-    @Test
-    public void removeElement_removeExistingElements_True() {
-        IHUDElement e1 = mock(IHUDElement.class);
-        IHUDElement e2 = mock(IHUDElement.class);
-        hc.addElement(e1);
-        hc.addElement(e2);
-        hc.removeElement(e1);
-        assertEquals(hc.getElements().size(), 1);
-    }
-
-    @Test
-    public void removeElement_removeNonElementsFromHUD_NoException() {
-        IHUDElement e1 = mock(IHUDElement.class);
-        hc.addElement(e1);
-        hc.removeElement(e1);
     }
 
     @Test

@@ -4,14 +4,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /** Keeps a list of Hud elements and makes sure they are drawn */
 public class HUDController {
     private GraphicController graphicController;
     private HUDCamera hudCamera;
     private SpriteBatch batch;
-    private ArrayList<IHUDElement> elements;
+    private Set<IHUDElement> elements;
 
     /**
      * Keeps a list of Hud elements and makes sure they are drawn
@@ -24,7 +25,7 @@ public class HUDController {
         hudCamera = camera;
         hudCamera.getPosition().set(0, 0, 0);
         hudCamera.update();
-        elements = new ArrayList<>();
+        elements = new HashSet<>();
         this.graphicController = graphicController;
     }
 
@@ -34,8 +35,7 @@ public class HUDController {
      * @param element
      */
     public void addElement(IHUDElement element) {
-        if (element == null) throw new IllegalArgumentException("null can not be added.");
-        if (!elements.contains(element)) elements.add(element);
+        elements.add(element);
     }
 
     /**
@@ -44,8 +44,7 @@ public class HUDController {
      * @param element
      */
     public void removeElement(IHUDElement element) {
-        if (element == null) throw new IllegalArgumentException("null can not be deleted.");
-        if (elements.contains(element)) elements.remove(element);
+        elements.remove(element);
     }
 
     public void clearHUD() {
@@ -53,7 +52,7 @@ public class HUDController {
     }
 
     /** @return List with all the elements on the hud */
-    public ArrayList<IHUDElement> getElements() {
+    public Set getElements() {
         return elements;
     }
 
