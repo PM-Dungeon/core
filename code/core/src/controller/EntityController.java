@@ -19,14 +19,14 @@ public class EntityController {
      * calls the update method for every entity in the list. removes entity if deletable is set true
      */
     public void update() {
-        dungeonEntities.removeIf(IEntity::removable);
-        dungeonEntities.forEach(IEntity::update);
+        dungeonEntities.removeIf(obj -> obj.removable());
+        dungeonEntities.forEach(obj -> obj.update());
     }
 
     /**
      * add an entity to the list
      *
-     * @param entity the entity
+     * @param entity
      */
     public void addEntity(IEntity entity) {
         dungeonEntities.add(entity);
@@ -35,7 +35,7 @@ public class EntityController {
     /**
      * removes entity from the list
      *
-     * @param entity the entity
+     * @param entity
      */
     public void removeEntity(IEntity entity) {
         dungeonEntities.remove(entity);

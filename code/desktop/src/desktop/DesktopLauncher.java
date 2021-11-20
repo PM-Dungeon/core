@@ -11,7 +11,7 @@ public final class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = Constants.WIDTH;
         config.height = Constants.HEIGHT;
-        config.foregroundFPS = Constants.FRAME_RATE;
+        config.foregroundFPS = Constants.FRAMERATE;
         new LwjglApplication(new GameSetup(mc), config);
     }
 
