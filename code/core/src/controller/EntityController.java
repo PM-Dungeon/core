@@ -19,8 +19,8 @@ public class EntityController {
      * calls the update method for every entity in the list. removes entity if deletable is set true
      */
     public void update() {
-        dungeonEntities.removeIf(obj -> obj.removable());
-        dungeonEntities.forEach(obj -> obj.update());
+        dungeonEntities.removeIf(IEntity::removable);
+        dungeonEntities.forEach(IEntity::update);
     }
 
     /**

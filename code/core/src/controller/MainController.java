@@ -68,12 +68,12 @@ public class MainController extends ScreenAdapter {
 
     /** Setting up the camera. */
     private void setupCamera() {
-        camera =
-                new DungeonCamera(
-                        null,
-                        Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT,
-                        Constants.VIRTUALHEIGHT);
-        camera.position.set(0, 0, 0);
-        camera.zoom += 1;
+        // Our viewport is Constants.WIDTH x Constants.HEIGHT pixel
+        // One grid field should be 30 x 30 pixel
+        // So we have:
+        camera = new DungeonCamera(null, Constants.WIDTH / 30f, Constants.HEIGHT / 30f);
+
+        // See also:
+        // https://stackoverflow.com/questions/52011592/libgdx-set-ortho-camera
     }
 }

@@ -13,8 +13,6 @@ public interface IDrawable {
     /** @return the (current)texture of the object. */
     Texture getTexture();
 
-    TextureFactory getFactory();
-
     /**
      * Each drawable should use this controller to draw itself
      *
