@@ -3,7 +3,6 @@ package interfaces;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import controller.GraphicController;
-import graphic.TextureFactory;
 import tools.Point;
 /** Should be implement by all objects that are drawable but have no animation */
 public interface IDrawable {
