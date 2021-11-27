@@ -73,7 +73,7 @@ public class MainController extends ScreenAdapter {
         // So we have:
         camera = new DungeonCamera(null, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
         // Zoom == 200 %
-        camera.zoom = 2f;
+        camera.zoom = 0.5f;
 
         // See also:
         // https://stackoverflow.com/questions/52011592/libgdx-set-ortho-camera
