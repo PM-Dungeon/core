@@ -13,8 +13,8 @@ public final class Constants {
     /*
      * Virtual width and height ~~ one grid field size 32 pixel
      */
-    public static final float VIRTUAL_WIDTH = WIDTH / 32f;
-    public static final float VIRTUAL_HEIGHT = HEIGHT / 32f;
+    public static final float VIRTUAL_WIDTH = WIDTH / 16f;
+    public static final float VIRTUAL_HEIGHT = HEIGHT / 16f;
 
     /* Title of the application */
     @SuppressWarnings("unused")
