@@ -4,7 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import controller.GraphicController;
 import tools.Point;
-/** Should be implement by all objects that are drawable but have no animation */
+
+/** Should be implemented by all objects that are drawable but have no animation */
 public interface IDrawable {
     SpriteBatch getBatch();
     /** @return the exact position in the dungeon of this instance */
@@ -15,7 +16,7 @@ public interface IDrawable {
     /**
      * Each drawable should use this controller to draw itself
      *
-     * @return
+     * @return the GraphicController
      */
     GraphicController getGraphicController();
 

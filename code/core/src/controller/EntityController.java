@@ -26,7 +26,7 @@ public class EntityController {
     /**
      * add an entity to the list
      *
-     * @param entity
+     * @param entity the entity
      */
     public void addEntity(IEntity entity) {
         dungeonEntities.add(entity);
@@ -35,7 +35,7 @@ public class EntityController {
     /**
      * removes entity from the list
      *
-     * @param entity
+     * @param entity the entity
      */
     public void removeEntity(IEntity entity) {
         dungeonEntities.remove(entity);
