@@ -31,7 +31,7 @@ public class MainController extends ScreenAdapter {
     // --------------------------- END OWN IMPLEMENTATION ------------------------
 
     /**
-     * Main Gameloop. Redraws the dungeon and calls all the update methods.
+     * Main game loop. Redraws the dungeon and calls all the update methods.
      *
      * @param delta Time since last loop. (since the PM-Dungeon is frame based, this isn't very
      *     useful)
