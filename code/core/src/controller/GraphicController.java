@@ -40,7 +40,7 @@ public class GraphicController {
         if (isPointInFrustum((int) position.x, (int) position.y)) {
 
             Sprite sprite = new Sprite(texture);
-            // this will resize the texture. this is setuped for the textures used in the thesis
+            // this will resize the texture. this is set up for the textures used in the thesis
             sprite.setSize(xScaling, yScaling);
             // where to draw the sprite
             sprite.setPosition(position.x + xOffset, position.y + yOffset);
@@ -62,7 +62,7 @@ public class GraphicController {
      * @param batch
      */
     public void draw(Texture texture, Point position, SpriteBatch batch) {
-        // found offset by try and error
+        // found offset by trail and error
         this.draw(
                 -0.85f,
                 -0.5f,
