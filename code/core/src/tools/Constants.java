@@ -11,10 +11,11 @@ public final class Constants {
     public static final int FRAME_RATE = 30;
 
     /*
-     * Virtual width and height ~~ one grid field size 32 pixel
+     * Virtual width and height ~~ one grid field size in pixel
      */
     public static final float VIRTUAL_WIDTH = WIDTH / 16f;
     public static final float VIRTUAL_HEIGHT = HEIGHT / 16f;
+    public static final float DEFAULT_ZOOM_FACTOR = 0.5f;
 
     /* Title of the application */
     @SuppressWarnings("unused")
