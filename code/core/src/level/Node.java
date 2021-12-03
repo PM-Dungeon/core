@@ -3,15 +3,13 @@ package level;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Andre Matutat
- */
+/** @author Andre Matutat */
 public class Node {
     private List<Integer> neighbours = new ArrayList<>();
     private int index;
 
-    public Node (int index){
-        this.index=index;
+    public Node(int index) {
+        this.index = index;
     }
 
     /**
@@ -37,19 +35,8 @@ public class Node {
         else return false;
     }
 
-
-
     public List<Integer> getNeighbours() {
         return neighbours;
-    }
-
-    /**
-     * If two nodes have the same index, they are a copy of another Sets the index.
-     *
-     * @param i
-     */
-    public void setIndex(int i) {
-        index = i;
     }
 
     /**
@@ -59,6 +46,15 @@ public class Node {
      */
     public int getIndex() {
         return index;
+    }
+
+    /**
+     * If two nodes have the same index, they are a copy of another Sets the index.
+     *
+     * @param i
+     */
+    public void setIndex(int i) {
+        index = i;
     }
 
     public String toDot() {

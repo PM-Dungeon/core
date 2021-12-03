@@ -8,8 +8,7 @@ public class Level {
         return null;
     }
 
-    public List<Node> getOptionalRooms(){
+    public List<Node> getOptionalRooms() {
         return null;
     }
-
 }
