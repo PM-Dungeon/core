@@ -14,4 +14,7 @@ public final class Constants {
 
     public static final String PATHTOLEVEL = "assets/level/";
     public static final String STARTLEVEL = Constants.PATHTOLEVEL + "small_dungeon.json";
+
+    public static final int MAXNODES = 20;
+    public static final int MAXEDGES = 20;
 }
