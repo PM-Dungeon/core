@@ -1,29 +1,24 @@
 package tools;
 
 public final class Constants {
-    /* Window width */
-    public static final int WIDTH = 640;
+    public static final int WINDOW_WIDTH = 640;
 
-    /* Window height */
-    public static final int HEIGHT = 480;
+    public static final int WINDOW_HEIGHT = 480;
 
-    /* Frames per seconds */
+    /*
+     * Frames per seconds
+     */
     public static final int FRAME_RATE = 30;
 
     /*
-     * Virtual width and height ~~ size of a grid field (in pixel)
+     * Virtual width and height
      */
-    public static final float VIRTUAL_WIDTH = WIDTH / 16f;
-    public static final float VIRTUAL_HEIGHT = HEIGHT / 16f;
+    public static final float FIELD_WIDTH_AND_HEIGHT_IN_PIXEL = 16f;
+    public static final float VIRTUAL_WIDTH = WINDOW_WIDTH / FIELD_WIDTH_AND_HEIGHT_IN_PIXEL;
+    public static final float VIRTUAL_HEIGHT = WINDOW_HEIGHT / FIELD_WIDTH_AND_HEIGHT_IN_PIXEL;
+
+    /*
+     * 200% zoom
+     */
     public static final float DEFAULT_ZOOM_FACTOR = 0.5f;
-
-    /* Title of the application */
-    @SuppressWarnings("unused")
-    public static final String WINDOW_NAME = "PM-Dungeon";
-
-    @SuppressWarnings("unused")
-    public static final String PATH_OF_LEVEL = "assets/level/";
-
-    @SuppressWarnings("unused")
-    public static final String START_LEVEL = Constants.PATH_OF_LEVEL + "small_dungeon.json";
 }

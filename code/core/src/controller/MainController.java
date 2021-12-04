@@ -68,11 +68,7 @@ public class MainController extends ScreenAdapter {
 
     /** Setting up the camera. */
     private void setupCamera() {
-        // Our viewport is Constants.WIDTH x Constants.HEIGHT pixel
-        // One grid field should be 16 x 16 pixel
-        // So we have:
         camera = new DungeonCamera(null, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
-        // Default zoom factor == 200 %
         camera.zoom = Constants.DEFAULT_ZOOM_FACTOR;
 
         // See also:
