@@ -62,7 +62,7 @@ public class GraphicController {
      * @param batch
      */
     public void draw(Texture texture, Point position, SpriteBatch batch) {
-        // found offset with try and error
+        // found offset by trial and error
         this.draw(
                 -0.85f,
                 -0.5f,
