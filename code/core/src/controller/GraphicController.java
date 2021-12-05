@@ -40,7 +40,7 @@ public class GraphicController {
         if (isPointInFrustum((int) position.x, (int) position.y)) {
 
             Sprite sprite = new Sprite(texture);
-            // set up scaling of textures
+            // set scaling of textures
             sprite.setSize(xScaling, yScaling);
             // where to draw the sprite
             sprite.setPosition(position.x + xOffset, position.y + yOffset);
