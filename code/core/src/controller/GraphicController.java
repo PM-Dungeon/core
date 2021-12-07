@@ -8,7 +8,7 @@ import tools.Point;
 
 /** Uses libGDX to draw sprites on the various SpriteBatches. */
 public class GraphicController {
-    private DungeonCamera camera;
+    private final DungeonCamera camera;
 
     /**
      * Uses libGDX to draw sprites on the various SpriteBatches.
@@ -18,17 +18,8 @@ public class GraphicController {
     public GraphicController(DungeonCamera camera) {
         this.camera = camera;
     }
-    /**
-     * Draws the instance based on its position.
-     *
-     * @param xOffset
-     * @param yOffset
-     * @param xScaling
-     * @param yScaling
-     * @param texture
-     * @param position
-     * @param batch
-     */
+
+    /** Draws the instance based on its position. */
     public void draw(
             float xOffset,
             float yOffset,
@@ -54,15 +45,9 @@ public class GraphicController {
         }
     }
 
-    /**
-     * Draws the instance based on its position with default offset and default scaling.
-     *
-     * @param texture
-     * @param position
-     * @param batch
-     */
+    /** Draws the instance based on its position with default offset and default scaling. */
     public void draw(Texture texture, Point position, SpriteBatch batch) {
-        // found offset with try and error
+        // the concrete offset values are best guesses
         this.draw(
                 -0.85f,
                 -0.5f,
@@ -73,15 +58,8 @@ public class GraphicController {
                 batch);
     }
 
-    /**
-     * Draws the instance based on its position with default scaling and specific offset
-     *
-     * @param xOffset
-     * @param yOffset
-     * @param texture
-     * @param position
-     * @param batch
-     */
+    /** Draws the instance based on its position with default scaling and specific offset */
+    @SuppressWarnings("unused")
     public void draw(
             float xOffset, float yOffset, Texture texture, Point position, SpriteBatch batch) {
         this.draw(
@@ -94,15 +72,8 @@ public class GraphicController {
                 batch);
     }
 
-    /**
-     * Draws the instance based on its position with default offset and specific scaling.
-     *
-     * @param xScaling
-     * @param yScaling
-     * @param texture
-     * @param position
-     * @param batch
-     */
+    /** Draws the instance based on its position with default offset and specific scaling. */
+    @SuppressWarnings("unused")
     public void drawWithScaling(
             float xScaling, float yScaling, Texture texture, Point position, SpriteBatch batch) {
         draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);

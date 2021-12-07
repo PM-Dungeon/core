@@ -27,18 +27,20 @@ public class MainController extends ScreenAdapter {
 
     protected void endFrame() {}
 
-    public void onLevelLoad() {}
+    protected void onLevelLoad() {}
     // --------------------------- END OWN IMPLEMENTATION ------------------------
 
     /**
-     * Main game loop. Redraws the dungeon and calls all the update methods.
+     * Main game loop. Redraws the dungeon and calls the own implementation.
      *
      * @param delta Time since last loop. (since the PM-Dungeon is frame based, this isn't very
      *     useful)
      */
     @Override
     public final void render(float delta) {
-        if (doFirstFrame) this.firstFrame();
+        if (doFirstFrame) {
+            this.firstFrame();
+        }
         // clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
