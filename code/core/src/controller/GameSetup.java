@@ -10,7 +10,7 @@ public final class GameSetup extends Game {
 
     /**
      * The batch is necessary to draw ALL the stuff. Every object that uses draw need to know the
-     * batch
+     * batch.
      */
     private SpriteBatch batch;
 

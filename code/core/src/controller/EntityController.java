@@ -2,21 +2,24 @@ package controller;
 
 import interfaces.IEntity;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
-/** Keeps a set of entities and calls their update method every frame */
+/** Keeps a set of entities and calls their update method every frame. */
 public class EntityController {
     /** Contains all the entities this controller handles. */
     private final Set<IEntity> dungeonEntities;
 
-    /** Keeps a list of entities and calls their update method every frame */
+    /** Keeps a set of entities and calls their update method every frame. */
     public EntityController() {
         dungeonEntities = new LinkedHashSet<>();
     }
 
     /**
-     * calls the update method for every entity in the list. removes entity if deletable is set true
+     * Calls the update method for every entity in the list. Removes entity if deletable is set to
+     * true.
      */
     public void update() {
         dungeonEntities.removeIf(IEntity::removable);
@@ -24,23 +27,23 @@ public class EntityController {
         dungeonEntities.forEach(IEntity::draw);
     }
 
-    /** add an entity to the list */
+    /** Adds an entity to the set. */
     public void addEntity(IEntity entity) {
         dungeonEntities.add(entity);
     }
 
-    /** removes entity from the list */
+    /** Removes entity from the set. */
     public void removeEntity(IEntity entity) {
         dungeonEntities.remove(entity);
     }
 
-    /** removes all entities from the list */
+    /** Removes all entities from the set. */
     public void removeAll() {
         dungeonEntities.clear();
     }
 
-    /** returns entity list */
-    public Set<IEntity> getEntities() {
-        return dungeonEntities;
+    /** Returns a list of all entities. */
+    public List<IEntity> getEntities() {
+        return new ArrayList<>(dungeonEntities);
     }
 }

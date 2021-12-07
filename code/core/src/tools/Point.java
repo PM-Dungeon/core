@@ -7,16 +7,16 @@ package tools;
  */
 public class Point {
 
-    public float x, y;
+    public final float x, y;
 
     public Point(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    /** Copys the point */
+    /** Copys the point. */
     public Point(Point p) {
-        this.x = p.x;
-        this.y = p.y;
+        x = p.x;
+        y = p.y;
     }
 }

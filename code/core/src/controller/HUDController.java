@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-/** Keeps a list of Hud elements and makes sure they are drawn */
+/** Keeps a set of HUD elements and makes sure they are drawn. */
 public class HUDController {
     private final GraphicController graphicController;
     private final HUDCamera hudCamera;
@@ -15,10 +17,10 @@ public class HUDController {
     private final Set<IHUDElement> elements;
 
     /**
-     * Keeps a list of Hud elements and makes sure they are drawn
+     * Keeps a list of Hud elements and makes sure they are drawn.
      *
      * @param batch batch for the hud
-     * @param graphicController the GraphicController
+     * @param graphicController the GraphicController for the hud
      */
     public HUDController(SpriteBatch batch, GraphicController graphicController, HUDCamera camera) {
         this.batch = batch;
@@ -29,26 +31,27 @@ public class HUDController {
         this.graphicController = graphicController;
     }
 
-    /** Adds an element to the HUD */
+    /** Adds an element to the HUD. */
     public void addElement(IHUDElement element) {
         elements.add(element);
     }
 
-    /** Removes an element from the HUD */
+    /** Removes an element from the HUD. */
     public void removeElement(IHUDElement element) {
         elements.remove(element);
     }
 
+    /** Clears the entire HUD. */
     public void clearHUD() {
-        this.elements.clear();
+        elements.clear();
     }
 
-    /** @return List with all the elements on the hud */
-    public Set<IHUDElement> getElements() {
-        return elements;
+    /** Returns a list with all elements on the HUD. */
+    public List<IHUDElement> getElements() {
+        return new ArrayList<>(elements);
     }
 
-    /** redraw hud and hud elements */
+    /** Redraws the HUD and all HUD elements. */
     public void update() {
         hudCamera.update();
         batch.setProjectionMatrix(hudCamera.combined);
