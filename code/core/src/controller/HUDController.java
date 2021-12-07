@@ -40,7 +40,7 @@ public class HUDController {
     }
 
     public void clearHUD() {
-        this.elements.clear();
+        elements.clear();
     }
 
     /** @return List with all the elements on the hud */

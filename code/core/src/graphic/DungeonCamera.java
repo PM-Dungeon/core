@@ -21,18 +21,20 @@ public class DungeonCamera extends OrthographicCamera {
      */
     public DungeonCamera(IEntity follows, float vw, float vh) {
         super(vw, vh);
-        if (follows != null) this.follows = follows;
+        if (follows != null) {
+            this.follows = follows;
+        }
     }
 
     /** Update camera position */
     public void update() {
-        if (follows != null)
-            this.position.set(
-                    this.getFollowedObject().getPosition().x,
-                    this.getFollowedObject().getPosition().y,
-                    0);
-        else {
-            if (focusPoint == null) focusPoint = new Point(0, 0);
+        if (follows != null) {
+            position.set(
+                    getFollowedObject().getPosition().x, getFollowedObject().getPosition().y, 0);
+        } else {
+            if (focusPoint == null) {
+                focusPoint = new Point(0, 0);
+            }
             position.set(focusPoint.x, focusPoint.y, 0);
         }
         super.update();
@@ -49,7 +51,7 @@ public class DungeonCamera extends OrthographicCamera {
 
     /** @return the entity the camera currently follows */
     public IEntity getFollowedObject() {
-        return this.follows;
+        return follows;
     }
 
     /**

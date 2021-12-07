@@ -39,8 +39,9 @@ public class MainController extends ScreenAdapter {
     @Override
     public final void render(float delta) {
         if (doFirstFrame) {
-            this.firstFrame();
+            firstFrame();
         }
+
         // clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);

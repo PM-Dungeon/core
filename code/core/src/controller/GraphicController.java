@@ -48,7 +48,7 @@ public class GraphicController {
     /** Draws the instance based on its position with default offset and default scaling. */
     public void draw(Texture texture, Point position, SpriteBatch batch) {
         // the concrete offset values are best guesses
-        this.draw(
+        draw(
                 -0.85f,
                 -0.5f,
                 1,
@@ -59,10 +59,9 @@ public class GraphicController {
     }
 
     /** Draws the instance based on its position with default scaling and specific offset */
-    @SuppressWarnings("unused")
     public void draw(
             float xOffset, float yOffset, Texture texture, Point position, SpriteBatch batch) {
-        this.draw(
+        draw(
                 xOffset,
                 yOffset,
                 1,
@@ -73,7 +72,6 @@ public class GraphicController {
     }
 
     /** Draws the instance based on its position with default offset and specific scaling. */
-    @SuppressWarnings("unused")
     public void drawWithScaling(
             float xScaling, float yScaling, Texture texture, Point position, SpriteBatch batch) {
         draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);

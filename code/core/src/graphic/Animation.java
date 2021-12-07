@@ -36,7 +36,7 @@ public class Animation {
             throw new IllegalArgumentException("frameTime cant be lower than 0");
         }
         this.animationFrames = animationFrames;
-        this.frames = animationFrames.size();
+        frames = animationFrames.size();
         this.frameTime = frameTime;
     }
 
