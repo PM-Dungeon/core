@@ -15,7 +15,7 @@ public class DungeonCamera extends OrthographicCamera {
     /**
      * Creates a new camera.
      *
-     * @param follows the entity the camera should follow, null for default coordinates.
+     * @param follows the entity the camera should follow, <code>null</code> for default coordinates.
      * @param vw Virtual width.
      * @param vh Virtual height.
      */
