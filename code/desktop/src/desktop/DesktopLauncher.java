@@ -2,8 +2,8 @@ package desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import controller.libgdxSetup;
 import controller.MainController;
+import controller.libgdxSetup;
 import tools.Constants;
 
 public final class DesktopLauncher {

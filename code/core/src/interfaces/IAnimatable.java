@@ -10,7 +10,7 @@ public interface IAnimatable extends IEntity {
     Animation getActiveAnimation();
 
     @Override
-    default Texture getTexture() {
+    default String getTexture() {
         return getActiveAnimation().getNextAnimationTexture();
     }
 }

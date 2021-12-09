@@ -3,7 +3,6 @@ package graphic;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import graphic.DungeonCamera;
 import tools.Point;
 
 /** Uses LibGDX to draw sprites on the various <code>SpriteBatch</code>es. */
@@ -25,11 +24,11 @@ public class Drawer {
             float yOffset,
             float xScaling,
             float yScaling,
-            Texture texture,
+            String texture,
             Point position,
             SpriteBatch batch) {
         if (isPointInFrustum((int) position.x, (int) position.y)) {
-            Sprite sprite = new Sprite(texture);
+            Sprite sprite = new Sprite(new Texture(texture));
             // set up scaling of textures
             sprite.setSize(xScaling, yScaling);
             // where to draw the sprite
@@ -45,13 +44,15 @@ public class Drawer {
     }
 
     /** Draws the instance based on its position with default offset and default scaling. */
-    public void draw(Texture texture, Point position, SpriteBatch batch) {
+    public void draw(String texture, Point position, SpriteBatch batch) {
         // the concrete offset values are best guesses
+        Texture t = new Texture(texture);
+
         draw(
                 -0.85f,
                 -0.5f,
                 1,
-                ((float) texture.getHeight() / (float) texture.getWidth()),
+                ((float) t.getHeight() / (float) t.getWidth()),
                 texture,
                 position,
                 batch);
@@ -59,12 +60,13 @@ public class Drawer {
 
     /** Draws the instance based on its position with default scaling and specific offset. */
     public void draw(
-            float xOffset, float yOffset, Texture texture, Point position, SpriteBatch batch) {
+            float xOffset, float yOffset, String texture, Point position, SpriteBatch batch) {
+        Texture t = new Texture(texture);
         draw(
                 xOffset,
                 yOffset,
                 1,
-                ((float) texture.getHeight() / (float) texture.getWidth()),
+                ((float) t.getHeight() / (float) t.getWidth()),
                 texture,
                 position,
                 batch);
@@ -72,7 +74,7 @@ public class Drawer {
 
     /** Draws the instance based on its position with default offset and specific scaling. */
     public void drawWithScaling(
-            float xScaling, float yScaling, Texture texture, Point position, SpriteBatch batch) {
+            float xScaling, float yScaling, String texture, Point position, SpriteBatch batch) {
         draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);
     }
 
