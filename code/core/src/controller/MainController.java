@@ -14,6 +14,8 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 /** The heart of the framework. From here all strings are pulled. */
 public class MainController extends ScreenAdapter {
     protected SpriteBatch batch;
+    protected SpriteBatch hudBatch = new SpriteBatch();
+    protected HUDCamera hudCamera = new HUDCamera();
     protected LevelAPI levelAPI;
     protected EntityController entityController;
     protected DungeonCamera camera;
@@ -62,7 +64,7 @@ public class MainController extends ScreenAdapter {
         entityController = new EntityController();
         setupCamera();
         drawer = new Drawer(camera);
-        hud = new HUDController(new SpriteBatch(), drawer, new HUDCamera());
+        hud = new HUDController(hudBatch, hudCamera);
         levelAPI = new LevelAPI(batch, drawer);
         setup();
     }

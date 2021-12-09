@@ -1,6 +1,8 @@
 package interfaces;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import graphic.Drawer;
 import graphic.TextureFactory;
 import tools.Point;
 
@@ -18,11 +20,17 @@ public interface IHUDElement {
 
     TextureFactory getFactory();
 
+    Drawer getGraphicController();
+
     default float getWidth() {
         return 0.5f;
     }
 
     default float getHeight() {
         return getTexture().getHeight() / 2f;
+    }
+
+    default void draw(SpriteBatch batch) {
+        getGraphicController().draw(getTexture(), getPosition(), batch);
     }
 }

@@ -26,7 +26,7 @@ public class HUDControllerTest {
         this.batch = mock(SpriteBatch.class);
         this.camera = mock(HUDCamera.class);
         when(camera.getPosition()).thenReturn(new Vector3());
-        this.hc = new HUDController(this.batch, this.gc, this.camera);
+        this.hc = new HUDController(this.batch, this.camera);
     }
 
     @Test

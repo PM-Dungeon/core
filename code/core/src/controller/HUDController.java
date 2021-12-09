@@ -1,7 +1,6 @@
 package controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import graphic.Drawer;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
 
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 public class HUDController implements IController<IHUDElement> {
-    private final Drawer drawer;
     private final HUDCamera hudCamera;
     private final SpriteBatch batch;
     private final Set<IHUDElement> elements;
@@ -20,15 +18,13 @@ public class HUDController implements IController<IHUDElement> {
      * Keeps a set of HUD elements and makes sure they are drawn.
      *
      * @param batch the batch for the HUD
-     * @param drawer the <code>GraphicController</code> for the HUD
      */
-    public HUDController(SpriteBatch batch, Drawer drawer, HUDCamera camera) {
+    public HUDController(SpriteBatch batch, HUDCamera camera) {
         this.batch = batch;
         hudCamera = camera;
         hudCamera.getPosition().set(0, 0, 0);
         hudCamera.update();
         elements = new LinkedHashSet<>();
-        this.drawer = drawer;
     }
 
     @Override
@@ -76,7 +72,6 @@ public class HUDController implements IController<IHUDElement> {
     }
 
     private void drawElements() {
-        elements.forEach(
-                element -> drawer.draw(element.getTexture(), element.getPosition(), batch));
+        elements.forEach(element -> element.draw(batch));
     }
 }
