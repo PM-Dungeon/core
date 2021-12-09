@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** ApplicationListener that delegates to the MainGameController. Just some setup. */
-public final class libgdxSetup extends Game {
+public final class LibgdxSetup extends Game {
 
     private final MainController mc;
 
@@ -17,7 +17,7 @@ public final class libgdxSetup extends Game {
     /**
      * <code>ApplicationListener</code> that delegates to the MainGameController. Just some setup.
      */
-    public libgdxSetup(MainController mc) {
+    public LibgdxSetup(MainController mc) {
         this.mc = mc;
     }
 
