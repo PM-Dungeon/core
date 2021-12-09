@@ -8,8 +8,8 @@ public class TextureFactory {
     /**
      * Loads the file and creates a texture.
      *
-     * @param path Path to file.
-     * @return The texture.
+     * @param path the path to the file to load
+     * @return the <code>Texture</code>
      */
     public Texture getTexture(String path) {
         return new Texture(path);

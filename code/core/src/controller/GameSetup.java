@@ -14,7 +14,9 @@ public final class GameSetup extends Game {
      */
     private SpriteBatch batch;
 
-    /** ApplicationListener that delegates to the MainGameController. Just some setup. */
+    /**
+     * <code>ApplicationListener</code> that delegates to the MainGameController. Just some setup.
+     */
     public GameSetup(MainController mc) {
         this.mc = mc;
     }

@@ -13,7 +13,7 @@ public class Animation {
     /** The count of textures for the animation. */
     private final int frames;
 
-    /** How many frame to wait before switching to the next one? */
+    /** Number of frames between switching to the next animation? */
     private final int frameTime;
 
     /** Index of the NEXT texture that will be returned. */

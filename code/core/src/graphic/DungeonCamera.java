@@ -15,9 +15,9 @@ public class DungeonCamera extends OrthographicCamera {
     /**
      * Creates a new camera.
      *
-     * @param follows the entity the camera should follow, <code>null</code> for default coordinates.
-     * @param vw Virtual width.
-     * @param vh Virtual height.
+     * @param follows the entity the camera should follow, <code>null</code> for default coordinates
+     * @param vw virtual width
+     * @param vh virtual height
      */
     public DungeonCamera(IEntity follows, float vw, float vh) {
         super(vw, vh);
@@ -43,13 +43,13 @@ public class DungeonCamera extends OrthographicCamera {
     /**
      * Sets the entity to follow.
      *
-     * @param follows Entity to follow.
+     * @param follows entity to follow
      */
     public void follow(IEntity follows) {
         this.follows = follows;
     }
 
-    /** @return The entity the camera currently follows. */
+    /** @return the entity the camera currently follows */
     public IEntity getFollowedObject() {
         return follows;
     }
@@ -57,7 +57,7 @@ public class DungeonCamera extends OrthographicCamera {
     /**
      * Stops following and set the camera on a fix position.
      *
-     * @param focusPoint Point to set the camera on.
+     * @param focusPoint <code>Point</code> to set the camera on
      */
     public void setFocusPoint(Point focusPoint) {
         follows = null;
@@ -77,7 +77,7 @@ public class DungeonCamera extends OrthographicCamera {
         return frustum.boundsInFrustum(bounds);
     }
 
-    /** @return The camara frustum. */
+    /** @return the camara frustum */
     public Frustum getFrustum() {
         return frustum;
     }

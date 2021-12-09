@@ -19,7 +19,7 @@ public class HUDController {
      * Keeps a set of HUD elements and makes sure they are drawn.
      *
      * @param batch the batch for the HUD
-     * @param graphicController the GraphicController for the HUD
+     * @param graphicController the <code>GraphicController</code> for the HUD
      */
     public HUDController(SpriteBatch batch, GraphicController graphicController, HUDCamera camera) {
         this.batch = batch;
@@ -45,19 +45,17 @@ public class HUDController {
         elements.remove(element);
     }
 
-    /** Clears the entire HUD. */
+    /** Clears all HUD elements. */
     public void clearHUD() {
         elements.clear();
     }
 
-    // Pick that one you need:
-
-    /** Returns a set with all elements on the HUD. */
+    /** Returns a copy set with all elements on the HUD. */
     public Set<IHUDElement> getElementsSet() {
-        return elements;
+        return new LinkedHashSet<>(elements);
     }
 
-    /** Returns a list with all elements on the HUD. */
+    /** Returns a copy list with all elements on the HUD. */
     public List<IHUDElement> getElementsList() {
         return new ArrayList<>(elements);
     }

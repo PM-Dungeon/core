@@ -6,7 +6,10 @@ import controller.GraphicController;
 import graphic.TextureFactory;
 import tools.Point;
 
-/** Must be implemented for all objects that should be controlled by the DungeonEntityController. */
+/**
+ * Must be implemented for all objects that should be controlled by the <code>EntityController
+ * </code>.
+ */
 public interface IEntity {
 
     /** Will be executed every frame. */
@@ -17,15 +20,15 @@ public interface IEntity {
 
     SpriteBatch getBatch();
 
-    /** @return The exact position in the dungeon of this instance. */
+    /** @return the exact position in the dungeon of this instance */
     Point getPosition();
 
-    /** @return The (current) texture of the object. */
+    /** @return the (current) <code>Texture</code> of the object */
     Texture getTexture();
 
     TextureFactory getFactory();
 
-    /** Each drawable should use this controller to draw itself. */
+    /** Each drawable should use this <code>GraphicController</code> to draw itself. */
     GraphicController getGraphicController();
 
     /** Draws this instance on the batch. */

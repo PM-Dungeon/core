@@ -31,7 +31,7 @@ public class EntityController {
         return dungeonEntities.contains(entity);
     }
 
-    /** Removes entity from the set. */
+    /** Removes an entity from the set. */
     public void removeEntity(IEntity entity) {
         dungeonEntities.remove(entity);
     }
@@ -41,14 +41,12 @@ public class EntityController {
         dungeonEntities.clear();
     }
 
-    // Pick that one you need:
-
-    /** Returns a set of all entities. */
+    /** Returns a copy set of all entities. */
     public Set<IEntity> getEntitiesSet() {
-        return dungeonEntities;
+        return new LinkedHashSet<>(dungeonEntities);
     }
 
-    /** Returns a list of all entities. */
+    /** Returns a copy list of all entities. */
     public List<IEntity> getEntitiesList() {
         return new ArrayList<>(dungeonEntities);
     }
