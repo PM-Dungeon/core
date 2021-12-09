@@ -29,8 +29,8 @@ public class DungeonCamera extends OrthographicCamera {
     /** Updates camera position. */
     public void update() {
         if (follows != null) {
-            position.set(
-                    getFollowedObject().getPosition().x, getFollowedObject().getPosition().y, 0);
+            Point fp = getFollowedObject().getPosition();
+            position.set(fp.x, fp.y, 0);
         } else {
             if (focusPoint == null) {
                 focusPoint = new Point(0, 0);

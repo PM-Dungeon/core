@@ -7,7 +7,7 @@ package tools;
  */
 public class Point {
 
-    public final float x, y;
+    public float x, y;
 
     public Point(float x, float y) {
         this.x = x;

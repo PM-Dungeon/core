@@ -12,10 +12,7 @@ public interface IEntity {
     /** Will be executed every frame. */
     void update();
 
-    /**
-     * @return If this instance can be deleted (than will be removed from DungeonEntityController
-     *     list).
-     */
+    /** @return true, if this instance can be deleted; false otherwise */
     boolean removable();
 
     SpriteBatch getBatch();

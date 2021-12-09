@@ -5,11 +5,10 @@ import graphic.HUDCamera;
 import interfaces.IHUDElement;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-/** Keeps a set of HUD elements and makes sure they are drawn. */
 public class HUDController {
     private final GraphicController graphicController;
     private final HUDCamera hudCamera;
@@ -17,23 +16,28 @@ public class HUDController {
     private final Set<IHUDElement> elements;
 
     /**
-     * Keeps a list of Hud elements and makes sure they are drawn.
+     * Keeps a set of HUD elements and makes sure they are drawn.
      *
-     * @param batch batch for the hud
-     * @param graphicController the GraphicController for the hud
+     * @param batch the batch for the HUD
+     * @param graphicController the GraphicController for the HUD
      */
     public HUDController(SpriteBatch batch, GraphicController graphicController, HUDCamera camera) {
         this.batch = batch;
         hudCamera = camera;
         hudCamera.getPosition().set(0, 0, 0);
         hudCamera.update();
-        elements = new HashSet<>();
+        elements = new LinkedHashSet<>();
         this.graphicController = graphicController;
     }
 
-    /** Adds an element to the HUD. */
+    /** Registers an element to the HUD. */
     public void addElement(IHUDElement element) {
         elements.add(element);
+    }
+
+    /** Returns true if the element is registered. */
+    public boolean containsElement(IHUDElement element) {
+        return elements.contains(element);
     }
 
     /** Removes an element from the HUD. */
@@ -46,8 +50,15 @@ public class HUDController {
         elements.clear();
     }
 
+    // Pick that one you need:
+
+    /** Returns a set with all elements on the HUD. */
+    public Set<IHUDElement> getElementsSet() {
+        return elements;
+    }
+
     /** Returns a list with all elements on the HUD. */
-    public List<IHUDElement> getElements() {
+    public List<IHUDElement> getElementsList() {
         return new ArrayList<>(elements);
     }
 
