@@ -1,6 +1,5 @@
 package interfaces;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Drawer;
 import tools.Point;

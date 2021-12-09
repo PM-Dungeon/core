@@ -1,6 +1,5 @@
 package interfaces;
 
-import com.badlogic.gdx.graphics.Texture;
 import graphic.Animation;
 
 /** Should be implemented by all objects that have an <code>Animation</code>. */

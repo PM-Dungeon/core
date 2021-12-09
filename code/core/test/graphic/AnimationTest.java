@@ -1,6 +1,5 @@
 package graphic;
 
-import com.badlogic.gdx.graphics.Texture;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 
