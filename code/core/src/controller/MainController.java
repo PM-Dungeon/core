@@ -31,7 +31,8 @@ public class MainController extends ScreenAdapter {
     // --------------------------- END OWN IMPLEMENTATION ------------------------
 
     /**
-     * Main game loop. Redraws the dungeon and calls the own implementation (beginFrame, endFrame
+     * Main game loop. 
+     * Redraws the dungeon and calls the own implementation (beginFrame, endFrame
      * and onLevelLoad).
      *
      * @param delta Time since last loop.
