@@ -16,7 +16,7 @@ public class Animation {
     /** How many frame to wait before switching to the next one? */
     private final int frameTime;
 
-    /** The count that represents the index of the NEXT texture that will be returned. */
+    /** Index of the NEXT texture that will be returned. */
     private int currentFrameIndex = 0;
 
     /** How many frames since the last texture switching? */
