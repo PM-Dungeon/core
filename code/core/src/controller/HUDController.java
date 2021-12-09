@@ -35,7 +35,7 @@ public class HUDController {
         elements.add(element);
     }
 
-    /** Returns true if the element is registered. */
+    /** Returns <code>true</code> if the element is registered. */
     public boolean containsElement(IHUDElement element) {
         return elements.contains(element);
     }
