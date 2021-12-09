@@ -26,7 +26,7 @@ public class EntityController {
         dungeonEntities.add(entity);
     }
 
-    /** Returns true if the entity is registered. */
+    /** Returns <code>true</code> if the entity is registered. */
     public boolean containsEntity(IEntity entity) {
         return dungeonEntities.contains(entity);
     }
