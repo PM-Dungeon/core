@@ -14,7 +14,7 @@ public class Point {
         this.y = y;
     }
 
-    /** Copys the point. */
+    /** Copies the point. */
     public Point(Point p) {
         x = p.x;
         y = p.y;
