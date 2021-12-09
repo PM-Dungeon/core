@@ -1,9 +1,7 @@
 package controller;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import graphic.Drawer;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +15,10 @@ public class HUDControllerTest {
 
     private HUDController hc;
     private SpriteBatch batch;
-    private Drawer gc;
     private HUDCamera camera;
 
     @BeforeEach
     public void init() {
-        this.gc = mock(Drawer.class);
         this.batch = mock(SpriteBatch.class);
         this.camera = mock(HUDCamera.class);
         when(camera.getPosition()).thenReturn(new Vector3());
@@ -43,31 +39,27 @@ public class HUDControllerTest {
     public void update_FilledList_verify() {
         IHUDElement e1 = mock(IHUDElement.class);
         IHUDElement e2 = mock(IHUDElement.class);
-        when(e1.getTexture()).thenReturn(mock(Texture.class));
-        when(e2.getTexture()).thenReturn(mock(Texture.class));
         when(e1.getPosition()).thenReturn(mock(Point.class));
         when(e2.getPosition()).thenReturn(mock(Point.class));
         hc.add(e1);
         hc.add(e2);
         hc.update();
-        verify(gc).draw(e1.getTexture(), e1.getPosition(), batch);
-        verify(gc).draw(e2.getTexture(), e2.getPosition(), batch);
+        verify(e1).draw(batch);
+        verify(e2).draw(batch);
     }
 
     @Test
     public void update_FilledListWithOneRemove_True() {
         IHUDElement e1 = mock(IHUDElement.class);
         IHUDElement e2 = mock(IHUDElement.class);
-        when(e1.getTexture()).thenReturn(mock(Texture.class));
-        when(e2.getTexture()).thenReturn(mock(Texture.class));
         when(e1.getPosition()).thenReturn(mock(Point.class));
         when(e2.getPosition()).thenReturn(mock(Point.class));
         hc.add(e1);
         hc.add(e2);
         hc.remove(e2);
         hc.update();
-        verify(gc).draw(e1.getTexture(), e1.getPosition(), batch);
-        verify(gc, never()).draw(e2.getTexture(), e2.getPosition(), batch);
+        verify(e1).draw(batch);
+        verify(e2, never()).draw(batch);
     }
 
     @Test
