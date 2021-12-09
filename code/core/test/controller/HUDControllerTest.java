@@ -33,10 +33,10 @@ public class HUDControllerTest {
     public void clearHUD_True() {
         IHUDElement e1 = mock(IHUDElement.class);
         IHUDElement e2 = mock(IHUDElement.class);
-        hc.addElement(e1);
-        hc.addElement(e2);
-        hc.clearHUD();
-        assertTrue(hc.getElementsList().isEmpty());
+        hc.add(e1);
+        hc.add(e2);
+        hc.removeAll();
+        assertTrue(hc.getList().isEmpty());
     }
 
     @Test
@@ -47,8 +47,8 @@ public class HUDControllerTest {
         when(e2.getTexture()).thenReturn(mock(Texture.class));
         when(e1.getPosition()).thenReturn(mock(Point.class));
         when(e2.getPosition()).thenReturn(mock(Point.class));
-        hc.addElement(e1);
-        hc.addElement(e2);
+        hc.add(e1);
+        hc.add(e2);
         hc.update();
         verify(gc).draw(e1.getTexture(), e1.getPosition(), batch);
         verify(gc).draw(e2.getTexture(), e2.getPosition(), batch);
@@ -62,9 +62,9 @@ public class HUDControllerTest {
         when(e2.getTexture()).thenReturn(mock(Texture.class));
         when(e1.getPosition()).thenReturn(mock(Point.class));
         when(e2.getPosition()).thenReturn(mock(Point.class));
-        hc.addElement(e1);
-        hc.addElement(e2);
-        hc.removeElement(e2);
+        hc.add(e1);
+        hc.add(e2);
+        hc.remove(e2);
         hc.update();
         verify(gc).draw(e1.getTexture(), e1.getPosition(), batch);
         verify(gc, never()).draw(e2.getTexture(), e2.getPosition(), batch);

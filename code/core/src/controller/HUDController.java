@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class HUDController {
+public class HUDController implements IController<IHUDElement> {
     private final Drawer drawer;
     private final HUDCamera hudCamera;
     private final SpriteBatch batch;
@@ -31,36 +31,43 @@ public class HUDController {
         this.drawer = drawer;
     }
 
+    @Override
     /** Registers an element to the HUD. */
-    public void addElement(IHUDElement element) {
+    public void add(IHUDElement element) {
         elements.add(element);
     }
 
+    @Override
     /** Returns <code>true</code> if the element is registered. */
-    public boolean containsElement(IHUDElement element) {
+    public boolean contains(IHUDElement element) {
         return elements.contains(element);
     }
 
+    @Override
     /** Removes an element from the HUD. */
-    public void removeElement(IHUDElement element) {
+    public void remove(IHUDElement element) {
         elements.remove(element);
     }
 
+    @Override
     /** Clears all HUD elements. */
-    public void clearHUD() {
+    public void removeAll() {
         elements.clear();
     }
 
+    @Override
     /** Returns a copy set with all elements on the HUD. */
-    public Set<IHUDElement> getElementsSet() {
+    public Set<IHUDElement> getSet() {
         return new LinkedHashSet<>(elements);
     }
 
+    @Override
     /** Returns a copy list with all elements on the HUD. */
-    public List<IHUDElement> getElementsList() {
+    public List<IHUDElement> getList() {
         return new ArrayList<>(elements);
     }
 
+    @Override
     /** Redraws the HUD and all HUD elements. */
     public void update() {
         hudCamera.update();
@@ -70,7 +77,6 @@ public class HUDController {
 
     private void drawElements() {
         elements.forEach(
-                element ->
-                        drawer.draw(element.getTexture(), element.getPosition(), batch));
+                element -> drawer.draw(element.getTexture(), element.getPosition(), batch));
     }
 }
