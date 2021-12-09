@@ -2,7 +2,7 @@ package interfaces;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import controller.GraphicController;
+import graphic.Drawer;
 import graphic.TextureFactory;
 import tools.Point;
 
@@ -29,7 +29,7 @@ public interface IEntity {
     TextureFactory getFactory();
 
     /** Each drawable should use this <code>GraphicController</code> to draw itself. */
-    GraphicController getGraphicController();
+    Drawer getGraphicController();
 
     /** Draws this instance on the batch. */
     default void draw() {

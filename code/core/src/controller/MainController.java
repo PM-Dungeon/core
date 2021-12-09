@@ -3,6 +3,7 @@ package controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import graphic.Drawer;
 import graphic.DungeonCamera;
 import graphic.HUDCamera;
 import tools.Constants;
@@ -16,7 +17,7 @@ public class MainController extends ScreenAdapter {
     protected EntityController entityController;
     protected DungeonCamera camera;
     protected HUDController hud;
-    protected GraphicController graphicController;
+    protected Drawer drawer;
 
     private boolean doFirstFrame = true;
 
@@ -59,9 +60,9 @@ public class MainController extends ScreenAdapter {
         doFirstFrame = false;
         entityController = new EntityController();
         setupCamera();
-        graphicController = new GraphicController(camera);
-        hud = new HUDController(new SpriteBatch(), graphicController, new HUDCamera());
-        levelController = new LevelController(batch, graphicController);
+        drawer = new Drawer(camera);
+        hud = new HUDController(new SpriteBatch(), drawer, new HUDCamera());
+        levelController = new LevelController(batch, drawer);
         setup();
     }
 

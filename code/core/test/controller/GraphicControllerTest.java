@@ -3,6 +3,7 @@ package controller;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Frustum;
+import graphic.Drawer;
 import graphic.DungeonCamera;
 import interfaces.IEntity;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 public class GraphicControllerTest {
 
-    private GraphicController gc;
+    private Drawer gc;
     private DungeonCamera camera;
     private IEntity drawable;
     private Texture texture;
@@ -25,7 +26,7 @@ public class GraphicControllerTest {
     @BeforeEach
     public void init() {
         camera = mock(DungeonCamera.class);
-        gc = new GraphicController(camera);
+        gc = new Drawer(camera);
         drawable = mock(IEntity.class);
         texture = mock(Texture.class);
         p = new Point(3, 3);
