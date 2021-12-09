@@ -12,7 +12,7 @@ public interface IEntity {
     /** Will be executed every frame. */
     void update();
 
-    /** @return true, if this instance can be deleted; false otherwise */
+    /** @return <code>true</code>, if this instance can be deleted; <code>false</code> otherwise */
     boolean removable();
 
     SpriteBatch getBatch();
