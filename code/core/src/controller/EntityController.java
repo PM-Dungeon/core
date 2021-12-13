@@ -21,38 +21,38 @@ public class EntityController implements IController<IEntity> {
         dungeonEntities.forEach(IEntity::draw);
     }
 
+    /** Registers an entity. */
     @Override
-    /** Register an entity. */
     public void add(IEntity element) {
         dungeonEntities.add(element);
     }
 
-    @Override
     /** Removes an entity from the set. */
+    @Override
     public void remove(IEntity element) {
         dungeonEntities.remove(element);
     }
 
-    @Override
     /** Returns <code>true</code> if the entity is registered. */
+    @Override
     public boolean contains(IEntity element) {
         return dungeonEntities.contains(element);
     }
 
-    @Override
     /** Removes all entities from the set. */
+    @Override
     public void removeAll() {
         dungeonEntities.clear();
     }
 
-    @Override
     /** Returns a copy set of all entities. */
+    @Override
     public Set<IEntity> getSet() {
         return new LinkedHashSet<>(dungeonEntities);
     }
 
-    @Override
     /** Returns a copy list of all entities. */
+    @Override
     public List<IEntity> getList() {
         return new ArrayList<>(dungeonEntities);
     }
