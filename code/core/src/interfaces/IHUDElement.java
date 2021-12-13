@@ -1,7 +1,7 @@
 package interfaces;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import graphic.Drawer;
+import graphic.Painter;
 import tools.Point;
 
 /** Should be implemented by all HUD objects. */
@@ -16,7 +16,7 @@ public interface IHUDElement {
 
     String getTexture();
 
-    Drawer getGraphicController();
+    Painter getGraphicController();
 
     default void draw(SpriteBatch batch) {
         getGraphicController().draw(getTexture(), getPosition(), batch);

@@ -1,7 +1,7 @@
 package interfaces;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import graphic.Drawer;
+import graphic.Painter;
 import tools.Point;
 
 /**
@@ -25,7 +25,7 @@ public interface IEntity {
     String getTexture();
 
     /** Each drawable should use this <code>GraphicController</code> to draw itself. */
-    Drawer getGraphicController();
+    Painter getGraphicController();
 
     /** Draws this instance on the batch. */
     default void draw() {

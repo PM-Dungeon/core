@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import tools.Point;
 
 /** Uses LibGDX to draw sprites on the various <code>SpriteBatch</code>es. */
-public class Drawer {
+public class Painter {
     private final DungeonCamera camera;
 
     /**
@@ -14,7 +14,7 @@ public class Drawer {
      *
      * @param camera only objects that are in the camera are drawn
      */
-    public Drawer(DungeonCamera camera) {
+    public Painter(DungeonCamera camera) {
         this.camera = camera;
     }
 

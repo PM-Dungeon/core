@@ -1,10 +1,10 @@
 package level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import graphic.Drawer;
+import graphic.Painter;
 
 public class LevelAPI {
-    public LevelAPI(SpriteBatch batch, Drawer drawer) {}
+    public LevelAPI(SpriteBatch batch, Painter drawer) {}
 
     public void update() {}
 }
