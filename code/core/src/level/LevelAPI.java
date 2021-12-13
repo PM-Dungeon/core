@@ -30,8 +30,13 @@ public class LevelAPI {
                 if (i == 0 || i == y - 1 || j == 0 || j == x - 1)
                     layout[i][j] = LevelElement.WALL;
                 else layout[i][j] = LevelElement.FLOOR;
-
             }
+
+        layout[1][3] = LevelElement.WALL;
+        layout[6][3] = LevelElement.WALL;
+        layout[3][1] = LevelElement.WALL;
+        layout[3][6] = LevelElement.WALL;
+
         Room r = new Room(layout, DesignLabel.DEFAULT, new Point(2, 1), new Point(2, 2));
         //  Room r2 = new Room(layout, DesignLabel.DEFAULT, new Point(3, 2), new Point(7, -3));
         List<Room> rl = new ArrayList<>();
