@@ -19,11 +19,11 @@ public class AnimationTest {
     public void constructor_EmptyTextureList_ThrowsException() {
         when(mockedList.isEmpty()).thenReturn(true);
         IllegalArgumentException exception =
-                assertThrows(
-                        IllegalArgumentException.class,
-                        () -> {
-                            new Animation(mockedList, 2);
-                        });
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new Animation(mockedList, 2);
+                });
         assertEquals("An animation must have at least 1 frame", exception.getMessage());
     }
 
@@ -41,11 +41,11 @@ public class AnimationTest {
         when(mockedList.isEmpty()).thenReturn(false);
         when(mockedList.size()).thenReturn(2);
         IllegalArgumentException exception =
-                assertThrows(
-                        IllegalArgumentException.class,
-                        () -> {
-                            new Animation(mockedList, -1);
-                        });
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new Animation(mockedList, -1);
+                });
         assertEquals("frameTime cant be lower than 0", exception.getMessage());
     }
 

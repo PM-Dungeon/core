@@ -1,4 +1,5 @@
 package tools;
+
 /**
  * For easy handling of positions in the dungeon. <br>
  * No getter needed. All attributes are public. <br>
@@ -14,7 +15,9 @@ public class Point {
         this.y = y;
     }
 
-    /** Copies the point. */
+    /**
+     * Copies the point.
+     */
     public Point(Point p) {
         x = p.x;
         y = p.y;

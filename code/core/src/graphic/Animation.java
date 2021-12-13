@@ -2,29 +2,41 @@ package graphic;
 
 import java.util.List;
 
-/** A list of textures from an animation. */
+/**
+ * A list of textures from an animation.
+ */
 public class Animation {
 
-    /** The set of textures that build the animation. */
+    /**
+     * The set of textures that build the animation.
+     */
     private final List<String> animationFrames;
 
-    /** The count of textures for the animation. */
+    /**
+     * The count of textures for the animation.
+     */
     private final int frames;
 
-    /** Number of frames between switching to the next animation? */
+    /**
+     * Number of frames between switching to the next animation?
+     */
     private final int frameTime;
 
-    /** Index of the NEXT texture that will be returned. */
+    /**
+     * Index of the NEXT texture that will be returned.
+     */
     private int currentFrameIndex = 0;
 
-    /** How many frames since the last texture switching? */
+    /**
+     * How many frames since the last texture switching?
+     */
     private int frameTimeCounter = 0;
 
     /**
      * Creates an animation.
      *
      * @param animationFrames The list of textures that builds the animation. Must be in order.
-     * @param frameTime How many frames to wait, before switching to the next texture?
+     * @param frameTime       How many frames to wait, before switching to the next texture?
      */
     public Animation(List<String> animationFrames, int frameTime) {
         if (animationFrames.isEmpty()) {

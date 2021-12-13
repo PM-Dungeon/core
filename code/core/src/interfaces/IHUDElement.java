@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
 import tools.Point;
 
-/** Should be implemented by all HUD objects. */
+/**
+ * Should be implemented by all HUD objects.
+ */
 public interface IHUDElement {
 
     /**

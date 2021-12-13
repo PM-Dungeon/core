@@ -17,7 +17,7 @@ import java.util.List;
  * @author Andre Matutat
  */
 public class ReplacementLoader {
-    private List<roomg.Replacement> replacements;
+    private List<Replacement> replacements;
 
     /**
      * Creates a ReplacementLoader and loads the replacements from the json. if the json is empty, the list is empty
@@ -35,8 +35,8 @@ public class ReplacementLoader {
      * @param l the DesignLabel, use ALL if you don't care
      * @return the list
      */
-    public List<roomg.Replacement> getReplacements(DesignLabel l) {
-        List<roomg.Replacement> results = new ArrayList<>(replacements);
+    public List<Replacement> getReplacements(DesignLabel l) {
+        List<Replacement> results = new ArrayList<>(replacements);
         if (l != DesignLabel.ALL) results.removeIf(r -> r.getDesign() != l);
         return results;
     }
@@ -47,7 +47,7 @@ public class ReplacementLoader {
      * @param r the Replacement that holds the layout to rotate
      * @return new Replacement with rotated layout
      */
-    private roomg.Replacement rotate90(final roomg.Replacement r) {
+    private Replacement rotate90(final Replacement r) {
         LevelElement[][] originalLayout = r.getLayout();
         int mSize = originalLayout.length;
         int nSize = originalLayout[0].length;
@@ -55,7 +55,7 @@ public class ReplacementLoader {
         for (int row = 0; row < mSize; row++)
             for (int col = 0; col < nSize; col++)
                 rotatedLayout[col][mSize - 1 - row] = originalLayout[row][col];
-        return new roomg.Replacement(rotatedLayout, r.canRotate(), r.getDesign());
+        return new Replacement(rotatedLayout, r.canRotate(), r.getDesign());
     }
 
     /**
@@ -63,12 +63,12 @@ public class ReplacementLoader {
      *
      * @param r the replacement to add
      */
-    public void addReplacement(roomg.Replacement r) {
+    public void addReplacement(Replacement r) {
         if (!replacements.contains(r)) replacements.add(r);
     }
 
     private void readFromJson(String path) {
-        Type replacementType = new TypeToken<ArrayList<roomg.Replacement>>() {
+        Type replacementType = new TypeToken<ArrayList<Replacement>>() {
         }.getType();
         JsonReader reader = null;
         try {
@@ -76,11 +76,11 @@ public class ReplacementLoader {
             replacements = new Gson().fromJson(reader, replacementType);
             if (replacements == null) throw new NullPointerException("File is empty");
             // add all rotations to list
-            List<roomg.Replacement> toRotate = new ArrayList<>(replacements);
+            List<Replacement> toRotate = new ArrayList<>(replacements);
             toRotate.removeIf(r -> !r.canRotate());
 
-            for (roomg.Replacement r : toRotate) {
-                roomg.Replacement tmp = r;
+            for (Replacement r : toRotate) {
+                Replacement tmp = r;
                 // 90,180,270
                 for (int i = 0; i < 3; i++) {
                     tmp = rotate90(tmp);
@@ -104,7 +104,7 @@ public class ReplacementLoader {
      * @param rep  the list of replacements to save
      * @param path where to save
      */
-    public void writeToJSON(List<roomg.Replacement> rep, String path) {
+    public void writeToJSON(List<Replacement> rep, String path) {
         Gson gson = new Gson();
         String json = gson.toJson(rep);
         try {

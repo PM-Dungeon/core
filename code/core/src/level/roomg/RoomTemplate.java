@@ -46,7 +46,7 @@ public class RoomTemplate {
      * @param replacements list of replacements
      * @return the created room
      */
-    public Room replace(final List<roomg.Replacement> replacements, Point globalRef) {
+    public Room replace(final List<Replacement> replacements, Point globalRef) {
         int layoutHeight = getLayout().length;
         int layoutWidth = getLayout()[0].length;
         LevelElement[][] roomLayout = new LevelElement[layoutHeight][layoutWidth];
@@ -58,8 +58,8 @@ public class RoomTemplate {
 
 
         // remove all replacements that are too big
-        List<roomg.Replacement> replacementList = new ArrayList<>(replacements);
-        for (roomg.Replacement r : replacements) {
+        List<Replacement> replacementList = new ArrayList<>(replacements);
+        for (Replacement r : replacements) {
             if (r.getLayout()[0].length <= layoutWidth && r.getLayout().length <= layoutHeight)
                 replacementList.add(r);
         }
@@ -68,7 +68,7 @@ public class RoomTemplate {
         boolean changes;
         do {
             changes = false;
-            for (roomg.Replacement r : replacementList) {
+            for (Replacement r : replacementList) {
                 int rHeight = r.getLayout().length;
                 int rWidth = r.getLayout()[0].length;
                 for (int y = 0; y < layoutHeight - rHeight; y++)
@@ -96,7 +96,7 @@ public class RoomTemplate {
      * @param yCor   place the left upper corner of the replacement on this y
      * @return if replacement was done
      */
-    private boolean placeIn(final LevelElement[][] layout, final roomg.Replacement r, int xCor, int yCor) {
+    private boolean placeIn(final LevelElement[][] layout, final Replacement r, int xCor, int yCor) {
         if (!canReplaceIn(layout, r, xCor, yCor)) return false;
         else {
             LevelElement[][] rlayout = r.getLayout();
@@ -118,7 +118,7 @@ public class RoomTemplate {
      * @param yCor   place the left upper corner of the replacement on this y
      * @return if replacement can be done
      */
-    private boolean canReplaceIn(LevelElement[][] layout, final roomg.Replacement r, int xCor, int yCor) {
+    private boolean canReplaceIn(LevelElement[][] layout, final Replacement r, int xCor, int yCor) {
         LevelElement[][] rlayout = r.getLayout();
         for (int y = yCor; y < yCor + rlayout.length; y++)
             for (int x = xCor; x < xCor + rlayout[0].length; x++) {

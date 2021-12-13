@@ -43,12 +43,12 @@ public class Level {
         return start;
     }
 
-    public Point getEnd() {
-        return end;
-    }
-
     public void setStart(Point s) {
         start = s;
+    }
+
+    public Point getEnd() {
+        return end;
     }
 
     public void setEnd(Point e) {

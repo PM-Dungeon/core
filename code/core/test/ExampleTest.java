@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/** show how we setup tests in this project and how to use mockito */
+/**
+ * show how we setup tests in this project and how to use mockito
+ */
 public class ExampleTest {
 
     /*

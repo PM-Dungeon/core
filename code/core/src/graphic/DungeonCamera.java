@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 import interfaces.IEntity;
 import tools.Point;
 
-/** Sauron's eye. */
+/**
+ * Sauron's eye.
+ */
 public class DungeonCamera extends OrthographicCamera {
     private IEntity follows;
     private Point focusPoint;
@@ -16,8 +18,8 @@ public class DungeonCamera extends OrthographicCamera {
      * Creates a new camera.
      *
      * @param follows the entity the camera should follow, <code>null</code> for default coordinates
-     * @param vw virtual width
-     * @param vh virtual height
+     * @param vw      virtual width
+     * @param vh      virtual height
      */
     public DungeonCamera(IEntity follows, float vw, float vh) {
         super(vw, vh);
@@ -26,7 +28,9 @@ public class DungeonCamera extends OrthographicCamera {
         }
     }
 
-    /** Updates camera position. */
+    /**
+     * Updates camera position.
+     */
     public void update() {
         if (follows != null) {
             Point fp = getFollowedObject().getPosition();
@@ -49,7 +53,9 @@ public class DungeonCamera extends OrthographicCamera {
         this.follows = follows;
     }
 
-    /** @return the entity the camera currently follows */
+    /**
+     * @return the entity the camera currently follows
+     */
     public IEntity getFollowedObject() {
         return follows;
     }
@@ -71,13 +77,15 @@ public class DungeonCamera extends OrthographicCamera {
     public boolean isPointInFrustum(float x, float y) {
         final float OFFSET = 1f;
         BoundingBox bounds =
-                new BoundingBox(
-                        new Vector3(x - OFFSET, y - OFFSET, 0),
-                        new Vector3(x + OFFSET, y + OFFSET, 0));
+            new BoundingBox(
+                new Vector3(x - OFFSET, y - OFFSET, 0),
+                new Vector3(x + OFFSET, y + OFFSET, 0));
         return frustum.boundsInFrustum(bounds);
     }
 
-    /** @return the camara frustum */
+    /**
+     * @return the camara frustum
+     */
     public Frustum getFrustum() {
         return frustum;
     }

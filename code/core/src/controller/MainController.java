@@ -11,7 +11,9 @@ import tools.Constants;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
-/** The heart of the framework. From here all strings are pulled. */
+/**
+ * The heart of the framework. From here all strings are pulled.
+ */
 public class MainController extends ScreenAdapter {
     protected SpriteBatch batch;
     protected SpriteBatch hudBatch;
@@ -25,13 +27,17 @@ public class MainController extends ScreenAdapter {
     private boolean doFirstFrame = true;
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
-    protected void setup() {}
+    protected void setup() {
+    }
 
-    protected void beginFrame() {}
+    protected void beginFrame() {
+    }
 
-    protected void endFrame() {}
+    protected void endFrame() {
+    }
 
-    protected void onLevelLoad() {}
+    protected void onLevelLoad() {
+    }
     // --------------------------- END OWN IMPLEMENTATION ------------------------
 
     /**
@@ -75,7 +81,9 @@ public class MainController extends ScreenAdapter {
         this.batch = batch;
     }
 
-    /** Setting up the camera. */
+    /**
+     * Setting up the camera.
+     */
     private void setupCamera() {
         camera = new DungeonCamera(null, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
         camera.zoom = Constants.DEFAULT_ZOOM_FACTOR;

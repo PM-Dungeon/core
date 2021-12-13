@@ -2,8 +2,8 @@ package desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import controller.MainController;
 import controller.LibgdxSetup;
+import controller.MainController;
 import demo.MyController;
 import tools.Constants;
 

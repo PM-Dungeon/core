@@ -27,43 +27,57 @@ public class HUDController implements IController<IHUDElement> {
         elements = new LinkedHashSet<>();
     }
 
-    /** Registers an element to the HUD. */
+    /**
+     * Registers an element to the HUD.
+     */
     @Override
     public void add(IHUDElement element) {
         elements.add(element);
     }
 
-    /** Returns <code>true</code> if the element is registered. */
+    /**
+     * Returns <code>true</code> if the element is registered.
+     */
     @Override
     public boolean contains(IHUDElement element) {
         return elements.contains(element);
     }
 
-    /** Removes an element from the HUD. */
+    /**
+     * Removes an element from the HUD.
+     */
     @Override
     public void remove(IHUDElement element) {
         elements.remove(element);
     }
 
-    /** Clears all HUD elements. */
+    /**
+     * Clears all HUD elements.
+     */
     @Override
     public void removeAll() {
         elements.clear();
     }
 
-    /** Returns a copy set with all elements on the HUD. */
+    /**
+     * Returns a copy set with all elements on the HUD.
+     */
     @Override
     public Set<IHUDElement> getSet() {
         return new LinkedHashSet<>(elements);
     }
 
-    /** Returns a copy list with all elements on the HUD. */
+    /**
+     * Returns a copy list with all elements on the HUD.
+     */
     @Override
     public List<IHUDElement> getList() {
         return new ArrayList<>(elements);
     }
 
-    /** Redraws the HUD and all HUD elements. */
+    /**
+     * Redraws the HUD and all HUD elements.
+     */
     @Override
     public void update() {
         hudCamera.update();
