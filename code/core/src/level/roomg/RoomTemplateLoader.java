@@ -72,7 +72,7 @@ public class RoomTemplateLoader {
      * @param templates the list of template to save
      * @param path      where to save
      */
-    public void writeToJSON(List<RoomTemplate> templates, String path) {
+    /*public void writeToJSON(List<RoomTemplate> templates, String path) {
         Gson gson = new Gson();
         String json = gson.toJson(templates);
         try {
@@ -83,6 +83,6 @@ public class RoomTemplateLoader {
         } catch (IOException e) {
             System.out.println("File" + path + " not found");
         }
-    }
+    }*/
 
 }

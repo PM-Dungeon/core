@@ -104,7 +104,7 @@ public class ReplacementLoader {
      * @param rep  the list of replacements to save
      * @param path where to save
      */
-    public void writeToJSON(List<Replacement> rep, String path) {
+    /*public void writeToJSON(List<Replacement> rep, String path) {
         Gson gson = new Gson();
         String json = gson.toJson(rep);
         try {
@@ -114,6 +114,6 @@ public class ReplacementLoader {
         } catch (IOException e) {
             System.out.println("File" + path + " not found");
         }
-    }
+    }*/
 
 }

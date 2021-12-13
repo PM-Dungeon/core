@@ -103,7 +103,7 @@ public class GraphG {
      * @param graphs the list of rooms to save
      * @param path   where to save
      */
-    public void writeToJSON(List<Graph> graphs, String path) {
+   /* public void writeToJSON(List<Graph> graphs, String path) {
         Gson gson = new Gson();
         String json = gson.toJson(graphs);
         try {
@@ -113,7 +113,7 @@ public class GraphG {
         } catch (IOException e) {
             System.out.println("File" + path + " not found");
         }
-    }
+    }*/
 
 
 }
