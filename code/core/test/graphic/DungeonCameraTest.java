@@ -1,9 +1,11 @@
 package graphic;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class DungeonCameraTest {
-
     @Test
     public void constructor_followNull_True() {}
 

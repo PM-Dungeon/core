@@ -13,10 +13,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EntityControllerTest {
-
-    private EntityController controller;
     @Mock IEntity entity1;
     @Mock IEntity entity2;
+    private EntityController controller;
 
     @BeforeEach
     public void init() {

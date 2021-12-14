@@ -14,12 +14,11 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class HUDControllerTest {
-
-    private HUDController controller;
     @Mock SpriteBatch batch;
     @Mock HUDCamera camera;
     @Mock IHUDElement element1;
     @Mock IHUDElement element2;
+    private HUDController controller;
 
     @BeforeEach
     public void init() {

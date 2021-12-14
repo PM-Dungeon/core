@@ -1,14 +1,17 @@
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/** show how we setup tests in this project and how to use mockito */
+/** Shows how we set up tests in this project and how to use mockito */
+@ExtendWith(MockitoExtension.class)
 public class ExampleTest {
 
     /*
@@ -17,7 +20,7 @@ public class ExampleTest {
      * example: isAdult_AgeLessThan18_False
      */
 
-    private List mockedList = mock(List.class);
+    @Mock List<Object> mockedList;
 
     @Test
     @Description("Example on how to use mockito")
@@ -30,6 +33,6 @@ public class ExampleTest {
     @Description("Example on how to use mockito")
     public void get_negativeParameter_False() {
         when(mockedList.get(-1)).thenReturn(false);
-        assertFalse((boolean) mockedList.get(-1));
+        assertFalse((Boolean) mockedList.get(-1));
     }
 }
