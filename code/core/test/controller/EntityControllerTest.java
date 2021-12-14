@@ -24,7 +24,7 @@ public class EntityControllerTest {
     }
 
     @Test
-    void update() {
+    void update_with_remove() {
         // should be removed
         when(entity1.removable()).thenReturn(true);
         controller.add(entity1);
@@ -32,7 +32,10 @@ public class EntityControllerTest {
         verifyNoMoreInteractions(entity1);
         assertFalse(controller.contains(entity1));
         assertTrue(controller.isEmpty());
+    }
 
+    @Test
+    void update_without_remove() {
         // should not be removed
         when(entity1.removable()).thenReturn(false);
         controller.add(entity1);

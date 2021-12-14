@@ -34,6 +34,7 @@ public class HUDControllerTest {
         verify(camera).update();
         controller.add(element2);
         verify(camera).update();
+
         controller.update();
         verify(camera, times(2)).update();
         verify(batch).setProjectionMatrix(camera.combined);
