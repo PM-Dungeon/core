@@ -7,7 +7,7 @@ public interface IController<T> {
 
     /** Updates all Elements that are registered at this controller */
     void update();
-    /** Register an element. */
+    /** Registers an element. */
     void add(T element);
     /** Removes an element from the set. */
     void remove(T element);
