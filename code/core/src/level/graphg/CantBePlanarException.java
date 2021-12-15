@@ -6,11 +6,11 @@ package level.graphg;
  * @author Andre Matutat
  */
 public class CantBePlanarException extends Exception {
-  // Parameterless Constructor
-  public CantBePlanarException() {}
+    // Parameterless Constructor
+    public CantBePlanarException() {}
 
-  // Constructor that accepts a message
-  public CantBePlanarException(String message) {
-    super(message);
-  }
+    // Constructor that accepts a message
+    public CantBePlanarException(String message) {
+        super(message);
+    }
 }

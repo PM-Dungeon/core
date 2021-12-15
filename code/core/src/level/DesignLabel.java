@@ -6,12 +6,12 @@ package level;
  * @author Andre Matutat
  */
 public enum DesignLabel {
-  DEFAULT,
-  FIRE,
-  FOREST,
-  WATER,
-  HELL,
-  DUNGEON,
-  ICE,
-  ALL
+    DEFAULT,
+    FIRE,
+    FOREST,
+    WATER,
+    HELL,
+    DUNGEON,
+    ICE,
+    ALL
 }
