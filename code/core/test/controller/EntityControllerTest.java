@@ -1,23 +1,25 @@
 package controller;
 
 import interfaces.IEntity;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(EntityController.class)
 public class EntityControllerTest {
     @Mock IEntity entity1;
     @Mock IEntity entity2;
     private EntityController controller;
 
-    @BeforeEach
+    @Before
     public void init() {
         controller = new EntityController();
     }

@@ -4,15 +4,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(HUDController.class)
 public class HUDControllerTest {
     @Mock SpriteBatch batch;
     @Mock HUDCamera camera;
@@ -20,7 +22,7 @@ public class HUDControllerTest {
     @Mock IHUDElement element2;
     private HUDController controller;
 
-    @BeforeEach
+    @Before
     public void init() {
         when(camera.getPosition()).thenReturn(new Vector3());
 

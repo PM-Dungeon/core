@@ -23,7 +23,7 @@ public final class LibgdxSetup extends Game {
 
     @Override
     public void create() {
-        initSpriteBatch();
+        batch = new SpriteBatch();
         mc.setSpriteBatch(batch);
         setScreen(mc);
     }
@@ -31,9 +31,5 @@ public final class LibgdxSetup extends Game {
     @Override
     public void dispose() {
         batch.dispose();
-    }
-
-    public void initSpriteBatch() {
-        batch = new SpriteBatch();
     }
 }

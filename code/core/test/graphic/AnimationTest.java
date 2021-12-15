@@ -1,27 +1,37 @@
 package graphic;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Animation.class)
 class AnimationTest {
-    @BeforeEach
-    void setUp() {}
+    @Before
+    public void init() {}
 
     @Test
     @SuppressWarnings("all")
     void constructor() {
-        assertThrows(NullPointerException.class, () -> new Animation(null, 10));
-        assertThrows(IllegalArgumentException.class, () -> new Animation(new ArrayList<>(), 10));
-        assertThrows(IllegalArgumentException.class, () -> new Animation(List.of("hallo"), -10));
+        try {
+            new Animation(null, 10);
+        } catch (NullPointerException excepted) {
+        }
+        try {
+            new Animation(new ArrayList<>(), 10);
+        } catch (IllegalArgumentException excepted) {
+        }
+        try {
+            new Animation(List.of("hallo"), -10);
+        } catch (IllegalArgumentException excepted) {
+        }
     }
 
     @Test

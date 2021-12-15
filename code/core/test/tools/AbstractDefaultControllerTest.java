@@ -1,26 +1,28 @@
 package tools;
 
 import interfaces.IEntity;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(AbstractDefaultController.class)
 class AbstractDefaultControllerTest {
     @Spy AbstractDefaultController<IEntity> controller;
     @Mock IEntity entity1;
     @Mock IEntity entity2;
 
-    @BeforeEach
-    void setUp() {}
+    @Before
+    public void init() {}
 
     @Test
     void add() {
@@ -34,7 +36,10 @@ class AbstractDefaultControllerTest {
     @Test
     void add_null() {
         assertTrue(controller.isEmpty());
-        assertThrows(NullPointerException.class, () -> controller.add(null));
+        try {
+            controller.add(null);
+        } catch (NullPointerException expected) {
+        }
         assertTrue(controller.isEmpty());
     }
 
@@ -52,7 +57,10 @@ class AbstractDefaultControllerTest {
     @Test
     void remove_null() {
         assertTrue(controller.isEmpty());
-        assertThrows(NullPointerException.class, () -> controller.remove(null));
+        try {
+            controller.remove(null);
+        } catch (NullPointerException expected) {
+        }
         assertTrue(controller.isEmpty());
     }
 
@@ -99,7 +107,10 @@ class AbstractDefaultControllerTest {
     @Test
     void containsAll_null() {
         assertTrue(controller.isEmpty());
-        assertThrows(NullPointerException.class, () -> controller.containsAll(null));
+        try {
+            controller.containsAll(null);
+        } catch (NullPointerException expected) {
+        }
         assertTrue(controller.isEmpty());
     }
 
@@ -116,7 +127,10 @@ class AbstractDefaultControllerTest {
     @Test
     void contains_null() {
         assertTrue(controller.isEmpty());
-        assertThrows(NullPointerException.class, () -> controller.contains(null));
+        try {
+            controller.contains(null);
+        } catch (NullPointerException expected) {
+        }
         assertTrue(controller.isEmpty());
     }
 

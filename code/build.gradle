@@ -89,13 +89,17 @@ project(":core") {
         // https://mvnrepository.com/artifact/com.google.code.gson/gson
         // api 'com.google.code.gson:gson:2.8.8'
 
-        implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-        implementation 'org.testng:testng:7.1.0'
+        // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+        // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 
-        testImplementation 'org.mockito:mockito-inline:4.0.0'
-        testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
-
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+        // https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4
+        testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
+        // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
+        testImplementation 'org.powermock:powermock-api-mockito2:2.0.9'
+        // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
+        // testImplementation 'org.powermock:powermock-api-easymock:2.0.9'
     }
 
     spotbugs {
