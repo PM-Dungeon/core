@@ -2,6 +2,7 @@ package level.roomg;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import level.DesignLabel;
@@ -83,22 +84,17 @@ public class ReplacementLoader {
         }
     }
 
-/**
- * Writes down the list to a json
- *
- * @param rep  the list of replacements to save
- * @param path where to save
- */
-    /*public void writeToJSON(List<Replacement> rep, String path) {
-        Gson gson = new Gson();
-        String json = gson.toJson(rep);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("File" + path + " not found");
-        }
-    }*/
+    /**
+     * Writes down the list to a json
+     *
+     * @param rep  the list of replacements to save
+     * @param path where to save
+     */
+    public void writeToJSON(List<Replacement> rep, String path) {
+        Json json = new Json();
+        String listInJson = json.toJson(rep);
+        FileHandle file = Gdx.files.local(path);
+        file.writeString(listInJson, false);
+    }
 
 }

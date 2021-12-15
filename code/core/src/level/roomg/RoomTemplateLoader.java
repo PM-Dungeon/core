@@ -2,6 +2,7 @@ package level.roomg;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import level.DesignLabel;
@@ -60,17 +61,11 @@ public class RoomTemplateLoader {
      * @param templates the list of template to save
      * @param path      where to save
      */
-    /*public void writeToJSON(List<RoomTemplate> templates, String path) {
-        Gson gson = new Gson();
-        String json = gson.toJson(templates);
-        try {
-            System.out.println(templates.size());
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("File" + path + " not found");
-        }
-    }*/
+    public void writeToJSON(List<RoomTemplate> templates, String path) {
+        Json json = new Json();
+        String listInJson = json.toJson(templates);
+        FileHandle file = Gdx.files.local(path);
+        file.writeString(listInJson, false);
+    }
 
 }

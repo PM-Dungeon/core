@@ -2,6 +2,7 @@ package level.graphg;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
@@ -13,8 +14,8 @@ import java.util.Random;
  * @author Andre Matutat
  */
 public class GraphG {
-    public Graph getGraph(int nodes, int edges) {
-        String path = nodes + "_" + edges + ".json";
+    public Graph getGraph(int nodes, int edges, String path) {
+        path += "/" + nodes + "_" + edges + ".json";
         List<Graph> sol = null;
         sol = readFromJson(path);
         return sol.get(new Random().nextInt(sol.size()));
@@ -100,17 +101,12 @@ public class GraphG {
      * @param graphs the list of rooms to save
      * @param path   where to save
      */
-   /* public void writeToJSON(List<Graph> graphs, String path) {
-        Gson gson = new Gson();
-        String json = gson.toJson(graphs);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("File" + path + " not found");
-        }
-    }*/
+    public void writeToJSON(List<Graph> graphs, String path) {
+        Json json = new Json();
+        String listInJson = json.toJson(graphs);
+        FileHandle file = Gdx.files.local(path);
+        file.writeString(listInJson, false);
+    }
 
 
 }
