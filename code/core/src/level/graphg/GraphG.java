@@ -1,12 +1,10 @@
 package level.graphg;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -87,15 +85,13 @@ public class GraphG {
     }
 
     private List<Graph> readFromJson(String path) {
-        Type graphType = new TypeToken<ArrayList<Graph>>() {
-        }.getType();
-        try {
-            JsonReader reader = new JsonReader(new FileReader(path));
-            return new Gson().fromJson(reader, graphType);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            return new ArrayList<>();
+        Json json = new Json();
+        List<JsonValue> list = json.fromJson(List.class, Gdx.files.internal(path));
+        List<Graph> graphs = new ArrayList<>();
+        for (JsonValue v : list) {
+            graphs.add(json.readValue(Graph.class, v));
         }
+        return graphs;
     }
 
     /**

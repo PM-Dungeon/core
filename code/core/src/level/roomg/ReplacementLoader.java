@@ -1,14 +1,12 @@
 package level.roomg;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import level.DesignLabel;
 import level.LevelElement;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,42 +67,28 @@ public class ReplacementLoader {
     }
 
     private void readFromJson(String path) {
-        Type replacementType = new TypeToken<ArrayList<Replacement>>() {
-        }.getType();
-        JsonReader reader = null;
-        try {
-            reader = new JsonReader(new FileReader(path));
-            replacements = new Gson().fromJson(reader, replacementType);
-            if (replacements == null) throw new NullPointerException("File is empty");
-            // add all rotations to list
-            List<Replacement> toRotate = new ArrayList<>(replacements);
-            toRotate.removeIf(r -> !r.canRotate());
-
-            for (Replacement r : toRotate) {
-                Replacement tmp = r;
-                // 90,180,270
-                for (int i = 0; i < 3; i++) {
-                    tmp = rotate90(tmp);
-                    replacements.add(tmp);
-                }
+        Json json = new Json();
+        List<JsonValue> list = json.fromJson(List.class, Gdx.files.internal(path));
+        for (JsonValue v : list)
+            replacements.add(json.readValue(Replacement.class, v));
+        List<Replacement> toRotate = new ArrayList<>(replacements);
+        toRotate.removeIf(r -> !r.canRotate());
+        for (Replacement r : toRotate) {
+            Replacement tmp = r;
+            // 90,180,270
+            for (int i = 0; i < 3; i++) {
+                tmp = rotate90(tmp);
+                replacements.add(tmp);
             }
-
-        } catch (FileNotFoundException | NullPointerException e) {
-            System.out.println("No Replacements to load in " + path);
-            replacements = new ArrayList<>();
-        } catch (Exception e) {
-            System.out.println("File Corrupted or other error");
-            e.printStackTrace();
-            replacements = new ArrayList<>();
         }
     }
 
-    /**
-     * Writes down the list to a json
-     *
-     * @param rep  the list of replacements to save
-     * @param path where to save
-     */
+/**
+ * Writes down the list to a json
+ *
+ * @param rep  the list of replacements to save
+ * @param path where to save
+ */
     /*public void writeToJSON(List<Replacement> rep, String path) {
         Gson gson = new Gson();
         String json = gson.toJson(rep);
