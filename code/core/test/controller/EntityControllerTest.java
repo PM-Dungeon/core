@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EntityController.class)
@@ -35,7 +34,7 @@ public class EntityControllerTest {
         controller.add(entity1);
         controller.update();
         verify(entity1).removable();
-        verifyNoMoreInteractions(entity1);
+        Mockito.verifyNoMoreInteractions(entity1);
         assertFalse(controller.contains(entity1));
         assertTrue(controller.isEmpty());
     }
@@ -49,7 +48,7 @@ public class EntityControllerTest {
         verify(entity1).removable();
         verify(entity1).update();
         verify(entity1).draw();
-        verifyNoMoreInteractions(entity1);
+        Mockito.verifyNoMoreInteractions(entity1);
         assertTrue(controller.contains(entity1));
         assertFalse(controller.isEmpty());
     }
