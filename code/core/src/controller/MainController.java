@@ -11,84 +11,76 @@ import tools.Constants;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
-/**
- * The heart of the framework. From here all strings are pulled.
- */
+/** The heart of the framework. From here all strings are pulled. */
 public class MainController extends ScreenAdapter {
-    protected SpriteBatch batch;
-    protected SpriteBatch hudBatch;
-    protected HUDCamera hudCamera;
-    protected LevelAPI levelAPI;
-    protected EntityController entityController;
-    protected DungeonCamera camera;
-    protected HUDController hud;
-    protected Painter painter;
+  protected SpriteBatch batch;
+  protected SpriteBatch hudBatch;
+  protected HUDCamera hudCamera;
+  protected LevelAPI levelAPI;
+  protected EntityController entityController;
+  protected DungeonCamera camera;
+  protected HUDController hud;
+  protected Painter painter;
 
-    private boolean doFirstFrame = true;
+  private boolean doFirstFrame = true;
 
-    // --------------------------- OWN IMPLEMENTATION ---------------------------
-    protected void setup() {
+  // --------------------------- OWN IMPLEMENTATION ---------------------------
+  protected void setup() {}
+
+  protected void beginFrame() {}
+
+  protected void endFrame() {}
+
+  protected void onLevelLoad() {}
+  // --------------------------- END OWN IMPLEMENTATION ------------------------
+
+  /**
+   * Main game loop. Redraws the dungeon and calls the own implementation (beginFrame, endFrame and
+   * onLevelLoad).
+   *
+   * @param delta Time since last loop.
+   */
+  @Override
+  public final void render(float delta) {
+    if (doFirstFrame) {
+      firstFrame();
     }
 
-    protected void beginFrame() {
-    }
+    // clears the screen
+    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+    batch.setProjectionMatrix(camera.combined);
 
-    protected void endFrame() {
-    }
+    beginFrame();
+    levelAPI.update();
+    entityController.update();
+    camera.update();
+    hud.update();
+    endFrame();
+  }
 
-    protected void onLevelLoad() {
-    }
-    // --------------------------- END OWN IMPLEMENTATION ------------------------
+  private void firstFrame() {
+    doFirstFrame = false;
+    entityController = new EntityController();
+    setupCamera();
+    painter = new Painter(camera);
+    hudBatch = new SpriteBatch();
+    hudCamera = new HUDCamera();
+    hud = new HUDController(hudBatch, hudCamera);
+    levelAPI = new LevelAPI(batch, painter);
+    setup();
+  }
 
-    /**
-     * Main game loop. Redraws the dungeon and calls the own implementation (beginFrame, endFrame
-     * and onLevelLoad).
-     *
-     * @param delta Time since last loop.
-     */
-    @Override
-    public final void render(float delta) {
-        if (doFirstFrame) {
-            firstFrame();
-        }
+  public void setSpriteBatch(SpriteBatch batch) {
+    this.batch = batch;
+  }
 
-        // clears the screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
+  /** Setting up the camera. */
+  private void setupCamera() {
+    camera = new DungeonCamera(null, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
+    camera.zoom = Constants.DEFAULT_ZOOM_FACTOR;
 
-        beginFrame();
-        levelAPI.update();
-        entityController.update();
-        camera.update();
-        hud.update();
-        endFrame();
-    }
-
-    private void firstFrame() {
-        doFirstFrame = false;
-        entityController = new EntityController();
-        setupCamera();
-        painter = new Painter(camera);
-        hudBatch = new SpriteBatch();
-        hudCamera = new HUDCamera();
-        hud = new HUDController(hudBatch, hudCamera);
-        levelAPI = new LevelAPI(batch, painter);
-        setup();
-    }
-
-    public void setSpriteBatch(SpriteBatch batch) {
-        this.batch = batch;
-    }
-
-    /**
-     * Setting up the camera.
-     */
-    private void setupCamera() {
-        camera = new DungeonCamera(null, Constants.VIRTUAL_WIDTH, Constants.VIRTUAL_HEIGHT);
-        camera.zoom = Constants.DEFAULT_ZOOM_FACTOR;
-
-        // See also:
-        // https://stackoverflow.com/questions/52011592/libgdx-set-ortho-camera
-    }
+    // See also:
+    // https://stackoverflow.com/questions/52011592/libgdx-set-ortho-camera
+  }
 }
