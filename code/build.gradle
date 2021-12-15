@@ -13,14 +13,6 @@ buildscript {
     }
 }
 
-<extend-configuration-property name="gdx.reflect.include" value="level.grapg.GraphG" />
-<extend-configuration-property name="gdx.reflect.include" value="level.grapg.Node" />
-<extend-configuration-property name="gdx.reflect.include" value="level.grapg.Graph" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.Replacement" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.ReplacementLoader" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.RoomTemplate" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.RoomTemplateLoader" />
-
 plugins {
     id 'java'
     id 'com.github.spotbugs' version '4.7.9' apply false
