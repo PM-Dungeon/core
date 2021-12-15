@@ -9,8 +9,7 @@ eclipse.project.name = appName + "-core"
 
 test {
     useJUnitPlatform()
-    reports {
-        junitXml.enabled = true
-        html.enabled = false
+    testLogging {
+        events "passed", "skipped", "failed"
     }
 }

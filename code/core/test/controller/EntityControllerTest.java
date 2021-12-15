@@ -1,26 +1,29 @@
 package controller;
 
 import interfaces.IEntity;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EntityController.class)
 public class EntityControllerTest {
-    @Mock IEntity entity1;
-    @Mock IEntity entity2;
+    private IEntity entity1;
+    private IEntity entity2;
     private EntityController controller;
 
-    @Before
+    @BeforeEach
     public void init() {
+        entity1 = Mockito.mock(IEntity.class);
+        entity2 = Mockito.mock(IEntity.class);
         controller = new EntityController();
     }
 
@@ -30,6 +33,7 @@ public class EntityControllerTest {
         when(entity1.removable()).thenReturn(true);
         controller.add(entity1);
         controller.update();
+        verify(entity1).removable();
         verifyNoMoreInteractions(entity1);
         assertFalse(controller.contains(entity1));
         assertTrue(controller.isEmpty());
@@ -41,8 +45,10 @@ public class EntityControllerTest {
         when(entity1.removable()).thenReturn(false);
         controller.add(entity1);
         controller.update();
+        verify(entity1).removable();
         verify(entity1).update();
         verify(entity1).draw();
+        verifyNoMoreInteractions(entity1);
         assertTrue(controller.contains(entity1));
         assertFalse(controller.isEmpty());
     }

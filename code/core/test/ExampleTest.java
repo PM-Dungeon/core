@@ -1,14 +1,15 @@
 import jdk.jfr.Description;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
 /** Shows how we set up tests in this project and how to use mockito */
@@ -22,7 +23,13 @@ public class ExampleTest {
      * example: isAdult_AgeLessThan18_False
      */
 
-    @Mock List<Object> mockedList;
+    @SuppressWarnings("rawtypes")
+    List mockedList;
+
+    @BeforeEach
+    public void init() {
+        mockedList = Mockito.mock(List.class);
+    }
 
     @Test
     @Description("Example on how to use mockito")

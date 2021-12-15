@@ -94,6 +94,8 @@ project(":core") {
         // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 
+        // https://mvnrepository.com/artifact/org.mockito/mockito-core
+        testImplementation 'org.mockito:mockito-core:4.1.0'
         // https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4
         testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
         // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
