@@ -14,12 +14,3 @@ test {
         html.enabled = false
     }
 }
-
-
-<extend-configuration-property name="gdx.reflect.include" value="level.graphg.GraphG" />
-<extend-configuration-property name="gdx.reflect.include" value="level.graphg.Node" />
-<extend-configuration-property name="gdx.reflect.include" value="level.graphg.Graph" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.Replacement" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.ReplacementLoader" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.RoomTemplate" />
-<extend-configuration-property name="gdx.reflect.include" value="level.roomg.RoomTemplateLoader" />
