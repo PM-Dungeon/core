@@ -7,17 +7,9 @@
     <!--    <inherits name='com.badlogic.gdx.controllers'/>-->
     <!--    <inherits name='com.badlogic.gdx.controllers.controllers-gwt'/>-->
     <!--    <inherits name='Box2DLights'/>-->
-    <!--    <inherits name='com.badlogic.gdx.ai'/>-->
+    <inherits name='com.badlogic.gdx.ai'/>
 
     <inherits name='GdxDefinition'/>
-
-    <collapse-all-properties/>
-
-    <add-linker name="xsiframe"/>
-    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
-    <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
-    
-
     <extend-configuration-property name="gdx.reflect.include" value="level.graphg.GraphG" />
     <extend-configuration-property name="gdx.reflect.include" value="level.graphg.Node" />
     <extend-configuration-property name="gdx.reflect.include" value="level.graphg.Graph" />
@@ -25,5 +17,13 @@
     <extend-configuration-property name="gdx.reflect.include" value="level.roomg.ReplacementLoader" />
     <extend-configuration-property name="gdx.reflect.include" value="level.roomg.RoomTemplate" />
     <extend-configuration-property name="gdx.reflect.include" value="level.roomg.RoomTemplateLoader" />
+    <collapse-all-properties/>
+
+    <add-linker name="xsiframe"/>
+    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
+    <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
+    
+
+
 
 </module>
