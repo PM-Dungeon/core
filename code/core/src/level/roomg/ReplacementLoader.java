@@ -16,7 +16,8 @@ import java.util.List;
  * @author Andre Matutat
  */
 public class ReplacementLoader {
-    private List<Replacement> replacements;
+    private List<Replacement> replacements = new ArrayList<>();
+    ;
 
     /**
      * Creates a ReplacementLoader and loads the replacements from the json. if the json is empty,

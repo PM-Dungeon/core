@@ -15,7 +15,7 @@ import java.util.List;
  * @author Andre Matutat
  */
 public class RoomTemplateLoader {
-    private List<RoomTemplate> roomTemplates;
+    private List<RoomTemplate> roomTemplates = new ArrayList<>();
 
     /**
      * Creates a RoomTemplateLoader and loads the template from the json. if the json is empty, the
