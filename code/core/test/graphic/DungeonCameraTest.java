@@ -25,6 +25,10 @@ public class DungeonCameraTest extends TestCase {
     Vector3 pos;
     Frustum frustum;
 
+    DungeonCamera cam_noFollow;
+    Vector3 pos_noFollow;
+    Frustum frustum_noFollow;
+
     public void setUp() {
         entity = Mockito.mock(IEntity.class);
         pos = Mockito.mock(Vector3.class);
@@ -38,6 +42,12 @@ public class DungeonCameraTest extends TestCase {
         // set some things, that are indispensable:
         Whitebox.setInternalState(cam, "position", pos);
         Whitebox.setInternalState(cam, "frustum", frustum);
+
+        pos_noFollow = Mockito.mock(Vector3.class);
+        frustum_noFollow = Mockito.mock(Frustum.class);
+        cam_noFollow = PowerMockito.spy(new DungeonCamera(null, 10, 10));
+        Whitebox.setInternalState(cam_noFollow, "position", pos_noFollow);
+        Whitebox.setInternalState(cam_noFollow, "frustum", frustum_noFollow);
     }
 
     public void testUpdate() {
@@ -47,6 +57,13 @@ public class DungeonCameraTest extends TestCase {
         Mockito.verify(entity).getPosition();
         Mockito.verify(cam.position).set(anyFloat(), anyFloat(), anyFloat());
         Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity);
+    }
+
+    public void testUpdate_noFollow() {
+        cam_noFollow.update();
+        Mockito.verify(cam_noFollow).update();
+        Mockito.verify(cam_noFollow.position).set(anyFloat(), anyFloat(), anyFloat());
+        Mockito.verifyNoMoreInteractions(cam_noFollow, pos_noFollow, frustum_noFollow);
     }
 
     public void testFollow() {
@@ -59,11 +76,27 @@ public class DungeonCameraTest extends TestCase {
         Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity, e2);
     }
 
+    public void testFollow_noFollow() {
+        cam_noFollow.follow(null);
+        assertNull(cam_noFollow.getFollowedObject());
+
+        Mockito.verify(cam_noFollow).follow(null);
+        Mockito.verify(cam_noFollow).getFollowedObject();
+        Mockito.verifyNoMoreInteractions(cam_noFollow, pos_noFollow, frustum_noFollow);
+    }
+
     public void testGetFollowedObject() {
         assertEquals(entity, cam.getFollowedObject());
 
         Mockito.verify(cam).getFollowedObject();
         Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity);
+    }
+
+    public void testGetFollowedObject_noFollow() {
+        assertNull(cam_noFollow.getFollowedObject());
+
+        Mockito.verify(cam_noFollow).getFollowedObject();
+        Mockito.verifyNoMoreInteractions(cam_noFollow, pos_noFollow, frustum_noFollow);
     }
 
     public void testSetFocusPoint() {
@@ -75,6 +108,22 @@ public class DungeonCameraTest extends TestCase {
         Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity);
     }
 
+    public void testSetFocusPoint_noFollow() {
+        cam.setFocusPoint(new Point(2, 2));
+        assertNull(cam.getFollowedObject());
+
+        Mockito.verify(cam).setFocusPoint(any());
+        Mockito.verify(cam).getFollowedObject();
+        Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity);
+
+        cam_noFollow.setFocusPoint(new Point(2, 2));
+        assertNull(cam_noFollow.getFollowedObject());
+
+        Mockito.verify(cam_noFollow).setFocusPoint(any());
+        Mockito.verify(cam_noFollow).getFollowedObject();
+        Mockito.verifyNoMoreInteractions(cam_noFollow, pos_noFollow, frustum_noFollow);
+    }
+
     public void testIsPointInFrustum() {
         cam.isPointInFrustum(2, 2);
 
@@ -83,10 +132,25 @@ public class DungeonCameraTest extends TestCase {
         Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity);
     }
 
+    public void testIsPointInFrustum_noFollow() {
+        cam_noFollow.isPointInFrustum(2, 2);
+
+        Mockito.verify(cam_noFollow).isPointInFrustum(2, 2);
+        Mockito.verify(frustum_noFollow).boundsInFrustum(any());
+        Mockito.verifyNoMoreInteractions(cam_noFollow, pos_noFollow, frustum_noFollow);
+    }
+
     public void testGetFrustum() {
         assertEquals(frustum, cam.getFrustum());
 
         Mockito.verify(cam).getFrustum();
         Mockito.verifyNoMoreInteractions(cam, pos, frustum, entity);
+    }
+
+    public void testGetFrustum_noFollow() {
+        assertEquals(frustum_noFollow, cam_noFollow.getFrustum());
+
+        Mockito.verify(cam_noFollow).getFrustum();
+        Mockito.verifyNoMoreInteractions(cam_noFollow, pos_noFollow, frustum_noFollow);
     }
 }
