@@ -2,6 +2,7 @@ package level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
+import level.graphg.Node;
 import level.levelg.Level;
 import level.levelg.Room;
 import level.levelg.Tile;
@@ -21,27 +22,8 @@ public class LevelAPI {
     }
 
     public void loadLevel() {
-        // todo durch levelg tauschen
-        int x = 8;
-        int y = 8;
-        LevelElement[][] layout = new LevelElement[y][x];
-        for (int i = 0; i < y; i++)
-            for (int j = 0; j < x; j++) {
-                if (i == 0 || i == y - 1 || j == 0 || j == x - 1) layout[i][j] = LevelElement.WALL;
-                else layout[i][j] = LevelElement.FLOOR;
-            }
 
-        layout[1][3] = LevelElement.WALL;
-        layout[6][3] = LevelElement.WALL;
-        layout[3][1] = LevelElement.WALL;
-        layout[3][6] = LevelElement.WALL;
-
-        Room r = new Room(layout, DesignLabel.DEFAULT, new Point(2, 1), new Point(2, 2));
-        //  Room r2 = new Room(layout, DesignLabel.DEFAULT, new Point(3, 2), new Point(7, -3));
-        List<Room> rl = new ArrayList<>();
-        rl.add(r);
-        // rl.add(r2);
-        currentLevel = new Level(null, rl);
+        currentLevel = createDummyLevel();
     }
 
     public void update() {
@@ -59,5 +41,89 @@ public class LevelAPI {
                     Tile t = r.getLayout()[y][x];
                     painter.draw(t.getTexture(), t.getGlobalPosition(), batch);
                 }
+    }
+
+    /**
+     * only for testing reasons, will be removed after dungeong is completed
+     *
+     * @return dummyLevel with 3 Room with hardcoded Positions
+     */
+    private Level createDummyLevel() {
+        // setup layouts
+        int x = 8;
+        int y = 8;
+        LevelElement[][] layoutRoom1 = new LevelElement[y][x];
+        for (int i = 0; i < y; i++)
+            for (int j = 0; j < x; j++) {
+                if (i == 0 || i == y - 1 || j == 0 || j == x - 1)
+                    layoutRoom1[i][j] = LevelElement.WALL;
+                else layoutRoom1[i][j] = LevelElement.FLOOR;
+            }
+
+        x = 15;
+        y = 4;
+        LevelElement[][] layoutRoom2 = new LevelElement[y][x];
+        for (int i = 0; i < y; i++)
+            for (int j = 0; j < x; j++) {
+                if (i == 0 || i == y - 1 || j == 0 || j == x - 1)
+                    layoutRoom2[i][j] = LevelElement.WALL;
+                else layoutRoom2[i][j] = LevelElement.FLOOR;
+            }
+
+        x = 15;
+        y = 15;
+        LevelElement[][] layoutRoom3 = new LevelElement[y][x];
+        for (int i = 0; i < y; i++)
+            for (int j = 0; j < x; j++) {
+                if (i == 0 || i == y - 1 || j == 0 || j == x - 1)
+                    layoutRoom3[i][j] = LevelElement.WALL;
+                else layoutRoom3[i][j] = LevelElement.FLOOR;
+            }
+
+        // place doors
+        layoutRoom1[6][0] = LevelElement.FLOOR;
+        layoutRoom2[2][14] = LevelElement.FLOOR;
+        layoutRoom2[3][2] = LevelElement.FLOOR;
+        layoutRoom3[0][7] = LevelElement.FLOOR;
+
+        // hardcode positions
+        Point r1global = new Point(15, -6);
+        Point r1local = new Point(0, 0);
+        Point r2global = new Point(5, -2);
+        Point r2local = new Point(0, 0);
+        Point r3global = new Point(0, 0);
+        Point r3local = new Point(0, 0);
+        // create rooms
+
+        // setEnd
+        layoutRoom1[3][3] = LevelElement.EXIT;
+
+        Room room1 = new Room(layoutRoom1, DesignLabel.DEFAULT, r1local, r1global);
+        Room room2 = new Room(layoutRoom2, DesignLabel.DEFAULT, r2local, r2global);
+        Room room3 = new Room(layoutRoom3, DesignLabel.DEFAULT, r3local, r3global);
+        List<Room> roomlist = new ArrayList<>();
+        roomlist.add(room1);
+        roomlist.add(room2);
+        roomlist.add(room3);
+
+        // setup graph
+        Node room1Node = new Node(0);
+        Node room2Node = new Node(1);
+        Node room3Node = new Node(2);
+        room1Node.connect(room2Node);
+        room2Node.connect(room1Node);
+        room2Node.connect(room3Node);
+        room3Node.connect(room2Node);
+        List<Node> graph = new ArrayList<>();
+        graph.add(room1Node);
+        graph.add(room2Node);
+        graph.add(room3Node);
+
+        Level l = new Level(graph, roomlist);
+        l.setStartNode(room3Node);
+        l.setStartTile(l.getRoomToNode(room3Node).getRandomFloorTile());
+        l.setEndNode(room1Node);
+        l.setEndTile(l.getRoomToNode(room1Node).getLayout()[3][3]);
+        return l;
     }
 }
