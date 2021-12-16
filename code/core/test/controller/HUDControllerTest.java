@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -22,7 +22,7 @@ public class HUDControllerTest {
     private IHUDElement element2;
     private HUDController controller;
 
-    @BeforeEach
+    @Before
     public void init() {
         batch = Mockito.mock(SpriteBatch.class);
         camera = Mockito.mock(HUDCamera.class);
@@ -35,7 +35,7 @@ public class HUDControllerTest {
     }
 
     @Test
-    void update() {
+    public void update() {
         controller.add(element1);
         verify(camera).update();
         controller.add(element2);

@@ -4,8 +4,7 @@ import interfaces.IEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -17,15 +16,23 @@ import static org.junit.Assert.*;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(AbstractDefaultController.class)
 class AbstractDefaultControllerTest {
-    @Spy AbstractDefaultController<IEntity> controller;
-    @Mock IEntity entity1;
-    @Mock IEntity entity2;
+    AbstractDefaultController<Object> controller;
+
+    IEntity entity1;
+    IEntity entity2;
+
+    public AbstractDefaultControllerTest() {}
 
     @Before
-    public void init() {}
+    @SuppressWarnings("unchecked")
+    public void init() {
+        controller = Mockito.spy(AbstractDefaultController.class);
+        entity1 = Mockito.mock(IEntity.class);
+        entity2 = Mockito.mock(IEntity.class);
+    }
 
     @Test
-    void add() {
+    public void add() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         assertFalse(controller.isEmpty());
@@ -34,7 +41,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void add_null() {
+    public void add_null() {
         assertTrue(controller.isEmpty());
         try {
             controller.add(null);
@@ -44,7 +51,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void remove() {
+    public void remove() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         assertFalse(controller.isEmpty());
@@ -55,7 +62,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void remove_null() {
+    public void remove_null() {
         assertTrue(controller.isEmpty());
         try {
             controller.remove(null);
@@ -65,7 +72,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void removeAll() {
+    public void removeAll() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         controller.add(entity2);
@@ -75,7 +82,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void size() {
+    public void size() {
         assertEquals(0, controller.size());
         controller.add(entity1);
         controller.add(entity2);
@@ -85,7 +92,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void isEmpty() {
+    public void isEmpty() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         assertFalse(controller.isEmpty());
@@ -94,7 +101,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void containsAll() {
+    public void containsAll() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         controller.add(entity2);
@@ -105,7 +112,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void containsAll_null() {
+    public void containsAll_null() {
         assertTrue(controller.isEmpty());
         try {
             controller.containsAll(null);
@@ -115,7 +122,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void contains() {
+    public void contains() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         controller.add(entity2);
@@ -125,7 +132,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void contains_null() {
+    public void contains_null() {
         assertTrue(controller.isEmpty());
         try {
             controller.contains(null);
@@ -135,7 +142,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void getSet() {
+    public void getSet() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         controller.add(entity2);
@@ -145,7 +152,7 @@ class AbstractDefaultControllerTest {
     }
 
     @Test
-    void getList() {
+    public void getList() {
         assertTrue(controller.isEmpty());
         controller.add(entity1);
         controller.add(entity2);

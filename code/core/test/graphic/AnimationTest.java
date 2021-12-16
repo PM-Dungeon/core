@@ -14,12 +14,15 @@ import static org.junit.Assert.assertEquals;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Animation.class)
 class AnimationTest {
+
+    public AnimationTest() {}
+
     @Before
     public void init() {}
 
     @Test
     @SuppressWarnings("all")
-    void constructor() {
+    public void constructor() {
         try {
             new Animation(null, 10);
         } catch (NullPointerException excepted) {
@@ -35,7 +38,7 @@ class AnimationTest {
     }
 
     @Test
-    void getNextAnimationTexture() {
+    public void getNextAnimationTexture() {
         Animation animation = new Animation(List.of("1", "2", "3"), 10);
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 11; j++) {
