@@ -4,7 +4,6 @@ import level.DesignLabel;
 import level.LevelElement;
 import tools.Point;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class Room {
@@ -45,11 +44,20 @@ public class Room {
 
     public Tile[][] getLayout() {
         // copy of the layout
-        return Arrays.stream(layout).map(Tile[]::clone).toArray(Tile[][]::new);
+        return copyLayout(layout);
     }
 
     public void setLayout(Tile[][] layout) {
-        this.layout = Arrays.stream(layout).map(Tile[]::clone).toArray(Tile[][]::new);
+        this.layout = copyLayout(layout);
+    }
+
+    private Tile[][] copyLayout(Tile[][] toCopy) {
+        Tile[][] copy = new Tile[layout.length][layout[0].length];
+        for (int y = 0; y < toCopy.length; y++)
+            for (int x = 0; x < toCopy[0].length; x++) {
+                copy[y][x] = toCopy[y][x];
+            }
+        return copy;
     }
 
     /** @return random floor-tile in the room */

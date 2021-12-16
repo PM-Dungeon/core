@@ -127,12 +127,21 @@ public class RoomTemplate {
     }
 
     public LevelElement[][] getLayout() {
-        return Arrays.stream(layout).map(LevelElement[]::clone).toArray(LevelElement[][]::new);
+        // copy of the layout
+        return copyLayout(layout);
     }
 
     public void setLayout(LevelElement[][] layout) {
-        this.layout =
-                Arrays.stream(layout).map(LevelElement[]::clone).toArray(LevelElement[][]::new);
+        this.layout = copyLayout(layout);
+    }
+
+    private LevelElement[][] copyLayout(LevelElement[][] toCopy) {
+        LevelElement[][] copy = new LevelElement[layout.length][layout[0].length];
+        for (int y = 0; y < toCopy.length; y++)
+            for (int x = 0; x < toCopy[0].length; x++) {
+                copy[y][x] = toCopy[y][x];
+            }
+        return copy;
     }
 
     public DesignLabel getDesign() {
