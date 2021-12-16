@@ -6,6 +6,7 @@ import level.levelg.Room;
 import tools.Point;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /** @author Andre Matutat */
@@ -21,7 +22,7 @@ public class RoomTemplate {
      * @param label the DesignLabel of the room
      */
     public RoomTemplate(LevelElement[][] layout, DesignLabel label, Point localRef) {
-        this.layout = layout;
+        setLayout(layout);
         this.design = label;
         this.localRef = localRef;
     }
@@ -45,13 +46,13 @@ public class RoomTemplate {
      * @return the created room
      */
     public Room replace(final List<Replacement> replacements, Point globalRef) {
-        int layoutHeight = getLayout().length;
-        int layoutWidth = getLayout()[0].length;
+        int layoutHeight = layout.length;
+        int layoutWidth = layout[0].length;
         LevelElement[][] roomLayout = new LevelElement[layoutHeight][layoutWidth];
 
         // copy layout
         for (int y = 0; y < layoutHeight; y++)
-            for (int x = 0; x < layoutWidth; x++) roomLayout[y][x] = getLayout()[y][x];
+            for (int x = 0; x < layoutWidth; x++) roomLayout[y][x] = layout[y][x];
 
         // remove all replacements that are too big
         List<Replacement> replacementList = new ArrayList<>(replacements);
@@ -126,7 +127,12 @@ public class RoomTemplate {
     }
 
     public LevelElement[][] getLayout() {
-        return layout;
+        return Arrays.stream(layout).map(LevelElement[]::clone).toArray(LevelElement[][]::new);
+    }
+
+    public void setLayout(LevelElement[][] layout) {
+        this.layout =
+                Arrays.stream(layout).map(LevelElement[]::clone).toArray(LevelElement[][]::new);
     }
 
     public DesignLabel getDesign() {

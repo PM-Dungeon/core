@@ -3,6 +3,8 @@ package level.roomg;
 import level.DesignLabel;
 import level.LevelElement;
 
+import java.util.Arrays;
+
 /**
  * can be used to replace placeholder in a room layout
  *
@@ -20,20 +22,25 @@ public class Replacement {
      * @param label DesignLabel of the replacer
      */
     public Replacement(LevelElement[][] layout, boolean rotate, DesignLabel label) {
-        this.layout = layout;
+        setLayout(layout);
         this.rotate = rotate;
         this.label = label;
     }
 
     public LevelElement[][] getLayout() {
-        return this.layout;
+        return Arrays.stream(layout).map(LevelElement[]::clone).toArray(LevelElement[][]::new);
+    }
+
+    public void setLayout(LevelElement[][] layout) {
+        this.layout =
+                Arrays.stream(layout).map(LevelElement[]::clone).toArray(LevelElement[][]::new);
     }
 
     public DesignLabel getDesign() {
-        return this.label;
+        return label;
     }
 
     public boolean canRotate() {
-        return this.rotate;
+        return rotate;
     }
 }
