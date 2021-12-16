@@ -1,7 +1,6 @@
 package graphic;
 
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -9,20 +8,16 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Animation.class)
-class AnimationTest {
+class AnimationTest extends TestCase {
 
     public AnimationTest() {}
 
-    @Before
-    public void init() {}
+    public void setUp() {}
 
-    @Test
     @SuppressWarnings("all")
-    public void constructor() {
+    public void testConstructor() {
         try {
             new Animation(null, 10);
         } catch (NullPointerException excepted) {
@@ -37,14 +32,13 @@ class AnimationTest {
         }
     }
 
-    @Test
-    public void getNextAnimationTexture() {
+    public void testGetNextAnimationTexture() {
         Animation animation = new Animation(List.of("1", "2", "3"), 10);
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 11; j++) {
                 assertEquals(String.valueOf(i % 3 + 1), animation.getNextAnimationTexture());
             }
         }
-        // why 11-times the same value, when the frame time is 10?
+        // Why 11 times the same value, when the frame time is 10?
     }
 }

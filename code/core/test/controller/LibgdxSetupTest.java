@@ -1,8 +1,7 @@
 package controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
@@ -11,15 +10,14 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(LibgdxSetup.class)
-class LibgdxSetupTest {
+class LibgdxSetupTest extends TestCase {
     MainController controller;
     SpriteBatch batch;
     LibgdxSetup setup;
 
     public LibgdxSetupTest() {}
 
-    @Before
-    public void init() throws Exception {
+    public void setUp() throws Exception {
         controller = Mockito.mock(MainController.class);
         batch = Mockito.mock(SpriteBatch.class);
         PowerMockito.whenNew(SpriteBatch.class).withNoArguments().thenReturn(batch);
@@ -28,8 +26,7 @@ class LibgdxSetupTest {
         PowerMockito.doNothing().when(batch).dispose();
     }
 
-    @Test
-    public void constructor_null() {
+    public void testConstructor_null() {
         LibgdxSetup l = Mockito.spy(new LibgdxSetup(null));
         try {
             l.create();
@@ -38,8 +35,7 @@ class LibgdxSetupTest {
         }
     }
 
-    @Test
-    public void create() {
+    public void testCreate() {
         setup.create();
         Mockito.verify(setup).create();
         Mockito.verify(controller).setSpriteBatch(batch);
@@ -47,8 +43,7 @@ class LibgdxSetupTest {
         Mockito.verifyNoMoreInteractions(setup, batch, controller);
     }
 
-    @Test
-    public void dispose() {
+    public void testDispose() {
         setup.create();
         Mockito.verify(setup).create();
         Mockito.verify(controller).setSpriteBatch(batch);

@@ -1,34 +1,27 @@
 package controller;
 
 import interfaces.IEntity;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EntityController.class)
-public class EntityControllerTest {
+public class EntityControllerTest extends TestCase {
     private IEntity entity1;
-    private IEntity entity2;
     private EntityController controller;
 
-    @Before
-    public void init() {
+    public void setUp() {
         entity1 = Mockito.mock(IEntity.class);
-        entity2 = Mockito.mock(IEntity.class);
         controller = new EntityController();
     }
 
-    @Test
-    public void update_with_remove() {
+    public void testUpdate_with_remove() {
         // should be removed
         when(entity1.removable()).thenReturn(true);
         controller.add(entity1);
@@ -39,8 +32,7 @@ public class EntityControllerTest {
         assertTrue(controller.isEmpty());
     }
 
-    @Test
-    public void update_without_remove() {
+    public void testUpdate_without_remove() {
         // should not be removed
         when(entity1.removable()).thenReturn(false);
         controller.add(entity1);

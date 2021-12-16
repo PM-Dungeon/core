@@ -35,7 +35,7 @@ public class DungeonCameraTest extends TestCase {
                 MemberMatcher.constructor(OrthographicCamera.class, float.class, float.class));
         PowerMockito.suppress(MemberMatcher.method(OrthographicCamera.class, "update"));
         cam = PowerMockito.spy(new DungeonCamera(entity, 10, 10));
-        // set some thins, that are indispensable:
+        // set some things, that are indispensable:
         Whitebox.setInternalState(cam, "position", pos);
         Whitebox.setInternalState(cam, "frustum", frustum);
     }
