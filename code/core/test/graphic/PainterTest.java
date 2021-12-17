@@ -15,7 +15,7 @@ import tools.Point;
 import static org.mockito.ArgumentMatchers.anyFloat;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Painter.class})
+@PrepareForTest({Painter.class, TextureMap.class})
 public class PainterTest extends TestCase {
     Painter painter;
     SpriteBatch batch;
