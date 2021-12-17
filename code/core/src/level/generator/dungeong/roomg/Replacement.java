@@ -1,7 +1,7 @@
-package level.roomg;
+package level.generator.dungeong.roomg;
 
-import level.DesignLabel;
-import level.LevelElement;
+import level.tools.DesignLabel;
+import level.tools.LevelElement;
 
 /**
  * can be used to replace placeholder in a room layout

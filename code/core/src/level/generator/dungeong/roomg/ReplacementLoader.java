@@ -1,11 +1,11 @@
-package level.roomg;
+package level.generator.dungeong.roomg;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import level.DesignLabel;
-import level.LevelElement;
+import level.tools.DesignLabel;
+import level.tools.LevelElement;
 
 import java.util.ArrayList;
 import java.util.List;

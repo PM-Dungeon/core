@@ -1,4 +1,4 @@
-package level;
+package level.tools;
 
 /**
  * Each type of field in a level can be represented by an integer value.

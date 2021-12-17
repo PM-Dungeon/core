@@ -1,4 +1,4 @@
-package level.graphg;
+package level.generator.dungeong.graphg;
 
 /**
  * Thrown when no solution could be found after several attempts

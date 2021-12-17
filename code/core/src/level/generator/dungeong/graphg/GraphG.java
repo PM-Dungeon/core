@@ -1,9 +1,11 @@
-package level.graphg;
+package level.generator.dungeong.graphg;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import level.elements.Graph;
+import level.elements.Node;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package level;
+package level.tools;
 
 /**
  * Specifies which textures and layouts should be used for the room.

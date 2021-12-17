@@ -1,7 +1,5 @@
-package level.levelg;
+package level.tools;
 
-import level.DesignLabel;
-import level.LevelElement;
 import tools.Point;
 
 public class TileTextureFactory {

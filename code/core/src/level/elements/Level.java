@@ -1,6 +1,4 @@
-package level.levelg;
-
-import level.graphg.Node;
+package level.elements;
 
 import java.util.ArrayList;
 import java.util.List;

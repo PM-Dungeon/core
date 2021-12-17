@@ -1,8 +1,8 @@
-package level.roomg;
+package level.generator.dungeong.roomg;
 
-import level.DesignLabel;
-import level.LevelElement;
-import level.levelg.Room;
+import level.elements.Room;
+import level.tools.DesignLabel;
+import level.tools.LevelElement;
 import tools.Point;
 
 import java.util.ArrayList;

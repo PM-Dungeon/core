@@ -1,6 +1,6 @@
-package level.levelg;
+package level.elements;
 
-import level.LevelElement;
+import level.tools.LevelElement;
 import tools.Point;
 
 public class Tile {

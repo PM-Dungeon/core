@@ -1,7 +1,8 @@
-package level.levelg;
+package level.elements;
 
-import level.DesignLabel;
-import level.LevelElement;
+import level.tools.DesignLabel;
+import level.tools.LevelElement;
+import level.tools.TileTextureFactory;
 import tools.Point;
 
 import java.util.Random;
