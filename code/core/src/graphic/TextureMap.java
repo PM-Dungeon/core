@@ -12,7 +12,7 @@ public class TextureMap {
      * the HashMap, it is created and saved in.
      *
      * @param path to texture
-     * @return
+     * @return the Texture
      */
     public Texture getTexture(String path) {
         if (textureMap.containsKey(path)) return textureMap.get(path);
