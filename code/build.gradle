@@ -86,8 +86,6 @@ project(":core") {
 //        api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
 //        api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
 //        api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        // https://mvnrepository.com/artifact/com.google.code.gson/gson
-//        api 'com.google.code.gson:gson:2.8.8'
 
         // JUnit 4, Mockito and Powermock for testing:
 
@@ -98,8 +96,6 @@ project(":core") {
         testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
         // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
         testImplementation 'org.powermock:powermock-api-mockito2:2.0.9'
-        // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
-        // testImplementation 'org.powermock:powermock-api-easymock:2.0.9'
     }
 
     spotbugs {
