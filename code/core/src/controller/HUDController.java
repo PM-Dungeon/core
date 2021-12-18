@@ -3,9 +3,8 @@ package controller;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
-import tools.AbstractDefaultController;
 
-public class HUDController extends AbstractDefaultController<IHUDElement> {
+public class HUDController extends AbstractController<IHUDElement> {
     private final HUDCamera hudCamera;
     private final SpriteBatch batch;
 
@@ -30,6 +29,6 @@ public class HUDController extends AbstractDefaultController<IHUDElement> {
     }
 
     private void drawElements() {
-        set.forEach(element -> element.draw(batch));
+        forEach(element -> element.draw(batch));
     }
 }

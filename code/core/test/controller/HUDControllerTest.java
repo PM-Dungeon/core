@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
@@ -33,9 +34,9 @@ public class HUDControllerTest extends TestCase {
     }
 
     public void testUpdate() {
-        controller.add(element1);
+        assumeTrue(controller.add(element1));
         verify(camera).update();
-        controller.add(element2);
+        assumeTrue(controller.add(element2));
         verify(camera).update();
 
         controller.update();
@@ -44,6 +45,16 @@ public class HUDControllerTest extends TestCase {
         verify(batch).setProjectionMatrix(camera.combined);
         verify(element1).draw(batch);
         verify(element2).draw(batch);
+        verifyNoMoreInteractions(camera, batch, element1, element2);
+    }
+
+    public void testUpdate_empty() {
+        assumeTrue(controller.isEmpty());
+
+        controller.update();
+        verify(camera, times(2)).update();
+        verify(camera).getPosition();
+        verify(batch).setProjectionMatrix(camera.combined);
         verifyNoMoreInteractions(camera, batch, element1, element2);
     }
 }

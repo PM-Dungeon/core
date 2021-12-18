@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -24,7 +25,8 @@ public class EntityControllerTest extends TestCase {
     public void testUpdate_with_remove() {
         // should be removed
         when(entity1.removable()).thenReturn(true);
-        controller.add(entity1);
+        assumeTrue(controller.add(entity1));
+
         controller.update();
         verify(entity1).removable();
         Mockito.verifyNoMoreInteractions(entity1);
@@ -35,13 +37,13 @@ public class EntityControllerTest extends TestCase {
     public void testUpdate_without_remove() {
         // should not be removed
         when(entity1.removable()).thenReturn(false);
-        controller.add(entity1);
+        assumeTrue(controller.add(entity1));
+
         controller.update();
         verify(entity1).removable();
         verify(entity1).update();
         verify(entity1).draw();
         Mockito.verifyNoMoreInteractions(entity1);
         assertTrue(controller.contains(entity1));
-        assertFalse(controller.isEmpty());
     }
 }
