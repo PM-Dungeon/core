@@ -108,6 +108,11 @@ public class Level {
         return pathWithoutAvoid.size() > 0;
     }
 
+    // todo mit A*
+    public boolean isTileReachable(Tile start, Tile goal) {
+        return true;
+    }
+
     /**
      * bfs
      *

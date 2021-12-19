@@ -26,4 +26,9 @@ public class Tile {
     public LevelElement getLevelElement() {
         return e;
     }
+
+    public void setLevelElement(LevelElement e, String texture) {
+        this.e = e;
+        this.texture = texture;
+    }
 }
