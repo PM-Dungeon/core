@@ -18,4 +18,8 @@ public final class Constants {
     public static final float DEFAULT_ZOOM_FACTOR = 0.5f;
 
     public static final boolean USE_DUMMY_GENERATOR = true;
+
+    public static String PATH_TO_GRAPH = "";
+    public static String PATH_TO_ROOMLAYOUTS = "";
+    public static String PATH_TO_REPLACEMENTS = "";
 }
