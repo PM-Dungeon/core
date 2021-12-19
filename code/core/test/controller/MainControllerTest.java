@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.DungeonCamera;
 import graphic.HUDCamera;
 import graphic.Painter;
-import junit.framework.TestCase;
 import level.LevelAPI;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
@@ -17,12 +18,13 @@ import org.powermock.reflect.Whitebox;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({MainController.class, Gdx.class})
-class MainControllerTest extends TestCase {
+class MainControllerTest {
     MainController controller;
     SpriteBatch batch;
 
     public MainControllerTest() {}
 
+    @Before
     public void setUp() throws Exception {
         controller = Mockito.spy(MainController.class);
         batch = Mockito.mock(SpriteBatch.class);
@@ -52,17 +54,16 @@ class MainControllerTest extends TestCase {
                 .thenReturn(Mockito.mock(DungeonCamera.class));
     }
 
-    public void testRender() {
+    @Test
+    public void test_render() {
         controller.setSpriteBatch(batch);
         Mockito.verify(controller).setSpriteBatch(batch);
         Mockito.verifyNoMoreInteractions(controller, batch);
 
         controller.render(10);
-
         Mockito.verify(controller).render(10);
         Mockito.verify(controller).setup();
         Mockito.verify(controller, Mockito.times(2)).endFrame();
-
         Mockito.verifyNoMoreInteractions(controller);
     }
 }

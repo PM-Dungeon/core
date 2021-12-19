@@ -4,7 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -14,14 +15,15 @@ import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(HUDController.class)
-public class HUDControllerTest extends TestCase {
+@PrepareForTest({HUDController.class})
+public class HUDControllerTest {
     private SpriteBatch batch;
     private HUDCamera camera;
     private IHUDElement element1;
     private IHUDElement element2;
     private HUDController controller;
 
+    @Before
     public void setUp() {
         batch = Mockito.mock(SpriteBatch.class);
         camera = Mockito.mock(HUDCamera.class);
@@ -33,7 +35,8 @@ public class HUDControllerTest extends TestCase {
         controller = new HUDController(batch, camera);
     }
 
-    public void testUpdate() {
+    @Test
+    public void test_update() {
         assumeTrue(controller.add(element1));
         verify(camera).update();
         assumeTrue(controller.add(element2));
@@ -48,7 +51,8 @@ public class HUDControllerTest extends TestCase {
         verifyNoMoreInteractions(camera, batch, element1, element2);
     }
 
-    public void testUpdate_empty() {
+    @Test
+    public void test_update_empty() {
         assumeTrue(controller.isEmpty());
 
         controller.update();

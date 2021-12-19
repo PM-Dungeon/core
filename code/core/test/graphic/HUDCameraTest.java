@@ -2,16 +2,25 @@ package graphic;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.api.support.membermodification.MemberMatcher;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
-public class HUDCameraTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({HUDCamera.class})
+public class HUDCameraTest {
     HUDCamera cam;
     Vector3 vector3;
 
+    @Before
     public void setUp() {
         vector3 = Mockito.mock(Vector3.class);
         // evil parent:
@@ -21,7 +30,8 @@ public class HUDCameraTest extends TestCase {
         Whitebox.setInternalState(cam, "position", vector3);
     }
 
-    public void testGetPosition() {
+    @Test
+    public void test_getPosition() {
         assertEquals(vector3, cam.getPosition());
         Mockito.verify(cam).getPosition();
         Mockito.verifyNoMoreInteractions(cam, vector3);
