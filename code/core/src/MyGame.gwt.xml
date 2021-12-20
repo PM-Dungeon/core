@@ -17,7 +17,7 @@
     <source path="level.tools"/>
     <source path="tools"/>
 
-    <!--    <inherits name="com.google.gwt.logging.Logging"/>-->
+    <inherits name="com.google.gwt.logging.Logging"/>
 
     <!--	<extend-configuration-property name="gdx.reflect.include" value="de.pmdungeon.dungeonCreator.dungeonconverter.Room" />-->
     <!--	<extend-configuration-property name="gdx.reflect.include" value="de.pmdungeon.dungeonCreator.dungeonconverter.Coordinate" />-->
