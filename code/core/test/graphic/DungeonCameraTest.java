@@ -38,12 +38,10 @@ public class DungeonCameraTest {
         pos = Mockito.mock(Vector3.class);
         frustum = Mockito.mock(Frustum.class);
         Mockito.when(entity.getPosition()).thenReturn(new Point(1, 1));
-        // evil parent:
         PowerMockito.suppress(
                 MemberMatcher.constructor(OrthographicCamera.class, float.class, float.class));
         PowerMockito.suppress(MemberMatcher.method(OrthographicCamera.class, "update"));
         cam = PowerMockito.spy(new DungeonCamera(entity, 10, 10));
-        // set some things, that are indispensable:
         Whitebox.setInternalState(cam, "position", pos);
         Whitebox.setInternalState(cam, "frustum", frustum);
 

@@ -10,8 +10,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(PowerMockRunner.class)
@@ -31,8 +31,6 @@ public class AbstractControllerTest {
 
     @Test
     public void test_contains() {
-        assumeTrue(controller.isEmpty());
-
         assertTrue(controller.add(entity2));
         assertFalse(controller.contains(entity1));
         assertTrue(controller.contains(entity2));
@@ -40,8 +38,6 @@ public class AbstractControllerTest {
 
     @Test
     public void test_add() {
-        assumeTrue(controller.isEmpty());
-
         assertTrue(controller.add(entity2));
         assertTrue(controller.add(entity1));
         assertTrue(controller.containsAll(List.of(entity1, entity2)));
@@ -49,7 +45,6 @@ public class AbstractControllerTest {
 
     @Test
     public void test_remove() {
-        assumeTrue(controller.isEmpty());
         assumeTrue(controller.add(entity1));
         assumeTrue(controller.add(entity2));
 
@@ -58,38 +53,22 @@ public class AbstractControllerTest {
         assertTrue(controller.contains(entity2));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_contains_null() {
         assumeTrue(controller.add(entity1));
-        assumeFalse(controller.isEmpty());
 
-        try {
-            boolean r = controller.contains(null);
-            fail();
-        } catch (IllegalArgumentException expected) {
-        }
+        controller.contains(null);
     }
 
-    @Test
-    public void test_add_null() {
-        assumeTrue(controller.isEmpty());
-
-        try {
-            controller.add(null);
-            fail();
-        } catch (IllegalArgumentException expected) {
-        }
+    @Test(expected = IllegalArgumentException.class)
+    public void test_add_null_empty() {
+        controller.add(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_remove_null() {
         assumeTrue(controller.add(entity1));
-        assumeFalse(controller.isEmpty());
 
-        try {
-            controller.remove(null);
-            fail();
-        } catch (IllegalArgumentException expected) {
-        }
+        controller.remove(null);
     }
 }

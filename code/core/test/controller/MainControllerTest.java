@@ -21,6 +21,7 @@ import org.powermock.reflect.Whitebox;
 class MainControllerTest {
     MainController controller;
     SpriteBatch batch;
+    int someArbitraryValueGreater0forDelta = 7;
 
     public MainControllerTest() {}
 
@@ -60,8 +61,8 @@ class MainControllerTest {
         Mockito.verify(controller).setSpriteBatch(batch);
         Mockito.verifyNoMoreInteractions(controller, batch);
 
-        controller.render(10);
-        Mockito.verify(controller).render(10);
+        controller.render(someArbitraryValueGreater0forDelta);
+        Mockito.verify(controller).render(someArbitraryValueGreater0forDelta);
         Mockito.verify(controller).setup();
         Mockito.verify(controller, Mockito.times(2)).endFrame();
         Mockito.verifyNoMoreInteractions(controller);

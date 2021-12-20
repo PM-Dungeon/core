@@ -1,6 +1,5 @@
 package graphic;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -14,27 +13,21 @@ import static org.junit.Assert.assertEquals;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Animation.class})
 class AnimationTest {
-
     public AnimationTest() {}
 
-    @Before
-    public void setUp() {}
+    @Test(expected = NullPointerException.class)
+    public void test_constructor_1() {
+        new Animation(null, 10);
+    }
 
-    @SuppressWarnings("all")
-    @Test
-    public void test_constructor() {
-        try {
-            new Animation(null, 10);
-        } catch (NullPointerException excepted) {
-        }
-        try {
-            new Animation(new ArrayList<>(), 10);
-        } catch (IllegalArgumentException excepted) {
-        }
-        try {
-            new Animation(List.of("hallo"), -10);
-        } catch (IllegalArgumentException excepted) {
-        }
+    @Test(expected = IllegalArgumentException.class)
+    public void test_constructor_2() {
+        new Animation(new ArrayList<>(), 10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_constructor_3() {
+        new Animation(List.of("someValidTexture"), -10);
     }
 
     @Test

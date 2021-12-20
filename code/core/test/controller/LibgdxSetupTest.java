@@ -9,8 +9,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.fail;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({LibgdxSetup.class})
 class LibgdxSetupTest {
@@ -28,22 +26,18 @@ class LibgdxSetupTest {
         setup = Mockito.spy(new LibgdxSetup(controller));
         PowerMockito.doNothing().when(setup, "setScreen", controller);
         PowerMockito.doNothing().when(batch).dispose();
+
+        setup.create();
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void test_constructor_null() {
         LibgdxSetup l = Mockito.spy(new LibgdxSetup(null));
-
-        try {
-            l.create();
-            fail();
-        } catch (NullPointerException expected) {
-        }
+        l.create();
     }
 
     @Test
     public void test_create() {
-        setup.create();
         Mockito.verify(setup).create();
         Mockito.verify(controller).setSpriteBatch(batch);
         Mockito.verify(setup).setScreen(controller);
@@ -52,7 +46,6 @@ class LibgdxSetupTest {
 
     @Test
     public void test_dispose() {
-        setup.create();
         Mockito.verify(setup).create();
         Mockito.verify(controller).setSpriteBatch(batch);
         Mockito.verify(setup).setScreen(controller);

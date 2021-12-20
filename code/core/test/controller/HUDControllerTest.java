@@ -30,7 +30,8 @@ public class HUDControllerTest {
         element1 = Mockito.mock(IHUDElement.class);
         element2 = Mockito.mock(IHUDElement.class);
 
-        when(camera.getPosition()).thenReturn(new Vector3());
+        Vector3 vector3toReturn = new Vector3();
+        when(camera.getPosition()).thenReturn(vector3toReturn);
 
         controller = new HUDController(batch, camera);
     }
@@ -38,13 +39,13 @@ public class HUDControllerTest {
     @Test
     public void test_update() {
         assumeTrue(controller.add(element1));
-        verify(camera).update();
         assumeTrue(controller.add(element2));
-        verify(camera).update();
 
         controller.update();
-        verify(camera, times(2)).update();
+        // verify HUDController constructor logic:
         verify(camera).getPosition();
+        verify(camera, atLeastOnce()).update();
+        // verify update method logic:
         verify(batch).setProjectionMatrix(camera.combined);
         verify(element1).draw(batch);
         verify(element2).draw(batch);
@@ -56,8 +57,10 @@ public class HUDControllerTest {
         assumeTrue(controller.isEmpty());
 
         controller.update();
-        verify(camera, times(2)).update();
+        // verify HUDController constructor logic:
         verify(camera).getPosition();
+        verify(camera, atLeastOnce()).update();
+        // verify update method logic:
         verify(batch).setProjectionMatrix(camera.combined);
         verifyNoMoreInteractions(camera, batch, element1, element2);
     }

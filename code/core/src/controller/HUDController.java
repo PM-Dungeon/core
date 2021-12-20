@@ -25,10 +25,6 @@ public class HUDController extends AbstractController<IHUDElement> {
     public void update() {
         hudCamera.update();
         batch.setProjectionMatrix(hudCamera.combined);
-        drawElements();
-    }
-
-    private void drawElements() {
         forEach(element -> element.draw(batch));
     }
 }
