@@ -123,13 +123,14 @@ public class Level {
      */
     private void graph_search(
             Node currentNode, List<Node> marked, Node goal, List<List<Node>> paths) {
-        marked.add(currentNode);
-        if (currentNode == goal) paths.add(marked);
+        List<Node> myMarked = new ArrayList<>(marked);
+        myMarked.add(currentNode);
+        if (currentNode == goal) paths.add(myMarked);
         else
             for (int child : currentNode.getNeighbours()) {
                 Node childNode = nodes.get(child);
-                if (!marked.contains(childNode))
-                    graph_search(currentNode, new ArrayList<Node>(marked), goal, paths);
+                if (!myMarked.contains(childNode))
+                    graph_search(childNode, new ArrayList<Node>(myMarked), goal, paths);
             }
     }
 }
