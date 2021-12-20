@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit trunk//EN"
-    "http://www.gwtproject.org/doctype/2.8.0/gwt-module.dtd">
+        "http://www.gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module>
     <source path="controller"/>
+    <source path="demo"/>
     <source path="graphic"/>
     <source path="interfaces"/>
     <source path="level"/>
+    <source path="level.elements"/>
+    <source path="level.generator"/>
+    <source path="level.generator.dummy"/>
+    <source path="level.generator.dungeong"/>
+    <source path="level.generator.dungeong.graphg"/>
+    <source path="level.generator.dungeong.levelg"/>
+    <source path="level.generator.dungeong.roomg"/>
+    <source path="level.tools"/>
     <source path="tools"/>
 
     <!--    <inherits name="com.google.gwt.logging.Logging"/>-->
