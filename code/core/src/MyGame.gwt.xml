@@ -7,17 +7,34 @@
     <source path="graphic"/>
     <source path="interfaces"/>
     <source path="level"/>
-    <source path="level.elements"/>
-    <source path="level.generator"/>
-    <source path="level.generator.dummy"/>
-    <source path="level.generator.dungeong"/>
-    <source path="level.generator.dungeong.graphg"/>
-    <source path="level.generator.dungeong.levelg"/>
-    <source path="level.generator.dungeong.roomg"/>
-    <source path="level.tools"/>
     <source path="tools"/>
 
     <inherits name="com.google.gwt.logging.Logging"/>
+
+    <extend-configuration-property name="gdx.reflect.include" value="java.util.List"/>
+
+    <extend-configuration-property name="gdx.reflect.include" value="level.elements.Graph"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.elements.Level"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.elements.Node"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.elements.Room"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.elements.Tile"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.dummy.DummyGenerator"/>
+    <extend-configuration-property name="gdx.reflect.include"
+                                   value="level.generator.dungeong.graphg.CantBePlanarException"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.dungeong.graphg.GraphG"/>
+    <extend-configuration-property name="gdx.reflect.include"
+                                   value="level.generator.dungeong.graphg.NoSolutionException"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.dungeong.levelg.LevelG"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.dungeong.roomg.Replacement"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.dungeong.roomg.ReplacementLoader"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.dungeong.roomg.RoomTemplate"/>
+    <extend-configuration-property name="gdx.reflect.include"
+                                   value="level.generator.dungeong.roomg.RoomTemplateLoader"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.generator.IGenerator"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.LevelAPI"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.tools.DesignLabel"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.tools.LevelElement"/>
+    <extend-configuration-property name="gdx.reflect.include" value="level.tools.TileTextureFactory"/>
 
     <!--	<extend-configuration-property name="gdx.reflect.include" value="de.pmdungeon.dungeonCreator.dungeonconverter.Room" />-->
     <!--	<extend-configuration-property name="gdx.reflect.include" value="de.pmdungeon.dungeonCreator.dungeonconverter.Coordinate" />-->
