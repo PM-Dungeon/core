@@ -31,7 +31,7 @@ public class AbstractControllerTest {
 
     @Test
     public void test_contains() {
-        assertTrue(controller.add(entity2));
+        assumeTrue(controller.add(entity2));
         assertFalse(controller.contains(entity1));
         assertTrue(controller.contains(entity2));
     }
