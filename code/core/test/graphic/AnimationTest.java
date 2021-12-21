@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Animation.class})
 class AnimationTest {
+    // Because of use of PowerMockRunner we need an empty constructor here
     public AnimationTest() {}
 
     @Test(expected = NullPointerException.class)

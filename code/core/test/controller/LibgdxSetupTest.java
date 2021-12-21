@@ -16,6 +16,7 @@ class LibgdxSetupTest {
     SpriteBatch batch;
     LibgdxSetup setup;
 
+    // Because of use of PowerMockRunner we need an empty constructor here
     public LibgdxSetupTest() {}
 
     @Before

@@ -23,6 +23,7 @@ class MainControllerTest {
     SpriteBatch batch;
     int someArbitraryValueGreater0forDelta = 7;
 
+    // Because of use of PowerMockRunner we need an empty constructor here
     public MainControllerTest() {}
 
     @Before

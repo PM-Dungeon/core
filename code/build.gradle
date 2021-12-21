@@ -21,6 +21,8 @@ plugins {
 allprojects {
     apply plugin: "eclipse"
 
+    compileJava.options.compilerArgs += '-ea'
+
     version = '1.0'
     ext {
         appName = "pmdungeon"

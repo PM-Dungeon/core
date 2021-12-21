@@ -8,25 +8,19 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> {
 
     @Override
     public boolean contains(Object o) {
-        if (o == null) {
-            throw new IllegalArgumentException("object should not be null");
-        }
+        assert (o != null);
         return super.contains(o);
     }
 
     @Override
     public boolean add(T t) {
-        if (t == null) {
-            throw new IllegalArgumentException("element should not be null");
-        }
+        assert (t != null);
         return super.add(t);
     }
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            throw new IllegalArgumentException("object should not be null");
-        }
+        assert (o != null);
         return super.remove(o);
     }
 }
