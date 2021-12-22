@@ -1,9 +1,5 @@
 package level.generator.dungeong.graphg;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import level.elements.Graph;
 import level.elements.Node;
 
@@ -85,13 +81,14 @@ public class GraphG {
     }
 
     private List<Graph> readFromJson(String path) {
-        Json json = new Json();
-        List<JsonValue> list = json.fromJson(List.class, Gdx.files.internal(path));
-        List<Graph> graphs = new ArrayList<>();
-        for (JsonValue v : list) {
-            graphs.add(json.readValue(Graph.class, v));
+        Type graphType = new TypeToken<ArrayList<Graph>>() {}.getType();
+        try {
+            JsonReader reader = new JsonReader(new FileReader(path));
+            return new Gson().fromJson(reader, graphType);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return new ArrayList<>();
         }
-        return graphs;
     }
 
     /**
@@ -101,9 +98,14 @@ public class GraphG {
      * @param path where to save
      */
     public void writeToJSON(List<Graph> graphs, String path) {
-        Json json = new Json();
-        String listInJson = json.toJson(graphs);
-        FileHandle file = Gdx.files.local(path);
-        file.writeString(listInJson, false);
+        Gson gson = new Gson();
+        String json = gson.toJson(graphs);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File" + path + " not found");
+        }
     }
 }
