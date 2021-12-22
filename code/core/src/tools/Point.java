@@ -20,4 +20,14 @@ public class Point {
         x = p.x;
         y = p.y;
     }
+
+    /**
+     * Compares to Points
+     *
+     * @param other
+     * @return if booth points have the same x and y value
+     */
+    public boolean equals(Point other) {
+        return x == other.x && y == other.y;
+    }
 }

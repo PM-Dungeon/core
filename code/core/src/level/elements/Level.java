@@ -1,5 +1,7 @@
 package level.elements;
 
+import tools.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -106,6 +108,25 @@ public class Level {
         List<List<Node>> pathWithoutAvoid = new ArrayList<>(allPaths);
         for (List<Node> list : allPaths) if (list.contains(avoid)) pathWithoutAvoid.remove(list);
         return pathWithoutAvoid.size() > 0;
+    }
+
+    public Tile getTileAt(Point globalPoint) {
+        for (Room r : rooms) {
+            for (int y = 0; y < r.getLayout().length; y++)
+                for (int x = 0; x < r.getLayout()[0].length; x++)
+                    if (r.getLayout()[y][x].getGlobalPosition().equals(globalPoint))
+                        return r.getLayout()[y][y];
+        }
+        return null;
+    }
+
+    public Room getRoomToPoint(Point globalPoint) {
+        for (Room r : rooms) {
+            for (int y = 0; y < r.getLayout().length; y++)
+                for (int x = 0; x < r.getLayout()[0].length; x++)
+                    if (r.getLayout()[y][x].getGlobalPosition().equals(globalPoint)) return r;
+        }
+        return null;
     }
 
     // todo mit A*
