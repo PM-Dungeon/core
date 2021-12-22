@@ -72,7 +72,7 @@ project(":html") {
 //        api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion"
 //        api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
 //        api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
-//        api "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
+        api "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
     }
 }
 
@@ -85,7 +85,7 @@ project(":core") {
 //        api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 //        api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
 //        api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-//        api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         // https://mvnrepository.com/artifact/com.google.code.gson/gson
 //        api 'com.google.code.gson:gson:2.8.8'
 
