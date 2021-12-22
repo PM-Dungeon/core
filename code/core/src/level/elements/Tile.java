@@ -11,10 +11,10 @@ import java.util.List;
 
 public class Tile {
 
+    private final Array<Connection<Tile>> connections = new Array<>();
     private String texture;
     private Point globalPosition;
     private LevelElement e;
-    private final Array<Connection<Tile>> connections = new Array<>();
     private int index;
 
     public Tile(String texture, Point globalPosition, LevelElement e) {

@@ -50,8 +50,7 @@ public class RoomTemplateLoader {
     }
 
     private void readFromJson(String path) {
-        Type roomType = new TypeToken<ArrayList<RoomTemplate>>() {
-        }.getType();
+        Type roomType = new TypeToken<ArrayList<RoomTemplate>>() {}.getType();
         JsonReader reader = null;
         try {
             reader = new JsonReader(new FileReader(path));
@@ -71,7 +70,7 @@ public class RoomTemplateLoader {
      * Writes down the list to a json
      *
      * @param templates the list of template to save
-     * @param path      where to save
+     * @param path where to save
      */
     public void writeToJSON(List<RoomTemplate> templates, String path) {
         Gson gson = new Gson();

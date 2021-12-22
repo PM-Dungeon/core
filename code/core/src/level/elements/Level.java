@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Level implements IndexedGraph<Tile> {
+    private final TileHeuristic tileHeuristic = new TileHeuristic();
     private List<Room> rooms;
     private List<Node> nodes;
     private Node startNode;
     private Node endNode;
     private Tile startTile;
     private Tile endTile;
-    private final TileHeuristic tileHeuristic = new TileHeuristic();
     private int nodeCount = 0;
 
     public Level(List<Node> nodes, List<Room> rooms) {
