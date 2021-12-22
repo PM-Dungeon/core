@@ -76,9 +76,7 @@ public class Tile {
             directions.add(Direction.E);
         } else if (globalPosition.x > goal.getGlobalPosition().x) {
             directions.add(Direction.W);
-        }
-
-        else if (globalPosition.y < goal.globalPosition.y) {
+        } else if (globalPosition.y < goal.globalPosition.y) {
             directions.add(Direction.N);
         } else if (globalPosition.y > goal.globalPosition.y) {
             directions.add(Direction.S);

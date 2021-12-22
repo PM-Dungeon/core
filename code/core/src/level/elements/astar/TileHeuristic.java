@@ -4,9 +4,7 @@ import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.math.Vector2;
 import level.elements.Tile;
 
-/**
- * @author Marti Stuwe
- */
+/** @author Marti Stuwe */
 public class TileHeuristic implements Heuristic<Tile> {
 
     /**
@@ -18,6 +16,10 @@ public class TileHeuristic implements Heuristic<Tile> {
      */
     @Override
     public float estimate(Tile start, Tile goal) {
-        return Vector2.dst2(start.getGlobalPosition().x, start.getGlobalPosition().y, goal.getGlobalPosition().x, goal.getGlobalPosition().y);
+        return Vector2.dst2(
+                start.getGlobalPosition().x,
+                start.getGlobalPosition().y,
+                goal.getGlobalPosition().x,
+                goal.getGlobalPosition().y);
     }
 }
