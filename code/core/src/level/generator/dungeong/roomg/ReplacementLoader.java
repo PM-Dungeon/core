@@ -8,6 +8,7 @@ import level.tools.LevelElement;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +110,7 @@ public class ReplacementLoader {
         Gson gson = new Gson();
         String json = gson.toJson(rep);
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path,StandardCharsets.UTF_8));
             writer.write(json);
             writer.close();
         } catch (IOException e) {

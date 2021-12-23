@@ -8,6 +8,7 @@ import level.elements.Node;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -106,7 +107,7 @@ public class GraphG {
         Gson gson = new Gson();
         String json = gson.toJson(graphs);
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
             writer.write(json);
             writer.close();
         } catch (IOException e) {

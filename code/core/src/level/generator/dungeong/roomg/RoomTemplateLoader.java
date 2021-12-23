@@ -7,6 +7,7 @@ import level.tools.DesignLabel;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,8 @@ public class RoomTemplateLoader {
         String json = gson.toJson(templates);
         try {
             System.out.println(templates.size());
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            BufferedWriter writer =
+                    new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
             writer.write(json);
             writer.close();
         } catch (IOException e) {
