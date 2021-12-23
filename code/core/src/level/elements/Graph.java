@@ -6,8 +6,8 @@ import java.util.List;
 /** @author Andre Matutat */
 public class Graph {
 
-    private final int MAX_NODES = 4;
-    private final int MAX_NEIGHBOURS = 2;
+    private static final int MAX_NODES = 4;
+    private static final int MAX_NEIGHBOURS = 2;
     private List<Node> nodes = new ArrayList<>();
 
     /** Create a Graph with two connected nodes. */
