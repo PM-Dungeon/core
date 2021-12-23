@@ -73,7 +73,27 @@ public class Room {
         return layout[y][x];
     }
 
+    /** @return random wall-tile in the room */
+    public Tile getRandomWalTile() {
+        Random r = new Random();
+        Tile[][] layout = getLayout();
+        int x, y;
+        do {
+            y = r.nextInt(layout.length);
+            x = r.nextInt(layout[0].length);
+        } while (layout[y][x].getLevelElement() != LevelElement.WALL);
+        return layout[y][x];
+    }
+
     public DesignLabel getDesign() {
         return design;
+    }
+
+    public Point getReferencePointLocal() {
+        return referencePointLocal;
+    }
+
+    public Point getReferencePointGlobal() {
+        return referencePointGlobal;
     }
 }

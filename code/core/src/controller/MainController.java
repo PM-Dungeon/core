@@ -72,7 +72,12 @@ public class MainController extends ScreenAdapter {
         hudCamera = new HUDCamera();
         hud = new HUDController(hudBatch, hudCamera);
         if (Constants.USE_DUMMY_GENERATOR) generator = new DummyGenerator();
-        else generator = new LevelG();
+        else
+            generator =
+                    new LevelG(
+                            Constants.PATH_TO_ROOMLAYOUTS,
+                            Constants.PATH_TO_REPLACEMENTS,
+                            Constants.PATH_TO_GRAPH);
         levelAPI = new LevelAPI(batch, painter, generator);
         setup();
     }

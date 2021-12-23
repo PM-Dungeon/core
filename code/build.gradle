@@ -66,7 +66,8 @@ project(":core") {
 //        api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 //        api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
 //        api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-//        api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        api 'com.google.code.gson:gson:2.8.8'
 
         // JUnit 4, Mockito and Powermock for testing:
 

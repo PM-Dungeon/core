@@ -1,11 +1,12 @@
 package level.generator.dungeong.roomg;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import level.tools.DesignLabel;
 
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,9 +50,20 @@ public class RoomTemplateLoader {
     }
 
     private void readFromJson(String path) {
-        Json json = new Json();
-        List<JsonValue> list = json.fromJson(List.class, Gdx.files.internal(path));
-        for (JsonValue v : list) roomTemplates.add(json.readValue(RoomTemplate.class, v));
+        Type roomType = new TypeToken<ArrayList<RoomTemplate>>() {}.getType();
+        JsonReader reader = null;
+        try {
+            reader = new JsonReader(new FileReader(path));
+            roomTemplates = new Gson().fromJson(reader, roomType);
+            if (roomTemplates == null) throw new NullPointerException("File is empty");
+        } catch (FileNotFoundException | NullPointerException e) {
+            System.out.println("No Rooms to load in " + path);
+            roomTemplates = new ArrayList<>();
+        } catch (Exception e) {
+            System.out.println("File Corrupted or other error");
+            e.printStackTrace();
+            roomTemplates = new ArrayList<>();
+        }
     }
 
     /**
@@ -61,9 +73,15 @@ public class RoomTemplateLoader {
      * @param path where to save
      */
     public void writeToJSON(List<RoomTemplate> templates, String path) {
-        Json json = new Json();
-        String listInJson = json.toJson(templates);
-        FileHandle file = Gdx.files.local(path);
-        file.writeString(listInJson, false);
+        Gson gson = new Gson();
+        String json = gson.toJson(templates);
+        try {
+            System.out.println(templates.size());
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File" + path + " not found");
+        }
     }
 }
