@@ -54,14 +54,15 @@ public class RoomTemplateLoader {
         Type roomType = new TypeToken<ArrayList<RoomTemplate>>() {}.getType();
         JsonReader reader = null;
         try {
-            reader = new JsonReader(new FileReader(path));
+            reader = new JsonReader(new FileReader(path, StandardCharsets.UTF_8));
             roomTemplates = new Gson().fromJson(reader, roomType);
             if (roomTemplates == null) throw new NullPointerException("File is empty");
-        } catch (FileNotFoundException | NullPointerException e) {
-            System.out.println("No Rooms to load in " + path);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
             roomTemplates = new ArrayList<>();
-        } catch (Exception e) {
-            System.out.println("File Corrupted or other error");
+        } catch (IOException e) {
+            System.out.println("File may be corrupted ");
             e.printStackTrace();
             roomTemplates = new ArrayList<>();
         }

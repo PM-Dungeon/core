@@ -89,10 +89,15 @@ public class GraphG {
     private List<Graph> readFromJson(String path) {
         Type graphType = new TypeToken<ArrayList<Graph>>() {}.getType();
         try {
-            JsonReader reader = new JsonReader(new FileReader(path));
+            JsonReader reader = new JsonReader(new FileReader(path, StandardCharsets.UTF_8));
             return new Gson().fromJson(reader, graphType);
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
+            e.printStackTrace();
+            return new ArrayList<>();
+        } catch (IOException e) {
+            System.out.println("File may be corrupted ");
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -107,7 +112,8 @@ public class GraphG {
         Gson gson = new Gson();
         String json = gson.toJson(graphs);
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
+            BufferedWriter writer =
+                    new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
             writer.write(json);
             writer.close();
         } catch (IOException e) {

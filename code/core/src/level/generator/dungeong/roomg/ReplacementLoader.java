@@ -74,7 +74,7 @@ public class ReplacementLoader {
         Type replacementType = new TypeToken<ArrayList<Replacement>>() {}.getType();
         JsonReader reader = null;
         try {
-            reader = new JsonReader(new FileReader(path));
+            reader = new JsonReader(new FileReader(path, StandardCharsets.UTF_8));
             replacements = new Gson().fromJson(reader, replacementType);
             if (replacements == null) throw new NullPointerException("File is empty");
             // add all rotations to list
@@ -90,13 +90,12 @@ public class ReplacementLoader {
                 }
             }
 
-        } catch (FileNotFoundException | NullPointerException e) {
-            System.out.println("No Replacements to load in " + path);
-            replacements = new ArrayList<>();
-        } catch (Exception e) {
-            System.out.println("File Corrupted or other error");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
             e.printStackTrace();
-            replacements = new ArrayList<>();
+        } catch (IOException e) {
+            System.out.println("File may be corrupted ");
+            e.printStackTrace();
         }
     }
 
@@ -110,7 +109,8 @@ public class ReplacementLoader {
         Gson gson = new Gson();
         String json = gson.toJson(rep);
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path,StandardCharsets.UTF_8));
+            BufferedWriter writer =
+                    new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
             writer.write(json);
             writer.close();
         } catch (IOException e) {
