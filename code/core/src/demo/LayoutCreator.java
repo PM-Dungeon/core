@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class LayoutCreator {
     public static void main(String[] args) {
 
-        Graph g = new GraphG().getGraph(13,5,Constants.PATH_TO_GRAPH);
+        Graph g = new GraphG().getGraph(13, 5, Constants.PATH_TO_GRAPH);
         System.out.println(g.toDot());
 
         ArrayList<Replacement> templates = new ArrayList<>();
