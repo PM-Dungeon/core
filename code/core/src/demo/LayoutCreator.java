@@ -1,31 +1,70 @@
 package demo;
 
-import level.generator.dungeong.roomg.RoomTemplate;
-import level.generator.dungeong.roomg.RoomTemplateLoader;
+import level.generator.dungeong.roomg.Replacement;
+import level.generator.dungeong.roomg.ReplacementLoader;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
-import tools.Point;
+import tools.Constants;
 
 import java.util.ArrayList;
 
 public class LayoutCreator {
     public static void main(String[] args) {
 
-        ArrayList<RoomTemplate> templates = new ArrayList<>();
+        ArrayList<Replacement> templates = new ArrayList<>();
+        ReplacementLoader loader = new ReplacementLoader(Constants.PATH_TO_REPLACEMENTS);
 
-        LevelElement[][] kreislayout = {
+        LevelElement[][] layout1 = {
+            {LevelElement.FLOOR, LevelElement.WILD, LevelElement.FLOOR},
+            {LevelElement.WILD, LevelElement.WILD, LevelElement.WILD},
+            {LevelElement.FLOOR, LevelElement.WILD, LevelElement.FLOOR}
+        };
+
+        LevelElement[][] layout2 = {
+            {LevelElement.FLOOR, LevelElement.FLOOR}, {LevelElement.FLOOR, LevelElement.FLOOR}
+        };
+
+        LevelElement[][] layout3 = {
             {
                 LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
+                LevelElement.SKIP,
+                LevelElement.SKIP,
+                LevelElement.SKIP
+            },
+            {
+                LevelElement.SKIP,
                 LevelElement.WALL,
+                LevelElement.FLOOR,
                 LevelElement.WALL,
+                LevelElement.FLOOR,
                 LevelElement.WALL,
+                LevelElement.SKIP
+            },
+            {
+                LevelElement.SKIP,
                 LevelElement.WALL,
+                LevelElement.FLOOR,
                 LevelElement.WALL,
+                LevelElement.FLOOR,
                 LevelElement.WALL,
+                LevelElement.SKIP
+            },
+            {
+                LevelElement.SKIP,
                 LevelElement.WALL,
+                LevelElement.FLOOR,
+                LevelElement.WALL,
+                LevelElement.FLOOR,
+                LevelElement.WALL,
+                LevelElement.SKIP
+            },
+            {
+                LevelElement.SKIP,
+                LevelElement.SKIP,
+                LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
@@ -34,221 +73,9 @@ public class LayoutCreator {
             {
                 LevelElement.SKIP,
                 LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.WALL,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
-                LevelElement.SKIP
-            },
-            {
                 LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.SKIP
-            },
-            {
-                LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.SKIP
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.SKIP
-            },
-            {
-                LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.SKIP
-            },
-            {
-                LevelElement.SKIP,
-                LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
                 LevelElement.SKIP,
                 LevelElement.SKIP
             },
@@ -256,219 +83,20 @@ public class LayoutCreator {
                 LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
-                LevelElement.SKIP,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP,
                 LevelElement.SKIP
             }
         };
-        Point localRef = new Point(7, 7);
-        RoomTemplate kreis = new RoomTemplate(kreislayout, DesignLabel.ALL, localRef);
 
-        LevelElement[][] squareLayout = {
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL
-            }
-        };
-        Point squareRef = new Point(4, 4);
-        RoomTemplate square = new RoomTemplate(squareLayout, DesignLabel.ALL, squareRef);
-        templates.add(square);
-        templates.add(kreis);
+        Replacement r1 = new Replacement(layout1, true, DesignLabel.ALL);
+        Replacement r2 = new Replacement(layout2, true, DesignLabel.ALL);
+        Replacement r3 = new Replacement(layout3, true, DesignLabel.ALL);
 
-        LevelElement[][] bigFloor = {
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.WILD,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL
-            }
-        };
-        Point bigFloorRef = new Point(5, 3);
-        RoomTemplate bigFloorRoome = new RoomTemplate(bigFloor, DesignLabel.ALL, bigFloorRef);
-        templates.add(bigFloorRoome);
-
-        LevelElement[][] floorL = {
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.FLOOR,
-                LevelElement.WALL
-            },
-            {
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL,
-                LevelElement.WALL
-            }
-        };
-        Point floorP = new Point(7, 1);
-        RoomTemplate floor = new RoomTemplate(floorL, DesignLabel.ALL, floorP);
-        templates.add(floor);
-
-        RoomTemplateLoader loader = new RoomTemplateLoader("roomTemplates.json");
-        loader.writeToJSON(templates, "roomTemplates.json");
+        templates.add(r1);
+        templates.add(r2);
+        templates.add(r3);
+        loader.writeToJSON(templates, Constants.PATH_TO_REPLACEMENTS);
     }
 }

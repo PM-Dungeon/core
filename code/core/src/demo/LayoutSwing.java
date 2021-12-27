@@ -8,8 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LayoutSwing extends JFrame {
-    int y = 5;
-    int x = 10;
+    int y = 7;
+    int x = 7;
     JButton[][] buttons = new JButton[y][x];
     GridLayout grid = new GridLayout(y, x);
     JPanel p = new JPanel();

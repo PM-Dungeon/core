@@ -21,5 +21,5 @@ public final class Constants {
 
     public static String PATH_TO_GRAPH = "";
     public static String PATH_TO_ROOMLAYOUTS = "core/assets/level/roomTemplates.json";
-    public static String PATH_TO_REPLACEMENTS = "";
+    public static String PATH_TO_REPLACEMENTS = "core/assets/level/replacements.json";
 }
