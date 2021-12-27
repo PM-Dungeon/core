@@ -35,7 +35,7 @@ public class Replacement {
     }
 
     private LevelElement[][] copyLayout(LevelElement[][] toCopy) {
-        LevelElement[][] copy = new LevelElement[layout.length][layout[0].length];
+        LevelElement[][] copy = new LevelElement[toCopy.length][toCopy[0].length];
         for (int y = 0; y < toCopy.length; y++)
             for (int x = 0; x < toCopy[0].length; x++) {
                 copy[y][x] = toCopy[y][x];

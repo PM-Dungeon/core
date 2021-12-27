@@ -44,7 +44,7 @@ public class RoomTemplate {
      * @param replacements list of replacements
      * @return the created room
      */
-    public Room replace(final List<Replacement> replacements, Point globalRef) {
+    public Room replace(final List<Replacement> replacements, Point globalRef, DesignLabel design) {
         int layoutHeight = layout.length;
         int layoutWidth = layout[0].length;
         LevelElement[][] roomLayout = new LevelElement[layoutHeight][layoutWidth];
@@ -80,7 +80,13 @@ public class RoomTemplate {
                 if (roomLayout[y][x] == LevelElement.WILDCARD)
                     roomLayout[y][x] = LevelElement.FLOOR;
 
-        return new Room(roomLayout, getDesign(), localRef, globalRef);
+        return new Room(roomLayout, design, localRef, globalRef);
+    }
+
+    public Room replace(final List<Replacement> replacements, Point globalRef) {
+        DesignLabel design = getDesign();
+        if (design == DesignLabel.ALL) design = DesignLabel.DEFAULT;
+        return replace(replacements, globalRef, design);
     }
 
     /**
@@ -135,7 +141,7 @@ public class RoomTemplate {
     }
 
     private LevelElement[][] copyLayout(LevelElement[][] toCopy) {
-        LevelElement[][] copy = new LevelElement[layout.length][layout[0].length];
+        LevelElement[][] copy = new LevelElement[toCopy.length][toCopy[0].length];
         for (int y = 0; y < toCopy.length; y++)
             for (int x = 0; x < toCopy[0].length; x++) {
                 copy[y][x] = toCopy[y][x];
@@ -145,5 +151,9 @@ public class RoomTemplate {
 
     public DesignLabel getDesign() {
         return design;
+    }
+
+    public void setDesign(DesignLabel label) {
+        design = label;
     }
 }

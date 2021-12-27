@@ -34,12 +34,13 @@ public class ReplacementLoader {
     /**
      * Returns a list of Replacements that have the corresponding DesignLabel
      *
-     * @param l the DesignLabel, use ALL if you don't care
+     * @param label the DesignLabel, use ALL if you don't care
      * @return the list
      */
-    public List<Replacement> getReplacements(DesignLabel l) {
+    public List<Replacement> getReplacements(DesignLabel label) {
         List<Replacement> results = new ArrayList<>(replacements);
-        if (l != DesignLabel.ALL) results.removeIf(r -> r.getDesign() != l);
+        if (label != DesignLabel.ALL)
+            results.removeIf(r -> r.getDesign() != label && r.getDesign() != DesignLabel.ALL);
         return results;
     }
 
