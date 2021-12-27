@@ -19,7 +19,7 @@ public final class Constants {
 
     public static final boolean USE_DUMMY_GENERATOR = true;
 
-    public static String PATH_TO_GRAPH = "";
-    public static String PATH_TO_ROOMLAYOUTS = "core/assets/level/roomTemplates.json";
-    public static String PATH_TO_REPLACEMENTS = "core/assets/level/replacements.json";
+    public static final String PATH_TO_GRAPH = "core/assets/level/graphs";
+    public static final String PATH_TO_ROOMLAYOUTS = "core/assets/level/roomTemplates.json";
+    public static final String PATH_TO_REPLACEMENTS = "core/assets/level/replacements.json";
 }

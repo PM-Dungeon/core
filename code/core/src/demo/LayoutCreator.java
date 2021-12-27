@@ -1,5 +1,7 @@
 package demo;
 
+import level.elements.Graph;
+import level.generator.dungeong.graphg.GraphG;
 import level.generator.dungeong.roomg.Replacement;
 import level.generator.dungeong.roomg.ReplacementLoader;
 import level.tools.DesignLabel;
@@ -10,6 +12,9 @@ import java.util.ArrayList;
 
 public class LayoutCreator {
     public static void main(String[] args) {
+
+        Graph g = new GraphG().getGraph(13,5,Constants.PATH_TO_GRAPH);
+        System.out.println(g.toDot());
 
         ArrayList<Replacement> templates = new ArrayList<>();
         ReplacementLoader loader = new ReplacementLoader(Constants.PATH_TO_REPLACEMENTS);
