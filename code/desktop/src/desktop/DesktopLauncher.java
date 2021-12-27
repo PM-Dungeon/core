@@ -20,4 +20,3 @@ public final class DesktopLauncher {
         DesktopLauncher.run(new MyController());
     }
 }
-

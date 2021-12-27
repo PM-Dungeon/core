@@ -7,7 +7,7 @@ public class TileTextureFactory {
     public static String findTexture(
             LevelElement e, DesignLabel l, LevelElement[][] layout, Point p) {
         String path = l.name() + "/";
-        if (e == LevelElement.SKIP) path+="floor/empty";
+        if (e == LevelElement.SKIP) path += "floor/empty";
         else if (e == LevelElement.FLOOR) path += "floor/floor_1";
         else if (e == LevelElement.EXIT) path += "floor/floor_ladder";
 

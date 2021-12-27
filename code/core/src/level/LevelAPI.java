@@ -6,6 +6,7 @@ import level.elements.Level;
 import level.elements.Room;
 import level.elements.Tile;
 import level.generator.IGenerator;
+import level.tools.LevelElement;
 
 public class LevelAPI {
     private Level currentLevel;
@@ -37,7 +38,8 @@ public class LevelAPI {
             for (int y = 0; y < r.getLayout().length; y++)
                 for (int x = 0; x < r.getLayout()[0].length; x++) {
                     Tile t = r.getLayout()[y][x];
-                    painter.draw(t.getTexture(), t.getGlobalPosition(), batch);
+                    if (t.getLevelElement() != LevelElement.SKIP)
+                        painter.draw(t.getTexture(), t.getGlobalPosition(), batch);
                 }
     }
 }

@@ -64,9 +64,9 @@ public class DummyGenerator implements IGenerator {
         // setEnd
         layoutRoom1[3][3] = LevelElement.EXIT;
 
-        Room room1 = new Room(layoutRoom1, DesignLabel.ICE, r1local, r1global);
-        Room room2 = new Room(layoutRoom2, DesignLabel.ICE, r2local, r2global);
-        Room room3 = new Room(layoutRoom3, DesignLabel.ICE, r3local, r3global);
+        Room room1 = new Room(layoutRoom1, DesignLabel.DEFAULT, r1local, r1global);
+        Room room2 = new Room(layoutRoom2, DesignLabel.DEFAULT, r2local, r2global);
+        Room room3 = new Room(layoutRoom3, DesignLabel.DEFAULT, r3local, r3global);
         List<Room> roomlist = new ArrayList<>();
         roomlist.add(room1);
         roomlist.add(room2);

@@ -69,16 +69,15 @@ public class RoomTemplate {
                 int rWidth = r.getLayout()[0].length;
                 for (int y = 0; y < layoutHeight - rHeight; y++)
                     for (int x = 0; x < layoutWidth - rWidth; x++)
-                        if (roomLayout[y][x] == LevelElement.WILDCARD
-                                && placeIn(roomLayout, r, x, y)) changes = true;
+                        if (roomLayout[y][x] == LevelElement.WILD && placeIn(roomLayout, r, x, y))
+                            changes = true;
             }
         } while (changes);
 
         // replace all placeholder that are left with floor
         for (int y = 0; y < layoutHeight; y++)
             for (int x = 0; x < layoutWidth; x++)
-                if (roomLayout[y][x] == LevelElement.WILDCARD)
-                    roomLayout[y][x] = LevelElement.FLOOR;
+                if (roomLayout[y][x] == LevelElement.WILD) roomLayout[y][x] = LevelElement.FLOOR;
 
         return new Room(roomLayout, design, localRef, globalRef);
     }
@@ -126,7 +125,7 @@ public class RoomTemplate {
         for (int y = yCor; y < yCor + rlayout.length; y++)
             for (int x = xCor; x < xCor + rlayout[0].length; x++) {
                 if (rlayout[y - yCor][x - xCor] != LevelElement.SKIP
-                        && layout[y][x] != LevelElement.WILDCARD) return false;
+                        && layout[y][x] != LevelElement.WILD) return false;
             }
         return true;
     }
