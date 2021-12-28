@@ -7,12 +7,24 @@ import tools.Point;
 
 import java.util.Random;
 
+/**
+ * A Room is a collection of tiles and has a position in the global system.
+ *
+ * @author Andre Matutat
+ */
 public class Room {
     private Tile[][] layout;
     private DesignLabel design;
     private Point referencePointGlobal;
     private Point referencePointLocal;
 
+    /**
+     *
+     * @param layout List of tiles that defines the layout of the room.
+     * @param label The design of the room.
+     * @param referencePointLocal A point in the room to place it in the level.
+     * @param referencePointGlobal The position of the local reference point in the global system.
+     */
     public Room(
             LevelElement[][] layout,
             DesignLabel label,
@@ -30,10 +42,16 @@ public class Room {
         convertLayout(layout);
     }
 
+    /**
+     * Conerts the list of LevelElements in a list of tiles.
+     * @param toConvert The list to convert.
+     */
     private void convertLayout(LevelElement[][] toConvert) {
+        //calculate difference between global and local coordinates
         float difx = referencePointGlobal.x - referencePointLocal.x;
         float dify = referencePointGlobal.y - referencePointLocal.y;
 
+        //concert LevelElement into Tile
         for (int y = 0; y < toConvert.length; y++)
             for (int x = 0; x < toConvert[0].length; x++) {
                 Point p = new Point(x, y);
@@ -43,15 +61,27 @@ public class Room {
             }
     }
 
+    /**
+     *
+     * @return A copy of the layout.
+     */
     public Tile[][] getLayout() {
-        // copy of the layout
         return copyLayout(layout);
     }
 
+    /**
+     * Set the layout of the room.
+     * @param layout The new layout.
+     */
     public void setLayout(Tile[][] layout) {
         this.layout = copyLayout(layout);
     }
 
+    /**
+     * Copys an layout.
+     * @param toCopy Layout to copy.
+     * @return The copy.
+     */
     private Tile[][] copyLayout(Tile[][] toCopy) {
         Tile[][] copy = new Tile[layout.length][layout[0].length];
         for (int y = 0; y < toCopy.length; y++)
@@ -61,7 +91,7 @@ public class Room {
         return copy;
     }
 
-    /** @return random floor-tile in the room */
+    /** @return Random floor-tile in the room.*/
     public Tile getRandomFloorTile() {
         Random r = new Random();
         Tile[][] layout = getLayout();
@@ -73,7 +103,7 @@ public class Room {
         return layout[y][x];
     }
 
-    /** @return random wall-tile in the room */
+    /** @return Random wall-tile in the room. */
     public Tile getRandomWalTile() {
         Random r = new Random();
         Tile[][] layout = getLayout();

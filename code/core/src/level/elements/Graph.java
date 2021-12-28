@@ -21,13 +21,13 @@ public class Graph {
     }
 
     /**
-     * copy graph
+     * Copy the graph.
      *
-     * @param g
+     * @param graph The copy.
      */
-    public Graph(Graph g) {
-        g.getNodes().forEach(n -> nodes.add(new Node(n)));
-        for (Node n : g.getNodes()) {
+    public Graph(Graph graph) {
+        graph.getNodes().forEach(n -> nodes.add(new Node(n)));
+        for (Node n : graph.getNodes()) {
             for (Integer nb : n.getNeighbours()) {
                 Node n1 = nodes.get(n.getIndex());
                 n1.connect(nodes.get(nb));
@@ -36,10 +36,10 @@ public class Graph {
     }
 
     /**
-     * Try to connect a existing node with a new node
+     * Try to connect a existing node with a new node.
      *
-     * @param index index of the node the new node should be connect with
-     * @return true if connection was successfully
+     * @param index Index of the node the new node should be connect with.
+     * @return true If connection was successfully.
      */
     public boolean connectNewNode(int index) {
         Node n = nodes.get(index);
@@ -53,11 +53,11 @@ public class Graph {
     }
 
     /**
-     * Try to connect two existing nodes with eachother
+     * Try to connect two existing nodes with eachother.
      *
-     * @param index1 index of the first node
-     * @param index2 index of the second node
-     * @return true if connection was successfully
+     * @param index1 Index of the first node.
+     * @param index2 Index of the second node.
+     * @return true If connection was successfully.
      */
     public boolean connectNodes(int index1, int index2) {
         Node n1 = nodes.get(index1);
@@ -70,22 +70,32 @@ public class Graph {
         } else return false;
     }
 
-    private boolean canConnect(Node n) {
+    /**
+     * @param node
+     * @return Can you connect a new node on this one without breaking the theorem?
+     */
+    private boolean canConnect(Node node) {
         List<Node> manyNeighbour = new ArrayList<>(nodes);
         manyNeighbour.removeIf(node -> node.getNeighbours().size() <= MAX_NEIGHBOURS);
         if (manyNeighbour.size() <= MAX_NODES
-                || manyNeighbour.contains(n)
-                || n.getNeighbours().size() + 1 <= MAX_NEIGHBOURS) return true;
+                || manyNeighbour.contains(node)
+                || node.getNeighbours().size() + 1 <= MAX_NEIGHBOURS) return true;
         else return false;
     }
 
-    private boolean canConnect(Node n1, Node n2) {
+    /**
+     *
+     * @param node1
+     * @param node2
+     * @return Can you connect this two nodes without breaking the theorem?
+     */
+    private boolean canConnect(Node node1, Node node2) {
         List<Node> manyNeighbour = new ArrayList<>(nodes);
         manyNeighbour.removeIf(node -> node.getNeighbours().size() <= MAX_NEIGHBOURS);
         boolean addN1 =
-                (n1.getNeighbours().size() >= MAX_NEIGHBOURS && !manyNeighbour.contains(n1));
+                (node1.getNeighbours().size() >= MAX_NEIGHBOURS && !manyNeighbour.contains(node1));
         boolean addN2 =
-                (n2.getNeighbours().size() >= MAX_NEIGHBOURS && !manyNeighbour.contains(n2));
+                (node2.getNeighbours().size() >= MAX_NEIGHBOURS && !manyNeighbour.contains(node2));
 
         return (manyNeighbour.size() + (addN1 ? 1 : 0) + (addN2 ? 1 : 0) < MAX_NODES);
     }
@@ -94,6 +104,10 @@ public class Graph {
         return nodes;
     }
 
+    /**
+     *
+     * @return The graph in dot-notation.
+     */
     public String toDot() {
         String dot = "digraph G {\nedge [dir=none]\n";
         for (Node n : nodes) dot += n.toDot();

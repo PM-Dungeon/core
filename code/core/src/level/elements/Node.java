@@ -3,31 +3,38 @@ package level.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author Andre Matutat */
+/**
+ * A node in a graph.
+ * @author Andre Matutat
+ **/
 public class Node {
     private List<Integer> neighbours = new ArrayList<>();
     private int index;
 
+    /**
+     * Creates a new node.
+     * @param index The index of the node in the list of nodes of the graph it belongs to.
+     */
     public Node(int index) {
         this.index = index;
     }
 
     /**
-     * copy node
-     *
-     * @return
+     * Copy a node without the neighnours.
+     * @param toCopy The node to copy.
+     * @return The copy.
      */
-    public Node(Node n) {
-        this.setIndex(n.getIndex());
+    public Node(Node toCopy) {
+        this.setIndex(toCopy.getIndex());
     }
 
     /**
-     * Add this node as neighbour
+     * Add a new neighbour.
      *
-     * @param n
+     * @param neighbour The neighbour
      */
-    public void connect(Node n) {
-        neighbours.add(n.index);
+    public void connect(Node neighbour) {
+        neighbours.add(neighbour.index);
     }
 
     /**
@@ -48,7 +55,7 @@ public class Node {
     /**
      * If two nodes have the same index, they are a copy of another
      *
-     * @return
+     * @return The index of the node
      */
     public int getIndex() {
         return index;
@@ -57,15 +64,18 @@ public class Node {
     /**
      * If two nodes have the same index, they are a copy of another Sets the index.
      *
-     * @param i
+     * @param index The index
      */
-    public void setIndex(int i) {
-        index = i;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
+    /**
+     * @return This node and his edges in dot-notation. Only prints edges with nodes that have a bigger index than this node.
+     */
     public String toDot() {
         String dot = "";
-        for (Integer n : getNeighbours()) if (getIndex() < n) dot += getIndex() + "->" + n + "\n";
+        for (Integer node : getNeighbours()) if (getIndex() < node) dot += getIndex() + "->" + node + "\n";
         return dot;
     }
 }

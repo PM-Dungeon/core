@@ -8,7 +8,10 @@ import tools.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author Andre Matutat */
+/**
+ * A RoomTemplate is a blueprint for a room.
+ * @author Andre Matutat
+ * */
 public class RoomTemplate {
     private LevelElement[][] layout;
     private DesignLabel design;
@@ -17,8 +20,8 @@ public class RoomTemplate {
     /**
      * A RoomTemplate can be used to create a room.
      *
-     * @param layout the layout of the room
-     * @param label the DesignLabel of the room
+     * @param layout The layout of the room.
+     * @param label The DesignLabel of the room.
      */
     public RoomTemplate(LevelElement[][] layout, DesignLabel label, Point localRef) {
         setLayout(layout);
@@ -27,9 +30,10 @@ public class RoomTemplate {
     }
 
     /**
-     * copy a room
+     * Copy a roomTemplate.
      *
-     * @param r original room
+     * @param r Original template.
+     *
      */
     public RoomTemplate(RoomTemplate r) {
         layout = new LevelElement[r.getLayout()[0].length][r.getLayout().length];
@@ -39,9 +43,11 @@ public class RoomTemplate {
     }
 
     /**
-     * Replace all placeholder with the replacements in the list
+     * Replace all placeholder with the replacements in the list.
      *
-     * @param replacements list of replacements
+     * @param replacements List of replacements
+     * @param globalRef Where is this localRef positioned in the global system?
+     * @param design Design of the room.
      * @return the created room
      */
     public Room replace(final List<Replacement> replacements, Point globalRef, DesignLabel design) {
@@ -82,6 +88,13 @@ public class RoomTemplate {
         return new Room(roomLayout, design, localRef, globalRef);
     }
 
+    /**
+     * Replace all placeholder with the replacements in the list.
+     *
+     * @param replacements List of replacements
+     * @param globalRef Where is this localRef positioned in the global system?
+     * @return the created room
+     */
     public Room replace(final List<Replacement> replacements, Point globalRef) {
         DesignLabel design = getDesign();
         if (design == DesignLabel.ALL) design = DesignLabel.DEFAULT;
@@ -89,13 +102,13 @@ public class RoomTemplate {
     }
 
     /**
-     * Replace a specific spot in the layout
+     * Replace a specific spot in the layout.
      *
-     * @param layout layout to replace in
-     * @param r the replacement
-     * @param xCor place the left upper corner of the replacement on this x
+     * @param layout Layout to replace in
+     * @param r The replacement
+     * @param xCor Place the left upper corner of the replacement on this x
      * @param yCor place the left upper corner of the replacement on this y
-     * @return if replacement was done
+     * @return If replacement was done
      */
     private boolean placeIn(
             final LevelElement[][] layout, final Replacement r, int xCor, int yCor) {
@@ -112,13 +125,13 @@ public class RoomTemplate {
     }
 
     /**
-     * Check if a replacement fit in a specific spot on the layout
+     * Check if a replacement fit in a specific spot on the layout.
      *
-     * @param layout layout to replace in
-     * @param r the replacement
-     * @param xCor place the left upper corner of the replacement on this x
-     * @param yCor place the left upper corner of the replacement on this y
-     * @return if replacement can be done
+     * @param layout Layout to replace in.
+     * @param r The replacement.
+     * @param xCor Place the left upper corner of the replacement on this x.
+     * @param yCor Place the left upper corner of the replacement on this y.
+     * @return If replacement can be done.
      */
     private boolean canReplaceIn(LevelElement[][] layout, final Replacement r, int xCor, int yCor) {
         LevelElement[][] rlayout = r.getLayout();

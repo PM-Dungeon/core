@@ -13,16 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * loads and stores replacements from a jsons
+ * Loads and stores replacements from a .json.
  *
  * @author Andre Matutat
  */
 public class ReplacementLoader {
     private List<Replacement> replacements = new ArrayList<>();
-    ;
 
     /**
-     * Creates a ReplacementLoader and loads the replacements from the json. if the json is empty,
+     * Creates a ReplacementLoader and loads the replacements from the json. if the .json is empty,
      * the list is empty
      *
      * @param path path to json
@@ -32,10 +31,10 @@ public class ReplacementLoader {
     }
 
     /**
-     * Returns a list of Replacements that have the corresponding DesignLabel
+     * Returns a list of Replacements that have the corresponding DesignLabel.
      *
-     * @param label the DesignLabel, use ALL if you don't care
-     * @return the list
+     * @param label The DesignLabel, use ALL if you don't care.
+     * @return The list with replacments.
      */
     public List<Replacement> getReplacements(DesignLabel label) {
         List<Replacement> results = new ArrayList<>(replacements);
@@ -45,11 +44,11 @@ public class ReplacementLoader {
     }
 
     /**
-     * rotate the layout of the given replacement in 90 degree and create a new replacement with the
+     * Rotate the layout of the given replacement in 90 degree and create a new replacement with the
      * rotated layout
      *
-     * @param r the Replacement that holds the layout to rotate
-     * @return new Replacement with rotated layout
+     * @param r The Replacement that holds the layout to rotate
+     * @return New Replacement with rotated layout
      */
     private Replacement rotate90(final Replacement r) {
         LevelElement[][] originalLayout = r.getLayout();
@@ -63,14 +62,18 @@ public class ReplacementLoader {
     }
 
     /**
-     * adds a replacement to the list
+     * Adds a replacement to the list.
      *
-     * @param r the replacement to add
+     * @param r The replacement to add.
      */
     public void addReplacement(Replacement r) {
         if (!replacements.contains(r)) replacements.add(r);
     }
 
+    /**
+     * Read in replacments from a .json. Rotates them if necassary.
+     * @param path Path to .json.
+     */
     private void readFromJson(String path) {
         Type replacementType = new TypeToken<ArrayList<Replacement>>() {}.getType();
         JsonReader reader = null;
@@ -101,10 +104,10 @@ public class ReplacementLoader {
     }
 
     /**
-     * Writes down the list to a json
+     * Writes down a list of replacments to a .json.
      *
-     * @param rep the list of replacements to save
-     * @param path where to save
+     * @param rep The list of replacements to save.
+     * @param path Where to save?
      */
     public void writeToJSON(List<Replacement> rep, String path) {
         Gson gson = new Gson();

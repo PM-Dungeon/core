@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * loads and stores roomtemplates from a json
+ * Loads and stores roomtemplates from a .json.
  *
  * @author Andre Matutat
  */
@@ -20,20 +20,20 @@ public class RoomTemplateLoader {
     private List<RoomTemplate> roomTemplates = new ArrayList<>();
 
     /**
-     * Creates a RoomTemplateLoader and loads the template from the json. if the json is empty, the
-     * list is empty
+     * Creates a RoomTemplateLoader and loads the template from the json. If the .json is empty, the
+     * list is empty.
      *
-     * @param path path to json
+     * @param path Path to .json.
      */
     public RoomTemplateLoader(String path) {
         this.readFromJson(path);
     }
 
     /**
-     * Returns a list of RoomTemplates that have the corresponding DesignLabel
+     * Returns a list of RoomTemplates that have the corresponding DesignLabel.
      *
-     * @param label the DesignLabel, use ALL if you don't care
-     * @return the list
+     * @param label The DesignLabel, use ALL if you don't care.
+     * @return The list.
      */
     public List<RoomTemplate> getRoomTemplates(DesignLabel label) {
         List<RoomTemplate> results = new ArrayList<>(roomTemplates);
@@ -43,14 +43,18 @@ public class RoomTemplateLoader {
     }
 
     /**
-     * adds a template to the list
+     * Adds a template to the list.
      *
-     * @param template the template to add
+     * @param Template the template to add.
      */
     public void addRoomTemplate(RoomTemplate template) {
         if (!roomTemplates.contains(template)) roomTemplates.add(template);
     }
 
+    /**
+     * Read in a .json with RoomTemplates.
+     * @param path Path to .json.
+     */
     private void readFromJson(String path) {
         Type roomType = new TypeToken<ArrayList<RoomTemplate>>() {}.getType();
         JsonReader reader = null;
@@ -70,10 +74,10 @@ public class RoomTemplateLoader {
     }
 
     /**
-     * Writes down the list to a json
+     * Writes down the list to a .json.
      *
-     * @param templates the list of template to save
-     * @param path where to save
+     * @param templates The list of template to save.
+     * @param path Where to save?
      */
     public void writeToJSON(List<RoomTemplate> templates, String path) {
         Gson gson = new Gson();

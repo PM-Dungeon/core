@@ -9,6 +9,11 @@ import tools.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Tile is a field of the level.
+ *
+ * @author Andre Matutat
+ */
 public class Tile {
 
     private final Array<Connection<Tile>> connections = new Array<>();
@@ -17,16 +22,22 @@ public class Tile {
     private LevelElement e;
     private int index;
 
-    public Tile(String texture, Point globalPosition, LevelElement e) {
+    /**
+     * Creates a new Tile.
+     * @param texture Path to the texture of the tile.
+     * @param globalPosition Postion of the tile in the global system.
+     * @param elementType The type of the tile.
+     */
+    public Tile(String texture, Point globalPosition, LevelElement elementType) {
         this.texture = texture;
-        this.e = e;
+        this.e = elementType;
         this.globalPosition = globalPosition;
     }
 
     /**
-     * Returns if the tile is accessible by a character
+     * Returns if the tile is accessible by a character.
      *
-     * @return true if the tile ist floor or exit; false if its a wall or empty
+     * @return true if the tile is floor or exit; false if it is a wall or empty.
      */
     public boolean isAccessible() {
         switch (e) {
@@ -51,11 +62,21 @@ public class Tile {
         return e;
     }
 
-    public void setLevelElement(LevelElement e, String texture) {
-        this.e = e;
+    /**
+     * Change the type and texture of the tile.
+     * @param elementType New type of the tile.
+     * @param texture New texture of the tile.
+     */
+    public void setLevelElement(LevelElement elementType, String texture) {
+        this.e = elementType;
         this.texture = texture;
     }
 
+    /**
+     * connects to tiles together. this mean you can go from one tile to another.
+     * Connections are needed to calculate a path through the dungeon.
+     * @param to Tile to connect with.
+     */
     public void addConnection(Tile to) {
         connections.add(new TileConnection(this, to));
     }
@@ -63,10 +84,11 @@ public class Tile {
     public Array<Connection<Tile>> getConnections() {
         return connections;
     }
+
     /**
      * Returns the direction to a given tile.
      *
-     * @param goal To which tile is the direction
+     * @param goal To which tile is the direction.
      * @return Can either be north, east, south, west or a combination of two.
      * @author Marti Stuwe
      */
@@ -91,6 +113,7 @@ public class Tile {
     public void setIndex(int index) {
         this.index = index;
     }
+
     /** @author Marti Stuwe */
     public enum Direction {
         N,

@@ -4,7 +4,7 @@ import level.tools.DesignLabel;
 import level.tools.LevelElement;
 
 /**
- * can be used to replace placeholder in a room layout
+ * Will be used to replace placeholder in a room layout.
  *
  * @author Andre Matutat
  */
@@ -15,8 +15,8 @@ public class Replacement {
     private boolean rotate;
 
     /**
-     * @param layout of the replacer, use placeholder in fields that should not be replaced
-     * @param rotate can the layout be rotated?
+     * @param layout Layout of the replacer, use placeholder in fields that should not be replaced
+     * @param rotate Can the layout be rotated?
      * @param label DesignLabel of the replacer
      */
     public Replacement(LevelElement[][] layout, boolean rotate, DesignLabel label) {
