@@ -15,7 +15,9 @@ public class TextureMap {
      * @return the Texture
      */
     public Texture getTexture(String path) {
-        if (textureMap.containsKey(path)) return textureMap.get(path);
+        if (textureMap.containsKey(path)) {
+            return textureMap.get(path);
+        }
 
         Texture texture = new Texture(path);
         textureMap.put(path, texture);
