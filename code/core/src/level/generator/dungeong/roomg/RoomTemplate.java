@@ -6,12 +6,14 @@ import level.tools.LevelElement;
 import tools.Point;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * A RoomTemplate is a blueprint for a room.
+ *
  * @author Andre Matutat
- * */
+ */
 public class RoomTemplate {
     private LevelElement[][] layout;
     private DesignLabel design;
@@ -33,7 +35,6 @@ public class RoomTemplate {
      * Copy a roomTemplate.
      *
      * @param r Original template.
-     *
      */
     public RoomTemplate(RoomTemplate r) {
         layout = new LevelElement[r.getLayout()[0].length][r.getLayout().length];
@@ -50,7 +51,8 @@ public class RoomTemplate {
      * @param design Design of the room.
      * @return the created room
      */
-    public Room replace(final List<Replacement> replacements, Point globalRef, DesignLabel design) {
+    private Room replace(
+            final List<Replacement> replacements, Point globalRef, DesignLabel design) {
         int layoutHeight = layout.length;
         int layoutWidth = layout[0].length;
         LevelElement[][] roomLayout = new LevelElement[layoutHeight][layoutWidth];
@@ -65,7 +67,8 @@ public class RoomTemplate {
             if (r.getLayout()[0].length <= layoutWidth && r.getLayout().length <= layoutHeight)
                 replacementList.add(r);
         }
-
+        // shuffle the list for more variety
+        Collections.shuffle(replacementList);
         // replace with replacements
         boolean changes;
         do {
