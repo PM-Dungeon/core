@@ -1,9 +1,11 @@
 package level.generator.dummy;
 
+import level.elements.Graph;
 import level.elements.Level;
 import level.elements.Node;
 import level.elements.Room;
 import level.generator.IGenerator;
+import level.generator.dungeong.graphg.NoSolutionException;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
 import tools.Point;
@@ -91,5 +93,31 @@ public class DummyGenerator implements IGenerator {
         l.setEndNode(room1Node);
         l.setEndTile(l.getRoomToNode(room1Node).getLayout()[3][3]);
         return l;
+    }
+
+    @Override
+    public Level getLevel(DesignLabel designLabel) {
+        return getLevel();
+    }
+
+    @Override
+    public Level getLevel(int nodes, int edges) throws NoSolutionException {
+        return getLevel();
+    }
+
+    @Override
+    public Level getLevel(int nodes, int edges, DesignLabel designLabel)
+            throws NoSolutionException {
+        return getLevel();
+    }
+
+    @Override
+    public Level getLevel(Graph graph, DesignLabel designLabel) throws NoSolutionException {
+        return getLevel();
+    }
+
+    @Override
+    public Level getLevel(Graph graph) throws NoSolutionException {
+        return getLevel();
     }
 }

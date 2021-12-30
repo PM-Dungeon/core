@@ -40,36 +40,12 @@ public class LevelG implements IGenerator {
         this.pathToGraph = pathToGraph;
     }
 
-    /**
-     * Generate a level with random configuration.
-     *
-     * @return A new level.
-     */
     @Override
     public Level getLevel() {
-        // todo find good configuration space
-        Random random = new Random();
-        int nodeCounter = random.nextInt(20);
-        int edgeCounter = random.nextInt(nodeCounter);
-        DesignLabel label = DesignLabel.values()[random.nextInt(DesignLabel.values().length)];
-        try {
-            return getLevel(nodeCounter, edgeCounter, label);
-        } catch (NoSolutionException e) {
-            // e.printStackTrace();
-            // retry
-            return getLevel();
-        }
+        return getLevel(DesignLabel.values()[new Random().nextInt(DesignLabel.values().length)]);
     }
 
-    /**
-     * Generate a Level with a given configuration.
-     *
-     * @param nodeCounter Number of room the level should have.
-     * @param edgeCounter Number of extra edges the level should have.
-     * @param design The Design-Label the level should have.
-     * @return The level.
-     * @throws NoSolutionException If no solution can be found for the given configuration.
-     */
+    @Override
     public Level getLevel(int nodeCounter, int edgeCounter, DesignLabel design)
             throws NoSolutionException {
         Graph graph = graphg.getGraph(nodeCounter, edgeCounter, pathToGraph);
@@ -77,14 +53,36 @@ public class LevelG implements IGenerator {
         return getLevel(graph, design);
     }
 
-    /**
-     * Generate a Level from a given graph.
-     *
-     * @param graph The Level-Graph.
-     * @param design The Design-Label the level should have.
-     * @return The level.
-     * @throws NoSolutionException If no solution can be found for the given configuration.
-     */
+    @Override
+    public Level getLevel(DesignLabel designLabel) {
+        // todo find good configuration space
+        Random random = new Random();
+        int nodeCounter = random.nextInt(20);
+        int edgeCounter = random.nextInt(nodeCounter);
+        try {
+            return getLevel(nodeCounter, edgeCounter, designLabel);
+        } catch (NoSolutionException e) {
+            // e.printStackTrace();
+            // retry
+            return getLevel();
+        }
+    }
+
+    @Override
+    public Level getLevel(int nodeCounter, int edgeCounter) throws NoSolutionException {
+        return getLevel(
+                nodeCounter,
+                edgeCounter,
+                DesignLabel.values()[new Random().nextInt(DesignLabel.values().length)]);
+    }
+
+    @Override
+    public Level getLevel(Graph graph) throws NoSolutionException {
+        return getLevel(
+                graph, DesignLabel.values()[new Random().nextInt(DesignLabel.values().length)]);
+    }
+
+    @Override
     public Level getLevel(Graph graph, DesignLabel design) throws NoSolutionException {
         List<Chain> chain = splitInChains(graph);
         return getLevel(graph, chain, design);
@@ -99,7 +97,7 @@ public class LevelG implements IGenerator {
      * @return The level.
      * @throws NoSolutionException If no solution can be found for the given configuration.
      */
-    public Level getLevel(Graph graph, List<Chain> chain, DesignLabel design)
+    private Level getLevel(Graph graph, List<Chain> chain, DesignLabel design)
             throws NoSolutionException {
         List<ConfigurationSpace> configurationSpaces = layDownLevel(chain, design);
         List<Room> rooms = new ArrayList<>();
