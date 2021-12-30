@@ -53,6 +53,7 @@ public class RoomTemplateLoader {
 
     /**
      * Read in a .json with RoomTemplates.
+     *
      * @param path Path to .json.
      */
     private void readFromJson(String path) {

@@ -5,14 +5,16 @@ import java.util.List;
 
 /**
  * A node in a graph.
+ *
  * @author Andre Matutat
- **/
+ */
 public class Node {
     private List<Integer> neighbours = new ArrayList<>();
     private int index;
 
     /**
      * Creates a new node.
+     *
      * @param index The index of the node in the list of nodes of the graph it belongs to.
      */
     public Node(int index) {
@@ -21,6 +23,7 @@ public class Node {
 
     /**
      * Copy a node without the neighnours.
+     *
      * @param toCopy The node to copy.
      * @return The copy.
      */
@@ -71,11 +74,13 @@ public class Node {
     }
 
     /**
-     * @return This node and his edges in dot-notation. Only prints edges with nodes that have a bigger index than this node.
+     * @return This node and his edges in dot-notation. Only prints edges with nodes that have a
+     *     bigger index than this node.
      */
     public String toDot() {
         String dot = "";
-        for (Integer node : getNeighbours()) if (getIndex() < node) dot += getIndex() + "->" + node + "\n";
+        for (Integer node : getNeighbours())
+            if (getIndex() < node) dot += getIndex() + "->" + node + "\n";
         return dot;
     }
 }

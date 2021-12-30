@@ -19,7 +19,6 @@ public class Room {
     private Point referencePointLocal;
 
     /**
-     *
      * @param layout List of tiles that defines the layout of the room.
      * @param label The design of the room.
      * @param referencePointLocal A point in the room to place it in the level.
@@ -44,14 +43,15 @@ public class Room {
 
     /**
      * Conerts the list of LevelElements in a list of tiles.
+     *
      * @param toConvert The list to convert.
      */
     private void convertLayout(LevelElement[][] toConvert) {
-        //calculate difference between global and local coordinates
+        // calculate difference between global and local coordinates
         float difx = referencePointGlobal.x - referencePointLocal.x;
         float dify = referencePointGlobal.y - referencePointLocal.y;
 
-        //concert LevelElement into Tile
+        // concert LevelElement into Tile
         for (int y = 0; y < toConvert.length; y++)
             for (int x = 0; x < toConvert[0].length; x++) {
                 Point p = new Point(x, y);
@@ -61,16 +61,14 @@ public class Room {
             }
     }
 
-    /**
-     *
-     * @return A copy of the layout.
-     */
+    /** @return A copy of the layout. */
     public Tile[][] getLayout() {
         return copyLayout(layout);
     }
 
     /**
      * Set the layout of the room.
+     *
      * @param layout The new layout.
      */
     public void setLayout(Tile[][] layout) {
@@ -79,6 +77,7 @@ public class Room {
 
     /**
      * Copys an layout.
+     *
      * @param toCopy Layout to copy.
      * @return The copy.
      */
@@ -91,7 +90,7 @@ public class Room {
         return copy;
     }
 
-    /** @return Random floor-tile in the room.*/
+    /** @return Random floor-tile in the room. */
     public Tile getRandomFloorTile() {
         Random r = new Random();
         Tile[][] layout = getLayout();

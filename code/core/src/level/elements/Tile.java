@@ -24,6 +24,7 @@ public class Tile {
 
     /**
      * Creates a new Tile.
+     *
      * @param texture Path to the texture of the tile.
      * @param globalPosition Postion of the tile in the global system.
      * @param elementType The type of the tile.
@@ -64,6 +65,7 @@ public class Tile {
 
     /**
      * Change the type and texture of the tile.
+     *
      * @param elementType New type of the tile.
      * @param texture New texture of the tile.
      */
@@ -73,8 +75,9 @@ public class Tile {
     }
 
     /**
-     * connects to tiles together. this mean you can go from one tile to another.
-     * Connections are needed to calculate a path through the dungeon.
+     * connects to tiles together. this mean you can go from one tile to another. Connections are
+     * needed to calculate a path through the dungeon.
+     *
      * @param to Tile to connect with.
      */
     public void addConnection(Tile to) {

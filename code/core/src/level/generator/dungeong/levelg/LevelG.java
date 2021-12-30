@@ -111,7 +111,7 @@ public class LevelG implements IGenerator {
         }
         Level level = new Level(graph.getNodes(), rooms);
         if (checkIfCompletable(level)) return level;
-        //in rare cases, the path to the target may be blocked.
+        // in rare cases, the path to the target may be blocked.
         else return getLevel(graph, chain, design);
     }
 

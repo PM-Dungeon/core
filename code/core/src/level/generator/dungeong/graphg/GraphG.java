@@ -17,10 +17,11 @@ import java.util.Random;
  * Can read in graphs from .json or can generate new graphs.
  *
  * @author Andre Matutat
- * */
+ */
 public class GraphG {
     /**
      * Read in a graph from .json with the given configuration.
+     *
      * @param nodes Number of nodes in the graph.
      * @param edges Numbers of extra edges in the graph.
      * @param path Path to the .json folder (not to the exact file).
@@ -66,6 +67,7 @@ public class GraphG {
 
     /**
      * Calculates all trees for the configuration.
+     *
      * @param trees Already calculated trees.
      * @param nodesLeft Number of nodes that are left to add to the graph.
      * @return All trees.
@@ -87,6 +89,7 @@ public class GraphG {
 
     /**
      * Calculate all graphs.
+     *
      * @param graphs Already caluclated graphs. Start with trees.
      * @param edgesLeft Number of edges left to add to the graph.
      * @return All graphs.
@@ -111,6 +114,7 @@ public class GraphG {
 
     /**
      * Read in a .json file with graphs
+     *
      * @param path Path to json.
      * @return All graphs in the file.
      */

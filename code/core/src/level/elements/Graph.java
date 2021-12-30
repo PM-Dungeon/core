@@ -76,7 +76,7 @@ public class Graph {
      */
     private boolean canConnect(Node node) {
         List<Node> manyNeighbour = new ArrayList<>(nodes);
-        manyNeighbour.removeIf(node -> node.getNeighbours().size() <= MAX_NEIGHBOURS);
+        manyNeighbour.removeIf(n -> n.getNeighbours().size() <= MAX_NEIGHBOURS);
         if (manyNeighbour.size() <= MAX_NODES
                 || manyNeighbour.contains(node)
                 || node.getNeighbours().size() + 1 <= MAX_NEIGHBOURS) return true;
@@ -84,7 +84,6 @@ public class Graph {
     }
 
     /**
-     *
      * @param node1
      * @param node2
      * @return Can you connect this two nodes without breaking the theorem?
@@ -104,10 +103,7 @@ public class Graph {
         return nodes;
     }
 
-    /**
-     *
-     * @return The graph in dot-notation.
-     */
+    /** @return The graph in dot-notation. */
     public String toDot() {
         String dot = "digraph G {\nedge [dir=none]\n";
         for (Node n : nodes) dot += n.toDot();

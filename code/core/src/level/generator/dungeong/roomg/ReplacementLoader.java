@@ -72,6 +72,7 @@ public class ReplacementLoader {
 
     /**
      * Read in replacments from a .json. Rotates them if necassary.
+     *
      * @param path Path to .json.
      */
     private void readFromJson(String path) {

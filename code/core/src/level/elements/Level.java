@@ -15,6 +15,7 @@ import java.util.Random;
 
 /**
  * A level is a set of connecetd rooms to play in.
+ *
  * @author Andre Matutat
  */
 public class Level implements IndexedGraph<Tile> {
@@ -29,7 +30,9 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Create a new level
-     * @param nodes A list of nodes that represent the structure of the level. Each noe is represented by an room.
+     *
+     * @param nodes A list of nodes that represent the structure of the level. Each noe is
+     *     represented by an room.
      * @param rooms A list of rooms that are in this level. Each represents a node.
      */
     public Level(List<Node> nodes, List<Room> rooms) {
@@ -45,6 +48,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Finds the node to a given room.
+     *
      * @param room The room to find the node for.
      * @return The node.
      */
@@ -54,6 +58,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Finds the room to a given node.
+     *
      * @param node The node to find the room for.
      * @return The room.
      */
@@ -69,40 +74,33 @@ public class Level implements IndexedGraph<Tile> {
         return nodes;
     }
 
-    /**
-     *
-     * @return A random node in level.
-     */
+    /** @return A random node in level. */
     public Node getRandomNode() {
         return getNodes().get(new Random().nextInt(getNodes().size()));
     }
 
-    /**
-     *
-     * @return Node where the startposition is located in.
-     */
+    /** @return Node where the startposition is located in. */
     public Node getStartNode() {
         return startNode;
     }
 
     /**
      * Set the start node.
+     *
      * @param startNode The start node.
      */
     public void setStartNode(Node startNode) {
         this.startNode = startNode;
     }
 
-    /**
-     *
-     * @return Node where the endposition is located in.
-     */
+    /** @return Node where the endposition is located in. */
     public Node getEndNode() {
         return endNode;
     }
 
     /**
      * Set the end node.
+     *
      * @param endNode The end node.
      */
     public void setEndNode(Node endNode) {
@@ -111,6 +109,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get the start tile.
+     *
      * @return The start tile.
      */
     public Tile getStartTile() {
@@ -119,6 +118,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Set the start tile.
+     *
      * @param start
      */
     public void setStartTile(Tile start) {
@@ -127,6 +127,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get the end tile.
+     *
      * @return The end tile.
      */
     public Tile getEndTile() {
@@ -135,6 +136,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Set the end tile.
+     *
      * @param end
      */
     public void setEndTile(Tile end) {
@@ -143,6 +145,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Finds all paths form on node to another one.
+     *
      * @param start
      * @param goal
      * @return A list with a list of paths form start to goal.
@@ -155,6 +158,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Find the path with the lowest number of nodes from one node to another one.
+     *
      * @param start
      * @param goal
      * @return The fastes path.
@@ -168,6 +172,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Find all nodes, that have to be entered to get from the start to the end.
+     *
      * @return All ciritcal nodes.
      */
     public List<Node> getCriticalNodes() {
@@ -179,6 +184,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Find all nodes, that dont have to be entered to get from the start to the end.
+     *
      * @return All optional nodes
      */
     public List<Node> getOptionalNodes() {
@@ -190,6 +196,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Check if you can get from the start node to the goal node without entering the avoid node.
+     *
      * @param start Node to start from.
      * @param goal Goal node.
      * @param avoid Node to avoid.
@@ -204,6 +211,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get a tile on the global position.
+     *
      * @param globalPoint
      * @return The tile on that point.
      */
@@ -219,6 +227,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get the room in which the poin is located in.
+     *
      * @param globalPoint Point to check for.
      * @return The room.
      */
@@ -233,6 +242,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Check if you can reach the goal tile from the start tile. Uses A*.
+     *
      * @param start Start tile
      * @param goal Goal tile
      * @return Can you reach the tile?
