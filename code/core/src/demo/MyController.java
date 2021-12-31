@@ -7,7 +7,7 @@ import controller.MainController;
 import graphic.Animation;
 import graphic.Painter;
 import graphic.TextureHandler;
-import graphic.TextureType2;
+import graphic.TextureType;
 import interfaces.IAnimatable;
 import tools.Point;
 
@@ -43,23 +43,40 @@ public class MyController extends MainController {
     }
 
     public static class Hero implements IAnimatable {
-        private final String heroName = "hero";
-        private final Animation animation1 =
-                new Animation(
-                        Arrays.stream(TextureHandler.HANDLER.getTexturesForName(heroName))
-                                .map(TextureType2::getPath)
-                                .collect(Collectors.toList()),
-                        30);
         private final SpriteBatch batch;
         private final Painter painter;
+        private Animation animation1 = null;
 
         public Hero(SpriteBatch batch, Painter painter) {
             this.batch = batch;
             this.painter = painter;
         }
 
+        private String searchPrefix() {
+            String[] prefixes = TextureHandler.HANDLER.getAvailablePrefixes();
+            for (String s : prefixes) {
+                if (s.contains("knight")) {
+                    return s;
+                }
+            }
+            return null;
+        }
+
         @Override
         public Animation getActiveAnimation() {
+            if (animation1 == null) {
+                String prefix = searchPrefix();
+                if (prefix != null) {
+                    animation1 =
+                            new Animation(
+                                    Arrays.stream(
+                                                    TextureHandler.HANDLER.getTextureTypesForPrefix(
+                                                            prefix))
+                                            .map(TextureType::getPath)
+                                            .collect(Collectors.toList()),
+                                    10);
+                }
+            }
             return animation1;
         }
 
