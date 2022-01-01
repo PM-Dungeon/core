@@ -7,12 +7,8 @@ import controller.MainController;
 import graphic.Animation;
 import graphic.Painter;
 import graphic.TextureHandler;
-import graphic.TextureType;
 import interfaces.IAnimatable;
 import tools.Point;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class MyController extends MainController {
     Point p = new Point(3, 3);
@@ -52,30 +48,14 @@ public class MyController extends MainController {
             this.painter = painter;
         }
 
-        private String searchPrefix() {
-            String[] prefixes = TextureHandler.HANDLER.getAvailablePrefixes();
-            for (String s : prefixes) {
-                if (s.contains("knight")) {
-                    return s;
-                }
-            }
-            return null;
-        }
-
         @Override
         public Animation getActiveAnimation() {
             if (animation1 == null) {
-                String prefix = searchPrefix();
-                if (prefix != null) {
-                    animation1 =
-                            new Animation(
-                                    Arrays.stream(
-                                                    TextureHandler.HANDLER.getTextureTypesForPrefix(
-                                                            prefix))
-                                            .map(TextureType::getPath)
-                                            .collect(Collectors.toList()),
-                                    10);
-                }
+                animation1 =
+                        new Animation(
+                                TextureHandler.getInstance()
+                                        .getTexturesForContainsName("knight_m_idle"),
+                                10);
             }
             return animation1;
         }
