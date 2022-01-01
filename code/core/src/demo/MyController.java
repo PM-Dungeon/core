@@ -3,6 +3,7 @@ package demo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import controller.MainController;
+import controller.OnLevelLoader;
 import tools.Point;
 
 public class MyController extends MainController {
@@ -12,6 +13,17 @@ public class MyController extends MainController {
     @Override
     protected void setup() {
         camera.setFocusPoint(p);
+        levelAPI.setOnLevelLoader(new MyLevelLoader());
+
+        // alternative
+        levelAPI.setOnLevelLoader(
+                new OnLevelLoader() {
+                    @Override
+                    public void onLevelLoad() {
+                        System.out.println("So geht es auch.");
+                    }
+                });
+
         levelAPI.loadLevel();
     }
 

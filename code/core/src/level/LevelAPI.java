@@ -1,6 +1,7 @@
 package level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import controller.OnLevelLoader;
 import graphic.Painter;
 import level.elements.Level;
 import level.elements.Room;
@@ -12,6 +13,7 @@ public class LevelAPI {
     private SpriteBatch batch;
     private Painter painter;
     private IGenerator gen;
+    private OnLevelLoader onLevelLoader;
 
     public LevelAPI(SpriteBatch batch, Painter painter, IGenerator gen) {
         this.gen = gen;
@@ -19,13 +21,23 @@ public class LevelAPI {
         this.painter = painter;
     }
 
+    public LevelAPI(
+            SpriteBatch batch, Painter painter, IGenerator gen, OnLevelLoader onLevelLoader) {
+        this(batch, painter, gen);
+        this.onLevelLoader = onLevelLoader;
+    }
+
     public void loadLevel() {
         currentLevel = gen.getLevel();
-        // currentLevel = createDummyLevel();
+        if (onLevelLoader != null) onLevelLoader.onLevelLoad();
     }
 
     public void update() {
         drawLevel();
+    }
+
+    public void setOnLevelLoader(OnLevelLoader onLevelLoader) {
+        this.onLevelLoader = onLevelLoader;
     }
 
     public Level getCurrentLevel() {

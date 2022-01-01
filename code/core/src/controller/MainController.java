@@ -35,7 +35,6 @@ public class MainController extends ScreenAdapter {
 
     protected void endFrame() {}
 
-    protected void onLevelLoad() {}
     // --------------------------- END OWN IMPLEMENTATION ------------------------
 
     /**
