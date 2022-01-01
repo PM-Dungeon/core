@@ -183,7 +183,7 @@ public class LevelG implements IGenerator {
             List<ConfigurationSpace> level) {
         List<ConfigurationSpace> spaces = new ArrayList<>();
         for (RoomTemplate layout : template) {
-            for (int r = 0; r <= 4; r++) {
+            for (int r = 0; r < 4; r++) {
                 // rotate template 90,180,270,360
                 RoomTemplate tmp = layout.rotateTemplate();
                 Point p = new Point(0, 0); // todo calculate cs
