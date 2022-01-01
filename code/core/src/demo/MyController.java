@@ -5,12 +5,14 @@ import com.badlogic.gdx.Input;
 import controller.MainController;
 import tools.Point;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class MyController extends MainController {
 
     Point p = new Point(3, 3);
 
     @Override
-    protected void setup() {
+    protected void setup() throws InvocationTargetException, IllegalAccessException {
         camera.setFocusPoint(p);
         levelAPI.loadLevel();
     }
@@ -29,5 +31,10 @@ public class MyController extends MainController {
     @Override
     protected void endFrame() {
         camera.setFocusPoint(p);
+    }
+
+    @Override
+    protected void onLevelLoad() {
+        System.out.println("Load level");
     }
 }

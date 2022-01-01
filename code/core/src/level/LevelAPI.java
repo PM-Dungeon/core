@@ -7,21 +7,36 @@ import level.elements.Room;
 import level.elements.Tile;
 import level.generator.IGenerator;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class LevelAPI {
+    private final Method onLevelLoad;
+    private final Object klass;
+    private final Object[] args;
     private Level currentLevel;
     private SpriteBatch batch;
     private Painter painter;
     private IGenerator gen;
 
-    public LevelAPI(SpriteBatch batch, Painter painter, IGenerator gen) {
+    public LevelAPI(
+            SpriteBatch batch,
+            Painter painter,
+            IGenerator gen,
+            Method onLevelLoad,
+            Object klass,
+            Object[] args) {
         this.gen = gen;
         this.batch = batch;
         this.painter = painter;
+        this.onLevelLoad = onLevelLoad;
+        this.klass = klass;
+        this.args = args;
     }
 
-    public void loadLevel() {
+    public void loadLevel() throws InvocationTargetException, IllegalAccessException {
         currentLevel = gen.getLevel();
-        // currentLevel = createDummyLevel();
+        onLevelLoad.invoke(klass, args);
     }
 
     public void update() {

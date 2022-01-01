@@ -12,6 +12,9 @@ import level.generator.dummy.DummyGenerator;
 import level.generator.dungeong.levelg.LevelG;
 import tools.Constants;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /** The heart of the framework. From here all strings are pulled. */
@@ -29,7 +32,7 @@ public class MainController extends ScreenAdapter {
     private boolean doFirstFrame = true;
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
-    protected void setup() {}
+    protected void setup() throws InvocationTargetException, IllegalAccessException {}
 
     protected void beginFrame() {}
 
@@ -73,7 +76,7 @@ public class MainController extends ScreenAdapter {
         hud = new HUDController(hudBatch, hudCamera);
         if (Constants.USE_DUMMY_GENERATOR) generator = new DummyGenerator();
         else generator = new LevelG();
-        levelAPI = new LevelAPI(batch, painter, generator);
+        setupLevelAPI(batch, painter, generator);
         setup();
     }
 
@@ -88,5 +91,17 @@ public class MainController extends ScreenAdapter {
 
         // See also:
         // https://stackoverflow.com/questions/52011592/libgdx-set-ortho-camera
+    }
+
+    private void setupLevelAPI(SpriteBatch batch, Painter painter, IGenerator generator) {
+        try {
+            // this method will be called every time a new level gets load
+            Method functionToPass = this.getClass().getMethod("onLevelLoad");
+            // if you need parameter four your method, add them here
+            Object[] arguments = new Object[0];
+            levelAPI = new LevelAPI(batch, painter, generator, functionToPass, this, arguments);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 }
