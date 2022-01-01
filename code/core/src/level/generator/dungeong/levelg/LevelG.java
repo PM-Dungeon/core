@@ -2,6 +2,7 @@ package level.generator.dungeong.levelg;
 
 import level.elements.Graph;
 import level.elements.Level;
+import level.elements.Node;
 import level.elements.Room;
 import level.generator.IGenerator;
 import level.generator.dungeong.graphg.GraphG;
@@ -11,6 +12,7 @@ import level.generator.dungeong.roomg.ReplacementLoader;
 import level.generator.dungeong.roomg.RoomTemplate;
 import level.generator.dungeong.roomg.RoomTemplateLoader;
 import level.tools.DesignLabel;
+import tools.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,22 +128,79 @@ public class LevelG implements IGenerator {
     }
 
     /**
-     * @param chain The Graph split into chains.
+     * @param chains The Graph split into chains.
      * @param design The Design-Label the level should have.
      * @return The level.
      * @throws NoSolutionException If no solution can be found for the given configuration.
      */
-    private List<ConfigurationSpace> layDownLevel(List<Chain> chain, DesignLabel design)
+    private List<ConfigurationSpace> layDownLevel(List<Chain> chains, DesignLabel design)
             throws NoSolutionException {
         List<ConfigurationSpace> solution = new ArrayList<>();
         List<RoomTemplate> templates = roomLoader.getRoomTemplates(design);
 
-        // todo SOLVE PROBLEM
+        // todo SOLVE PROBLEM (new methode?)
+        // for each chain
+        // for each node in chain
+        // find neighbours //maybe us a helper class chainNodes?
+        // check if left neighbour is already "placed"
+        // yes: static
+        // no: ignore
+        // check if right neighbour is already "placed"
+        // yes :static
+        // no: ignore
+        // no neighbour is placed? (this should mean this one is the first node ever)
+        // this position is  0/0 with each layout
+        // else calculate configuration spaces for each static neighbour
+        // use Intersection in needed
+        // if configuration space is empty -> backtrack
+        // go to last checkpoint and try another configuration
+        // no more backtracking possible? THROW NO SOLUTION
+        // if configuration space not empty -> savepoint for backtracking
+        // continue
 
         if (solution.isEmpty())
             throw new NoSolutionException(
                     "No way to convert the given graph into a level using the given templates.");
+
+        placeDoors(solution);
         return solution;
+    }
+
+    /**
+     * Calculate the configuration-spaces to find possible positions for the room in the level.
+     *
+     * @param staticSpace The non-movable component.
+     * @param dynamicNode The movable component.
+     * @param template The templates to use.
+     * @param level All other rooms that are already placed in the level and are not allowed to
+     *     overlap.
+     * @return all possible configuration-spaces.
+     */
+    private List<ConfigurationSpace> calculateConfigurationSpace(
+            ConfigurationSpace staticSpace,
+            Node dynamicNode,
+            List<RoomTemplate> template,
+            List<ConfigurationSpace> level) {
+        List<ConfigurationSpace> spaces = new ArrayList<>();
+        for (RoomTemplate layout : template) {
+            for (int r = 0; r <= 4; r++) {
+                // rotate template 90,180,270,360
+                RoomTemplate tmp = layout.rotateTemplate();
+                Point p = new Point(0, 0); // todo calculate cs
+                boolean isValid = true; // todo check if no other rooms are in the way
+                if (isValid) spaces.add(new ConfigurationSpace(tmp, dynamicNode, p));
+            }
+        }
+        return spaces;
+    }
+
+    /**
+     * Remove walls in room-templates to create doors.
+     *
+     * @param levelLayout All rooms and there positions in the level.
+     */
+    private void placeDoors(List<ConfigurationSpace> levelLayout) {
+        // todo
     }
 
     /**

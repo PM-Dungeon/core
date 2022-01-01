@@ -25,7 +25,7 @@ public class Chain {
         chain.add(n);
     }
 
-    public List<Node> getChain() {
+    public List<Node> getNodes() {
         ArrayList<Node> copy = new ArrayList<>(chain);
         return copy;
     }

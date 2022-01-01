@@ -43,6 +43,17 @@ public class RoomTemplate {
         design = r.getDesign();
     }
 
+    /** @return A new template with a 90degree rotated layout. */
+    public RoomTemplate rotateTemplate() {
+        LevelElement[][] originalLayout = getLayout();
+        int mSize = originalLayout.length;
+        int nSize = originalLayout[0].length;
+        LevelElement[][] rotatedLayout = new LevelElement[nSize][mSize];
+        for (int row = 0; row < mSize; row++)
+            for (int col = 0; col < nSize; col++)
+                rotatedLayout[col][mSize - 1 - row] = originalLayout[row][col];
+        return new RoomTemplate(rotatedLayout, getDesign(), getLocalRef());
+    }
     /**
      * Replace all placeholder with the replacements in the list.
      *
@@ -170,5 +181,9 @@ public class RoomTemplate {
 
     public void setDesign(DesignLabel label) {
         design = label;
+    }
+
+    public Point getLocalRef() {
+        return localRef;
     }
 }
