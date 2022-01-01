@@ -15,12 +15,10 @@ public class TextureMap {
      * @return the Texture
      */
     public Texture getTexture(String path) {
-        if (textureMap.containsKey(path)) {
-            return textureMap.get(path);
+        if (!textureMap.containsKey(path)) {
+            textureMap.put(path, new Texture(path));
         }
 
-        Texture texture = new Texture(path);
-        textureMap.put(path, texture);
-        return texture;
+        return textureMap.get(path);
     }
 }
