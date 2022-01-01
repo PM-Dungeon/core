@@ -5,8 +5,6 @@ import com.badlogic.gdx.Input;
 import controller.MainController;
 import tools.Point;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class MyController extends MainController {
 
     Point p = new Point(3, 3);
@@ -14,13 +12,7 @@ public class MyController extends MainController {
     @Override
     protected void setup() {
         camera.setFocusPoint(p);
-        try {
-            levelAPI.loadLevel();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        levelAPI.loadLevel();
     }
 
     @Override

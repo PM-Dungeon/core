@@ -34,9 +34,15 @@ public class LevelAPI {
         this.args = args;
     }
 
-    public void loadLevel() throws InvocationTargetException, IllegalAccessException {
+    public void loadLevel() {
         currentLevel = gen.getLevel();
-        onLevelLoad.invoke(klass, args);
+        try {
+            onLevelLoad.invoke(klass, args);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update() {

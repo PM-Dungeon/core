@@ -12,7 +12,6 @@ import level.generator.dummy.DummyGenerator;
 import level.generator.dungeong.levelg.LevelG;
 import tools.Constants;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
@@ -50,13 +49,7 @@ public class MainController extends ScreenAdapter {
     @Override
     public final void render(float delta) {
         if (doFirstFrame) {
-            try {
-                firstFrame();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            firstFrame();
         }
 
         // clears the screen
@@ -72,7 +65,7 @@ public class MainController extends ScreenAdapter {
         endFrame();
     }
 
-    private void firstFrame() throws InvocationTargetException, IllegalAccessException {
+    private void firstFrame() {
         doFirstFrame = false;
         entityController = new EntityController();
         setupCamera();
