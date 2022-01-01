@@ -32,7 +32,7 @@ public class MainController extends ScreenAdapter {
     private boolean doFirstFrame = true;
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
-    protected void setup() throws InvocationTargetException, IllegalAccessException {}
+    protected void setup() {}
 
     protected void beginFrame() {}
 
@@ -50,7 +50,13 @@ public class MainController extends ScreenAdapter {
     @Override
     public final void render(float delta) {
         if (doFirstFrame) {
-            firstFrame();
+            try {
+                firstFrame();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
 
         // clears the screen
@@ -66,7 +72,7 @@ public class MainController extends ScreenAdapter {
         endFrame();
     }
 
-    private void firstFrame() {
+    private void firstFrame() throws InvocationTargetException, IllegalAccessException {
         doFirstFrame = false;
         entityController = new EntityController();
         setupCamera();

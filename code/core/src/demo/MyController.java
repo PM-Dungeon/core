@@ -12,9 +12,15 @@ public class MyController extends MainController {
     Point p = new Point(3, 3);
 
     @Override
-    protected void setup() throws InvocationTargetException, IllegalAccessException {
+    protected void setup() {
         camera.setFocusPoint(p);
-        levelAPI.loadLevel();
+        try {
+            levelAPI.loadLevel();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
