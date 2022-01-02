@@ -2,7 +2,6 @@ package level.generator.dungeong.levelg;
 
 import level.elements.Graph;
 import level.elements.Level;
-import level.elements.Node;
 import level.elements.Room;
 import level.generator.IGenerator;
 import level.generator.dungeong.graphg.GraphG;
@@ -123,7 +122,7 @@ public class LevelG implements IGenerator {
      */
     private List<Chain> splitInChains(Graph graph) {
         List<Chain> chains = new ArrayList<>();
-        // todo split graoh in chains
+        // todo split graph in chains
         return chains;
     }
 
@@ -135,35 +134,85 @@ public class LevelG implements IGenerator {
      */
     private List<ConfigurationSpace> layDownLevel(List<Chain> chains, DesignLabel design)
             throws NoSolutionException {
-        List<ConfigurationSpace> solution = new ArrayList<>();
         List<RoomTemplate> templates = roomLoader.getRoomTemplates(design);
 
-        // todo SOLVE PROBLEM (new methode?)
-        // for each chain
-        // for each node in chain
-        // find neighbours //maybe us a helper class chainNodes?
-        // check if left neighbour is already "placed"
-        // yes: static
-        // no: ignore
-        // check if right neighbour is already "placed"
-        // yes :static
-        // no: ignore
-        // no neighbour is placed? (this should mean this one is the first node ever)
-        // this position is  0/0 with each layout
-        // else calculate configuration spaces for each static neighbour
-        // use Intersection in needed
-        // if configuration space is empty -> backtrack
-        // go to last checkpoint and try another configuration
-        // no more backtracking possible? THROW NO SOLUTION
-        // if configuration space not empty -> savepoint for backtracking
-        // continue
+        // Convert the chains into a list of nodes, ordered by the sequence to be solved.
+        List<ChainNode> solveSequence = new ArrayList<>();
+        for (Chain chain : chains)
+            for (ChainNode node : chain.getNodes())
+                if (!solveSequence.contains(node)) solveSequence.add(node);
+
+        // find a solution
+        List<ConfigurationSpace> solution =
+                calculateLevel(solveSequence, new ArrayList<ConfigurationSpace>(), templates);
 
         if (solution.isEmpty())
             throw new NoSolutionException(
                     "No way to convert the given graph into a level using the given templates.");
-
         placeDoors(solution);
         return solution;
+    }
+
+    /**
+     * Iterative backtracking process to find the solution of a level
+     *
+     * @param notPlaced Nodes left to place, ordered by the sequence to be solved.
+     * @param partSolution The (partial) solution found so far.
+     * @param templates RoomTemplates to place.
+     * @return A solution in form of a list of ConfigurationSpaces that can be converted into a
+     *     level. null if no solution could be found.
+     */
+    private List<ConfigurationSpace> calculateLevel(
+            List<ChainNode> notPlaced,
+            List<ConfigurationSpace> partSolution,
+            List<RoomTemplate> templates) {
+        if (notPlaced.isEmpty()) return partSolution; // solution found
+
+        ChainNode thisNode = notPlaced.get(0);
+        List<ChainNode> notPlacedAfterThis = new ArrayList<>(notPlaced);
+        notPlacedAfterThis.remove(thisNode);
+
+        List<ConfigurationSpace> spaces;
+        ConfigurationSpace prevSpace = null;
+        ConfigurationSpace nextSpace = null;
+
+        // get configuration-space for neighbor-nodes, if this was already calculated.
+        for (ConfigurationSpace space : partSolution) {
+            if (thisNode.getPrev() != null && space.getNode() == thisNode.getPrev())
+                prevSpace = space;
+            else if (thisNode.getNext() != null && space.getNode() == thisNode.getNext())
+                nextSpace = space;
+            if ((prevSpace != null || thisNode.getPrev() == null) && (nextSpace != null)
+                    || thisNode.getNext() == null) break;
+        }
+
+        // calculate configuration spaces for thisNode
+        if (prevSpace == null) {
+            // if no prev-space exist, thisNode is the first node ever.
+            spaces = calculateConfigurationSpace(null, thisNode, templates, partSolution);
+        } else if (nextSpace == null) {
+            // if no next-space exist, thisNode is the lastNode in the chain
+            spaces = calculateConfigurationSpace(prevSpace, thisNode, templates, partSolution);
+        } else {
+            List<ConfigurationSpace> spacesLeft =
+                    calculateConfigurationSpace(prevSpace, thisNode, templates, partSolution);
+            List<ConfigurationSpace> spacesRight =
+                    calculateConfigurationSpace(nextSpace, thisNode, templates, partSolution);
+            spacesLeft.retainAll(spacesRight);
+            spaces = spacesLeft;
+        }
+
+        if (spaces.isEmpty()) return null; // No solution. Backtrack if possible
+
+        // go one step deeper
+        for (ConfigurationSpace cs : spaces) {
+            List<ConfigurationSpace> thisPartSolution = new ArrayList<>(partSolution);
+            thisPartSolution.add(cs);
+            List<ConfigurationSpace> solution =
+                    calculateLevel(notPlacedAfterThis, thisPartSolution, templates);
+            if (solution != null) return solution; // solution found
+        }
+        return null; // No solution. Backtrack if possible
     }
 
     /**
@@ -178,7 +227,7 @@ public class LevelG implements IGenerator {
      */
     private List<ConfigurationSpace> calculateConfigurationSpace(
             ConfigurationSpace staticSpace,
-            Node dynamicNode,
+            ChainNode dynamicNode,
             List<RoomTemplate> template,
             List<ConfigurationSpace> level) {
         List<ConfigurationSpace> spaces = new ArrayList<>();
@@ -186,7 +235,9 @@ public class LevelG implements IGenerator {
             for (int r = 0; r < 4; r++) {
                 // rotate template 90,180,270,360
                 RoomTemplate tmp = layout.rotateTemplate();
-                Point p = new Point(0, 0); // todo calculate cs
+                Point p =
+                        new Point(0, 0); // todo calculate cs, also remember static can be null
+                // always use 0/0
                 boolean isValid = true; // todo check if no other rooms are in the way
                 if (isValid) spaces.add(new ConfigurationSpace(tmp, dynamicNode, p));
             }

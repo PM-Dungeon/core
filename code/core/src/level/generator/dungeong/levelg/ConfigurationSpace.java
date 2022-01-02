@@ -1,12 +1,11 @@
 package level.generator.dungeong.levelg;
 
-import level.elements.Node;
 import level.generator.dungeong.roomg.RoomTemplate;
 import tools.Point;
 /** @author Andre Matutat */
 public class ConfigurationSpace {
     private final RoomTemplate template;
-    private final Node node;
+    private final ChainNode node;
     private final Point globalPosition;
 
     /**
@@ -14,7 +13,7 @@ public class ConfigurationSpace {
      * @param node Node in the graph this configuration-space belongs to.
      * @param globalPosition Position of th localReferencePoint of the template in the global system
      */
-    public ConfigurationSpace(RoomTemplate template, Node node, Point globalPosition) {
+    public ConfigurationSpace(RoomTemplate template, ChainNode node, Point globalPosition) {
         this.template = template;
         this.node = node;
         this.globalPosition = globalPosition;
@@ -24,7 +23,7 @@ public class ConfigurationSpace {
         return template;
     }
 
-    public Node getNode() {
+    public ChainNode getNode() {
         return node;
     }
 
