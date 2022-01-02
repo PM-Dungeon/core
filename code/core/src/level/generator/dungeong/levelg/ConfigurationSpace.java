@@ -19,6 +19,16 @@ public class ConfigurationSpace {
         this.globalPosition = globalPosition;
     }
 
+    /**
+     * @param otherTemplate Template to check for.
+     * @param otherGlobal Global-position of the template.
+     * @return If the given template overlapped with this configuration-space.
+     */
+    public boolean overlap(RoomTemplate otherTemplate, Point otherGlobal) {
+        // todo
+        return false;
+    }
+
     public RoomTemplate getTemplate() {
         return template;
     }

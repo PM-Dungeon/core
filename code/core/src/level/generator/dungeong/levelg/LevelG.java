@@ -235,14 +235,40 @@ public class LevelG implements IGenerator {
             for (int r = 0; r < 4; r++) {
                 // rotate template 90,180,270,360
                 RoomTemplate tmp = layout.rotateTemplate();
-                Point p =
-                        new Point(0, 0); // todo calculate cs, also remember static can be null
-                // always use 0/0
-                boolean isValid = true; // todo check if no other rooms are in the way
-                if (isValid) spaces.add(new ConfigurationSpace(tmp, dynamicNode, p));
+
+                List<Point> possiblePoints = new ArrayList<>();
+                // this the first node placed in the level.
+                if (level.isEmpty()) {
+                    possiblePoints.add(new Point(0, 0));
+                } else {
+                    possiblePoints = calculateAttachingPoints(staticSpace, tmp);
+                }
+
+                for (Point position : possiblePoints) {
+                    boolean isValid = true;
+                    for (ConfigurationSpace sp : level)
+                        if (sp.overlap(tmp, position)) {
+                            isValid = false;
+                            break;
+                        }
+                    if (isValid) spaces.add(new ConfigurationSpace(tmp, dynamicNode, position));
+                }
             }
         }
         return spaces;
+    }
+
+    /**
+     * Calculate where a dynamic room-template can be attached to a static room-template.
+     *
+     * @param staticSpace Where to attach.
+     * @param template What to attach.
+     * @return All possible points.
+     */
+    private List<Point> calculateAttachingPoints(
+            ConfigurationSpace staticSpace, RoomTemplate template) {
+        // todo
+        return null;
     }
 
     /**
