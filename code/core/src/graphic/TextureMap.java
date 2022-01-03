@@ -3,9 +3,10 @@ package graphic;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TextureMap {
-    private HashMap<String, Texture> textureMap = new HashMap();
+    private final Map<String, Texture> textureMap = new HashMap<>();
 
     /**
      * Searches the HashMap for the matching texture and returns it. If the texture is not stored in
