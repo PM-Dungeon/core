@@ -38,11 +38,9 @@ class AnimationTest {
 
         Animation animation = new Animation(List.of("1", "2", "3"), 10);
         for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < 10; j++) {
                 assertEquals(String.valueOf(i % 3 + 1), animation.getNextAnimationTexture());
             }
         }
-
-        // Why 11 times the same value, when the frame time is 10?
     }
 }
