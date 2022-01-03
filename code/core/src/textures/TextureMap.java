@@ -1,4 +1,4 @@
-package graphic;
+package textures;
 
 import com.badlogic.gdx.graphics.Texture;
 

@@ -1,4 +1,4 @@
-package graphic;
+package textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public class TextureHandler {
     private static TextureHandler instance;
 
-    private final Map<String, Set<FileHandle>> prefixMap = new LinkedHashMap<>();
-    private final Map<String, Set<FileHandle>> nameMap = new LinkedHashMap<>();
-    private final Map<String, Set<FileHandle>> pathMap = new LinkedHashMap<>();
+    private final Map<String, Set<TextureWrapper>> prefixMap = new LinkedHashMap<>();
+    private final Map<String, Set<TextureWrapper>> nameMap = new LinkedHashMap<>();
+    private final Map<String, Set<TextureWrapper>> pathMap = new LinkedHashMap<>();
 
     private TextureHandler() {
         addAllAssets(Gdx.files.internal(Gdx.files.getLocalStoragePath()));
@@ -29,9 +29,10 @@ public class TextureHandler {
         if (fh.isDirectory()) {
             Arrays.stream(fh.list()).forEach(this::addAllAssets);
         } else {
-            prefixMap.computeIfAbsent(getPrefix(fh), x -> new LinkedHashSet<>()).add(fh);
-            nameMap.computeIfAbsent(fh.name(), x -> new LinkedHashSet<>()).add(fh);
-            pathMap.computeIfAbsent(fh.path(), x -> new LinkedHashSet<>()).add(fh);
+            TextureWrapper w = new TextureWrapper(fh);
+            prefixMap.computeIfAbsent(w.prefix(), x -> new LinkedHashSet<>()).add(w);
+            nameMap.computeIfAbsent(w.name(), x -> new LinkedHashSet<>()).add(w);
+            pathMap.computeIfAbsent(w.path(), x -> new LinkedHashSet<>()).add(w);
         }
     }
 
@@ -52,15 +53,17 @@ public class TextureHandler {
     }
 
     public List<String> getTexturesForPrefix(String prefix) {
-        return prefixMap.get(prefix).stream().map(FileHandle::path).collect(Collectors.toList());
+        return prefixMap.get(prefix).stream()
+                .map(TextureWrapper::path)
+                .collect(Collectors.toList());
     }
 
     public List<String> getTexturesForName(String name) {
-        return nameMap.get(name).stream().map(FileHandle::path).collect(Collectors.toList());
+        return nameMap.get(name).stream().map(TextureWrapper::path).collect(Collectors.toList());
     }
 
     public List<String> getTexturesForPath(String path) {
-        return pathMap.get(path).stream().map(FileHandle::path).collect(Collectors.toList());
+        return pathMap.get(path).stream().map(TextureWrapper::path).collect(Collectors.toList());
     }
 
     public List<String> getTexturesForContainsPrefix(String prefix) {
