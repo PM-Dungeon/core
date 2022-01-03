@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /** Singleton, lazy initialization (possibly not thread-safe). */
 public class TextureHandler {
@@ -14,9 +15,7 @@ public class TextureHandler {
     private final Map<String, Set<TextureType>> pathMap = new LinkedHashMap<>();
 
     private TextureHandler() {
-        addAllAssets(Gdx.files.internal("character"));
-        addAllAssets(Gdx.files.internal("hud"));
-        addAllAssets(Gdx.files.internal("textures"));
+        addAllAssets(Gdx.files.internal(Gdx.files.getLocalStoragePath()));
     }
 
     public static TextureHandler getInstance() {
@@ -37,57 +36,63 @@ public class TextureHandler {
         }
     }
 
-    public List<String> getAvailablePrefixes() {
-        return new ArrayList<>(prefixMap.keySet());
+    public Set<String> getAvailablePrefixes() {
+        return prefixMap.keySet();
     }
 
-    public List<String> getAvailableNames() {
-        return new ArrayList<>(nameMap.keySet());
+    public Set<String> getAvailableNames() {
+        return nameMap.keySet();
     }
 
-    public List<String> getAvailablePaths() {
-        return new ArrayList<>(pathMap.keySet());
+    public Set<String> getAvailablePaths() {
+        return pathMap.keySet();
     }
 
     public List<String> getTexturesForPrefix(String prefix) {
-        List<String> textures = new ArrayList<>();
-        prefixMap.get(prefix).forEach(t -> textures.add(t.path()));
-        return textures;
+        return prefixMap.get(prefix).stream().map(TextureType::path).collect(Collectors.toList());
     }
 
     public List<String> getTexturesForName(String name) {
-        List<String> textures = new ArrayList<>();
-        nameMap.get(name).forEach(t -> textures.add(t.path()));
-        return textures;
+        return nameMap.get(name).stream().map(TextureType::path).collect(Collectors.toList());
     }
 
     public List<String> getTexturesForPath(String path) {
-        List<String> textures = new ArrayList<>();
-        pathMap.get(path).forEach(t -> textures.add(t.path()));
-        return textures;
+        return pathMap.get(path).stream().map(TextureType::path).collect(Collectors.toList());
     }
 
     public List<String> getTexturesForContainsPrefix(String prefix) {
-        List<String> textures = new ArrayList<>();
-        prefixMap.keySet().stream()
+        return getAvailablePrefixes().stream()
                 .filter(k -> k.contains(prefix))
-                .forEach(k -> prefixMap.get(k).forEach(t -> textures.add(t.path())));
-        return textures;
+                .map(this::getTexturesForPrefix)
+                .reduce(
+                        new ArrayList<>(),
+                        (partialList, addList) -> {
+                            partialList.addAll(addList);
+                            return partialList;
+                        });
     }
 
     public List<String> getTexturesForContainsName(String name) {
-        List<String> textures = new ArrayList<>();
-        nameMap.keySet().stream()
+        return getAvailableNames().stream()
                 .filter(k -> k.contains(name))
-                .forEach(k -> nameMap.get(k).forEach(t -> textures.add(t.path())));
-        return textures;
+                .map(this::getTexturesForName)
+                .reduce(
+                        new ArrayList<>(),
+                        (partialList, addList) -> {
+                            partialList.addAll(addList);
+                            return partialList;
+                        });
     }
 
     public List<String> getTexturesForContainsPath(String path) {
-        List<String> textures = new ArrayList<>();
-        pathMap.keySet().stream()
+        return getAvailablePaths().stream()
                 .filter(k -> k.contains(path))
-                .forEach(k -> pathMap.get(k).forEach(t -> textures.add(t.path())));
-        return textures;
+                .map(this::getTexturesForPath)
+                .reduce(
+                        new ArrayList<>(),
+                        (partialList, addList) -> {
+                            partialList.addAll(addList);
+                            return partialList;
+                        });
     }
 }
