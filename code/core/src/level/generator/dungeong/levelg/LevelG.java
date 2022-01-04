@@ -170,7 +170,7 @@ public class LevelG implements IGenerator {
         List<RoomTemplate> allTemplates = new ArrayList<>();
         for (RoomTemplate template : templates) allTemplates.addAll(template.getAllRotations());
         List<ConfigurationSpace> solution =
-                getCS(graph, solveSeq, new ArrayList<ConfigurationSpace>(), allTemplates);
+                getLevelCS(graph, solveSeq, new ArrayList<ConfigurationSpace>(), allTemplates);
 
         if (solution.isEmpty())
             throw new NoSolutionException(
@@ -189,7 +189,7 @@ public class LevelG implements IGenerator {
      * @return A solution in form of a list of ConfigurationSpaces that can be converted into a
      *     level. null if no solution could be found.
      */
-    private List<ConfigurationSpace> getCS(
+    private List<ConfigurationSpace> getLevelCS(
             Graph graph,
             List<Node> notPlaced,
             List<ConfigurationSpace> partSolution,
@@ -218,7 +218,7 @@ public class LevelG implements IGenerator {
             List<ConfigurationSpace> thisPartSolution = new ArrayList<>(partSolution);
             thisPartSolution.add(cs);
             List<ConfigurationSpace> solution =
-                    getCS(graph, notPlacedAfterThis, thisPartSolution, templates);
+                    getLevelCS(graph, notPlacedAfterThis, thisPartSolution, templates);
             if (solution != null) return solution; // end solution found
         }
         return null; // No solution. Backtrack if possible
