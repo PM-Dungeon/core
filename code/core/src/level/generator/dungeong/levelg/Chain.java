@@ -1,5 +1,7 @@
 package level.generator.dungeong.levelg;
 
+import level.elements.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,22 +11,22 @@ import java.util.List;
  * @author Andre Matutat
  */
 public class Chain {
-    private List<ChainNode> chain;
+    private List<Node> chain;
 
     public Chain() {
         chain = new ArrayList<>();
     }
 
-    public Chain(List<ChainNode> chain) {
+    public Chain(List<Node> chain) {
         this.chain = chain;
     }
 
-    public void add(ChainNode n) {
+    public void add(Node n) {
         chain.add(n);
     }
 
-    public List<ChainNode> getNodes() {
-        ArrayList<ChainNode> copy = new ArrayList<>(chain);
+    public List<Node> getNodes() {
+        ArrayList<Node> copy = new ArrayList<>(chain);
         return copy;
     }
 }

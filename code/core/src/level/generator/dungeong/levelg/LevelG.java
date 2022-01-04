@@ -2,6 +2,7 @@ package level.generator.dungeong.levelg;
 
 import level.elements.Graph;
 import level.elements.Level;
+import level.elements.Node;
 import level.elements.Room;
 import level.generator.IGenerator;
 import level.generator.dungeong.graphg.GraphG;
@@ -14,6 +15,7 @@ import level.tools.DesignLabel;
 import tools.Point;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -59,7 +61,7 @@ public class LevelG implements IGenerator {
         // todo find good configuration space
         Random random = new Random();
         int nodeCounter = random.nextInt(20);
-        int edgeCounter = random.nextInt(nodeCounter);
+        int edgeCounter = random.nextInt(nodeCounter / 2);
         try {
             return getLevel(nodeCounter, edgeCounter, designLabel);
         } catch (NoSolutionException e) {
@@ -93,14 +95,28 @@ public class LevelG implements IGenerator {
      * Generate a Level from a graph that has already been split in chains.
      *
      * @param graph The Level-Graph.
-     * @param chain The graph split into chains.
+     * @param chains The graph split into chains.
      * @param design The Design-Label the level should have.
      * @return The level.
      * @throws NoSolutionException If no solution can be found for the given configuration.
      */
-    private Level getLevel(Graph graph, List<Chain> chain, DesignLabel design)
+    private Level getLevel(Graph graph, List<Chain> chains, DesignLabel design)
             throws NoSolutionException {
-        List<ConfigurationSpace> configurationSpaces = layDownLevel(chain, design);
+        return getLevel(getSolveSequence(chains), graph, design);
+    }
+
+    /**
+     * Generate a Level from a graph that has already been split in chains.
+     *
+     * @param graph The Level-Graph.
+     * @param solveSeq Sequence to solve.
+     * @param design The Design-Label the level should have.
+     * @return The level.
+     * @throws NoSolutionException If no solution can be found for the given configuration.
+     */
+    private Level getLevel(List<Node> solveSeq, Graph graph, DesignLabel design)
+            throws NoSolutionException {
+        List<ConfigurationSpace> configurationSpaces = makeLevel(graph, solveSeq, design);
         List<Room> rooms = new ArrayList<>();
         List<Replacement> replacements = replacementLoader.getReplacements(design);
         // replace templates
@@ -111,7 +127,7 @@ public class LevelG implements IGenerator {
         Level level = new Level(graph.getNodes(), rooms);
         if (checkIfCompletable(level)) return level;
         // in rare cases, the path to the target may be blocked.
-        else return getLevel(graph, chain, design);
+        else return getLevel(solveSeq, graph, design);
     }
 
     /**
@@ -127,24 +143,34 @@ public class LevelG implements IGenerator {
     }
 
     /**
-     * @param chains The Graph split into chains.
+     * Convert chains into a list of nodes, ordered by the sequence to be solved.
+     *
+     * @param chains
+     * @return Solve sequence
+     */
+    private List<Node> getSolveSequence(List<Chain> chains) {
+        List<Node> solveSequence = new ArrayList<>();
+        for (Chain chain : chains)
+            for (Node node : chain.getNodes())
+                if (!solveSequence.contains(node)) solveSequence.add(node);
+        return solveSequence;
+    }
+
+    /**
+     * @param graph The Graph of the level.
+     * @param solveSeq Sequence to solve.
      * @param design The Design-Label the level should have.
      * @return The level.
      * @throws NoSolutionException If no solution can be found for the given configuration.
      */
-    private List<ConfigurationSpace> layDownLevel(List<Chain> chains, DesignLabel design)
+    private List<ConfigurationSpace> makeLevel(Graph graph, List<Node> solveSeq, DesignLabel design)
             throws NoSolutionException {
+
         List<RoomTemplate> templates = roomLoader.getRoomTemplates(design);
-
-        // Convert the chains into a list of nodes, ordered by the sequence to be solved.
-        List<ChainNode> solveSequence = new ArrayList<>();
-        for (Chain chain : chains)
-            for (ChainNode node : chain.getNodes())
-                if (!solveSequence.contains(node)) solveSequence.add(node);
-
-        // find a solution
+        List<RoomTemplate> allTemplates = new ArrayList<>();
+        for (RoomTemplate template : templates) allTemplates.addAll(template.getAllRotations());
         List<ConfigurationSpace> solution =
-                calculateLevel(solveSequence, new ArrayList<ConfigurationSpace>(), templates);
+                getCS(graph, solveSeq, new ArrayList<ConfigurationSpace>(), allTemplates);
 
         if (solution.isEmpty())
             throw new NoSolutionException(
@@ -154,65 +180,76 @@ public class LevelG implements IGenerator {
     }
 
     /**
-     * Iterative backtracking process to find the solution of a level
+     * Incremental-backtracking-process to find the configuration-space for all rooms.
      *
+     * @param graph The Graph of the level.
      * @param notPlaced Nodes left to place, ordered by the sequence to be solved.
      * @param partSolution The (partial) solution found so far.
      * @param templates RoomTemplates to place.
      * @return A solution in form of a list of ConfigurationSpaces that can be converted into a
      *     level. null if no solution could be found.
      */
-    private List<ConfigurationSpace> calculateLevel(
-            List<ChainNode> notPlaced,
+    private List<ConfigurationSpace> getCS(
+            Graph graph,
+            List<Node> notPlaced,
             List<ConfigurationSpace> partSolution,
             List<RoomTemplate> templates) {
-        if (notPlaced.isEmpty()) return partSolution; // solution found
+        if (notPlaced.isEmpty()) return partSolution; // end solution found
 
-        ChainNode thisNode = notPlaced.get(0);
-        List<ChainNode> notPlacedAfterThis = new ArrayList<>(notPlaced);
+        // take next node
+        Node thisNode = notPlaced.get(0);
+        List<Node> notPlacedAfterThis = new ArrayList<>(notPlaced);
         notPlacedAfterThis.remove(thisNode);
 
-        List<ConfigurationSpace> spaces;
-        ConfigurationSpace prevSpace = null;
-        ConfigurationSpace nextSpace = null;
-
-        // get configuration-space for neighbor-nodes, if this was already calculated.
-        for (ConfigurationSpace space : partSolution) {
-            if (thisNode.getPrev() != null && space.getNode() == thisNode.getPrev())
-                prevSpace = space;
-            else if (thisNode.getNext() != null && space.getNode() == thisNode.getNext())
-                nextSpace = space;
-            if ((prevSpace != null || thisNode.getPrev() == null) && (nextSpace != null)
-                    || thisNode.getNext() == null) break;
-        }
-
         // calculate configuration spaces for thisNode
-        if (prevSpace == null) {
-            // if no prev-space exist, thisNode is the first node ever.
-            spaces = calculateConfigurationSpace(null, thisNode, templates, partSolution);
-        } else if (nextSpace == null) {
-            // if no next-space exist, thisNode is the lastNode in the chain
-            spaces = calculateConfigurationSpace(prevSpace, thisNode, templates, partSolution);
-        } else {
-            List<ConfigurationSpace> spacesLeft =
-                    calculateConfigurationSpace(prevSpace, thisNode, templates, partSolution);
-            List<ConfigurationSpace> spacesRight =
-                    calculateConfigurationSpace(nextSpace, thisNode, templates, partSolution);
-            spacesLeft.retainAll(spacesRight);
-            spaces = spacesLeft;
-        }
-
+        List<ConfigurationSpace> spaces = new ArrayList<>();
+        List<ConfigurationSpace> neighbourSpaces = findNeighbourCS(graph, thisNode, partSolution);
+        if (neighbourSpaces.isEmpty())
+            // this is the first node ever
+            spaces = calCS(null, thisNode, templates, partSolution);
+        else spaces = getCS(neighbourSpaces, thisNode, templates, partSolution);
         if (spaces.isEmpty()) return null; // No solution. Backtrack if possible
+
+        // add some random factor
+        Collections.shuffle(spaces);
 
         // go one step deeper
         for (ConfigurationSpace cs : spaces) {
             List<ConfigurationSpace> thisPartSolution = new ArrayList<>(partSolution);
             thisPartSolution.add(cs);
             List<ConfigurationSpace> solution =
-                    calculateLevel(notPlacedAfterThis, thisPartSolution, templates);
-            if (solution != null) return solution; // solution found
+                    getCS(graph, notPlacedAfterThis, thisPartSolution, templates);
+            if (solution != null) return solution; // end solution found
         }
         return null; // No solution. Backtrack if possible
+    }
+
+    private List<ConfigurationSpace> findNeighbourCS(
+            Graph graph, Node node, List<ConfigurationSpace> spaces) {
+        // todo
+        List<ConfigurationSpace> neighbourSpaces = new ArrayList<>();
+        return neighbourSpaces;
+    }
+
+    /**
+     * Finds all possible configuration-spaces for the given setup.
+     *
+     * @param neighbourSpaces Configuration-spaces of the neighbours.
+     * @param node Node to check for.
+     * @param templates List of templates to use.
+     * @param partSolution All already placed rooms.
+     * @return All possible configuration-spaces for node.
+     */
+    private List<ConfigurationSpace> getCS(
+            List<ConfigurationSpace> neighbourSpaces,
+            Node node,
+            List<RoomTemplate> templates,
+            List<ConfigurationSpace> partSolution) {
+        List<ConfigurationSpace> possibleSpaces = new ArrayList<>();
+        for (ConfigurationSpace cs : neighbourSpaces)
+            if (possibleSpaces.isEmpty()) possibleSpaces = calCS(cs, node, templates, partSolution);
+            else possibleSpaces.retainAll(calCS(cs, node, templates, partSolution));
+        return possibleSpaces;
     }
 
     /**
@@ -225,34 +262,28 @@ public class LevelG implements IGenerator {
      *     overlap.
      * @return all possible configuration-spaces.
      */
-    private List<ConfigurationSpace> calculateConfigurationSpace(
+    private List<ConfigurationSpace> calCS(
             ConfigurationSpace staticSpace,
-            ChainNode dynamicNode,
+            Node dynamicNode,
             List<RoomTemplate> template,
             List<ConfigurationSpace> level) {
         List<ConfigurationSpace> spaces = new ArrayList<>();
         for (RoomTemplate layout : template) {
-            for (int r = 0; r < 4; r++) {
-                // rotate template 90,180,270,360
-                RoomTemplate tmp = layout.rotateTemplate();
-
-                List<Point> possiblePoints = new ArrayList<>();
-                // this the first node placed in the level.
-                if (level.isEmpty()) {
-                    possiblePoints.add(new Point(0, 0));
-                } else {
-                    possiblePoints = calculateAttachingPoints(staticSpace, tmp);
-                }
-
-                for (Point position : possiblePoints) {
-                    boolean isValid = true;
-                    for (ConfigurationSpace sp : level)
-                        if (sp.overlap(tmp, position)) {
-                            isValid = false;
-                            break;
-                        }
-                    if (isValid) spaces.add(new ConfigurationSpace(tmp, dynamicNode, position));
-                }
+            List<Point> possiblePoints = new ArrayList<>();
+            // this the first node placed in the level.
+            if (level.isEmpty()) {
+                possiblePoints.add(new Point(0, 0));
+            } else {
+                possiblePoints = calAttachingPoints(staticSpace, layout);
+            }
+            for (Point position : possiblePoints) {
+                boolean isValid = true;
+                for (ConfigurationSpace sp : level)
+                    if (sp.overlap(layout, position)) {
+                        isValid = false;
+                        break;
+                    }
+                if (isValid) spaces.add(new ConfigurationSpace(layout, dynamicNode, position));
             }
         }
         return spaces;
@@ -265,8 +296,7 @@ public class LevelG implements IGenerator {
      * @param template What to attach.
      * @return All possible points.
      */
-    private List<Point> calculateAttachingPoints(
-            ConfigurationSpace staticSpace, RoomTemplate template) {
+    private List<Point> calAttachingPoints(ConfigurationSpace staticSpace, RoomTemplate template) {
         // todo
         return null;
     }

@@ -54,6 +54,18 @@ public class RoomTemplate {
                 rotatedLayout[col][mSize - 1 - row] = originalLayout[row][col];
         return new RoomTemplate(rotatedLayout, getDesign(), getLocalRef());
     }
+
+    /** @return All rotated templates (0,90,180,270): */
+    public List<RoomTemplate> getAllRotations() {
+        List<RoomTemplate> allRotations = new ArrayList<>();
+        allRotations.add(this);
+        RoomTemplate r90 = rotateTemplate();
+        allRotations.add(r90);
+        RoomTemplate r180 = r90.rotateTemplate();
+        allRotations.add(r180);
+        allRotations.add(r180.rotateTemplate());
+        return allRotations;
+    }
     /**
      * Replace all placeholder with the replacements in the list.
      *
