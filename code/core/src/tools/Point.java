@@ -20,4 +20,8 @@ public class Point {
         x = p.x;
         y = p.y;
     }
+
+    public boolean equals(Point o) {
+        return x == o.x && y == o.y;
+    }
 }
