@@ -80,8 +80,9 @@ public class HUDControllerTest {
         verifyNoMoreInteractions(camera, batch, element1, element2, textStage);
     }
 
+    /** Test the core drawText method. */
     @Test
-    public void test_drawText_1() throws Exception {
+    public void test_drawText_1_coreDrawMethod() {
         String text = "hello";
         String fontPath = "path";
         Color color = Color.CORAL;
@@ -93,23 +94,33 @@ public class HUDControllerTest {
         int borderWidth = 5;
 
         Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
-        PowerMockito.whenNew(FreeTypeFontGenerator.class)
-                .withAnyArguments()
-                .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
 
         Label labelMock = Mockito.mock(Label.class);
-        PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
+        try {
+            PowerMockito.whenNew(FreeTypeFontGenerator.class)
+                    .withAnyArguments()
+                    .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
+            PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
+        } catch (Exception e) {
+            Assert.fail();
+        }
 
+        // The label created and returned within the method should be the same as labelMock.
         Label label =
                 controller.drawText(text, fontPath, color, size, width, height, x, y, borderWidth);
         Assert.assertEquals(labelMock, label);
+        // There should be set at least width, height, x and y on the labelMock.
         verify(labelMock).setSize(width, height);
         verify(labelMock).setPosition(x, y);
         verifyNoMoreInteractions(labelMock);
     }
 
+    /**
+     * Test the wrapper drawText method. We have only to test, if drawText with a border width of 1
+     * is called.
+     */
     @Test
-    public void test_drawText_2() throws Exception {
+    public void test_drawText_2_wrapperDrawMethod() {
         String text = "hello";
         String fontPath = "path";
         Color color = Color.CORAL;
@@ -120,17 +131,25 @@ public class HUDControllerTest {
         int y = 14;
 
         Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
-        PowerMockito.whenNew(FreeTypeFontGenerator.class)
-                .withAnyArguments()
-                .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
 
         Label labelMock = Mockito.mock(Label.class);
-        PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
+        try {
+            PowerMockito.whenNew(FreeTypeFontGenerator.class)
+                    .withAnyArguments()
+                    .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
+            PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
+        } catch (Exception e) {
+            Assert.fail();
+        }
 
+        // We need a controller spy object to track the method invocations on it.
         HUDController controllerSpy = Mockito.spy(controller);
 
+        // The label created and returned within the method should be the same as labelMock.
         Label label = controllerSpy.drawText(text, fontPath, color, size, width, height, x, y);
         Assert.assertEquals(labelMock, label);
+        // Only the initiating call and drawText with a border width of 1 should be called on the
+        // spy.
         verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y);
         verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y, 1);
         verifyNoMoreInteractions(controllerSpy);
