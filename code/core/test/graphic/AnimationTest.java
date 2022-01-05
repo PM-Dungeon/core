@@ -1,5 +1,6 @@
 package graphic;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -16,17 +17,17 @@ class AnimationTest {
     // Because of use of PowerMockRunner we need an empty constructor here
     public AnimationTest() {}
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void test_constructor_1() {
         new Animation(null, 10);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void test_constructor_2() {
         new Animation(new ArrayList<>(), 10);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void test_constructor_3() {
         new Animation(List.of("someValidTexture"), -10);
     }

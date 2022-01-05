@@ -29,12 +29,8 @@ public class Animation {
      * @param frameTime How many frames to wait, before switching to the next texture?
      */
     public Animation(Collection<String> animationFrames, int frameTime) {
-        if (animationFrames.isEmpty()) {
-            throw new IllegalArgumentException("An animation must have at least 1 frame");
-        }
-        if (frameTime <= 0) {
-            throw new IllegalArgumentException("frameTime cant be lower than 0");
-        }
+        assert (animationFrames != null && !animationFrames.isEmpty());
+        assert (frameTime > 0);
         this.animationFrames = new ArrayList<>(animationFrames);
         frames = animationFrames.size();
         this.frameTime = frameTime;
