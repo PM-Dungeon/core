@@ -1,10 +1,16 @@
 package controller;
 
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import graphic.HUDCamera;
 import interfaces.IHUDElement;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +18,7 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.*;
@@ -71,5 +78,61 @@ public class HUDControllerTest {
         verify(textStage).act();
         verify(textStage).draw();
         verifyNoMoreInteractions(camera, batch, element1, element2, textStage);
+    }
+
+    @Test
+    public void test_drawText_1() throws Exception {
+        String text = "hello";
+        String fontPath = "path";
+        Color color = Color.CORAL;
+        int size = 15;
+        int width = 300;
+        int height = 200;
+        int x = 12;
+        int y = 14;
+        int borderWidth = 5;
+
+        Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
+        PowerMockito.whenNew(FreeTypeFontGenerator.class)
+                .withAnyArguments()
+                .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
+
+        Label labelMock = Mockito.mock(Label.class);
+        PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
+
+        Label label =
+                controller.drawText(text, fontPath, color, size, width, height, x, y, borderWidth);
+        Assert.assertEquals(labelMock, label);
+        verify(labelMock).setSize(width, height);
+        verify(labelMock).setPosition(x, y);
+        verifyNoMoreInteractions(labelMock);
+    }
+
+    @Test
+    public void test_drawText_2() throws Exception {
+        String text = "hello";
+        String fontPath = "path";
+        Color color = Color.CORAL;
+        int size = 15;
+        int width = 300;
+        int height = 200;
+        int x = 12;
+        int y = 14;
+
+        Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
+        PowerMockito.whenNew(FreeTypeFontGenerator.class)
+                .withAnyArguments()
+                .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
+
+        Label labelMock = Mockito.mock(Label.class);
+        PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
+
+        HUDController controllerSpy = Mockito.spy(controller);
+
+        Label label = controllerSpy.drawText(text, fontPath, color, size, width, height, x, y);
+        Assert.assertEquals(labelMock, label);
+        verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y);
+        verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y, 1);
+        verifyNoMoreInteractions(controllerSpy);
     }
 }
