@@ -6,21 +6,23 @@ import com.badlogic.gdx.files.FileHandle;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-/** Singleton, lazy initialization (possibly not thread-safe). */
+/**
+ * A texture handler class for managing textures paths for further use.
+ *
+ * <p>Singleton (possibly thread-safe).
+ */
 public class TextureHandler {
-    private static TextureHandler instance;
+    private static final TextureHandler instance = new TextureHandler();
 
-    private final Map<String, Set<TextureWrapper>> pathMap = new LinkedHashMap<>();
+    private final Map<String, Set<FileHandle>> pathMap = new LinkedHashMap<>();
 
     private TextureHandler() {
         addAllAssets(Gdx.files.internal(Gdx.files.getLocalStoragePath()));
     }
 
     public static TextureHandler getInstance() {
-        if (instance == null) {
-            instance = new TextureHandler();
-        }
         return instance;
     }
 
@@ -28,8 +30,7 @@ public class TextureHandler {
         if (fh.isDirectory()) {
             Arrays.stream(fh.list()).forEach(this::addAllAssets);
         } else {
-            TextureWrapper w = new TextureWrapper(fh);
-            pathMap.computeIfAbsent(w.path(), x -> new LinkedHashSet<>()).add(w);
+            pathMap.computeIfAbsent(fh.path(), x -> new LinkedHashSet<>()).add(fh);
         }
     }
 
@@ -37,12 +38,15 @@ public class TextureHandler {
         return pathMap.keySet();
     }
 
-    private List<String> getTexturesForPath(String path) {
-        return pathMap.get(path).stream().map(TextureWrapper::path).collect(Collectors.toList());
+    private Stream<String> getTexturesForPath(String path) {
+        return pathMap.get(path).stream().map(FileHandle::path);
     }
 
     /**
      * Searches for all textures paths that matches with the given regular expression.
+     *
+     * <p>Example: knight_m_idle_anim_f(2|3).png will return the paths for knight_m_idle_anim_f2.png
+     * and knight_m_idle_anim_f3.png.
      *
      * @param regex the regular expression
      * @return a String List with all texture paths, that have matched
@@ -51,7 +55,7 @@ public class TextureHandler {
         Pattern pattern = Pattern.compile(regex);
         return getAvailablePaths().stream()
                 .filter(pattern.asPredicate())
-                .map(this::getTexturesForPath)
-                .collect(ArrayList::new, List::addAll, List::addAll);
+                .flatMap(this::getTexturesForPath)
+                .collect(Collectors.toList());
     }
 }
