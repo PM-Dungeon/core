@@ -7,6 +7,9 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
 import level.elements.astar.TileHeuristic;
+import level.elements.graph.Node;
+import level.elements.room.Room;
+import level.elements.room.Tile;
 import tools.Point;
 
 import java.util.ArrayList;

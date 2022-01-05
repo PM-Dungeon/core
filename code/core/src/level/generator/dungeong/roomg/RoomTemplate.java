@@ -1,6 +1,6 @@
 package level.generator.dungeong.roomg;
 
-import level.elements.Room;
+import level.elements.room.Room;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
 import tools.Point;

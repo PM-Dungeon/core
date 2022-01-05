@@ -1,6 +1,6 @@
 package demo;
 
-import level.elements.Graph;
+import level.elements.graph.Graph;
 import level.generator.dungeong.graphg.GraphG;
 import level.generator.dungeong.roomg.Replacement;
 import level.generator.dungeong.roomg.ReplacementLoader;

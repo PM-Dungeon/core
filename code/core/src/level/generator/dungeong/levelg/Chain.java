@@ -1,6 +1,6 @@
 package level.generator.dungeong.levelg;
 
-import level.elements.Node;
+import level.elements.graph.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Andre Matutat
  */
-public class Chain {
+public class Chain implements Comparable<Chain> {
     private List<Node> chain;
 
     public Chain() {
@@ -28,5 +28,12 @@ public class Chain {
     public List<Node> getNodes() {
         ArrayList<Node> copy = new ArrayList<>(chain);
         return copy;
+    }
+
+    @Override
+    public int compareTo(Chain o) {
+        if (getNodes().size() > o.getNodes().size()) return 1;
+        if (getNodes().size() < o.getNodes().size()) return -1;
+        else return 0;
     }
 }

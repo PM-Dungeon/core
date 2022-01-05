@@ -1,6 +1,6 @@
 package level.generator.dungeong.levelg;
 
-import level.elements.Node;
+import level.elements.graph.Node;
 import level.generator.dungeong.roomg.RoomTemplate;
 import tools.Point;
 /** @author Andre Matutat */

@@ -1,9 +1,10 @@
 package level.generator.dungeong.levelg;
 
-import level.elements.Graph;
 import level.elements.Level;
-import level.elements.Node;
-import level.elements.Room;
+import level.elements.graph.BFEdge;
+import level.elements.graph.Graph;
+import level.elements.graph.Node;
+import level.elements.room.Room;
 import level.generator.IGenerator;
 import level.generator.dungeong.graphg.GraphG;
 import level.generator.dungeong.graphg.NoSolutionException;
@@ -137,6 +138,11 @@ public class LevelG implements IGenerator {
      * @return List with Chains.
      */
     private List<Chain> splitInChains(Graph graph) {
+        List<BFEdge> edges = graph.getBfedges();
+        List<Chain> circles = new ArrayList<>();
+        // todo find all circles
+        Collections.sort(circles);
+        Collections.reverse(circles);
         List<Chain> chains = new ArrayList<>();
         // todo split graph in chains
         return chains;

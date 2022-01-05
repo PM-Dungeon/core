@@ -1,4 +1,4 @@
-package level.elements;
+package level.elements.room;
 
 import level.tools.DesignLabel;
 import level.tools.LevelElement;

@@ -1,4 +1,4 @@
-package level.elements;
+package level.elements.room;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.utils.Array;

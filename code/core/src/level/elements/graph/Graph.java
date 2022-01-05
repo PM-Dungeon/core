@@ -1,4 +1,4 @@
-package level.elements;
+package level.elements.graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class Graph {
     private static final int MAX_NODES = 4;
     private static final int MAX_NEIGHBOURS = 2;
     private List<Node> nodes = new ArrayList<>();
-
+    private List<BFEdge> bfedges = new ArrayList<>();
     /** Create a Graph with two connected nodes. */
     public Graph() {
         Node n1 = new Node(0);
@@ -33,6 +33,7 @@ public class Graph {
                 n1.connect(nodes.get(nb));
             }
         }
+        bfedges = graph.getBfedges();
     }
 
     /**
@@ -66,6 +67,7 @@ public class Graph {
         if (n1.notConnectedWith(n2) && canConnect(n1, n2)) {
             n1.connect(n2);
             n2.connect(n1);
+            bfedges.add(new BFEdge(index1, index2));
             return true;
         } else return false;
     }
@@ -108,5 +110,9 @@ public class Graph {
         String dot = "digraph G {\nedge [dir=none]\n";
         for (Node n : nodes) dot += n.toDot();
         return dot + "}";
+    }
+
+    public List<BFEdge> getBfedges() {
+        return this.bfedges;
     }
 }

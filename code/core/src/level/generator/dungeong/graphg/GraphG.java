@@ -3,8 +3,8 @@ package level.generator.dungeong.graphg;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import level.elements.Graph;
-import level.elements.Node;
+import level.elements.graph.Graph;
+import level.elements.graph.Node;
 
 import java.io.*;
 import java.lang.reflect.Type;

@@ -1,9 +1,9 @@
 package level.generator.dummy;
 
-import level.elements.Graph;
 import level.elements.Level;
-import level.elements.Node;
-import level.elements.Room;
+import level.elements.graph.Graph;
+import level.elements.graph.Node;
+import level.elements.room.Room;
 import level.generator.IGenerator;
 import level.generator.dungeong.graphg.NoSolutionException;
 import level.tools.DesignLabel;
