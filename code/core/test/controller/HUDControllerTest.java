@@ -30,8 +30,10 @@ public class HUDControllerTest {
     private HUDCamera camera;
     private IHUDElement element1;
     private IHUDElement element2;
-    private HUDController controller;
     private Stage textStage;
+    private HUDController controller;
+    private HUDController controllerSpy;
+    private Label labelMock;
 
     @Before
     public void setUp() throws Exception {
@@ -45,6 +47,15 @@ public class HUDControllerTest {
         when(camera.getPosition()).thenReturn(vector3toReturn);
 
         controller = new HUDController(batch, camera);
+
+        controllerSpy = Mockito.spy(controller);
+        labelMock = Mockito.mock(Label.class);
+
+        Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
+        PowerMockito.whenNew(FreeTypeFontGenerator.class)
+                .withAnyArguments()
+                .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
+        PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
     }
 
     @Test
@@ -80,9 +91,14 @@ public class HUDControllerTest {
         verifyNoMoreInteractions(camera, batch, element1, element2, textStage);
     }
 
-    /** Test the core drawText method. */
+    /**
+     * The method "drawText(text, fontPath, color, size, width, height, x, y, borderWidth)" is to be
+     * tested (with the parameter "borderWidth"). For this, it is checked whether the returned
+     * "label" matches "labelMock" and the corresponding methods ("width, height, x, y") were called
+     * on the "labelMock". There should be no other calls on the mock label.
+     */
     @Test
-    public void test_drawText_1_coreDrawMethod() {
+    public void test_drawText_1() {
         String text = "hello";
         String fontPath = "path";
         Color color = Color.CORAL;
@@ -93,34 +109,26 @@ public class HUDControllerTest {
         int y = 14;
         int borderWidth = 5;
 
-        Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
-
-        Label labelMock = Mockito.mock(Label.class);
-        try {
-            PowerMockito.whenNew(FreeTypeFontGenerator.class)
-                    .withAnyArguments()
-                    .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
-            PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
-        } catch (Exception e) {
-            Assert.fail();
-        }
-
-        // The label created and returned within the method should be the same as labelMock.
         Label label =
-                controller.drawText(text, fontPath, color, size, width, height, x, y, borderWidth);
+                controllerSpy.drawText(
+                        text, fontPath, color, size, width, height, x, y, borderWidth);
+        verify(controllerSpy)
+                .drawText(text, fontPath, color, size, width, height, x, y, borderWidth);
         Assert.assertEquals(labelMock, label);
-        // There should be set at least width, height, x and y on the labelMock.
         verify(labelMock).setSize(width, height);
         verify(labelMock).setPosition(x, y);
-        verifyNoMoreInteractions(labelMock);
+        verifyNoMoreInteractions(controllerSpy, labelMock);
     }
 
     /**
-     * Test the wrapper drawText method. We have only to test, if drawText with a border width of 1
-     * is called.
+     * The method "drawText(text, fontPath, color, size, width, height, x, y)" is to be tested
+     * (without the parameter "borderWidth"). For this purpose, it is only checked whether
+     * delegation is made to the corresponding method with the "borderWidth" parameter. The
+     * "borderWidth" parameter should always be 1. In addition, the methods ("width, height, x, y")
+     * are to be called on the "labelMock". There should be no other calls on the mock label.
      */
     @Test
-    public void test_drawText_2_wrapperDrawMethod() {
+    public void test_drawText_2_delegation() {
         String text = "hello";
         String fontPath = "path";
         Color color = Color.CORAL;
@@ -130,28 +138,12 @@ public class HUDControllerTest {
         int x = 12;
         int y = 14;
 
-        Whitebox.setInternalState(Gdx.class, "files", Mockito.mock(Files.class));
-
-        Label labelMock = Mockito.mock(Label.class);
-        try {
-            PowerMockito.whenNew(FreeTypeFontGenerator.class)
-                    .withAnyArguments()
-                    .thenReturn(Mockito.mock(FreeTypeFontGenerator.class));
-            PowerMockito.whenNew(Label.class).withAnyArguments().thenReturn(labelMock);
-        } catch (Exception e) {
-            Assert.fail();
-        }
-
-        // We need a controller spy object to track the method invocations on it.
-        HUDController controllerSpy = Mockito.spy(controller);
-
-        // The label created and returned within the method should be the same as labelMock.
         Label label = controllerSpy.drawText(text, fontPath, color, size, width, height, x, y);
-        Assert.assertEquals(labelMock, label);
-        // Only the initiating call and drawText with a border width of 1 should be called on the
-        // spy.
         verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y);
         verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y, 1);
-        verifyNoMoreInteractions(controllerSpy);
+        Assert.assertEquals(labelMock, label);
+        verify(labelMock).setSize(width, height);
+        verify(labelMock).setPosition(x, y);
+        verifyNoMoreInteractions(controllerSpy, labelMock);
     }
 }
