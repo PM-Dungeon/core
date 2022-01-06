@@ -36,7 +36,6 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
 
     protected abstract void endFrame();
 
-    public abstract void onLevelLoad();
     // --------------------------- END OWN IMPLEMENTATION ------------------------
 
     /**
