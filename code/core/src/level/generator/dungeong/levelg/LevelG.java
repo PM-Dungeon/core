@@ -26,6 +26,7 @@ import java.util.Random;
  * @author Andre Matutat
  */
 public class LevelG implements IGenerator {
+    private static final int DOOR_SIZE = 3;
     private GraphG graphg = new GraphG();
     private RoomTemplateLoader roomLoader;
     private ReplacementLoader replacementLoader;
@@ -181,7 +182,8 @@ public class LevelG implements IGenerator {
         if (solution.isEmpty())
             throw new NoSolutionException(
                     "No way to convert the given graph into a level using the given templates.");
-        placeDoors(solution);
+
+        placeDoors(solution, graph);
         return solution;
     }
 
@@ -209,7 +211,7 @@ public class LevelG implements IGenerator {
 
         // calculate configuration spaces for thisNode
         List<ConfigurationSpace> spaces = new ArrayList<>();
-        List<ConfigurationSpace> neighbourSpaces = findNeighbourCS(graph, thisNode, partSolution);
+        List<ConfigurationSpace> neighbourSpaces = getNeighbourCS(graph, thisNode, partSolution);
         if (neighbourSpaces.isEmpty())
             // this is the first node ever
             spaces = calCS(null, thisNode, templates, partSolution);
@@ -230,11 +232,36 @@ public class LevelG implements IGenerator {
         return null; // No solution. Backtrack if possible
     }
 
-    private List<ConfigurationSpace> findNeighbourCS(
+    /**
+     * Get the configuration-spaces for all neighbours, if already calculated.
+     *
+     * @param graph
+     * @param node
+     * @param spaces
+     * @return
+     */
+    private List<ConfigurationSpace> getNeighbourCS(
             Graph graph, Node node, List<ConfigurationSpace> spaces) {
-        // todo
         List<ConfigurationSpace> neighbourSpaces = new ArrayList<>();
+        List<Node> neighbours = new ArrayList<>();
+        for (Integer i : node.getNeighbours()) neighbours.add(graph.getNodes().get(i));
+        for (Node n : neighbours) {
+            ConfigurationSpace nodeSpace = getSpaceToNode(spaces, n);
+            if (nodeSpace != null) neighbourSpaces.add(nodeSpace);
+        }
         return neighbourSpaces;
+    }
+
+    /**
+     * Get a space to a node.
+     *
+     * @param spaces
+     * @param find
+     * @return
+     */
+    private ConfigurationSpace getSpaceToNode(List<ConfigurationSpace> spaces, Node find) {
+        for (ConfigurationSpace cs : spaces) if (cs.getNode() == find) return cs;
+        return null;
     }
 
     /**
@@ -300,20 +327,29 @@ public class LevelG implements IGenerator {
      *
      * @param staticSpace Where to attach.
      * @param template What to attach.
-     * @return All possible points.
+     * @return All possible positions for the global reference-point that will attach the two
+     *     templates.
      */
     private List<Point> calAttachingPoints(ConfigurationSpace staticSpace, RoomTemplate template) {
+        List<Point> points = new ArrayList<>();
+
         // todo
-        return null;
+        return points;
     }
 
     /**
      * Remove walls in room-templates to create doors.
      *
      * @param levelLayout All rooms and there positions in the level.
+     * @param graph Graph of the level.
      */
-    private void placeDoors(List<ConfigurationSpace> levelLayout) {
+    private void placeDoors(List<ConfigurationSpace> levelLayout, Graph graph) {
         // todo
+        // for each node
+        // for each neighbour
+        // find global coordinates for door
+        // for both rooms get local coordinates for door
+        // place door
     }
 
     /**
