@@ -112,6 +112,8 @@ public class HUDControllerTest {
         Label label =
                 controllerSpy.drawText(
                         text, fontPath, color, size, width, height, x, y, borderWidth);
+        // By using PowerMockito we additionally have to verify the initial call of drawText on the
+        // controllerSpy. This is related to the final verifyNoMoreInteractions call.
         verify(controllerSpy)
                 .drawText(text, fontPath, color, size, width, height, x, y, borderWidth);
         Assert.assertEquals(labelMock, label);
@@ -139,6 +141,8 @@ public class HUDControllerTest {
         int y = 14;
 
         Label label = controllerSpy.drawText(text, fontPath, color, size, width, height, x, y);
+        // By using PowerMockito we additionally have to verify the initial call of drawText on the
+        // controllerSpy. This is related to the final verifyNoMoreInteractions call.
         verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y);
         verify(controllerSpy).drawText(text, fontPath, color, size, width, height, x, y, 1);
         Assert.assertEquals(labelMock, label);
