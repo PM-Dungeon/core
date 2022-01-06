@@ -74,8 +74,7 @@ public class RoomTemplate {
      * @param design Design of the room.
      * @return the created room
      */
-    private Room replace(
-            final List<Replacement> replacements, Point globalRef, DesignLabel design) {
+    public Room replace(final List<Replacement> replacements, Point globalRef, DesignLabel design) {
         int layoutHeight = layout.length;
         int layoutWidth = layout[0].length;
         LevelElement[][] roomLayout = new LevelElement[layoutHeight][layoutWidth];
@@ -90,19 +89,21 @@ public class RoomTemplate {
             if (r.getLayout()[0].length <= layoutWidth && r.getLayout().length <= layoutHeight)
                 replacementList.add(r);
         }
-        // shuffle the list for more variety
-        Collections.shuffle(replacementList);
+
         // replace with replacements
         boolean changes;
         do {
             changes = false;
+            // shuffle the list for more variety
+            Collections.shuffle(replacementList);
             for (Replacement r : replacementList) {
                 int rHeight = r.getLayout().length;
                 int rWidth = r.getLayout()[0].length;
                 for (int y = 0; y < layoutHeight - rHeight; y++)
                     for (int x = 0; x < layoutWidth - rWidth; x++)
-                        if (roomLayout[y][x] == LevelElement.WILD && placeIn(roomLayout, r, x, y))
-                            changes = true;
+                        if (!changes
+                                && roomLayout[y][x] == LevelElement.WILD
+                                && placeIn(roomLayout, r, x, y)) changes = true;
             }
         } while (changes);
 
