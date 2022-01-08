@@ -13,15 +13,19 @@ public class LevelAPI {
     private SpriteBatch batch;
     private Painter painter;
     private IGenerator gen;
+    private IOnLevelLoader onLevelLoader;
 
-    public LevelAPI(SpriteBatch batch, Painter painter, IGenerator gen) {
+    public LevelAPI(
+            SpriteBatch batch, Painter painter, IGenerator gen, IOnLevelLoader onLevelLoader) {
         this.gen = gen;
         this.batch = batch;
         this.painter = painter;
+        this.onLevelLoader = onLevelLoader;
     }
 
     public void loadLevel() {
         currentLevel = gen.getLevel();
+        onLevelLoader.onLevelLoad();
         // currentLevel = createDummyLevel();
     }
 
