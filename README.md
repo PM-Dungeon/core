@@ -9,7 +9,7 @@ To create your own game with the PM-Dungeon-Framework, check out the Quickstart 
 
 ## What do you need
 
-- JDK v.17.0 or higher
+- Java SE Development Kit 17.0.x or higher
 
 ## Contributing
 
