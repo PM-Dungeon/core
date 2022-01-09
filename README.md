@@ -1,6 +1,8 @@
 # PM-Dungeon-Framework
 
-To create your own game with the PM Dungeon Framework, check out the Quickstart Guide: 
+## Installing & Quickstart
+
+To create your own game with the PM-Dungeon-Framework, check out the Quickstart Guide: 
 
 - German **KOMMT NOCH**
 - English **KOMMT NOCH**
