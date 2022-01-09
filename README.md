@@ -19,5 +19,5 @@ We look forward to your support.
 
 ## Language definition  
 
-This project is implemented by a German-speaking university and is therefore designed for German-speaking students. Nevertheless, the project can also be used by international institutes or private individuals. Please note, however, that the English documentation may not be available or may be outdated. If you have any questions, problems or suggestions, please feel free to contact us in English. 
+This project is intended as teaching material for German-language university courses and is therefore aimed at German-speaking students. Please keep in mind that the English documentation may therefore not be available or may be slightly out of date. If you have any questions, problems or suggestions, please feel free to contact us in English or German. 
 
