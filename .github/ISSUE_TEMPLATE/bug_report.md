@@ -7,27 +7,27 @@ assignees: ''
 
 ---
 
-*Note: An English description can be found below.* 
+*Note: An English version can be found below.* 
 
 **Fehlerbeschreibung** 
-Eine klare und prägnante Beschreibung des Fehlers.
+Eine klare und prägnante Beschreibung des Fehlers:
 
 **Anleitung zum Reproduzieren** 
 Schritte, um das Verhalten zu reproduzieren:
 
 **Erwartetes Verhalten** 
-Eine klare und prägnante Beschreibung dessen, was Sie erwartet haben.
+Eine klare und prägnante Beschreibung dessen, was Sie erwartet haben:
 
 **Screenshots** 
-Fügen Sie ggf. Screenshots hinzu, um Ihr Problem zu erläutern.
+Fügen Sie ggf. Screenshots hinzu, um Ihr Problem zu erläutern:
 
 **Systembeschreibung (Bitte füllen Sie die folgenden Informationen aus)**
-- Betriebssystem
-- Version des Dungeon
-- Java Version (JDK)
+- Betriebssystem:
+- Version des Dungeon:
+- Java Version (JDK):
 
-**Zusätzliche Kontext**
-Fügen Sie hier weitere Informationen über das Problem hinzu
+**Zusätzlicher Kontext**
+Fügen Sie hier weitere relevante Informationen über das Problem hinzu:
 
 ------------------------------------------------------------------------------------
 
