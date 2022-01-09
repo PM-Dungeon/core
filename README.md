@@ -17,7 +17,7 @@ If you use the IntelliJ IDEA you can use our [Configuration Guide](https://githu
 
 We look forward to your support.
 
-## Language definition  
+## Language  
 
 This project is intended as teaching material for German-language university courses and is therefore aimed at German-speaking students. Please keep in mind that the English documentation may therefore not be available or may be slightly out of date. If you have any questions, problems or suggestions, please feel free to contact us in English or German. 
 
