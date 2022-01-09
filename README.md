@@ -9,7 +9,7 @@ To create your own game with the PM Dungeon Framework, check out the Quickstart 
 
 - JDK v.17.0 or higher
 
-## How to contribute
+## Contributing
 
 If you would like to contribute to the project, please follow the code convention. 
 
