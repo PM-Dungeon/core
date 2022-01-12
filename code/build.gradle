@@ -114,7 +114,7 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "https://github.com/PM-Dungeon/core.git"
+                    connection = "scm:git:https://github.com/PM-Dungeon/core.git"
                     developerConnection = ""
                     url = "https://github.com/PM-Dungeon/core"
                 }
