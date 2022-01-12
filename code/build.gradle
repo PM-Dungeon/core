@@ -101,6 +101,7 @@ publishing {
 }
 
 signing {
+    useInMemoryPgpKeys("$System.env.GPG_PRIVATE_KEY", "$System.env.PASSPHRASE")
     sign configurations.archives
 }
 
