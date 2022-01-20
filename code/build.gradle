@@ -1,7 +1,7 @@
 plugins {
     id "java"
-    id "com.github.spotbugs" version "4.7.9" apply true
     id "eclipse"
+    id "com.github.spotbugs" version "4.7.9"
     id "java-library"
     id "maven-publish"
     id "signing"
@@ -83,7 +83,7 @@ publishing {
         maven(MavenPublication) {
             groupId = "io.github.pm-dungeon"
             artifactId = "core"
-            version = "1.0.8"
+            version = project.version
 
             from components.java
 
