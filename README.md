@@ -2,7 +2,7 @@
 
 ## About
 
-The pmdungeon is a lightweight, libgdx based, Java framework for the development of a 2D rogue like. It is developed for teaching purposes and therefore especially suitable for inexperienced Java developers. The project is free to use for your own lecture.
+The pmdungeon is a lightweight, [libgdx](https://libgdx.com/) based, Java framework for the development of a 2D rogue like. It is developed for teaching purposes and therefore especially suitable for inexperienced Java developers. The project is free to use for your own lecture.
 
 This is the `core` part of the project. In contains the framework itself without any launcher implementation. You can use it with your own `libGDX`-project, or you can use the provided [desktop-setup](https://github.com/PM-Dungeon/desktop). 
 
