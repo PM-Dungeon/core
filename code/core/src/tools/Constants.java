@@ -16,6 +16,7 @@ public final class Constants {
 
     /** 200% zoom. */
     public static final float DEFAULT_ZOOM_FACTOR = 0.5f;
+
     public static final String PATH_TO_LEVEL = "./levelFiles/";
     public static final String PATH_TO_GRAPH = "./graphs/";
     public static final String PATH_TO_ROOM = "./roomTemplates.json";

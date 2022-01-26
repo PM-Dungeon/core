@@ -1,8 +1,8 @@
 package level.generator.dummy;
 
 import level.elements.Level;
-import level.elements.Node;
-import level.elements.Room;
+import level.elements.graph.Node;
+import level.elements.room.Room;
 import level.generator.IGenerator;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;

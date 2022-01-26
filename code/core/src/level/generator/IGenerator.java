@@ -1,7 +1,7 @@
 package level.generator;
 
-import level.elements.Graph;
 import level.elements.Level;
+import level.elements.graph.Graph;
 import level.generator.dungeong.graphg.NoSolutionException;
 import level.tools.DesignLabel;
 
