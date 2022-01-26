@@ -9,6 +9,7 @@ import graphic.Painter;
 import level.IOnLevelLoader;
 import level.LevelAPI;
 import level.generator.IGenerator;
+import level.generator.LevelLoader.LevelLoader;
 import level.generator.dummy.DummyGenerator;
 import level.generator.dungeong.levelg.LevelG;
 import tools.Constants;
@@ -72,7 +73,8 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
         hudCamera = new HUDCamera();
         hud = new HUDController(hudBatch, hudCamera);
         if (Constants.USE_DUMMY_GENERATOR) generator = new DummyGenerator();
-        else generator = new LevelG();
+        else if (Constants.USE_LOADER_GENERATOR) generator = new LevelLoader();
+        else generator = new LevelG(); //DungeonG
         levelAPI = new LevelAPI(batch, painter, generator, this);
         setup();
     }

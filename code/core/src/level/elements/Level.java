@@ -1,5 +1,15 @@
 package level.elements;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -126,5 +136,38 @@ public class Level {
                 if (!marked.contains(childNode))
                     graph_search(currentNode, new ArrayList<Node>(marked), goal, paths);
             }
+    }
+
+    /**
+     * Export this level as json
+     *
+     * @param path where to save?
+     */
+    public void writeToJson(String path) {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Import a level from an json
+     *
+     * @param file path to the json
+     * @return the imported level
+     * @throws IOException if there is any problem with the file
+     */
+    public static final Level loadLevel(String file) throws IOException {
+        Level level;
+        Type levelType = new TypeToken<Level>() {}.getType();
+        JsonReader reader = null;
+        reader = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
+        return new Gson().fromJson(reader, levelType);
     }
 }
