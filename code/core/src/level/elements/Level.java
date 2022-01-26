@@ -27,6 +27,21 @@ public class Level {
         this.rooms = rooms;
     }
 
+    /**
+     * Import a level from an json
+     *
+     * @param file path to the json
+     * @return the imported level
+     * @throws IOException if there is any problem with the file
+     */
+    public static final Level loadLevel(String file) throws IOException {
+        Level level;
+        Type levelType = new TypeToken<Level>() {}.getType();
+        JsonReader reader = null;
+        reader = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
+        return new Gson().fromJson(reader, levelType);
+    }
+
     /** @return random room */
     public Room getRandomRoom() {
         return getRooms().get(new Random().nextInt(getRooms().size()));
@@ -154,20 +169,5 @@ public class Level {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Import a level from an json
-     *
-     * @param file path to the json
-     * @return the imported level
-     * @throws IOException if there is any problem with the file
-     */
-    public static final Level loadLevel(String file) throws IOException {
-        Level level;
-        Type levelType = new TypeToken<Level>() {}.getType();
-        JsonReader reader = null;
-        reader = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
-        return new Gson().fromJson(reader, levelType);
     }
 }
