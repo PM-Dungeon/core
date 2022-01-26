@@ -10,8 +10,8 @@ This is the `core` part of the project. In contains the framework itself without
 
 To create your own game with the PM-Dungeon-Framework, check out the Quickstart Guide: 
 
-- German **KOMMT NOCH**
-- English **KOMMT NOCH**
+- [German](./documentation/qucikstart_de.md)
+- [English](./documentation/qucikstart_de.md)
 
 ## What do you need
 
