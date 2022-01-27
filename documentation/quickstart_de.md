@@ -68,22 +68,200 @@ Bevor wir nun unseren Helden implementieren sollten wir verstehen, was genau der
 
 ## Eigener Held
 
-## Der bewegte (animierte) Held
+Jetzt, wo Sie sichergestellt haben, dass das Dungeon ausgeführt werden kann, geht es darum, das Spiel mit Ihren Inhalten zu erweitern. Im Folgenden wird ein rudimentärer Held implementiert, um Ihnen die verschiedenen Aspekte des Dungeon zu erläutern.
 
-## Wo bin ich?
+Fangen wir damit an eine neue Klasse für den Helden anzulegen. Da unser Held eine Animation haben soll, implementieren wir das Interface `IAnimatable`. Dies erlaubt es uns, unseren Helden zu animieren. Für Objekte, die keine Animation haben, sondern nur eine statische Textur, würden wir das Interface `IEntity` implementieren.
 
-## Sie werden platziert
+```java
+public class Hero implements IAnimatable {
+    @Override
+    public Animation getActiveAnimation(){
+        return null;
+    }
 
-## WASD oder die Steuerung des Helden über die Tastatur
+	@Override
+    public void update() {
+    }
+}      
+```
 
-## Ein letzter Überblick
+### Der bewegte (animierte) Held
+
+Fangen wir damit an, die Animation für unseren Helden zu erstellen. Eine Animation ist eine Liste mit verschieden Texturen, die nacheinander abgespielt werden.
+
+```java
+//Anlegen einer Animation
+private Animation idleAnimation;
+public Hero() {
+    //Erstellen einer ArrayList
+    List <Texture> idle = new ArrayList<>();
+    //Laden der Texturen für die Animation (Pfad angeben)
+    idle.add(new Texture(PATH_TO_TEXTURE_1.png));
+    idle.add(new Texture(PATH_TO_TEXTURE_1.png));
+    //Erstellen einer Animation, als Parameter wird die Liste mit den Texturen
+    //und die Wartezeit (in Frames) zwischen den Wechsel der Texturen angegeben
+    idleAnimation = new Animation(idle,8);
+}
+
+@Override
+//Da unser Held aktuell nur eine Animation hat,
+//geben wir diese als aktuell aktive Animation zurück
+public Animation getActiveAnimation() {
+    return this.idle;
+}
+
+@Override
+public void update() {
+}
+```
+
+Super, jetzt hat unser Held eine Animation. Nun muss diese noch im Spiel gezeichnet werden.
+
+Da das Dungeon framebasiert ist, muss unser Held in jedem Frame (also 30-mal in der Sekunde) neu gezeichnet werden. Dazu verwenden den `EntityController`. 
+
+Der `EntityController` verwendet das *Observer-Pattern* (vergleiche Vorlesung) um Instanzen vom Typen `IEntity` und `IAnimatable` zu verwalten. Er sorgt dafür, dass die vom Interface bereitgestellte `update`-Methode jeder Entität in der Game-Loop aufgerufen wird. Dazu hält er eine Liste mit allen ihm übergebenen Entitäten. Weiter unten sehen Sie, wie Sie den `EntityController` verwenden können, um unseren Helden managen zu lassen.
+
+*Hinweis: Der `MainController` verfügt bereits über einen `EntityController`, welchen Sie innerhalb von `MyGame` mit `entityController` ansprechen können.*
+
+Dafür implementieren wie nun die Methode `update`. 
+
+```java
+@Override
+public void update() {
+//zeichnet den Helden.
+//Wird als default Methode vom IAnimatable Interface mitgeliefert
+this.draw();
+}
+```
+
+### Wo bin ich?
+
+Jetzt ist unsere erste Version vom Helden fast fertig, wir benötigen lediglich noch ein paar kleinere Informationen. Zuerst muss unser Held wissen, wo er überhaupt im Dungeon steht, dafür benötigt er eine Position. Zusätzlich wäre es hilfreich, wenn unser Held das Level (die Dungeon-Ebene) kennen würde, da wir so vermeiden können, dass sich unser Held durch Wände bewegt oder sich außerhalb des eigentlichen Spielbereiches aufhält.
+
+```java
+//Positionen werden als float x und float y in der Klasse Point gespeichert
+private Point position;
+//Das Level
+private Level level;
+
+//So können wir später dem Helden das aktuelle Level übergeben
+public void setLevel(Level level) {
+    this.level = level;
+    this.position = level.getStartTile().getPosition();
+}
+```
+
+Jetzt wo unser Held erst einmal fertiggestellt ist, müssen wir ihn noch im Dungeon einfügen. Dies tun wir in `MyGame`
+
+Die Methode `setup` ermöglicht es uns, einmalig zu Beginn der Anwendung Vorbereitungen zu treffen. Wir nutzen dies nun, um unseren Helden anzulegen und ihn dem `EntityController` zu übergeben.
+
+```java
+//Unser Held
+private Hero hero;
+@Override
+public void setup() {
+    //Erstellung unseres Helden
+    hero = new Hero();
+    //Ab jetzt kümmert sich der EntityController um das aufrufen von Held.update
+    entityController.addEntity(hero);
+    //unsere Kamera soll sich immer auf den Helden zentrieren.
+    camera.follow(hero);
+}
+```
+
+Die Kamera `camera` ist unser "Auge" im Dungeon. Mit `camera.follow` können wir ihr ein Objekt übergeben, welches von nun an immer im Mittelpunkt des Bildes sein soll.
+
+### Sie werden platziert
+
+Jetzt müssen wir unseren Helden nur noch im Level platzieren. Dafür bietet Sich die Methode `onLevelLoad` an, diese wird immer dann automatisch aufgerufen, wenn von der `LevelAPI` ein neues Level geladen wird. Die `LevelAPI` ist dafür zuständig, die Struktur des Dungeons zu laden und zu zeichnen. Sie hält eine Referenz auf das eigentliche `Level`-Objekt.
+
+*Hinweis: Der `MainController` verfügt bereits über eine `LevelAPI` , welchen Sie innerhalb von `MyGame` mit `levelAPI` ansprechen können*
+
+```java
+@Override
+public void onLevelLoad() {
+    hero.setLevel(levelAPI.getLevel());
+}
+```
+
+Jetzt wird der Held bei jedem neuen Level auf den Startpunkt platziert..
+
+Zu guter Letzt sollten wir noch prüfen, ob unser Held auf der Leiter zum nächsten Level steht und wenn ja, das nächste Level laden (also die Leiter herab steigen in die nächste Ebene des Dungeons).
+
+Die Methoden `beginFrame` und `endFrame` ermöglichen es uns, unsere eigenen Aktionen in die Game-Loop zu integrieren. Alles, was wir in der Methode `beginFrame` implementieren, wird am Anfang jedes Frames ausgeführt, analog alles in `endFrame` am Ende eines Frames.
+
+Zum Überprüfen, ob ein neues Level geladen werden soll, verwenden wir diesmal die `endFrame`-Methode.
+
+```java
+@Override
+public void endFrame() {
+    //Prüfe ob der übergebene Point auf der Leiter ist
+    if (levelAPI.checkForTrigger(hero.getPosition())) {
+        //Lade im nächsten Frame das nächste Level
+        levelAPI.triggerNextStage();
+    }
+}
+```
+
+### WASD oder die Steuerung des Helden über die Tastatur
+
+Damit wir unser Spiel auch richtig testen können, sollten wir unserem Helden noch die Möglichkeit zum Bewegen geben. Dafür fügen wir Steuerungsoptionen in der `Held.update`-Methode hinzu:
+
+```java
+//Temporären Point um den Held nur zu bewegen, wenn es keine Kollision gab
+Point newPosition = new Point(this.position);
+//Unser Held soll sich pro Schritt um 0.1 Felder bewegen.
+float movementSpeed = 0.1f;
+//Wenn die Taste W gedrückt ist, bewege dich nach oben
+if (Gdx.input.isKeyPressed(Input.Keys.W))
+    newPosition.y += movementSpeed;
+//Wenn die Taste S gedrückt ist, bewege dich nach unten
+if (Gdx.input.isKeyPressed(Input.Keys.S))
+    newPosition.y -= movementSpeed;
+//Wenn die Taste D gedrückt ist, bewege dich nach rechts
+if (Gdx.input.isKeyPressed(Input.Keys.D))
+    newPosition.x += movementSpeed;
+//Wenn die Taste A gedrückt ist, bewege dich nach links
+if (Gdx.input.isKeyPressed(Input.Keys.A))
+    newPosition.x -= movementSpeed;
+//Wenn der übergebene Punkt betretbar ist, ist das nun die aktuelle Position
+if (level.isTileAccessible(newPosition))
+   this.position = newPosition;
+```
+
+Starten wir nun das Spiel, sollten wir in der Lage sein, unseren Helden zu sehen und durch das Dungeon zu bewegen.
+
+## Level und Levelgeneratoren
+
+- set generator
+- welche methode gibt es, um im level zu arbeiten? 
 
 ## Head-up-Display (HUD)
 
 ## Abschlussworte
 
+Sie haben nun die ersten Schritte im Dungeon gemacht. Von nun an müssen Sie selbst entscheiden, wie Sie die Aufgaben im Praktikum umsetzten möchten. Ihnen ist mit Sicherheit aufgefallen, dass einige Interface-Methoden in diesem Dokument noch nicht erläutert wurden. Machen Sie sich daher mit der Javadoc des Frameworks vertraut.
+
 ## Zusätzliche Funktionen
 
 ### Sound
+
+Möchten Sie Soundeffekte oder Hintergrundmusik zu Ihrem Dungeon hinzufügen, bietet `libGDX` eine einfache Möglichkeit dafür.
+
+Es werden die Formate `.mp3`, `.wav` und `.ogg` unterstützt. Das Vorgehen unterscheidet sich zwischen den Formaten nicht.
+
+```Java
+//Datei als Sound-Objekt einladen
+Sound bumSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/bum.mp3"));
+bumSound.play();
+//Sound leise abspielen
+bumSound.play(0.1f);
+//Sound mit maximal Lautstärke abspielen
+bumSound.play(1f);
+//Soud endlos abspielen
+bumSound.loop();
+```
+
+Sie können noch weitere Parameter und Methoden verwenden, um den Sound Ihren Wünschen anzupassen. Schauen Sie dafür in die [`libGDX`-Dokumentation](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/audio/Sound.html)
 
 ### Text
