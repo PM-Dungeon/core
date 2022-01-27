@@ -15,7 +15,7 @@ This is the `core` part of the project. In contains the framework itself without
 To create your own game with the PM-Dungeon-Framework, check out the quick start guide: 
 
 - [German](./documentation/quickstart_de.md)
-- [English](./documentation/qucikstart_de.md)
+- [English](./documentation/quickstart_en.md)
 
 If you just want to get started, add `implementation "io.github.pm-dungeon:core:1.0.+"` to your dependencies.
 
