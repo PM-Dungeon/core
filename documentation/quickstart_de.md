@@ -41,6 +41,31 @@ Bevor wir mit der eigentlichen Implementierung des Spiels anfangen, eine kurze E
 
 ## Erster Start
 
+In diesen Abschnitt werden alle Schritte erläutert, die zum ersten Start der Anwendung führen.
+
+- Legen Sie sich eine neue Klasse an. Der Einfachheit halber wird diese Klasse im weiteren Verlauf `MyGame` genannt. Sie können die Klasse aber nennen wie Sie wollen.
+
+- `MyGame` muss von `MainController` erben.
+
+- Implementieren Sie alle notwendigen Methoden. *Hinweis: Weitere Informationen zu diesen Methoden erfolgen im Laufe der Dokumentation.*
+
+  - `setup()`
+  - `beginFrame()`
+  - `enFrame()`
+  - `onLevelLoad()`
+  
+- Fügen Sie die `main`-Methode hinzu
+
+  ```
+  public static void main(String[] args) {
+      DesktopLauncher.run(new MyGame());
+  }
+  ```
+
+Das Spiel sollte nun starten und Sie sollten einen Ausschnitt des Level sehen können. 
+
+Bevor wir nun unseren Helden implementieren sollten wir verstehen, was genau der `MainController` eigentlich ist. Wie der Name schon vermuten lässt, ist dies die Haupt-Steuerung des Spiels. Er bereitet alles für den Start des Spieles vor, verwaltet die anderen Controller und enthält die Game-Loop. Wir nutzen `MyGame` um selbst in die Game-Loop einzugreifen und unsere eigenen Objekte wie Helden und Monster zu verwalten. Der `MainController` ist der Punkt, an dem alle Fäden des Dungeons zusammenlaufen. Im Folgenden wird Ihnen erklärt, wie Sie erfolgreich mit dem `MainController` arbeiten.
+
 ## Eigener Held
 
 ## Der bewegte (animierte) Held
