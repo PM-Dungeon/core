@@ -41,6 +41,6 @@ public class LevelLoader implements IGenerator {
             System.out.println("File may be corrupted ");
             e.printStackTrace();
         }
+        return null;
     }
-    return null;
 }

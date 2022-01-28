@@ -7,7 +7,6 @@ import level.generator.IGenerator;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
-import tools.Point;
 
 import java.util.ArrayList;
 import java.util.List;
