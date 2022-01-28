@@ -27,5 +27,5 @@ This project is intended as teaching material for German-language university cou
 
 ## License
 
-See [License](./LICENSE.md)
+Copyright (c) 2021-2022 André Matutat, Tobias Grothe, Carsten Gips under the [MIT](LICENSE.md) license.
 
