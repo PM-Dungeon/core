@@ -74,7 +74,12 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
         hud = new HUDController(hudBatch, hudCamera);
         if (Constants.USE_DUMMY_GENERATOR) generator = new DummyGenerator();
         else if (Constants.USE_LOADER_GENERATOR) generator = new LevelLoader();
-        else generator = new LevelG(); // DungeonG
+        else
+            generator =
+                    new LevelG(
+                            Constants.PATH_TO_ROOMTEMPLATES,
+                            Constants.PATH_TO_REPLACEMENTS,
+                            Constants.PATH_TO_GRAPH); // DungeonG
         levelAPI = new LevelAPI(batch, painter, generator, this);
         setup();
     }

@@ -122,7 +122,9 @@ public class LevelG implements IGenerator {
             throws NoSolutionException {
         List<ConfigurationSpace> configurationSpaces = makeLevel(graph, solveSeq, design);
         List<Room> rooms = new ArrayList<>();
-        List<Replacement> replacements = replacementLoader.getReplacements(design);
+        List<Replacement> replacements;
+        if (Constants.DISABLE_REPLACEMENTS) replacements = new ArrayList<>();
+        else replacements = replacementLoader.getReplacements(design);
         // replace templates
         for (ConfigurationSpace cs : configurationSpaces) {
             RoomTemplate template = cs.getTemplate();
