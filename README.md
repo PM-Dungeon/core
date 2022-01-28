@@ -2,7 +2,7 @@
 
 ## About
 
-The **PM-Dungeon** is a lightweight Java framework for the development of a 2D-Rougelike game. It is designed for educational purposes and is especially aimed at inexperienced Java developers. The project currently uses the [libGDX](https://libgdx.com/) as a backend.
+The **PM-Dungeon** is a lightweight Java framework for the development of a 2D-Rouge-like game. It is designed for educational purposes and is especially aimed at inexperienced Java developers. The project currently uses the [libGDX](https://libgdx.com/) as a backend.
 
 This is the `core` part of the project. It contains the actual framework without any launcher implementation. You can use it to develop your own game, but it is probably easier to use the [desktop](https://github.com/PM-Dungeon/desktop) project as a starting point for your own game. 
 
@@ -29,4 +29,5 @@ This project is intended as teaching material for German-language university cou
 
 ## License
 
-Copyright (c) 2021-2022 André Matutat, Carsten Gips. Released under the [MIT](LICENSE.md) license.
+See [License](./LICENSE.md)
+
