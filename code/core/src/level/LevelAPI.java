@@ -14,8 +14,8 @@ import tools.Point;
 public class LevelAPI {
     private final SpriteBatch batch;
     private final Painter painter;
-    private final IGenerator gen;
     private final IOnLevelLoader onLevelLoader;
+    private IGenerator gen;
     private Level currentLevel;
 
     public LevelAPI(
@@ -56,5 +56,9 @@ public class LevelAPI {
                                 new Point(t.getGlobalPosition().x, t.getGlobalPosition().y),
                                 batch);
                 }
+    }
+
+    public void setGenerator(IGenerator generator) {
+        gen = generator;
     }
 }
