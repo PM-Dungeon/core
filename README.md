@@ -17,8 +17,6 @@ To create your own game using the PM-Dungeon framework, check out the quick star
 - [German](./documentation/quickstart_de.md)
 - [English](./documentation/quickstart_en.md)
 
-If you just want to get started, add `implementation "io.github.pm-dungeon:core:1.0.+"` to your dependencies.
-
 ## Contributing
 
 Pull requests, bug reports, and feature requests are welcome. Please make sure to read the [contributor guidelines](CONTRIBUTING.md) before opening a new issue.
