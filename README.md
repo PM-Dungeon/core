@@ -2,17 +2,17 @@
 
 ## About
 
-The **PM-Dungeon** is a lightweight, [libgdx](https://libgdx.com/) based, Java framework for the development of a 2D rogue like. It is developed for teaching purposes and therefore especially suitable for inexperienced Java developers. The project is free to use for your own lecture.
+The **PM-Dungeon** is a lightweight Java framework for the development of a 2D-Rougelike game. It is designed for educational purposes and is especially aimed at inexperienced Java developers. The project currently uses the [libGDX](https://libgdx.com/) as a backend.
 
-This is the `core` part of the project. In contains the framework itself without any launcher implementation. You can use it with your own `libGDX`-project, or you can use the provided [desktop-setup](https://github.com/PM-Dungeon/desktop). 
+This is the `core` part of the project. It contains the actual framework without any launcher implementation. You can use it to develop your own game, but it is probably easier to use the [desktop](https://github.com/PM-Dungeon/desktop) project as a starting point for your own game. 
 
-## What do you need
+## Requirements
 
 - Java SE Development Kit 17.0.x or higher
 
 ## Installing & quick start
 
-To create your own game with the PM-Dungeon-Framework, check out the quick start guide: 
+To create your own game using the PM-Dungeon framework, check out the quick start guide: 
 
 - [German](./documentation/quickstart_de.md)
 - [English](./documentation/quickstart_en.md)
