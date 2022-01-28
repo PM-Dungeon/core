@@ -1,13 +1,14 @@
 # Quickstart
 
 Dieses Dokument liefert einen Einstieg in das PM-Dungeon. Es erläutert die Installation des Frameworks und die ersten Schritte, um eigene Inhalte zum Dungeon hinzuzufügen. Es dient als Grundlage für alle weiteren Praktika. Lesen Sie das Dokument daher aufmerksam durch und versuchen Sie sich zusätzlich selbst mit dem Aufbau vertraut zu machen.
+Das Framework ist in `core` und `desktop` aufgeteilt, wobei `core` das Framework und `desktop` ein Basis-Starter ist. 
 
 ## Installation
 
 Um das PM-Dungeon-Framework zu nutzen haben Sie zwei Möglichkeiten.
 
 1. Erstellen Sie sich ein Fork des [`desktop`-Repository](https://github.com/PM-Dungeon/desktop) und ziehen Sie sich einen lokalen Klon auf Ihr Gerät. (Empfohlen)
-2. Erstellen Sie eigenständig ein neues Projekt und binden Sie [`core`](https://repo1.maven.org/maven2/io/github/pm-dungeon/core/) in Ihr Projekt ein. Beachten Sie dabei, dass Sie damit jede glich das "Backend" des Frameworks implementieren. Um das "Frontend" nutzen zu können, benötigen Sie einen libGDX-Launcher und die entsprechenden Abhängigkeiten; ein einfaches Basisbeispiel finden Sie im [`desktop`-Repository](https://github.com/PM-Dungeon/desktop). 
+2. Erstellen Sie eigenständig ein neues Projekt und binden Sie [`core`](https://repo1.maven.org/maven2/io/github/pm-dungeon/core/) in Ihr Projekt ein. Beachten Sie dabei, dass Sie damit nur das "Backend" des Frameworks implementieren. Um das "Frontend" nutzen zu können, benötigen Sie einen libGDX-Launcher und die entsprechenden Abhängigkeiten; ein einfaches Basisbeispiel finden Sie im [`desktop`-Repository](https://github.com/PM-Dungeon/desktop). 
 
 ## Arbeiten mit dem Framework
 
@@ -15,7 +16,7 @@ Zu Beginn einige grundlegende Prinzipien, die Sie verstanden haben sollten, bevo
 
 Das PM-Dungeon benutzt aktuell das Cross-Plattform Java-Framework [`libGDX`](https://libgdx.com) als Backend. Dieses ist im `core`- und `desktop`-Projekt bereits als Abhängigkeit in die Gradle-Konfiguration integriert, Sie müssen dieses nicht extra installieren. Die Ihnen zur Verfügung gestellten Vorgaben sind so umgesetzt, dass Sie kein tieferes Verständnis für das Framework oder `libGDX` benötigen, um die Aufgaben zu lösen. Sollten Sie allerdings einmal auf Probleme stoßen, kann es unter Umständen helfen, einen Blick in die Dokumentation von `libGDX` zu werfen.
 
-Das Framework ist in ein Frontend (`desktop`) und ein Backend (`core`) aufgeteilt. 
+Das Framework ist in ein Frontend ([`desktop`]((https://github.com/PM-Dungeon/desktop))) und ein Backend ([`core`]((https://github.com/PM-Dungeon/core))) aufgeteilt. 
 Das Frontend setzt die Parameter, erzeugt ein Fenster und startet die Anwendung.
 Das Backend liefert die Schnittstellen, mit denen Sie arbeiten, und integriert die `libGDX`.
 
