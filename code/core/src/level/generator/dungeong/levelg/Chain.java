@@ -40,6 +40,7 @@ public class Chain implements Comparable<Chain> {
 
     @Override
     public int compareTo(Chain o) {
+        if(this.equals(o)) return 0;
         if (circle && !o.circle) return -1;
         return Integer.compare(getNodes().size(), o.getNodes().size());
     }
