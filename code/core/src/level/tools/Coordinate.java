@@ -21,4 +21,10 @@ public class Coordinate {
         Coordinate other = (Coordinate) o;
         return x == other.x && y == other.y;
     }
+
+    @Override
+    public int hashCode() {
+        assert false : "hashCode nit designed";
+        return x + y; // any arbitrary constant will do
+    }
 }

@@ -44,4 +44,11 @@ public class Chain implements Comparable<Chain> {
         if (circle && !o.circle) return -1;
         return Integer.compare(getNodes().size(), o.getNodes().size());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Chain)) return false;
+        if (o == this) return true;
+        return false;
+    }
 }
