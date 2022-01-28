@@ -384,21 +384,5 @@ public class Level implements IndexedGraph<Tile> {
     public Array<Connection<Tile>> getConnections(Tile fromNode) {
         return fromNode.getConnections();
     }
-    /**
-     * Export this level as json
-     *
-     * @param path where to save?
-     */
-    public void writeToJson(String path) {
-        Gson gson = new Gson();
-        String json = gson.toJson(this);
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
