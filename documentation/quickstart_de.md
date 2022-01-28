@@ -1,4 +1,4 @@
-## Einleitung
+# Quickstart
 
 Dieses Dokument liefert einen Einstieg in das PM-Dungeon. Es erläutert die Installation des Frameworks und die ersten Schritte, um eigene Inhalte zum Dungeon hinzuzufügen. Es dient als Grundlage für alle weiteren Praktika. Lesen Sie das Dokument daher aufmerksam durch und versuchen Sie sich zusätzlich selbst mit dem Aufbau vertraut zu machen.
 
@@ -7,23 +7,27 @@ Dieses Dokument liefert einen Einstieg in das PM-Dungeon. Es erläutert die Inst
 Um das PM-Dungeon-Framework zu nutzen haben Sie zwei Möglichkeiten.
 
 1. Erstellen Sie sich ein Fork des [`desktop`-Repository](https://github.com/PM-Dungeon/desktop) und ziehen Sie sich einen lokalen Klon auf Ihr Gerät. (Empfohlen)
-2. Erstellen Sie eigenständig ein neues Projekt und binden Sie [`core`](https://repo1.maven.org/maven2/io/github/pm-dungeon/core/) in Ihr Projekt ein. Beachten Sie dabei, dass Sie damit jede glich das "Backend" des Frameworks implementieren. Um das "Frontend" nutzen zu können, benötigen Sie einen libGDX-Launcher und die entsprechenden Abhängigkeiten. Sie können die Nötigen Abhängigkeiten sowie die Implementierung eines libGDX-Launcher im [`desktop`-Repository](https://github.com/PM-Dungeon/desktop) nachschauen. 
+2. Erstellen Sie eigenständig ein neues Projekt und binden Sie [`core`](https://repo1.maven.org/maven2/io/github/pm-dungeon/core/) in Ihr Projekt ein. Beachten Sie dabei, dass Sie damit jede glich das "Backend" des Frameworks implementieren. Um das "Frontend" nutzen zu können, benötigen Sie einen libGDX-Launcher und die entsprechenden Abhängigkeiten; ein einfaches Basisbeispiel finden Sie im [`desktop`-Repository](https://github.com/PM-Dungeon/desktop). 
 
 ## Arbeiten mit dem Framework
 
 Zu Beginn einige grundlegende Prinzipien, die Sie verstanden haben sollten, bevor Sie mit dem Dungeon arbeiten.
 
-- Das PM-Dungeon wird mithilfe des Cross-Plattform Java-Frameworks [`libGDX`](https://libgdx.com) umgesetzt. Dieses ist im `core`- und `desktop`-Projekt bereits integriert, Sie müssen dieses nicht extra installieren. Die Ihnen zur Verfügung gestellten Vorgaben sind so umgesetzt, dass Sie kein tieferes Verständnis für das Framework benötigen, um die Aufgaben zu lösen. Sollten Sie allerdings einmal auf Probleme stoßen, kann es unter Umständen helfen, einen Blick in die Dokumentation von `libGDX` zu werfen.
-- Das Framework ist in ein Frontend (`desktop`) und ein Backend (`core`) aufgeteilt. 
-- Das Frontend setzt die Parameter, erzeugt ein Fenster und startet die Anwendung.
-- Das Backend liefert die Schnittstellen mit denen Sie arbeiten. 
-- Sie selbst schreiben die Logik des Spiels. Sie können Ihren Code entweder in ein eigenes Projekt/Submodul (Empfohlen) oder in einem Package im `desktop` 
-- Bis auf seltene (dokumentierte) Ausnahmen werden Sie nicht gezwungen sein an den Vorgaben Änderungen durchzuführen. 
-- Sie werden im laufe der Praktika verschiedene Assets benötigen. Diese müssen Standartmäßig im `asset` Verzeichnis liegen. Sie können das Standartverzeichnis in der `build.gradle` anpassen.
-  - Standartpfad für Texturen: **tbd**
-  - Standartpfad für Level: **tbd**
+Das PM-Dungeon benutzt aktuell das Cross-Plattform Java-Framework [`libGDX`](https://libgdx.com) als Backend. Dieses ist im `core`- und `desktop`-Projekt bereits als Abhängigkeit in die Gradle-Konfiguration integriert, Sie müssen dieses nicht extra installieren. Die Ihnen zur Verfügung gestellten Vorgaben sind so umgesetzt, dass Sie kein tieferes Verständnis für das Framework oder `libGDX` benötigen, um die Aufgaben zu lösen. Sollten Sie allerdings einmal auf Probleme stoßen, kann es unter Umständen helfen, einen Blick in die Dokumentation von `libGDX` zu werfen.
 
-## Grundlagen 
+Das Framework ist in ein Frontend (`desktop`) und ein Backend (`core`) aufgeteilt. 
+Das Frontend setzt die Parameter, erzeugt ein Fenster und startet die Anwendung.
+Das Backend liefert die Schnittstellen, mit denen Sie arbeiten, und integriert die `libGDX`.
+
+Sie selbst schreiben die Logik des Spiels und implementieren die Helden/Monster/Gegenstände. Sie können Ihren Code am einfachsten in einem Fork des `desktop`-Projekts entwickeln. 
+
+Bis auf seltene (dokumentierte) Ausnahmen werden Sie nicht gezwungen sein, an den Vorgaben Änderungen durchzuführen. 
+
+Sie werden im Laufe der Praktika verschiedene Assets benötigen. Diese liegen per Default im `asset`-Verzeichnis. Sie können das Standardverzeichnis in der `build.gradle` anpassen.
+  - Standardpfad für Texturen: **tbd**
+  - Standardpfad für Level: **tbd**
+
+## Strukturen 
 
 Bevor wir mit der eigentlichen Implementierung des Spiels anfangen, eine kurze Erklärung über den Aufbau des Frameworks.
 
