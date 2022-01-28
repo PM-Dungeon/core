@@ -32,32 +32,27 @@ Sie werden im Laufe der Praktika verschiedene Assets benötigen. Diese liegen pe
 Bevor wir mit der eigentlichen Implementierung des Spiels anfangen, eine kurze Erklärung über den Aufbau des Frameworks.
 
 - Das Framework verwendet sogenannte `Controller` um die einzelnen Aspekte des Spiels zu managen und Ihnen das Leben einfacher zu machen. 
-
-  - `EntityController`: Dieser verwaltet alle "aktiven" Elemente wie Helden, Monster, Items etc. 
-  - `LevelAPI`: Kümmert sich darum, dass neue Level erzeugt und geladen werden. 
-  - `HUDController`: Verwaltet alle Bildschirmanzeigen die Sie implementieren.  
-  - `MainController` Verwaltet die anderen `Controller` und beinhaltet die Game-Loop. Ihre Implementierung wird Teil des `MainController` 
+    - `EntityController`: Dieser verwaltet alle "aktiven" Elemente wie Helden, Monster, Items etc. 
+    - `LevelAPI`: Kümmert sich darum, dass neue Level erzeugt und geladen werden. 
+    - `HUDController`: Verwaltet alle Bildschirmanzeigen die Sie implementieren.  
+    - `MainController` Verwaltet die anderen `Controller` und beinhaltet die Game-Loop. Ihre Implementierung wird Teil des `MainController` 
 - Game-Loop: Die Game-Loop ist die wichtigste Komponente des Spieles. Sie ist eine Endlosschleife, welche einmal pro [Frame](https://de.wikipedia.org/wiki/Bildfrequenz) aufgerufen wird. Das Spiel läuft in 30-FPS (also 30 *frames per seconds*, zu Deutsch 30 Bildern pro Sekunde), die Game-Loop wird also 30mal in der Sekunde aufgerufen. Alle Aktionen, die wiederholt ausgeführt werden müssen, wie zum Beispiel das Bewegen und Zeichnen von Figuren, müssen innerhalb der Game-Loop stattfinden. Das Framework ermöglicht es Ihnen, eigene Aktionen in die Game-Loop zu integrieren. Wie genau das geht, erfahren Sie im Laufe dieser Anleitung. *Hinweis: Die Game-Loop wird automatisch ausgeführt, Sie müssen sie nicht aktiv aufrufen.*
 - Zusätzlich existieren noch eine Vielzahl an weiteren Helferklassen mit dem sie mal mehr oder mal weniger Kontakt haben werden. 
-  - `Painter`: Kümmert sich darum, dass die Inhalte grafisch dargestellt werden. 
-  - `DungeonCamera`: Ihr Auge in das Dungeon. 
-  - Unterschiedliche Interfaces, welche Sie im Verlauf dieses Dokumentes kennen lernen werden. 
+- `Painter`: Kümmert sich darum, dass die Inhalte grafisch dargestellt werden. 
+- `DungeonCamera`: Ihr Auge in das Dungeon. 
+- Unterschiedliche Interfaces, welche Sie im Verlauf dieses Dokumentes kennen lernen werden. 
 
 ## Erster Start
 
 In diesen Abschnitt werden alle Schritte erläutert, die zum ersten Start der Anwendung führen.
 
 - Legen Sie sich eine neue Klasse an. Der Einfachheit halber wird diese Klasse im weiteren Verlauf `MyGame` genannt. Sie können die Klasse aber nennen wie Sie wollen.
-
 - `MyGame` muss von `MainController` erben.
-
 - Implementieren Sie alle notwendigen Methoden. *Hinweis: Weitere Informationen zu diesen Methoden erfolgen im Laufe der Dokumentation.*
-
-  - `setup()`
-  - `beginFrame()`
-  - `enFrame()`
-  - `onLevelLoad()`
-  
+    - `setup()`
+    - `beginFrame()`
+    - `enFrame()`
+    - `onLevelLoad()`  
 - Rufen Sie zum Ende der `setup()`-Methode `levelAPI.loadLevel()` auf:
 
   ```java
