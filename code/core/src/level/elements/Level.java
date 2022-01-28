@@ -6,7 +6,6 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
-import com.google.gson.Gson;
 import level.elements.astar.TileHeuristic;
 import level.elements.graph.Node;
 import level.elements.room.Room;
@@ -15,10 +14,6 @@ import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -384,5 +379,4 @@ public class Level implements IndexedGraph<Tile> {
     public Array<Connection<Tile>> getConnections(Tile fromNode) {
         return fromNode.getConnections();
     }
-
 }
