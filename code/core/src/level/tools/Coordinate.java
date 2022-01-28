@@ -17,7 +17,6 @@ public class Coordinate {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (!(o instanceof Coordinate)) return false;
         Coordinate other = (Coordinate) o;
         return x == other.x && y == other.y;
