@@ -51,4 +51,10 @@ public class Chain implements Comparable<Chain> {
         if (o == this) return true;
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        assert false : "hashCode nit designed";
+        return 42; // any arbitrary constant will do
+    }
 }
