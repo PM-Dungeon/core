@@ -15,7 +15,11 @@ public class Coordinate {
         y = c.y;
     }
 
-    public boolean equals(Coordinate o) {
-        return x == o.x && y == o.y;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinate)) return false;
+        Coordinate other = (Coordinate) o;
+        return x == other.x && y == other.y;
     }
 }

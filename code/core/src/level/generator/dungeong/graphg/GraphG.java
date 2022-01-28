@@ -19,7 +19,7 @@ import java.util.Random;
  * @author Andre Matutat
  */
 public class GraphG {
-    final int MAX_SOLUTIONS = 1000;
+    private final static int MAX_SOLUTIONS = 1000;
 
     /**
      * Read in a graph from .json with the given configuration.
