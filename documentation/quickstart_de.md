@@ -54,15 +54,27 @@ In diesen Abschnitt werden alle Schritte erläutert, die zum ersten Start der An
   - `enFrame()`
   - `onLevelLoad()`
   
+- Rufen Sie zum Ende der `setup()`-Methode `levelAPI.loadLevel()` auf:
+
+  ```java
+  @Override
+  protected void setup() {
+
+      levelAPI.loadLevel();
+  }
+  ```
+
 - Fügen Sie die `main`-Methode hinzu
 
-  ```
+  ```java
   public static void main(String[] args) {
       DesktopLauncher.run(new MyGame());
   }
   ```
 
-Das Spiel sollte nun starten und Sie sollten einen Ausschnitt des Level sehen können. 
+- Passen Sie innerhalb der `code/build.gradle` den Programmeinstiegspunkt (`project.ext.mainClassName = "desktop.DesktopLauncher"`) an und legen Sie ihn auf Ihre Klasse (`MyGame`) fest. Vergessen Sie dabei nicht, auch das Package anzugeben.
+
+Das Spiel sollte nun starten und Sie sollten einen Ausschnitt des Levels sehen können. 
 
 Bevor wir nun unseren Helden implementieren sollten wir verstehen, was genau der `MainController` eigentlich ist. Wie der Name schon vermuten lässt, ist dies die Haupt-Steuerung des Spiels. Er bereitet alles für den Start des Spieles vor, verwaltet die anderen Controller und enthält die Game-Loop. Wir nutzen `MyGame` um selbst in die Game-Loop einzugreifen und unsere eigenen Objekte wie Helden und Monster zu verwalten. Der `MainController` ist der Punkt, an dem alle Fäden des Dungeons zusammenlaufen. Im Folgenden wird Ihnen erklärt, wie Sie erfolgreich mit dem `MainController` arbeiten.
 
@@ -73,15 +85,17 @@ Jetzt, wo Sie sichergestellt haben, dass das Dungeon ausgeführt werden kann, ge
 Fangen wir damit an eine neue Klasse für den Helden anzulegen. Da unser Held eine Animation haben soll, implementieren wir das Interface `IAnimatable`. Dies erlaubt es uns, unseren Helden zu animieren. Für Objekte, die keine Animation haben, sondern nur eine statische Textur, würden wir das Interface `IEntity` implementieren.
 
 ```java
-public class Hero implements IAnimatable {
-    @Override
-    public Animation getActiveAnimation(){
-        return null;
-    }
+import graphic.Animation;
+import interfaces.IAnimatable;
 
-	@Override
-    public void update() {
-    }
+public class Hero implements IAnimatable {
+  @Override
+  public Animation getActiveAnimation() {
+    return null;
+  }
+
+  @Override
+  public void update() {}
 }      
 ```
 
@@ -90,29 +104,30 @@ public class Hero implements IAnimatable {
 Fangen wir damit an, die Animation für unseren Helden zu erstellen. Eine Animation ist eine Liste mit verschieden Texturen, die nacheinander abgespielt werden.
 
 ```java
-//Anlegen einer Animation
+// Anlegen einer Animation
 private Animation idleAnimation;
-public Hero() {
-    //Erstellen einer ArrayList
-    List <Texture> idle = new ArrayList<>();
-    //Laden der Texturen für die Animation (Pfad angeben)
-    idle.add(new Texture(PATH_TO_TEXTURE_1.png));
-    idle.add(new Texture(PATH_TO_TEXTURE_1.png));
-    //Erstellen einer Animation, als Parameter wird die Liste mit den Texturen
-    //und die Wartezeit (in Frames) zwischen den Wechsel der Texturen angegeben
-    idleAnimation = new Animation(idle,8);
+
+public Hero(SpriteBatch batch, Painter painter) {
+    
+    // Erstellen einer ArrayList
+    List<String> idle = new ArrayList<>();
+    // Laden der Texturen für die Animation (Pfad angeben)
+    idle.add(ASSETS_PATH_TO_TEXTURE_1.png);
+    idle.add(ASSETS_PATH_TO_TEXTURE_2.png);
+    // Erstellen einer Animation, als Parameter wird die Liste mit den Texturen
+    // und die Wartezeit (in Frames) zwischen den Wechsel der Texturen angegeben
+    idleAnimation = new Animation(idle, 8);
 }
 
+// Da unser Held aktuell nur eine Animation hat,
+// geben wir diese als aktuell aktive Animation zurück
 @Override
-//Da unser Held aktuell nur eine Animation hat,
-//geben wir diese als aktuell aktive Animation zurück
 public Animation getActiveAnimation() {
-    return this.idle;
+    return this.idleAnimation;
 }
 
 @Override
-public void update() {
-}
+public void update() {}
 ```
 
 Super, jetzt hat unser Held eine Animation. Nun muss diese noch im Spiel gezeichnet werden.
@@ -128,9 +143,9 @@ Dafür implementieren wie nun die Methode `update`.
 ```java
 @Override
 public void update() {
-//zeichnet den Helden.
-//Wird als default Methode vom IAnimatable Interface mitgeliefert
-this.draw();
+    // zeichnet den Helden.
+    // Wird als default Methode vom IAnimatable Interface mitgeliefert
+    this.draw();
 }
 ```
 
@@ -147,7 +162,7 @@ private Level level;
 //So können wir später dem Helden das aktuelle Level übergeben
 public void setLevel(Level level) {
     this.level = level;
-    this.position = level.getStartTile().getPosition();
+    this.position = level.getStartTile().getGlobalPosition();
 }
 ```
 
@@ -161,11 +176,13 @@ private Hero hero;
 @Override
 public void setup() {
     //Erstellung unseres Helden
-    hero = new Hero();
+    hero = new Hero(batch, painter);
     //Ab jetzt kümmert sich der EntityController um das aufrufen von Held.update
-    entityController.addEntity(hero);
+    entityController.add(hero);
     //unsere Kamera soll sich immer auf den Helden zentrieren.
     camera.follow(hero);
+
+    levelAPI.loadLevel();
 }
 ```
 
@@ -180,7 +197,7 @@ Jetzt müssen wir unseren Helden nur noch im Level platzieren. Dafür bietet Sic
 ```java
 @Override
 public void onLevelLoad() {
-    hero.setLevel(levelAPI.getLevel());
+    hero.setLevel(levelAPI.getCurrentLevel());
 }
 ```
 
@@ -195,11 +212,11 @@ Zum Überprüfen, ob ein neues Level geladen werden soll, verwenden wir diesmal 
 ```java
 @Override
 public void endFrame() {
-    //Prüfe ob der übergebene Point auf der Leiter ist
-    if (levelAPI.checkForTrigger(hero.getPosition())) {
-        //Lade im nächsten Frame das nächste Level
-        levelAPI.triggerNextStage();
-    }
+    // Prüfe ob der übergebene Point auf der Leiter ist
+    // Lade im nächsten Frame das nächste Level
+        
+    // TODO
+        
 }
 ```
 
@@ -208,25 +225,57 @@ public void endFrame() {
 Damit wir unser Spiel auch richtig testen können, sollten wir unserem Helden noch die Möglichkeit zum Bewegen geben. Dafür fügen wir Steuerungsoptionen in der `Held.update`-Methode hinzu:
 
 ```java
-//Temporären Point um den Held nur zu bewegen, wenn es keine Kollision gab
+// Temporären Point um den Held nur zu bewegen, wenn es keine Kollision gab
 Point newPosition = new Point(this.position);
-//Unser Held soll sich pro Schritt um 0.1 Felder bewegen.
+// Unser Held soll sich pro Schritt um 0.1 Felder bewegen.
 float movementSpeed = 0.1f;
-//Wenn die Taste W gedrückt ist, bewege dich nach oben
-if (Gdx.input.isKeyPressed(Input.Keys.W))
-    newPosition.y += movementSpeed;
-//Wenn die Taste S gedrückt ist, bewege dich nach unten
-if (Gdx.input.isKeyPressed(Input.Keys.S))
-    newPosition.y -= movementSpeed;
-//Wenn die Taste D gedrückt ist, bewege dich nach rechts
-if (Gdx.input.isKeyPressed(Input.Keys.D))
-    newPosition.x += movementSpeed;
-//Wenn die Taste A gedrückt ist, bewege dich nach links
-if (Gdx.input.isKeyPressed(Input.Keys.A))
-    newPosition.x -= movementSpeed;
-//Wenn der übergebene Punkt betretbar ist, ist das nun die aktuelle Position
-if (level.isTileAccessible(newPosition))
-   this.position = newPosition;
+// Wenn die Taste W gedrückt ist, bewege dich nach oben
+if (Gdx.input.isKeyPressed(Input.Keys.W)) newPosition.y += movementSpeed;
+// Wenn die Taste S gedrückt ist, bewege dich nach unten
+if (Gdx.input.isKeyPressed(Input.Keys.S)) newPosition.y -= movementSpeed;
+// Wenn die Taste D gedrückt ist, bewege dich nach rechts
+if (Gdx.input.isKeyPressed(Input.Keys.D)) newPosition.x += movementSpeed;
+// Wenn die Taste A gedrückt ist, bewege dich nach links
+if (Gdx.input.isKeyPressed(Input.Keys.A)) newPosition.x -= movementSpeed;
+// Wenn der übergebene Punkt betretbar ist, ist das nun die aktuelle Position
+// TODO
+// if (level.isTileAccessible(newPosition))
+this.position = newPosition;
+```
+
+### Ergänzen Sie den Helden mit einem Konstruktor
+
+Ihrem Helden (generell allen `IAnimatable`s) sollte ein `SpriteBatch` und ein `Painter` übergeben werden.
+
+```java
+private SpriteBatch batch;
+private Painter painter;
+
+public Hero(SpriteBatch batch, Painter painter) {
+
+    this.batch = batch;
+    this.painter = painter;
+
+}
+```
+
+Diese Attribute sollten in den überschriebenen Methoden zurückgegeben werden.
+
+```java
+@Override
+public SpriteBatch getBatch() {
+    return batch;
+}
+
+@Override
+public Painter getGraphicController() {
+    return painter;
+}
+
+@Override
+public boolean removable() {
+    return false;
+}
 ```
 
 Starten wir nun das Spiel, sollten wir in der Lage sein, unseren Helden zu sehen und durch das Dungeon zu bewegen.
