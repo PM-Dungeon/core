@@ -22,8 +22,4 @@ public final class Constants {
     public static final String PATH_TO_ROOMTEMPLATES = "./roomTemplates.json";
     public static final String PATH_TO_REPLACEMENTS = "./replacements.json";
     public static final boolean DISABLE_REPLACEMENTS = true;
-
-    public static boolean USE_DUMMY_GENERATOR = false;
-    public static boolean USE_LOADER_GENERATOR = true;
-    public static boolean USE_DUNGEONG_GENERATOR = false;
 }
