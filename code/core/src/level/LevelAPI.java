@@ -51,7 +51,10 @@ public class LevelAPI {
                 for (int x = 0; x < r.getLayout()[0].length; x++) {
                     Tile t = r.getLayout()[y][x];
                     if (t.getLevelElement() != LevelElement.SKIP)
-                        painter.draw(t.getTexture(), new Point(t.getGlobalPosition()), batch);
+                        painter.draw(
+                                t.getTexture(),
+                                new Point(t.getGlobalPosition().x, t.getGlobalPosition().y),
+                                batch);
                 }
     }
 }
