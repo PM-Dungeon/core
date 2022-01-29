@@ -5,7 +5,7 @@ Um alle `.java`-Dateien zu formatieren, gibt es unter anderem zwei Möglichkeite
 - Gradle-Task: `gradlew spotlessApply`
 - Installieren Sie das `google-java-format`-Plugin für IntelliJ und stellen Sie dieses auf den "AOSP"-Style ein.<sup>1</sup>
 
-Um die Formatierung zu prüfen, können Sie den Gradle-Task `gradlew spotlessJavaChec` aufrufen.
+Um die Formatierung zu prüfen, können Sie den Gradle-Task `gradlew spotlessJavaCheck` aufrufen.
 
 <sup>1</sup>: Sie können folgende Konfigurationsdatei in `.idea/google-java-format.xml` hinzufügen:
 
