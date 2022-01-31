@@ -1,5 +1,8 @@
 package controller;
 
+import static org.junit.Assume.assumeTrue;
+import static org.mockito.Mockito.*;
+
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -19,9 +22,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-
-import static org.junit.Assume.assumeTrue;
-import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({HUDController.class})
