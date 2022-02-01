@@ -3,6 +3,8 @@
 Dieses Dokument liefert einen Einstieg in das PM-Dungeon. Es erläutert die Installation des Frameworks und die ersten Schritte, um eigene Inhalte zum Dungeon hinzuzufügen. Es dient als Grundlage für alle weiteren Praktika. Lesen Sie das Dokument daher aufmerksam durch und versuchen Sie sich zusätzlich selbst mit dem Aufbau vertraut zu machen.
 Das Framework ist in `core` und `desktop` aufgeteilt, wobei `core` das Framework und `desktop` ein Basis-Starter ist. 
 
+*Hinweis: Achten Sie darauf, Daten nur dann in öffentliche Git-Repos zu laden, wenn Sie die nötigen Rechte an diesen Daten haben. Dies gilt insbesondere auch für Artefakte wie Bilder, Bitmaps, Musik oder Soundeffekte.*
+
 ## Installation
 
 Um das PM-Dungeon-Framework zu nutzen haben Sie zwei Möglichkeiten.
@@ -25,8 +27,9 @@ Sie selbst schreiben die Logik des Spiels und implementieren die Helden/Monster/
 Bis auf seltene (dokumentierte) Ausnahmen werden Sie nicht gezwungen sein, an den Vorgaben Änderungen durchzuführen. 
 
 Sie werden im Laufe der Praktika verschiedene Assets benötigen. Diese liegen per Default im `asset`-Verzeichnis. Sie können das Standardverzeichnis in der `build.gradle` anpassen.
-  - Standardpfad für Texturen: **tbd**
-  - Standardpfad für Level: **tbd**
+  - Standardpfad für Texturen: `assets/`
+  - Standardpfad für Level: `assets/level` 
+  - Standardpfad für Level-Texturen: `assets/textures/level` 
 
 ## Strukturen 
 
@@ -54,16 +57,15 @@ In diesen Abschnitt werden alle Schritte erläutert, die zum ersten Start der An
     - `beginFrame()`
     - `enFrame()`
     - `onLevelLoad()`  
-- Rufen Sie zum Ende der `setup()`-Methode `levelAPI.loadLevel()` auf:
+- Rufen Sie zum Ende der `setup()`-Methode `levelAPI.loadLevel()` auf um das erste Level zu laden:
 
   ```java
   @Override
   protected void setup() {
-
-      levelAPI.loadLevel();
+    levelAPI.loadLevel();
   }
   ```
-
+  
 - Fügen Sie die `main`-Methode hinzu
 
   ```java
@@ -89,13 +91,46 @@ import graphic.Animation;
 import interfaces.IAnimatable;
 
 public class Hero implements IAnimatable {
+  //Die SpriteBatch ist "das Papier" auf dem unser Held dargestellt werden soll.   
+  private SpriteBatch batch; 
+  //Der Painter zeichnet den Helden.
+  private Painter painter;   
+  public Hero(SpriteBatch batch, Painter painter){
+      this.batch=batch;
+      this.painter=painter;
+  }
+    
   @Override
   public Animation getActiveAnimation() {
     return null;
   }
+    @Override
+    public Animation getActiveAnimation() {
+        return null;
+    }
 
-  @Override
-  public void update() {}
+    @Override
+    public void update() {}
+
+    @Override
+    public boolean removable() {
+        return false;
+    }
+
+    @Override
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    @Override
+    public Point getPosition() {
+        return null;
+    }
+
+    @Override
+    public Painter getPainter() {
+        return painter;
+    }
 }      
 ```
 
@@ -106,8 +141,11 @@ Fangen wir damit an, die Animation für unseren Helden zu erstellen. Eine Animat
 ```java
 // Anlegen einer Animation
 private Animation idleAnimation;
-
+private SpriteBatch batch; 
+private Painter painter;   
 public Hero(SpriteBatch batch, Painter painter) {
+    this.batch=batch;
+    this.painter=painter;
     
     // Erstellen einer ArrayList
     List<String> idle = new ArrayList<>();
@@ -125,14 +163,11 @@ public Hero(SpriteBatch batch, Painter painter) {
 public Animation getActiveAnimation() {
     return this.idleAnimation;
 }
-
-@Override
-public void update() {}
 ```
 
 Super, jetzt hat unser Held eine Animation. Nun muss diese noch im Spiel gezeichnet werden.
 
-Da das Dungeon framebasiert ist, muss unser Held in jedem Frame (also 30-mal in der Sekunde) neu gezeichnet werden. Dazu verwenden den `EntityController`. 
+Da das Dungeon framebasiert ist, muss unser Held in jedem Frame (also 30-mal in der Sekunde) neu gezeichnet werden. Dazu verwenden wir den `EntityController`. 
 
 Der `EntityController` verwendet das *Observer-Pattern* (vergleiche Vorlesung) um Instanzen vom Typen `IEntity` und `IAnimatable` zu verwalten. Er sorgt dafür, dass die vom Interface bereitgestellte `update`-Methode jeder Entität in der Game-Loop aufgerufen wird. Dazu hält er eine Liste mit allen ihm übergebenen Entitäten. Weiter unten sehen Sie, wie Sie den `EntityController` verwenden können, um unseren Helden managen zu lassen.
 
@@ -162,7 +197,7 @@ private Level level;
 //So können wir später dem Helden das aktuelle Level übergeben
 public void setLevel(Level level) {
     this.level = level;
-    this.position = level.getStartTile().getGlobalPosition();
+    this.position = level.getStartTile().getGlobalPosition().toPoint();
 }
 ```
 
@@ -212,11 +247,8 @@ Zum Überprüfen, ob ein neues Level geladen werden soll, verwenden wir diesmal 
 ```java
 @Override
 public void endFrame() {
-    // Prüfe ob der übergebene Point auf der Leiter ist
-    // Lade im nächsten Frame das nächste Level
-        
-    // TODO
-        
+    if (hero.getPosition().toCoordinate.equals(levelAPI.getCurrentLevel().getEndTile().getGlobalPosition()))
+        levelAPI.loadLevel();
 }
 ```
 
@@ -238,54 +270,61 @@ if (Gdx.input.isKeyPressed(Input.Keys.D)) newPosition.x += movementSpeed;
 // Wenn die Taste A gedrückt ist, bewege dich nach links
 if (Gdx.input.isKeyPressed(Input.Keys.A)) newPosition.x -= movementSpeed;
 // Wenn der übergebene Punkt betretbar ist, ist das nun die aktuelle Position
-// TODO
-// if (level.isTileAccessible(newPosition))
-this.position = newPosition;
+if(level.getTileAt(newPosition.toCoordinate()).isAccessible())
+    this.position = newPosition;
 ```
-
-### Ergänzen Sie den Helden mit einem Konstruktor
-
-Ihrem Helden (generell allen `IAnimatable`s) sollte ein `SpriteBatch` und ein `Painter` übergeben werden.
-
-```java
-private SpriteBatch batch;
-private Painter painter;
-
-public Hero(SpriteBatch batch, Painter painter) {
-
-    this.batch = batch;
-    this.painter = painter;
-
-}
-```
-
-Diese Attribute sollten in den überschriebenen Methoden zurückgegeben werden.
-
-```java
-@Override
-public SpriteBatch getBatch() {
-    return batch;
-}
-
-@Override
-public Painter getGraphicController() {
-    return painter;
-}
-
-@Override
-public boolean removable() {
-    return false;
-}
-```
-
-Starten wir nun das Spiel, sollten wir in der Lage sein, unseren Helden zu sehen und durch das Dungeon zu bewegen.
-
-## Level und Levelgeneratoren
-
-- set generator
-- welche methode gibt es, um im level zu arbeiten? 
 
 ## Head-up-Display (HUD)
+
+Dieser Abschnitt soll Ihnen die Werkzeuge nahebringen, welche Sie für die Darstellung eines HUD benötigen.
+
+Um eine Grafik auf dem HUD anzeigen zu können, erstellen wir zuerst eine neue Klasse, welche das Interface `IHUDElement` implementiert.
+
+```java
+public class MyIcon implements IHUDElement {
+    private String texture;
+    private Painter painter;
+    private Point position;
+
+    public MyIcon(Painter painter, Point position, String texture){
+        this.painter=painter;
+        this.position=position;
+        this.texture=texture;
+    }
+
+    @Override
+    public Point getPosition() {
+        return position;
+    }
+
+    @Override
+    public String getTexture() {
+        return texture;
+    }
+
+    @Override
+    public Painter getPainter() {
+        return painter;
+    }
+}
+```
+
+Die Methode `getTexture` gibt den Pfad zu der gewünschten Textur zurück, dies funktioniert identisch zur bereits bekannten Helden-Implementierung. Die Methode `getPosition` gibt die Position der Grafik auf dem HUD zurück. Es wird vorkommen, dass Sie Grafiken in Abhängigkeit zu anderen Grafiken positionieren möchten, überlegen Sie sich daher bereits jetzt eine gute Struktur, um Ihre HUD-Elemente abzuspeichern.
+
+Jetzt müssen wir unsere Grafik nur noch anzeigen lassen. Ähnlich zu den bereits bekannten Controllern gibt es auch für das HUD eine Steuerungsklasse, welche im `MainController` mit `hud` angesprochen werden kann.
+
+```
+public class YourClass extends MainController {
+     @Override
+    protected void setup() {
+        ...
+        // hinzufügen eines Elementes zum HUD
+        hud.add(new MyIcon(painter,new Point(0,0),"TEXTURE"));
+        //so entfernt man ein Element
+        //hud.remove(OBJECT);
+    }
+}
+```
 
 ## Abschlussworte
 
@@ -314,3 +353,44 @@ bumSound.loop();
 Sie können noch weitere Parameter und Methoden verwenden, um den Sound Ihren Wünschen anzupassen. Schauen Sie dafür in die [`libGDX`-Dokumentation](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/audio/Sound.html)
 
 ### Text
+
+Verwenden Sie die Methode `HUDController#drawText`, um einen String auf Ihren Bildschirm zu zeichnen. Sie haben dabei eine umfangreiche Auswahl an Parametern, um Ihre Einstellungen anzupassen.`HUDController#drawText` gibt Ihnen ein `Label`-Objekt zurück, dieses können Sie verwenden, um den Text später anzupassen oder ihn vom Bildschirm zu entfernen. Um den Text anzupassen, können Sie `label.setText("new String")` verwenden und um das Label zu löschen, können Sie `label.remove()` verwenden.
+
+Im unteren Beispiel wird ein Text implementiert, welcher das aktuelle Level ausgibt.
+
+```
+public class MyGame extends MainController {
+    .....
+    Label levelLabel;
+    int levelCounter=0;
+	
+    public void onLevelLoad() {
+        levelCounter++;
+        if (levelCounter==1){
+            levelLabel=hud.drawText("Level"+x,"PATH/TO/FONT.ttf",Color.RED,30,50,50,30,30);
+        }
+        else{
+            levelLabel.setText("Level"+x);
+        }
+    }
+    //remove label
+    //levelLabel.remove();
+}
+```
+
+Genauere Informationen zu den Parametern entnehmen Sie bitte der JavaDoc.
+
+### Levelgeneratoren wechseln
+
+Das Framework verfügt über verschiedene Levelgeneratoren zwischen denen Sie wechseln können.
+
+1. `LevelG` : Wird per default verwendet und generiert beim Aufruf von `levelAPI.loadLevel()` "zufällig" ein neues Level. 
+2. `LevelLoader`: Lädt Level aus der `level.json` ein. Diese Level wurden von `LevelG` generiert und abgespeichert. Diese Variante ist deutlich Rechenzeiteffektiver. 
+3. `DummyGenerator`: Lädt ein statisch gecodedetes Level. Kann für Experimente genutzt werden. 
+
+Um den Levelgenerator zu ändern, rufen Sie einfach `levelAPI.setGenerator(new {GENERATOR_TYPE})` auf. Ersetzten Sie `{GENERATOR_TYPE}` mit dem gewünschten Generatortypen. Unter umständen müssen Sie noch Parameter übergeben. Weitere Informationen finden Sie in der jeweiligen javadoc. 
+
+### Level 
+
+- tbd
+
