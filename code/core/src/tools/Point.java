@@ -25,9 +25,10 @@ public class Point {
 
     /**
      * Convert Point to Coordinate by parsing float to int
+     *
      * @return
      */
-    public Coordinate toCoordinate(){
-        return new Coordinate((int)x,(int)y);
+    public Coordinate toCoordinate() {
+        return new Coordinate((int) x, (int) y);
     }
 }
