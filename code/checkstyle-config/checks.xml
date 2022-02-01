@@ -5,7 +5,6 @@
 <!--    This configuration file is intended for later use and customization.    -->
 <module name="Checker">
     <module name="TreeWalker">
-        <module name="AvoidStarImport"/>
         <module name="ConstantName"/>
         <module name="EmptyBlock"/>
         <module name="Indentation"/>
