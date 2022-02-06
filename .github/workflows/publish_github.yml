@@ -14,11 +14,9 @@ jobs:
                     distribution: 'adopt'
             -   name: Validate Gradle wrapper
                 uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-            -   name: Publish package to MavenCentral
-                run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+            -   name: Publish jar to GitHub
+                run: ./gradlew jar
                 working-directory: code
-                env:
-                    MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-                    MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-                    GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-                    PASSPHRASE: ${{ secrets.PASSPHRASE }}
+                with:
+                    files: 'code/build/libs/*'
+                    repo-token: ${{ secrets.GITHUB_TOKEN }}
