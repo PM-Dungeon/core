@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Publish package to the Maven Central Repository
 on:
     release:
@@ -20,8 +15,7 @@ jobs:
             -   name: Validate Gradle wrapper
                 uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
             -   name: Publish package
-                run: ./gradlew publish
-#                run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+                run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
                 working-directory: code
                 env:
                     MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
