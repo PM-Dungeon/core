@@ -17,6 +17,7 @@ jobs:
             -   name: Publish jar to GitHub
                 run: ./gradlew jar
                 working-directory: code
+            -   uses: AButler/upload-release-assets@v2.0
                 with:
                     files: 'code/build/libs/*'
                     repo-token: ${{ secrets.GITHUB_TOKEN }}
