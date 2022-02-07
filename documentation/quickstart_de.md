@@ -10,7 +10,7 @@ Das Framework ist in `core` und `desktop` aufgeteilt, wobei `core` das Framework
 Um das PM-Dungeon-Framework zu nutzen haben Sie zwei Möglichkeiten.
 
 1. Erstellen Sie sich ein Fork des [`desktop`-Repository](https://github.com/PM-Dungeon/desktop) und ziehen Sie sich einen lokalen Klon auf Ihr Gerät. (Empfohlen)
-2. Erstellen Sie eigenständig ein neues Projekt und binden Sie [`core`](https://repo1.maven.org/maven2/io/github/pm-dungeon/core/) in Ihr Projekt ein. Beachten Sie dabei, dass Sie damit nur das "Backend" des Frameworks implementieren. Um das "Frontend" nutzen zu können, benötigen Sie einen libGDX-Launcher und die entsprechenden Abhängigkeiten; ein einfaches Basisbeispiel finden Sie im [`desktop`-Repository](https://github.com/PM-Dungeon/desktop).
+2. Erstellen Sie eigenständig ein neues Projekt und binden Sie [`core`](https://repo1.maven.org/maven2/io/github/pm-dungeon/core/) als externe Abhängigkeit in Ihr Projekt ein. Beachten Sie dabei, dass Sie damit nur das "Backend" des Frameworks implementieren. Um das "Frontend" nutzen zu können, benötigen Sie einen libGDX-Launcher und die entsprechenden Abhängigkeiten; ein einfaches Basisbeispiel finden Sie im [`desktop`-Repository](https://github.com/PM-Dungeon/desktop).
 
 ## Arbeiten mit dem Framework
 
@@ -150,9 +150,9 @@ public Hero(SpriteBatch batch, Painter painter) {
 
     // Erstellen einer ArrayList
     List<String> idle = new ArrayList<>();
-    // Laden der Texturen für die Animation (Pfad angeben)
-    idle.add("assets_path_to_texture_1.png");
-    idle.add("assets_path_to_texture_2.png");
+    // Laden der Texturen für die Animation (relativen Pfad angeben)
+    idle.add("assets_path_to_texture/texture_1.png");
+    idle.add("assets_path_to_texture/texture_2.png");
     // Erstellen einer Animation, als Parameter wird die Liste mit den Texturen
     // und die Wartezeit (in Frames) zwischen den Wechsel der Texturen angegeben
     idleAnimation = new Animation(idle, 8);
@@ -385,7 +385,7 @@ Genauere Informationen zu den Parametern entnehmen Sie bitte der JavaDoc.
 
 Das Framework verfügt über verschiedene Levelgeneratoren zwischen denen Sie wechseln können.
 
-1. `LevelG` : Wird per default verwendet und generiert beim Aufruf von `levelAPI.loadLevel()` "zufällig" ein neues Level.
+1. `LevelG`: Wird per default verwendet und generiert beim Aufruf von `levelAPI.loadLevel()` "zufällig" ein neues Level.
 2. `LevelLoader`: Lädt Level aus der `level.json` ein. Diese Level wurden von `LevelG` generiert und abgespeichert. Diese Variante ist deutlich Rechenzeiteffektiver.
 3. `DummyGenerator`: Lädt ein statisch gecodedetes Level. Kann für Experimente genutzt werden.
 
