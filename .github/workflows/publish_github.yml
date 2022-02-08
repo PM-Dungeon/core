@@ -1,12 +1,13 @@
-name: Publish package to the Maven Central Repository
+name: Publish jar to GitHub
 on:
     release:
         types: [ created ]
 jobs:
-    publish:
+    publish-github:
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
+            -   name: Checkout action
+                uses: actions/checkout@v2
             -   name: Set up Java
                 uses: actions/setup-java@v2
                 with:
@@ -14,10 +15,11 @@ jobs:
                     distribution: 'adopt'
             -   name: Validate Gradle wrapper
                 uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-            -   name: Publish jar to GitHub
+            -   name: Build the jar file
                 run: ./gradlew jar
                 working-directory: code
-            -   uses: AButler/upload-release-assets@v2.0
+            -   name: Publish jar to GitHub
+                uses: AButler/upload-release-assets@v2.0
                 with:
                     files: 'code/build/libs/*'
                     repo-token: ${{ secrets.GITHUB_TOKEN }}
