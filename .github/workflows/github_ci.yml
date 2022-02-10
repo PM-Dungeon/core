@@ -69,7 +69,7 @@ jobs:
                 uses: jwgmeligmeyling/spotbugs-github-action@master
                 with:
                     path: '**/spotbugsXml.xml'
-                    name: 'SpotBugs Test Report'
+                    name: 'SpotBugs Check Report'
 
     checkstyle:
         needs: build
