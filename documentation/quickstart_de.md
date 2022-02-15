@@ -175,7 +175,11 @@ Das Präfix `code/assets/` wird dabei also einfach weggelassen.
 
 Bitte finden Sie selbst heraus, welche Texturen es gibt und verwendet werden können.
 
-Der Assets-Ordner kann übrigens auch **umbenannt** oder an eine andere Stelle **verschoben** werden: Passen Sie dafür die Pfadangaben `sourceSets.main.resources.srcDirs = ["assets/"]` und `project.ext.assetsDir = new File("assets")` in der [`build.gradle`](https://github.com/PM-Dungeon/desktop/blob/master/code/build.gradle)-Datei an.
+Der Assets-Ordner kann übrigens auch **umbenannt** oder an eine andere Stelle **verschoben** werden: Passen Sie dafür die Pfadangabe `sourceSets.main.resources.srcDirs = ["assets/"]` in der [`build.gradle`](https://github.com/PM-Dungeon/desktop/blob/master/code/build.gradle)-Datei an.
+
+**Beispiel:** Sie möchten den Ordner `desktop/code/assets/` nach `desktop/code/bar/wuppie/` verschieben, dann ändern Sie `sourceSets.main.resources.srcDirs = ["assets/"]` in `sourceSets.main.resources.srcDirs = ["bar/wuppie/"]`.
+
+Beachten Sie, dass der Ordner nur innerhalb von `desktop/code/` umbenannt bzw. verschoben werden kann.
 
 Später werden Sie es wahrscheinlich praktischer finden, anstelle von relativen Pfaden den [`textures/TextureHandler.java`](https://github.com/PM-Dungeon/core/blob/master/code/core/src/textures/TextureHandler.java) zu verwenden, der reguläre Ausdrücke entgegennehmen und entsprechende Textur-Pfade zurückgeben kann.
 
