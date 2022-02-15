@@ -173,11 +173,11 @@ Der `assets`-Ordner hat aber eine spezielle Adressierung.
 Wenn der absolute Pfad zu einer Textur zum Beispiel `code/assets/character/knight/knight_m_idle_anim_f0.png` ist, dann geben wir den relativen Pfad zur Textur mit `character/knight/knight_m_idle_anim_f0.png` an.
 Das Präfix `code/assets` wird dabei also einfach weggelassen.
 
-Bitte finden Sie selber heraus, welche Texturen es gibt und verwendet werden können.
+Bitte finden Sie selbst heraus, welche Texturen es gibt und verwendet werden können.
 
-Der Assets-Ordner kann übrigens auch **umbenannt** oder an eine andere Stelle **verschoben** werden: Passen Sie dafür die Pfadangaben `sourceSets.main.resources.srcDirs = ["assets/"]` und `project.ext.assetsDir = new File("assets")` in der `build.gradle`-Datei an.
+Der Assets-Ordner kann übrigens auch **umbenannt** oder an eine andere Stelle **verschoben** werden: Passen Sie dafür die Pfadangaben `sourceSets.main.resources.srcDirs = ["assets/"]` und `project.ext.assetsDir = new File("assets")` in der [`build.gradle`](https://github.com/PM-Dungeon/desktop/blob/master/code/build.gradle)-Datei an.
 
-Später werden Sie es wahrscheinlich praktischer finden, anstelle von relativen Pfaden den `textures/TextureHandler.java` zu verwenden, der reguläre Ausdrücke entgegennehmen und entsprechende Textur-Pfade zurückgeben kann.
+Später werden Sie es wahrscheinlich praktischer finden, anstelle von relativen Pfaden den [`textures/TextureHandler.java`](https://github.com/PM-Dungeon/core/blob/master/code/core/src/textures/TextureHandler.java) zu verwenden, der reguläre Ausdrücke entgegennehmen und entsprechende Textur-Pfade zurückgeben kann.
 
 ***
 
