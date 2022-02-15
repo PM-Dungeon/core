@@ -166,6 +166,21 @@ public Animation getActiveAnimation() {
 }
 ```
 
+### Intermezzo: Der Assets-Ordner
+
+In unserem Ordner `code/assets` werden alle Assets gespeichert, die im Dungeon verwendet werden. Assets sind dabei im Prinzip die Texturen, die später gezeichnet werden sollen.
+Der `assets`-Ordner hat aber eine spezielle Adressierung.
+Wenn der absolute Pfad zu einer Textur zum Beispiel `code/assets/character/knight/knight_m_idle_anim_f0.png` ist, dann geben wir den relativen Pfad zur Textur mit `character/knight/knight_m_idle_anim_f0.png` an.
+Das Präfix `code/assets` wird dabei also einfach weggelassen.
+
+Bitte finden Sie selber heraus, welche Texturen es gibt und verwendet werden können.
+
+Der Assets-Ordner kann übrigens auch **umbenannt** oder an eine andere Stelle **verschoben** werden: Passen Sie dafür die Pfadangaben `sourceSets.main.resources.srcDirs = ["assets/"]` und `project.ext.assetsDir = new File("assets")` in der `build.gradle`-Datei an.
+
+Später werden Sie es wahrscheinlich praktischer finden, anstelle von relativen Pfaden den `textures/TextureHandler.java` zu verwenden, der reguläre Ausdrücke entgegennehmen und entsprechende Textur-Pfade zurückgeben kann.
+
+***
+
 Super, jetzt hat unser Held eine Animation. Nun muss diese noch im Spiel gezeichnet werden.
 
 Da das Dungeon framebasiert ist, muss unser Held in jedem Frame (also 30-mal in der Sekunde) neu gezeichnet werden. Dazu verwenden wir den `EntityController`.
