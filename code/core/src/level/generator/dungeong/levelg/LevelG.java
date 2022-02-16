@@ -2,6 +2,11 @@ package level.generator.dungeong.levelg;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import level.elements.Level;
 import level.elements.graph.BFEdge;
 import level.elements.graph.Graph;
@@ -18,12 +23,6 @@ import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
 import tools.Constants;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Uses RoomG and GraphG to generate level.
