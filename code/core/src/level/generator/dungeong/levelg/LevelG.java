@@ -64,14 +64,12 @@ public class LevelG implements IGenerator {
     public Level getLevel(DesignLabel designLabel) {
         File dir = new File(Constants.getPathToGraph());
         File[] allGraphFiles = dir.listFiles();
-        if (allGraphFiles == null || allGraphFiles.length == 0) {
-            return getLevel(designLabel);
-        }
+        assert (allGraphFiles != null && allGraphFiles.length > 0);
         File graph = allGraphFiles[new Random().nextInt(allGraphFiles.length)];
         try {
             return getLevel(graphg.getGraph(graph.getPath()), designLabel);
         } catch (NoSolutionException e) {
-            return getLevel(designLabel);
+            return null;
         }
     }
 

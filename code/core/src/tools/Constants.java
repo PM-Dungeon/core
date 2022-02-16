@@ -21,27 +21,29 @@ public final class Constants {
 
     public static final boolean DISABLE_REPLACEMENTS = true;
 
-    public static String getPathToLevel() {
-        URL url = ClassLoader.getSystemClassLoader().getResource("level/files");
+    /**
+     * @param path the relative path to the resource
+     * @return the absolute path of the internal resource
+     */
+    private static String getResourceString(String path) {
+        URL url = ClassLoader.getSystemClassLoader().getResource(path);
         assert (url != null);
         return url.getPath();
+    }
+
+    public static String getPathToLevel() {
+        return getResourceString("level/files");
     }
 
     public static String getPathToGraph() {
-        URL url = ClassLoader.getSystemClassLoader().getResource("level/graphs");
-        assert (url != null);
-        return url.getPath();
+        return getResourceString("level/graphs");
     }
 
     public static String getPathToRoomTemplates() {
-        URL url = ClassLoader.getSystemClassLoader().getResource("level/roomTemplates.json");
-        assert (url != null);
-        return url.getPath();
+        return getResourceString("level/roomTemplates.json");
     }
 
     public static String getPathToReplacements() {
-        URL url = ClassLoader.getSystemClassLoader().getResource("level/replacements.json");
-        assert (url != null);
-        return url.getPath();
+        return getResourceString("level/replacements.json");
     }
 }

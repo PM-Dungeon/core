@@ -18,17 +18,11 @@ public class LevelLoader implements IGenerator {
 
     @Override
     public Level getLevel() {
-        File dir = new File(Constants.getPathToGraph());
+        File dir = new File(Constants.getPathToLevel());
         File[] allLevelFiles = dir.listFiles();
-        if (allLevelFiles == null || allLevelFiles.length == 0) {
-            return getLevel();
-        }
+        assert (allLevelFiles != null && allLevelFiles.length > 0);
         File levelFile = allLevelFiles[new Random().nextInt(allLevelFiles.length)];
-        Level level = loadLevel(levelFile.getPath());
-        if (level == null) {
-            return getLevel();
-        }
-        return level;
+        return loadLevel(levelFile.getPath());
     }
 
     private Level loadLevel(String path) {
