@@ -1,6 +1,6 @@
 package tools;
 
-import java.util.Objects;
+import java.net.URL;
 
 public final class Constants {
     public static final int WINDOW_WIDTH = 640;
@@ -22,25 +22,26 @@ public final class Constants {
     public static final boolean DISABLE_REPLACEMENTS = true;
 
     public static String getPathToLevel() {
-        return Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("level/files"))
-                .getPath();
+        URL url = ClassLoader.getSystemClassLoader().getResource("level/files");
+        assert (url != null);
+        return url.getPath();
     }
 
     public static String getPathToGraph() {
-        return Objects.requireNonNull(
-                        ClassLoader.getSystemClassLoader().getResource("level/graphs"))
-                .getPath();
+        URL url = ClassLoader.getSystemClassLoader().getResource("level/graphs");
+        assert (url != null);
+        return url.getPath();
     }
 
     public static String getPathToRoomTemplates() {
-        return Objects.requireNonNull(
-                        ClassLoader.getSystemClassLoader().getResource("level/roomTemplates.json"))
-                .getPath();
+        URL url = ClassLoader.getSystemClassLoader().getResource("level/roomTemplates.json");
+        assert (url != null);
+        return url.getPath();
     }
 
     public static String getPathToReplacements() {
-        return Objects.requireNonNull(
-                        ClassLoader.getSystemClassLoader().getResource("level/replacements.json"))
-                .getPath();
+        URL url = ClassLoader.getSystemClassLoader().getResource("level/replacements.json");
+        assert (url != null);
+        return url.getPath();
     }
 }

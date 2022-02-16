@@ -1,7 +1,5 @@
 package level.generator.dungeong.levelg;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,13 +62,14 @@ public class LevelG implements IGenerator {
 
     @Override
     public Level getLevel(DesignLabel designLabel) {
-        FileHandle handle = Gdx.files.absolute(Constants.getPathToGraph());
-        FileHandle[] allGraphFiles = handle.list();
-        FileHandle graph = allGraphFiles[new Random().nextInt(allGraphFiles.length)];
+        File dir = new File(Constants.getPathToGraph());
+        File[] allGraphFiles = dir.listFiles();
+        if (allGraphFiles == null || allGraphFiles.length == 0) {
+            return getLevel(designLabel);
+        }
+        File graph = allGraphFiles[new Random().nextInt(allGraphFiles.length)];
         try {
-            return getLevel(
-                    graphg.getGraph(new File(Constants.getPathToGraph(), graph.name()).getPath()),
-                    designLabel);
+            return getLevel(graphg.getGraph(graph.getPath()), designLabel);
         } catch (NoSolutionException e) {
             return getLevel(designLabel);
         }

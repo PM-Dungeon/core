@@ -1,10 +1,9 @@
 package level.generator.LevelLoader;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,12 +18,17 @@ public class LevelLoader implements IGenerator {
 
     @Override
     public Level getLevel() {
-        FileHandle handle = Gdx.files.local(Constants.getPathToLevel());
-        FileHandle[] allLevelFiles = handle.list();
-        FileHandle levelFile = allLevelFiles[new Random().nextInt(allLevelFiles.length)];
-        Level level = loadLevel(levelFile.path());
-        if (level == null) return getLevel();
-        else return level;
+        File dir = new File(Constants.getPathToGraph());
+        File[] allLevelFiles = dir.listFiles();
+        if (allLevelFiles == null || allLevelFiles.length == 0) {
+            return getLevel();
+        }
+        File levelFile = allLevelFiles[new Random().nextInt(allLevelFiles.length)];
+        Level level = loadLevel(levelFile.getPath());
+        if (level == null) {
+            return getLevel();
+        }
+        return level;
     }
 
     private Level loadLevel(String path) {
