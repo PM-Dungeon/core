@@ -13,7 +13,7 @@
 --
 + update(): void
 + contains(o: Object): boolean
-+ add(IEntity: t): boolean
++ add(t: IEntity): boolean
 + remove(o: Object): boolean
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>460</x><y>90</y><w>300</w><h>150</h></coordinates><panel_attributes>HUDController
 --
@@ -23,7 +23,7 @@
 --
 + update(): void
 + contains(o: Object): boolean
-+ add(IHUDElement: t): boolean
++ add(t: IHUDElement): boolean
 + remove(o: Object): boolean
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>650</y><w>330</w><h>190</h></coordinates><panel_attributes>LevelAPI
