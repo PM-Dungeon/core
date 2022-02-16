@@ -19,7 +19,7 @@ public class LevelLoader implements IGenerator {
 
     @Override
     public Level getLevel() {
-        FileHandle handle = Gdx.files.local(Constants.PATH_TO_LEVEL);
+        FileHandle handle = Gdx.files.local(Constants.getPathToLevel());
         FileHandle[] allLevelFiles = handle.list();
         FileHandle levelFile = allLevelFiles[new Random().nextInt(allLevelFiles.length)];
         Level level = loadLevel(levelFile.path());

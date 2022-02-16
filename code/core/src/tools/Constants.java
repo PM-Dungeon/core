@@ -1,5 +1,7 @@
 package tools;
 
+import java.util.Objects;
+
 public final class Constants {
     public static final int WINDOW_WIDTH = 640;
 
@@ -17,9 +19,28 @@ public final class Constants {
     /** 200% zoom. */
     public static final float DEFAULT_ZOOM_FACTOR = 0.5f;
 
-    public static final String PATH_TO_LEVEL = "assets/level/files/";
-    public static final String PATH_TO_GRAPH = "assets/level/graphs/";
-    public static final String PATH_TO_ROOMTEMPLATES = "assets/level/roomTemplates.json";
-    public static final String PATH_TO_REPLACEMENTS = "assets/level/replacements.json";
     public static final boolean DISABLE_REPLACEMENTS = true;
+
+    public static String getPathToLevel() {
+        return Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("level/files"))
+                .getPath();
+    }
+
+    public static String getPathToGraph() {
+        return Objects.requireNonNull(
+                        ClassLoader.getSystemClassLoader().getResource("level/graphs"))
+                .getPath();
+    }
+
+    public static String getPathToRoomTemplates() {
+        return Objects.requireNonNull(
+                        ClassLoader.getSystemClassLoader().getResource("level/roomTemplates.json"))
+                .getPath();
+    }
+
+    public static String getPathToReplacements() {
+        return Objects.requireNonNull(
+                        ClassLoader.getSystemClassLoader().getResource("level/replacements.json"))
+                .getPath();
+    }
 }

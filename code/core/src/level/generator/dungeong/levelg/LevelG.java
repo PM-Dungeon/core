@@ -63,12 +63,12 @@ public class LevelG implements IGenerator {
 
     @Override
     public Level getLevel(DesignLabel designLabel) {
-        FileHandle handle = Gdx.files.local(Constants.PATH_TO_GRAPH);
+        FileHandle handle = Gdx.files.absolute(Constants.getPathToGraph());
         FileHandle[] allGraphFiles = handle.list();
         FileHandle graph = allGraphFiles[new Random().nextInt(allGraphFiles.length)];
         try {
             return getLevel(
-                    graphg.getGraph(Constants.PATH_TO_GRAPH + "/" + graph.name()), designLabel);
+                    graphg.getGraph(Constants.getPathToGraph() + "/" + graph.name()), designLabel);
         } catch (NoSolutionException e) {
             return getLevel(designLabel);
         }
