@@ -31,18 +31,42 @@ public final class Constants {
         return url.getPath();
     }
 
+    /**
+     * Returns the absolute path to the resource inside the "assets" folder. The location of the
+     * "assets" folder is determined dynamically.
+     *
+     * @return the absolute path to the resource inside the "assets" folder.
+     */
     public static String getPathToLevel() {
         return getResourceString("level/files");
     }
 
+    /**
+     * Returns the absolute path to the resource inside the "assets" folder. The location of the
+     * "assets" folder is determined dynamically.
+     *
+     * @return the absolute path to the resource inside the "assets" folder.
+     */
     public static String getPathToGraph() {
         return getResourceString("level/graphs");
     }
 
+    /**
+     * Returns the absolute path to the resource inside the "assets" folder. The location of the
+     * "assets" folder is determined dynamically.
+     *
+     * @return the absolute path to the resource inside the "assets" folder.
+     */
     public static String getPathToRoomTemplates() {
         return getResourceString("level/roomTemplates.json");
     }
 
+    /**
+     * Returns the absolute path to the resource inside the "assets" folder. The location of the
+     * "assets" folder is determined dynamically.
+     *
+     * @return the absolute path to the resource inside the "assets" folder.
+     */
     public static String getPathToReplacements() {
         return getResourceString("level/replacements.json");
     }

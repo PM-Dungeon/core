@@ -48,7 +48,7 @@ public class LevelG implements IGenerator {
     }
 
     @Override
-    public Level getLevel() {
+    public Level getLevel() throws NoSolutionException {
         return getLevel(DesignLabel.values()[new Random().nextInt(DesignLabel.values().length)]);
     }
 
@@ -61,16 +61,12 @@ public class LevelG implements IGenerator {
     }
 
     @Override
-    public Level getLevel(DesignLabel designLabel) {
+    public Level getLevel(DesignLabel designLabel) throws NoSolutionException {
         File dir = new File(Constants.getPathToGraph());
         File[] allGraphFiles = dir.listFiles();
         assert (allGraphFiles != null && allGraphFiles.length > 0);
         File graph = allGraphFiles[new Random().nextInt(allGraphFiles.length)];
-        try {
-            return getLevel(graphg.getGraph(graph.getPath()), designLabel);
-        } catch (NoSolutionException e) {
-            return null;
-        }
+        return getLevel(graphg.getGraph(graph.getPath()), designLabel);
     }
 
     @Override
