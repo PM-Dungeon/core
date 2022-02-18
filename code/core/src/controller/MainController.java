@@ -24,8 +24,10 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     protected DungeonCamera camera;
     protected HUDController hud;
     protected Painter painter;
-    protected Painter hudPainter;
     protected IGenerator generator;
+
+    @SuppressWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+    protected Painter hudPainter;
 
     private boolean doFirstFrame = true;
 
