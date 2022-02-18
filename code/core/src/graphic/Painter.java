@@ -84,8 +84,8 @@ public class Painter {
         int buffer = 2;
 
         return camera.getFrustum().pointInFrustum(x + buffer, y - buffer, 0)
-            || camera.getFrustum().pointInFrustum(x + buffer, y + buffer, 0)
-            || camera.getFrustum().pointInFrustum(x - buffer, y - buffer, 0)
-            || camera.getFrustum().pointInFrustum(x - buffer, y + buffer, 0);
+                || camera.getFrustum().pointInFrustum(x + buffer, y + buffer, 0)
+                || camera.getFrustum().pointInFrustum(x - buffer, y - buffer, 0)
+                || camera.getFrustum().pointInFrustum(x - buffer, y + buffer, 0);
     }
 }
