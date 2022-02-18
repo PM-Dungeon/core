@@ -24,6 +24,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     protected DungeonCamera camera;
     protected HUDController hud;
     protected Painter painter;
+    protected Painter hudPainter;
     protected IGenerator generator;
 
     private boolean doFirstFrame = true;
@@ -68,7 +69,8 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
         setupCamera();
         painter = new Painter(camera);
         hudBatch = new SpriteBatch();
-        hudCamera = new HUDCamera();
+        hudCamera = new HUDCamera(camera.viewportWidth, camera.viewportHeight);
+        
         hud = new HUDController(hudBatch, hudCamera);
         generator =
                 new LevelG(

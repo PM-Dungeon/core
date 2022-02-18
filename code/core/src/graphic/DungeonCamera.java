@@ -8,7 +8,7 @@ import interfaces.IEntity;
 import tools.Point;
 
 /** Sauron's eye. */
-public class DungeonCamera extends OrthographicCamera {
+public class DungeonCamera extends AbstractCamera {
     private IEntity follows;
     private Point focusPoint;
 
@@ -68,6 +68,7 @@ public class DungeonCamera extends OrthographicCamera {
      * Checks if the point (x,y) is probably been seen on the screen. Otherwise, don't redender this
      * point.
      */
+    @Override
     public boolean isPointInFrustum(float x, float y) {
         final float OFFSET = 1f;
         BoundingBox bounds =
@@ -75,10 +76,5 @@ public class DungeonCamera extends OrthographicCamera {
                         new Vector3(x - OFFSET, y - OFFSET, 0),
                         new Vector3(x + OFFSET, y + OFFSET, 0));
         return frustum.boundsInFrustum(bounds);
-    }
-
-    /** @return the camara frustum */
-    public Frustum getFrustum() {
-        return frustum;
     }
 }
