@@ -65,8 +65,7 @@ In diesen Abschnitt werden alle Schritte erläutert, die zum ersten Start der An
         try {
             levelAPI.loadLevel();
         } catch (NoSolutionException e) {
-            System.out.println(
-                    "Es konnte kein Level geladen werden, bitte den \"assets\" Ordner überprüfen.");
+            System.out.println("Es konnte kein Level geladen werden, bitte den \"assets\" Ordner überprüfen.");
             System.exit(0);
         }
     }
@@ -246,8 +245,7 @@ public void setup() {
     try {
         levelAPI.loadLevel();
     } catch (NoSolutionException e) {
-        System.out.println("Es konnte kein Level geladen werden, bitte den \"assets\" Ordner überprüfen.");
-        System.exit(0);
+        // ...
     }
 }
 ```
@@ -282,8 +280,7 @@ public void endFrame() {
         try {
             levelAPI.loadLevel();
         } catch (NoSolutionException e) {
-            System.out.println("Es konnte kein Level geladen werden, bitte den \"assets\" Ordner überprüfen.");
-            System.exit(0);
+            // ...
         }
     }
 }
