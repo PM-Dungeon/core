@@ -26,8 +26,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     protected Painter painter;
     protected IGenerator generator;
 
-    @SuppressWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-    protected Painter hudPainter;
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings protected Painter hudPainter;
 
     private boolean doFirstFrame = true;
 
