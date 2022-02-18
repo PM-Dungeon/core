@@ -23,7 +23,7 @@ public class HUDCameraTest {
     @Before
     public void setUp() {
         vector3 = Mockito.mock(Vector3.class);
-        PowerMockito.suppress(MemberMatcher.defaultConstructorIn(OrthographicCamera.class));
+        PowerMockito.suppress(MemberMatcher.constructorsDeclaredIn(OrthographicCamera.class));
         cam = PowerMockito.spy(new HUDCamera(40, 30));
         Whitebox.setInternalState(cam, "position", vector3);
     }
