@@ -43,7 +43,7 @@ class MainControllerTest {
                 .withAnyArguments()
                 .thenReturn(Mockito.mock(SpriteBatch.class));
         PowerMockito.whenNew(HUDCamera.class)
-                .withNoArguments()
+                .withAnyArguments()
                 .thenReturn(Mockito.mock(HUDCamera.class));
         PowerMockito.whenNew(HUDController.class)
                 .withAnyArguments()
