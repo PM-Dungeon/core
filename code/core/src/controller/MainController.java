@@ -70,7 +70,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
         painter = new Painter(camera);
         hudBatch = new SpriteBatch();
         hudCamera = new HUDCamera(camera.viewportWidth, camera.viewportHeight);
-        
+        hudPainter = new Painter(hudCamera);
         hud = new HUDController(hudBatch, hudCamera);
         generator =
                 new LevelG(

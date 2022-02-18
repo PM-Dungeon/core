@@ -8,7 +8,7 @@ import tools.Point;
 
 /** Uses LibGDX to draw sprites on the various <code>SpriteBatch</code>es. */
 public class Painter {
-    private final DungeonCamera camera;
+    private final AbstractCamera camera;
     private final TextureMap textureMap = new TextureMap();
 
     /**
@@ -16,7 +16,7 @@ public class Painter {
      *
      * @param camera only objects that are in the camera are drawn
      */
-    public Painter(DungeonCamera camera) {
+    public Painter(AbstractCamera camera) {
         this.camera = camera;
     }
 
@@ -29,7 +29,7 @@ public class Painter {
             String texture,
             Point position,
             SpriteBatch batch) {
-        if (isPointInFrustum((int) position.x, (int) position.y)) {
+        if (true) {
             Sprite sprite = new Sprite(textureMap.getTexture(texture));
             // set up scaling of textures
             sprite.setSize(xScaling, yScaling);
@@ -80,12 +80,4 @@ public class Painter {
         draw(-0.85f, -0.5f, xScaling, yScaling, texture, position, batch);
     }
 
-    private boolean isPointInFrustum(int x, int y) {
-        int buffer = 2;
-
-        return camera.getFrustum().pointInFrustum(x + buffer, y - buffer, 0)
-                || camera.getFrustum().pointInFrustum(x + buffer, y + buffer, 0)
-                || camera.getFrustum().pointInFrustum(x - buffer, y - buffer, 0)
-                || camera.getFrustum().pointInFrustum(x - buffer, y + buffer, 0);
-    }
 }
