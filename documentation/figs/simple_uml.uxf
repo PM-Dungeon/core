@@ -2,7 +2,7 @@
 --
 # batch: SpriteBatch
 # hudBatch: SpriteBatch
-# gemerator: IGenerator 
+# generator: IGenerator 
 # painter: Painter
 --
 # setup():void
