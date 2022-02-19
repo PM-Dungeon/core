@@ -1,12 +1,13 @@
 package graphic;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import interfaces.IEntity;
 import tools.Point;
 
 /** Sauron's eye. */
-public class DungeonCamera extends AbstractCamera {
+public class DungeonCamera extends OrthographicCamera {
     private IEntity follows;
     private Point focusPoint;
 
@@ -66,7 +67,6 @@ public class DungeonCamera extends AbstractCamera {
      * Checks if the point (x,y) is probably been seen on the screen. Otherwise, don't redender this
      * point.
      */
-    @Override
     public boolean isPointInFrustum(float x, float y) {
         final float OFFSET = 1f;
         BoundingBox bounds =
