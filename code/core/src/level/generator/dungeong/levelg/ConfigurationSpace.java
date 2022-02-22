@@ -22,7 +22,7 @@ public class ConfigurationSpace {
     public ConfigurationSpace(RoomTemplate template, Node node, Coordinate globalPosition) {
         this.template = new RoomTemplate(template);
         this.node = node;
-        this.globalPosition = new Coordinate(globalPosition.x, globalPosition.y);
+        this.globalPosition = globalPosition;
     }
 
     /**

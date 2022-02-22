@@ -41,6 +41,17 @@ public class RoomTemplate {
         layout = r.getLayout();
         design = r.getDesign();
         localRef = r.getLocalRef();
+        doors = new ArrayList<>();
+        for (Coordinate c : r.getDoors()) doors.add(c);
+    }
+
+    private void calculateDoors() {
+        if (doors == null) {
+            doors = new ArrayList<>();
+            for (int x = 0; x < layout[0].length; x++)
+                for (int y = 0; y < layout.length; y++)
+                    if (layout[y][x] == LevelElement.DOOR) doors.add(new Coordinate(x, y));
+        }
     }
 
     /** @return A new template with a 90degree rotated layout. */
@@ -192,12 +203,7 @@ public class RoomTemplate {
     }
 
     public List<Coordinate> getDoors() {
-        if (doors == null) {
-            doors = new ArrayList<>();
-            for (int x = 0; x < layout[0].length; x++)
-                for (int y = 0; y < layout.length; y++)
-                    if (layout[y][x] == LevelElement.DOOR) doors.add(new Coordinate(x, y));
-        }
+        if (doors == null) calculateDoors();
         return doors;
     }
 
@@ -214,6 +220,6 @@ public class RoomTemplate {
     }
 
     public void setLocalRef(Coordinate c) {
-        localRef = new Coordinate(c.x, c.y);
+        localRef = c;
     }
 }

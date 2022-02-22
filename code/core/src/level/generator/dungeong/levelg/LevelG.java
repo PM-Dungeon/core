@@ -461,9 +461,8 @@ public class LevelG implements IGenerator {
         for (Coordinate staticDoor : staticDoors) {
             Coordinate staticDoorGlobal = new Coordinate(staticDoor.x + difx, staticDoor.y + dify);
             for (Coordinate door : dynamicDoors) {
-                RoomTemplate templateCopy = new RoomTemplate(template);
-                templateCopy.setLocalRef(door);
-                doorCS.add(new ConfigurationSpace(templateCopy, dynamicNode, staticDoorGlobal));
+                template.setLocalRef(door);
+                doorCS.add(new ConfigurationSpace(template, dynamicNode, staticDoorGlobal));
             }
         }
         return doorCS;
@@ -476,7 +475,6 @@ public class LevelG implements IGenerator {
      * @return Can you reach the End-Tile from the Start-Tile?
      */
     private boolean checkIfCompletable(Level level) {
-        return true;
-        // return level.isTileReachable(level.getStartTile(), level.getEndTile());
+        return level.isTileReachable(level.getStartTile(), level.getEndTile());
     }
 }
