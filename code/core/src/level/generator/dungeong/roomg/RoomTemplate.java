@@ -195,7 +195,8 @@ public class RoomTemplate {
         if (doors == null) {
             doors = new ArrayList<>();
             for (int x = 0; x < layout[0].length; x++)
-                for (int y = 0; y < layout.length; y++) doors.add(new Coordinate(x, y));
+                for (int y = 0; y < layout.length; y++)
+                    if (layout[y][x] == LevelElement.DOOR) doors.add(new Coordinate(x, y));
         }
         return doors;
     }
@@ -209,6 +210,10 @@ public class RoomTemplate {
     }
 
     public Coordinate getLocalRef() {
-        return localRef;
+        return new Coordinate(localRef.x, localRef.y);
+    }
+
+    public void setLocalRef(Coordinate c) {
+        localRef = new Coordinate(c.x, c.y);
     }
 }

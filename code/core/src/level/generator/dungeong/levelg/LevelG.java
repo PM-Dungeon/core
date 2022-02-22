@@ -424,60 +424,49 @@ public class LevelG implements IGenerator {
 
         List<ConfigurationSpace> spaces = new ArrayList<>();
         for (RoomTemplate layout : template) {
-            List<Coordinate> possiblePoints = new ArrayList<>();
+            List<ConfigurationSpace> possibleCS = new ArrayList<>();
             // this the first node placed in the level.
             if (level.isEmpty()) {
-                possiblePoints.add(new Coordinate(0, 0));
+                possibleCS.add(new ConfigurationSpace(layout, dynamicNode, new Coordinate(0, 0)));
             } else {
-                possiblePoints = calAttachingPoints(staticSpace, layout);
+                possibleCS = getCSDoors(staticSpace, layout, dynamicNode);
             }
-            for (Coordinate position : possiblePoints) {
+            for (ConfigurationSpace possibleSpace : possibleCS) {
                 boolean isValid = true;
-                for (ConfigurationSpace sp : level)
-                    if (sp.overlap(layout, position)) {
+                for (ConfigurationSpace levelSpace : level)
+                    if (levelSpace.overlap(possibleSpace)) {
                         isValid = false;
                         break;
                     }
-                if (isValid)
-                    spaces.add(
-                            new ConfigurationSpace(
-                                    new RoomTemplate(layout), dynamicNode, position));
+                if (isValid) spaces.add(possibleSpace);
             }
         }
         return spaces;
     }
 
     /**
-     * Calculate where a dynamic room-template can be attached to a static room-template.
+     * Creates a ConfigurationSpace for each Door-Combination Doesn't check for overlapping.
      *
      * @param staticSpace Where to attach.
      * @param template What to attach.
-     * @return All possible positions for the global reference-point that will attach the two
-     *     templates.
+     * @return All ConfigurationSpaces where doors are connected.
      */
-    private List<Coordinate> calAttachingPoints(
-            ConfigurationSpace staticSpace, RoomTemplate template) {
+    private List<ConfigurationSpace> getCSDoors(
+            ConfigurationSpace staticSpace, RoomTemplate template, Node dynamicNode) {
         int difx = staticSpace.getGlobalPosition().x - staticSpace.getTemplate().getLocalRef().x;
         int dify = staticSpace.getGlobalPosition().y - staticSpace.getTemplate().getLocalRef().y;
         List<Coordinate> staticDoors = staticSpace.getTemplate().getDoors();
         List<Coordinate> dynamicDoors = template.getDoors();
-        List<Coordinate> attachingPoints = new ArrayList<>();
+        List<ConfigurationSpace> doorCS = new ArrayList<>();
         for (Coordinate staticDoor : staticDoors) {
             Coordinate staticDoorGlobal = new Coordinate(staticDoor.x + difx, staticDoor.y + dify);
-            for (Coordinate dynamicDoor : dynamicDoors) {
-                // todo something is wrong here
-                // place template so that the dynamic door is on the same spot as the static door
-                int difDoorToRefX = template.getLocalRef().x + dynamicDoor.x;
-                int difDoorToRefY = template.getLocalRef().y + dynamicDoor.y;
-                Coordinate dynamicDoorGlobal =
-                        new Coordinate(
-                                staticDoorGlobal.x + difDoorToRefX,
-                                staticDoorGlobal.y + difDoorToRefY);
-                if (!staticSpace.overlap(template, dynamicDoorGlobal))
-                    attachingPoints.add(dynamicDoorGlobal);
+            for (Coordinate door : dynamicDoors) {
+                RoomTemplate templateCopy = new RoomTemplate(template);
+                templateCopy.setLocalRef(door);
+                doorCS.add(new ConfigurationSpace(templateCopy, dynamicNode, staticDoorGlobal));
             }
         }
-        return attachingPoints;
+        return doorCS;
     }
 
     /**
@@ -487,6 +476,7 @@ public class LevelG implements IGenerator {
      * @return Can you reach the End-Tile from the Start-Tile?
      */
     private boolean checkIfCompletable(Level level) {
-        return level.isTileReachable(level.getStartTile(), level.getEndTile());
+        return true;
+        // return level.isTileReachable(level.getStartTile(), level.getEndTile());
     }
 }
