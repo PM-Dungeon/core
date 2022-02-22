@@ -1,12 +1,13 @@
 package level.generator.dungeong.roomg;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import level.elements.room.Room;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A RoomTemplate is a blueprint for a room.
@@ -17,6 +18,7 @@ public class RoomTemplate {
     private LevelElement[][] layout;
     private DesignLabel design;
     private Coordinate localRef;
+    private List<Coordinate> doors;
 
     /**
      * A RoomTemplate can be used to create a room.
@@ -50,6 +52,7 @@ public class RoomTemplate {
         for (int row = 0; row < mSize; row++)
             for (int col = 0; col < nSize; col++)
                 rotatedLayout[col][mSize - 1 - row] = originalLayout[row][col];
+
         return new RoomTemplate(rotatedLayout, getDesign(), getLocalRef());
     }
 
@@ -64,6 +67,7 @@ public class RoomTemplate {
         allRotations.add(r180.rotateTemplate());
         return allRotations;
     }
+
     /**
      * Replace all placeholder with the replacements in the list.
      *
@@ -109,8 +113,8 @@ public class RoomTemplate {
         // replace all placeholder that are left with floor
         for (int y = 0; y < layoutHeight; y++)
             for (int x = 0; x < layoutWidth; x++)
-                if (roomLayout[y][x] == LevelElement.WILD) roomLayout[y][x] = LevelElement.FLOOR;
-
+                if (roomLayout[y][x] == LevelElement.WILD || roomLayout[y][x] == LevelElement.DOOR)
+                    roomLayout[y][x] = LevelElement.FLOOR;
         return new Room(roomLayout, design, localRef, globalRef);
     }
 
@@ -185,6 +189,15 @@ public class RoomTemplate {
                 copy[y][x] = toCopy[y][x];
             }
         return copy;
+    }
+
+    public List<Coordinate> getDoors() {
+        if (doors == null) {
+            doors = new ArrayList<>();
+            for (int x = 0; x < layout[0].length; x++)
+                for (int y = 0; y < layout.length; y++) doors.add(new Coordinate(x, y));
+        }
+        return doors;
     }
 
     public DesignLabel getDesign() {

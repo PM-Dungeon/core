@@ -1,7 +1,5 @@
 package graphic;
 
-import static org.mockito.ArgumentMatchers.anyFloat;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +13,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import textures.TextureMap;
 import tools.Point;
+
+import static org.mockito.ArgumentMatchers.anyFloat;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Painter.class, TextureMap.class})
