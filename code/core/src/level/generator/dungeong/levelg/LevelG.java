@@ -1,5 +1,10 @@
 package level.generator.dungeong.levelg;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import level.elements.Level;
 import level.elements.graph.BFEdge;
 import level.elements.graph.Graph;
@@ -15,12 +20,6 @@ import level.generator.dungeong.roomg.RoomTemplateLoader;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import tools.Constants;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Uses RoomG and GraphG to generate level.
