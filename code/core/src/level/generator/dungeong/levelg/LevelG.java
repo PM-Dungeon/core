@@ -118,6 +118,7 @@ public class LevelG implements IGenerator {
         List<Replacement> replacements;
         if (Constants.DISABLE_REPLACEMENTS) replacements = new ArrayList<>();
         else replacements = replacementLoader.getReplacements(design);
+        placeDoors(configurationSpaces);
         // replace templates
         for (ConfigurationSpace cs : configurationSpaces) {
             RoomTemplate template = cs.getTemplate();
@@ -128,7 +129,6 @@ public class LevelG implements IGenerator {
         // in rare cases, the path to the target may be blocked.
         else return getLevel(solveSeq, graph, design);
     }
-
     /**
      * Split a graph in chains.
      *
@@ -466,6 +466,36 @@ public class LevelG implements IGenerator {
             }
         }
         return doorCS;
+    }
+
+    /**
+     * Checks each possible door and marks them as used if they are.
+     *
+     * @param level The Level in his ConfigurationSpace format
+     */
+    private void placeDoors(List<ConfigurationSpace> level) {
+        for (ConfigurationSpace cS : level)
+            for (Coordinate cD : cS.getTemplate().getDoors()) {
+                // calculate global door coordinate
+                int difx = cS.getGlobalPosition().x - cS.getTemplate().getLocalRef().x;
+                int dify = cS.getGlobalPosition().y - cS.getTemplate().getLocalRef().y;
+                Coordinate cdg = new Coordinate(cD.x + difx, cD.y + dify);
+                // check all other rooms for doors at the same coordinate
+                for (ConfigurationSpace oS : level)
+                    if (!cS.equals(oS))
+                        for (Coordinate oD : oS.getTemplate().getDoors()) {
+                            // calculate global door coordinate
+                            int odifx = oS.getGlobalPosition().x - oS.getTemplate().getLocalRef().x;
+                            int odify = oS.getGlobalPosition().y - oS.getTemplate().getLocalRef().y;
+                            Coordinate odg = new Coordinate(oD.x + odifx, oD.y + odify);
+
+                            // if doors are on the same spot, mark them as used
+                            if (cdg.equals(odg)) {
+                                cS.getTemplate().useDoor(cD);
+                                oS.getTemplate().useDoor(oD);
+                            }
+                        }
+            }
     }
 
     /**

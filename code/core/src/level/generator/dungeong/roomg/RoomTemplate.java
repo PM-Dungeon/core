@@ -124,8 +124,9 @@ public class RoomTemplate {
         // replace all placeholder that are left with floor
         for (int y = 0; y < layoutHeight; y++)
             for (int x = 0; x < layoutWidth; x++)
-                if (roomLayout[y][x] == LevelElement.WILD || roomLayout[y][x] == LevelElement.DOOR)
-                    roomLayout[y][x] = LevelElement.FLOOR;
+                if (roomLayout[y][x] == LevelElement.WILD) roomLayout[y][x] = LevelElement.FLOOR;
+                else if (roomLayout[y][x] == LevelElement.DOOR)
+                    roomLayout[y][x] = LevelElement.WALL;
         return new Room(roomLayout, design, localRef, globalRef);
     }
 
@@ -221,5 +222,9 @@ public class RoomTemplate {
 
     public void setLocalRef(Coordinate c) {
         localRef = c;
+    }
+
+    public void useDoor(Coordinate c) {
+        layout[c.y][c.x] = LevelElement.FLOOR;
     }
 }
