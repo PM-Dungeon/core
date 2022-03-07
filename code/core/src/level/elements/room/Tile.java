@@ -2,11 +2,12 @@ package level.elements.room;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.utils.Array;
-import java.util.ArrayList;
-import java.util.List;
 import level.elements.astar.TileConnection;
 import level.tools.Coordinate;
 import level.tools.LevelElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Tile is a field of the level.
@@ -15,8 +16,8 @@ import level.tools.LevelElement;
  */
 public class Tile {
 
-    transient private final Array<Connection<Tile>> connections = new Array<>();
     private final Coordinate globalPosition;
+    private transient Array<Connection<Tile>> connections = new Array<>();
     private String texture;
     private LevelElement e;
     private int index;
@@ -81,6 +82,7 @@ public class Tile {
      * @param to Tile to connect with.
      */
     public void addConnection(Tile to) {
+        if (connections == null) connections = new Array<>();
         connections.add(new TileConnection(this, to));
     }
 
