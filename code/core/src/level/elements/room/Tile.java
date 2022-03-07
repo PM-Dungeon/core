@@ -15,7 +15,7 @@ import level.tools.LevelElement;
  */
 public class Tile {
 
-    private final Array<Connection<Tile>> connections = new Array<>();
+    transient private final Array<Connection<Tile>> connections = new Array<>();
     private final Coordinate globalPosition;
     private String texture;
     private LevelElement e;

@@ -6,9 +6,7 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import com.google.gson.Gson;
 import level.elements.astar.TileHeuristic;
 import level.elements.graph.Node;
 import level.elements.room.Room;
@@ -16,6 +14,14 @@ import level.elements.room.Tile;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * A level is a set of connect rooms to play in.
@@ -377,5 +383,30 @@ public class Level implements IndexedGraph<Tile> {
     @Override
     public Array<Connection<Tile>> getConnections(Tile fromNode) {
         return fromNode.getConnections();
+    }
+
+    /**
+     * Converts Level in JSON.
+     *
+     * @return Level as JSON
+     */
+    public String toJSON() {
+        return new Gson().toJson(this);
+    }
+
+    /**
+     * Writes down this level in a json.
+     *
+     * @param path Where to save.
+     */
+    public void writeToJSON(String path) {
+        try {
+            BufferedWriter writer =
+                    new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8));
+            writer.write(toJSON());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File" + path + " not found");
+        }
     }
 }
