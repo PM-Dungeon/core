@@ -7,14 +7,6 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
 import com.google.gson.Gson;
-import level.elements.astar.TileHeuristic;
-import level.elements.graph.Node;
-import level.elements.room.Room;
-import level.elements.room.Tile;
-import level.tools.Coordinate;
-import level.tools.DesignLabel;
-import level.tools.LevelElement;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,6 +14,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import level.elements.astar.TileHeuristic;
+import level.elements.graph.Node;
+import level.elements.room.Room;
+import level.elements.room.Tile;
+import level.tools.Coordinate;
+import level.tools.DesignLabel;
+import level.tools.LevelElement;
 
 /**
  * A level is a set of connect rooms to play in.
