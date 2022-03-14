@@ -1,7 +1,15 @@
 package level.tools;
 
 public class TileTextureFactory {
-
+    /**
+     * Checks which texture must be used for the passed field based on the surrounding fields.
+     *
+     * @param e Element to check for
+     * @param l Design of the element
+     * @param layout The level
+     * @param p Position of e
+     * @return Path to texture
+     */
     public static String findTexture(
             LevelElement e, DesignLabel l, LevelElement[][] layout, Coordinate p) {
         String path = l.name().toLowerCase() + "/";
