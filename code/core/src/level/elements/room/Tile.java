@@ -102,7 +102,7 @@ public class Tile {
             directions.add(Direction.E);
         } else if (globalPosition.x > goal.getCoordinate().x) {
             directions.add(Direction.W);
-        } else if (globalPosition.y < goal.globalPosition.y) {
+        } else if (globalPosition.y < goal.getGlobalPosition().y) {
             directions.add(Direction.N);
         } else if (globalPosition.y > goal.globalPosition.y) {
             directions.add(Direction.S);
