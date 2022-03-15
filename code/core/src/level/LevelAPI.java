@@ -37,7 +37,7 @@ public class LevelAPI {
     }
 
     /**
-     * Load a new level-
+     * Load a new level.
      *
      * @throws NoSolutionException if no level can be loaded.
      */
