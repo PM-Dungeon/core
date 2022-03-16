@@ -22,7 +22,7 @@ public final class Constants {
     public static final boolean DISABLE_REPLACEMENTS = true;
 
     /** Sets the window title for libGDX window. */
-    public static final String WINDOW_TITLE = "pmdungeon";
+    public static final String WINDOW_TITLE = "PM-Dungeon";
 
     /**
      * @param path the relative path to the resource
