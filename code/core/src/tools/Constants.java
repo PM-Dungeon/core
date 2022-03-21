@@ -27,7 +27,6 @@ public final class Constants {
     /** Sets the LibGDX-window logo path. */
     public static final String LOGO_PATH = "logo/logo32x32.png";
 
-
     /**
      * @param path the relative path to the resource
      * @return the absolute path of the internal resource
