@@ -21,8 +21,12 @@ public final class Constants {
 
     public static final boolean DISABLE_REPLACEMENTS = true;
 
-    /** Sets the window title for libGDX window. */
+    /** Sets the window title for the LibGDX window. */
     public static final String WINDOW_TITLE = "PM-Dungeon";
+
+    /** Sets the LibGDX-window logo path. */
+    public static final String LOGO_PATH = "logo/logo32x32.png";
+
 
     /**
      * @param path the relative path to the resource
