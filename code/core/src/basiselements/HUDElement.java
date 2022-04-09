@@ -24,7 +24,6 @@ public abstract class HUDElement {
     public SpriteBatch getBatch() {
         return batch;
     }
-    ;
 
     /** @return the exact position in the dungeon of this instance */
     public abstract Point getPosition();
