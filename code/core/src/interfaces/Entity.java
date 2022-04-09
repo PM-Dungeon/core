@@ -18,7 +18,7 @@ public abstract class Entity {
     }
 
     /** Will be executed every frame. */
-    public abstract void update();
+    public void update(){};
 
     /** @return <code>true</code>, if this instance can be deleted; <code>false</code> otherwise */
     public boolean removable() {
