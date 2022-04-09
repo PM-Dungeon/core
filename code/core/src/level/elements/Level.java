@@ -1,5 +1,6 @@
 package level.elements;
 
+import basiselements.Entity;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -7,7 +8,6 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
 import com.google.gson.Gson;
-import basiselements.Entity;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

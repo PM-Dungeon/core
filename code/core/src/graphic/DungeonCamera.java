@@ -1,9 +1,9 @@
 package graphic;
 
+import basiselements.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import basiselements.Entity;
 import tools.Point;
 
 /** Sauron's eye. */

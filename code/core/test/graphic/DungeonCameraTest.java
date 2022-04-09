@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
 
+import basiselements.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
-import basiselements.Entity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
