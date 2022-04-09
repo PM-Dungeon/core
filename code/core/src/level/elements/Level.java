@@ -7,7 +7,7 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
 import com.google.gson.Gson;
-import basis_elements.Entity;
+import basiselements.Entity;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

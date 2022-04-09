@@ -1,4 +1,4 @@
-package basis_elements;
+package basiselements;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Animation;
