@@ -6,7 +6,7 @@ import static org.junit.Assume.assumeTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import interfaces.Entity;
+import basis_elements.Entity;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;

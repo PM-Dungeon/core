@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import interfaces.HUDElement;
+import basis_elements.HUDElement;
 
 public class HUDController extends AbstractController<HUDElement> {
     private final Stage textStage;

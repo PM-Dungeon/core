@@ -1,20 +1,25 @@
-package interfaces;
+package basis_elements;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import graphic.HUDPainter;
+import graphic.Painter;
 import tools.Point;
 
-public abstract class HUDElement {
+public abstract class Entity {
+    private Painter painter;
     private SpriteBatch batch;
-    private HUDPainter painter;
 
-    public HUDElement(HUDPainter painter, SpriteBatch batch) {
-        this.batch = batch;
+    /**
+     * A object that can be controlled by the <code>EntityController
+     * </code>.
+     */
+    public Entity(Painter painter, SpriteBatch batch) {
         this.painter = painter;
+        this.batch = batch;
     }
 
     /** Will be executed every frame. */
     public void update() {}
+    ;
 
     /** @return <code>true</code>, if this instance can be deleted; <code>false</code> otherwise */
     public boolean removable() {
@@ -24,7 +29,6 @@ public abstract class HUDElement {
     public SpriteBatch getBatch() {
         return batch;
     }
-    ;
 
     /** @return the exact position in the dungeon of this instance */
     public abstract Point getPosition();
@@ -33,22 +37,12 @@ public abstract class HUDElement {
     public abstract String getTexture();
 
     /** Each drawable should use this <code>Painter</code> to draw itself. */
-    public HUDPainter getPainter() {
+    public Painter getPainter() {
         return painter;
     }
 
     /** Draws this instance on the batch. */
     public void draw() {
         getPainter().draw(getTexture(), getPosition(), getBatch());
-    }
-
-    /**
-     * Draws this instance on the batch with a scaling.
-     *
-     * @param xScaling x-scale
-     * @param yScaling y-scale
-     */
-    public void drawWithScaling(float xScaling, float yScaling) {
-        getPainter().drawWithScaling(xScaling, yScaling, getTexture(), getPosition(), getBatch());
     }
 }

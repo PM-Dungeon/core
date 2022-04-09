@@ -1,10 +1,10 @@
-package interfaces;
+package basis_elements;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Animation;
 import graphic.Painter;
 
-/** Should be implemented by all objects that have an <code>Animation</code>. */
+/** A object that has an <code>Animation</code>. */
 public abstract class Animatable extends Entity {
 
     /**

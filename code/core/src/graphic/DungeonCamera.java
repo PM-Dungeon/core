@@ -3,7 +3,7 @@ package graphic;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import interfaces.Entity;
+import basis_elements.Entity;
 import tools.Point;
 
 /** Sauron's eye. */

@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.anyFloat;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
-import interfaces.Entity;
+import basis_elements.Entity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
