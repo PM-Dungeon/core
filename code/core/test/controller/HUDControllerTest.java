@@ -1,9 +1,5 @@
 package controller;
 
-import static org.junit.Assume.assumeTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -11,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import interfaces.IHUDElement;
+import interfaces.HUDElement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,12 +18,16 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import static org.junit.Assume.assumeTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({HUDController.class})
 public class HUDControllerTest {
     private SpriteBatch batch;
-    private IHUDElement element1;
-    private IHUDElement element2;
+    private HUDElement element1;
+    private HUDElement element2;
     private Stage textStage;
     private HUDController controller;
     private HUDController controllerSpy;
@@ -36,8 +36,8 @@ public class HUDControllerTest {
     @Before
     public void setUp() throws Exception {
         batch = Mockito.mock(SpriteBatch.class);
-        element1 = Mockito.mock(IHUDElement.class);
-        element2 = Mockito.mock(IHUDElement.class);
+        element1 = Mockito.mock(HUDElement.class);
+        element2 = Mockito.mock(HUDElement.class);
         textStage = Mockito.mock(Stage.class);
         PowerMockito.whenNew(Stage.class).withAnyArguments().thenReturn(textStage);
 

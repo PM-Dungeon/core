@@ -1,13 +1,6 @@
 package controller;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import interfaces.IEntity;
-import java.util.List;
+import interfaces.Entity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,16 +9,24 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EntityController.class})
 public class EntityControllerTest {
-    private IEntity entity1, entity2;
+    private Entity entity1, entity2;
     private EntityController controller;
 
     @Before
     public void setUp() {
-        entity1 = Mockito.mock(IEntity.class);
-        entity2 = Mockito.mock(IEntity.class);
+        entity1 = Mockito.mock(Entity.class);
+        entity2 = Mockito.mock(Entity.class);
         controller = new EntityController();
     }
 

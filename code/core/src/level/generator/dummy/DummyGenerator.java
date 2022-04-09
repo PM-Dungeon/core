@@ -1,7 +1,5 @@
 package level.generator.dummy;
 
-import java.util.ArrayList;
-import java.util.List;
 import level.elements.Level;
 import level.elements.graph.Node;
 import level.elements.room.Room;
@@ -9,6 +7,9 @@ import level.generator.IGenerator;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DummyGenerator implements IGenerator {
 

@@ -1,14 +1,9 @@
 package graphic;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyFloat;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
-import interfaces.IEntity;
+import interfaces.Entity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +15,16 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import tools.Point;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyFloat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({DungeonCamera.class, OrthographicCamera.class})
 public class DungeonCameraTest {
     DungeonCamera cam;
-    IEntity entity;
+    Entity entity;
     Vector3 pos;
     Frustum frustum;
 
@@ -34,7 +34,7 @@ public class DungeonCameraTest {
 
     @Before
     public void setUp() {
-        entity = Mockito.mock(IEntity.class);
+        entity = Mockito.mock(Entity.class);
         pos = Mockito.mock(Vector3.class);
         frustum = Mockito.mock(Frustum.class);
         Mockito.when(entity.getPosition()).thenReturn(new Point(1, 1));
@@ -72,7 +72,7 @@ public class DungeonCameraTest {
 
     @Test
     public void test_follow() {
-        IEntity e2 = Mockito.mock(IEntity.class);
+        Entity e2 = Mockito.mock(Entity.class);
 
         cam.follow(e2);
         assertEquals(e2, cam.getFollowedObject());
