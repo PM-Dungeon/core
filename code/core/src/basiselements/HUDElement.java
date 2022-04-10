@@ -51,6 +51,7 @@ public abstract class HUDElement {
      * @param yScaling y-scale
      */
     public void drawWithScaling(float xScaling, float yScaling) {
-        getPainter().drawWithScaling(xScaling, yScaling, getTexturePath(), getPosition(), getBatch());
+        getPainter()
+                .drawWithScaling(xScaling, yScaling, getTexturePath(), getPosition(), getBatch());
     }
 }

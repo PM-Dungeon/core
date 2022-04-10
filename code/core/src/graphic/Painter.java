@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import textures.TextureMap;
 import tools.Point;
 
-/**
- * Uses LibGDX to draw sprites on the various <code>SpriteBatch</code>es.
- */
+/** Uses LibGDX to draw sprites on the various <code>SpriteBatch</code>es. */
 public class Painter {
     private final DungeonCamera camera;
     private final TextureMap textureMap = new TextureMap();
@@ -22,17 +20,15 @@ public class Painter {
         this.camera = camera;
     }
 
-    /**
-     * Draws the instance based on its position.
-     */
+    /** Draws the instance based on its position. */
     public void draw(
-        float xOffset,
-        float yOffset,
-        float xScaling,
-        float yScaling,
-        String texturePath,
-        Point position,
-        SpriteBatch batch) {
+            float xOffset,
+            float yOffset,
+            float xScaling,
+            float yScaling,
+            String texturePath,
+            Point position,
+            SpriteBatch batch) {
         if (camera.isPointInFrustum(position.x, position.y)) {
             Sprite sprite = new Sprite(textureMap.getTexture(texturePath));
             // set up scaling of textures
@@ -49,44 +45,38 @@ public class Painter {
         }
     }
 
-    /**
-     * Draws the instance based on its position with default offset and default scaling.
-     */
+    /** Draws the instance based on its position with default offset and default scaling. */
     public void draw(String texturePath, Point position, SpriteBatch batch) {
         // the concrete offset values are best guesses
         Texture t = textureMap.getTexture(texturePath);
 
         draw(
-            -0.85f,
-            -0.5f,
-            1,
-            ((float) t.getHeight() / (float) t.getWidth()),
-            texturePath,
-            position,
-            batch);
+                -0.85f,
+                -0.5f,
+                1,
+                ((float) t.getHeight() / (float) t.getWidth()),
+                texturePath,
+                position,
+                batch);
     }
 
-    /**
-     * Draws the instance based on its position with default scaling and specific offset.
-     */
+    /** Draws the instance based on its position with default scaling and specific offset. */
     public void draw(
-        float xOffset, float yOffset, String texturePath, Point position, SpriteBatch batch) {
+            float xOffset, float yOffset, String texturePath, Point position, SpriteBatch batch) {
         Texture t = textureMap.getTexture(texturePath);
         draw(
-            xOffset,
-            yOffset,
-            1,
-            ((float) t.getHeight() / (float) t.getWidth()),
-            texturePath,
-            position,
-            batch);
+                xOffset,
+                yOffset,
+                1,
+                ((float) t.getHeight() / (float) t.getWidth()),
+                texturePath,
+                position,
+                batch);
     }
 
-    /**
-     * Draws the instance based on its position with default offset and specific scaling.
-     */
+    /** Draws the instance based on its position with default offset and specific scaling. */
     public void drawWithScaling(
-        float xScaling, float yScaling, String texturePath, Point position, SpriteBatch batch) {
+            float xScaling, float yScaling, String texturePath, Point position, SpriteBatch batch) {
         draw(-0.85f, -0.5f, xScaling, yScaling, texturePath, position, batch);
     }
 }
