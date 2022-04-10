@@ -7,7 +7,10 @@ import tools.Point;
 public abstract class HUDElement {
     private SpriteBatch batch;
     private HUDPainter painter;
-
+    /**
+     * A object that can be controlled by the <code>HUDController
+     * </code>.
+     */
     public HUDElement(HUDPainter painter, SpriteBatch batch) {
         this.batch = batch;
         this.painter = painter;

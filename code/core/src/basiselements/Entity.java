@@ -13,8 +13,8 @@ public abstract class Entity {
      * </code>.
      */
     public Entity(Painter painter, SpriteBatch batch) {
-        this.painter = painter;
         this.batch = batch;
+        this.painter = painter;
     }
 
     /** Will be executed every frame. */
