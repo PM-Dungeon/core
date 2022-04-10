@@ -63,8 +63,10 @@ public class HUDControllerTest {
         // verify update method logic:
         verify(element1).removable();
         verify(element1).update();
+        verify(element1).draw();
         verify(element2).removable();
         verify(element2).update();
+        verify(element2).draw();
 
         verify(textStage).act();
         verify(textStage).draw();
