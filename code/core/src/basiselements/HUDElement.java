@@ -11,23 +11,19 @@ public abstract class HUDElement extends DungeonElement {
      * </code>.
      *
      * @param painter Painter that draws this object
-     * @param batch   Batch to draw on
+     * @param batch Batch to draw on
      */
     public HUDElement(HUDPainter painter, SpriteBatch batch) {
         super(batch);
         this.painter = painter;
     }
 
-    /**
-     * Each drawable should use this <code>Painter</code> to draw itself.
-     */
+    /** Each drawable should use this <code>Painter</code> to draw itself. */
     public HUDPainter getPainter() {
         return painter;
     }
 
-    /**
-     * Draws this instance on the batch.
-     */
+    /** Draws this instance on the batch. */
     public void draw() {
         getPainter().draw(getTexturePath(), getPosition(), getBatch());
     }
@@ -40,7 +36,6 @@ public abstract class HUDElement extends DungeonElement {
      */
     public void drawWithScaling(float xScaling, float yScaling) {
         getPainter()
-            .drawWithScaling(xScaling, yScaling, getTexturePath(), getPosition(), getBatch());
+                .drawWithScaling(xScaling, yScaling, getTexturePath(), getPosition(), getBatch());
     }
-
 }

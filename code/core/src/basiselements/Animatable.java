@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Animation;
 import graphic.Painter;
 
-/**
- * A object that has an <code>Animation</code>.
- */
+/** A object that has an <code>Animation</code>. */
 public abstract class Animatable extends Entity {
 
     /**
@@ -14,15 +12,13 @@ public abstract class Animatable extends Entity {
      * </code>.
      *
      * @param painter Painter that draws this object
-     * @param batch   Batch to draw on
+     * @param batch Batch to draw on
      */
     public Animatable(Painter painter, SpriteBatch batch) {
         super(painter, batch);
     }
 
-    /**
-     * @return the current active <code>Animation</code> (example: idle or run)
-     */
+    /** @return the current active <code>Animation</code> (example: idle or run) */
     public abstract Animation getActiveAnimation();
 
     @Override

@@ -11,25 +11,20 @@ public abstract class Entity extends DungeonElement {
      * </code>.
      *
      * @param painter Painter that draws this object
-     * @param batch   Batch to draw on
+     * @param batch Batch to draw on
      */
     public Entity(Painter painter, SpriteBatch batch) {
         super(batch);
         this.painter = painter;
     }
 
-    /**
-     * Each drawable should use this <code>Painter</code> to draw itself.
-     */
+    /** Each drawable should use this <code>Painter</code> to draw itself. */
     public Painter getPainter() {
         return painter;
     }
 
-    /**
-     * Draws this instance on the batch.
-     */
+    /** Draws this instance on the batch. */
     public void draw() {
         getPainter().draw(getTexturePath(), getPosition(), getBatch());
     }
-
 }
