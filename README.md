@@ -8,7 +8,7 @@ This is the `core` part of the project. It contains the actual framework without
 
 ## Requirements
 
-- Java SE Development Kit 17.0.x or higher
+- Java SE Development Kit 17.0.x LTS
 
 ## Installing & quick start
 
