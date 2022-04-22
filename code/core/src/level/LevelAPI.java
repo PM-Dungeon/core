@@ -91,8 +91,8 @@ public class LevelAPI {
         gen = generator;
     }
 
-    public void setLevel(Level level){
-        currentLevel=level;
+    public void setLevel(Level level) {
+        currentLevel = level;
         onLevelLoader.onLevelLoad();
     }
 }
