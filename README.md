@@ -17,7 +17,7 @@ To create your own game using the PM-Dungeon framework, check out the quick star
 - [German](https://github.com/PM-Dungeon/desktop/blob/master/documentation/quickstart_de.md)
 - [English](https://github.com/PM-Dungeon/desktop/blob/master/documentation/quickstart_en.md)
 
-- [JavaDoc](https://javadoc.io/doc/io.github.pm-dungeon/core/latest/index.html)
+- [Javadoc](https://javadoc.io/doc/io.github.pm-dungeon/core/latest/index.html)
 
 ## Contributing
 
