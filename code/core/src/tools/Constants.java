@@ -35,12 +35,14 @@ public final class Constants {
     private static String getResourceString(String path) {
         URL url = ClassLoader.getSystemClassLoader().getResource(path);
         assert (url != null);
+        String modifiedPath = null;
         try {
-            return url.toURI().getPath();
+            modifiedPath = url.toURI().getPath();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        throw new AssertionError("URISyntaxException");
+        assert (modifiedPath != null);
+        return modifiedPath;
     }
 
     /**
