@@ -382,10 +382,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /** @return a random Tile in the Level */
     public Tile getRandomTile() {
-        if (new Random().nextFloat() > 0.5f) {
-            return getRandomFloorTile();
-        }
-        return getRandomWallTile();
+        return getRandomRoom().getRandomTile();
     }
 
     /** @return The position of a random Tile in the Level as Point */
