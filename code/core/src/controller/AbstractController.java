@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /**
@@ -17,10 +18,25 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> {
         return super.contains(o);
     }
 
+    /**
+     * Adds the element in front. This is actually not more than a "workaround".
+     *
+     * <p>The front elements are drawn first, and they are overdrawn with the back elements. This
+     * means: elements inserted last will be overdrawn.
+     *
+     * @param t The element to be added in front.
+     * @return true, if success.
+     */
     @Override
     public boolean add(T t) {
         assert (t != null);
-        return super.add(t);
+        ArrayList<T> list = new ArrayList<>(this);
+        clear();
+        boolean success = super.add(t);
+        for (T e : list) {
+            super.add(e);
+        }
+        return success;
     }
 
     @Override
