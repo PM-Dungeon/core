@@ -19,10 +19,12 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> {
     }
 
     /**
-     * Adds the element in front. This is actually not more than a "workaround".
+     * Adds the element in front.
      *
-     * <p>The front elements are drawn first, and they are overdrawn with the back elements. This
-     * means: elements inserted last will be overdrawn.
+     * <p>Elements that you add first with this method are drawn last, so they are drawn on top of
+     * the other elements. New elements added with this method are overdrawn with older ones.
+     *
+     * <p>Duplicates are not replaced or inserted, this is how HashSet normally behaves.
      *
      * @param t The element to be added in front.
      * @return true, if success.
@@ -30,6 +32,9 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> {
     @Override
     public boolean add(T t) {
         assert (t != null);
+        if (contains(t)) {
+            return false;
+        }
         ArrayList<T> list = new ArrayList<>(this);
         clear();
         boolean success = super.add(t);
