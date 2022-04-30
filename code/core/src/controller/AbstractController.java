@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 /**
- * A controller is a LinkedHashSet and manages elements of a specific type.
+ * A controller manages elements of a specific type, null and duplicates are not allowed.
  *
  * @param <T> Type of elements to manage.
  */
