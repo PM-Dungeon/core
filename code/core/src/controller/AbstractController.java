@@ -18,6 +18,18 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> {
         return super.contains(o);
     }
 
+    @Override
+    public boolean add(T t) {
+        assert (t != null);
+        return super.add(t);
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        assert (o != null);
+        return super.remove(o);
+    }
+
     /**
      * Adds the element in front.
      *
@@ -29,24 +41,14 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> {
      * @param t The element to be added in front.
      * @return true, if success.
      */
-    @Override
-    public boolean add(T t) {
+    public boolean addFirst(T t) {
         assert (t != null);
-        if (contains(t)) {
+        if (super.contains(t)) {
             return false;
         }
         ArrayList<T> list = new ArrayList<>(this);
-        clear();
-        boolean success = super.add(t);
-        for (T e : list) {
-            super.add(e);
-        }
-        return success;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        assert (o != null);
-        return super.remove(o);
+        super.clear();
+        super.add(t);
+        return super.addAll(list);
     }
 }
