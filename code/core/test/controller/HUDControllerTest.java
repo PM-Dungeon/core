@@ -1,8 +1,7 @@
 package controller;
 
 import static org.junit.Assume.assumeTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 import basiselements.HUDElement;
 import com.badlogic.gdx.Files;
@@ -61,10 +60,10 @@ public class HUDControllerTest {
         controller.update();
         // verify HUDController constructor logic:
         // verify update method logic:
-        verify(element1).removable();
+        verify(element1, times(2)).removable();
         verify(element1).update();
         verify(element1).draw();
-        verify(element2).removable();
+        verify(element2, times(2)).removable();
         verify(element2).update();
         verify(element2).draw();
 
