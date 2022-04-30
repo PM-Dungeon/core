@@ -39,15 +39,15 @@ public abstract class AbstractController<T> extends ArrayDeque<T> {
     }
 
     @Override
-    public T removeFirst() {
-        T e = super.removeFirst();
+    public T pollFirst() {
+        T e = super.pollFirst();
         set.remove(e);
         return e;
     }
 
     @Override
-    public T removeLast() {
-        T e = super.removeLast();
+    public T pollLast() {
+        T e = super.pollLast();
         set.remove(e);
         return e;
     }
