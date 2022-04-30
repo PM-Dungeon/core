@@ -52,7 +52,7 @@ public class EntityControllerTest {
         assumeTrue(controller.add(entity1));
 
         controller.update();
-        verify(entity1).removable();
+        verify(entity1, times(2)).removable();
         Mockito.verifyNoMoreInteractions(entity1);
         assertFalse(controller.contains(entity1));
         assertTrue(controller.isEmpty());
@@ -67,8 +67,8 @@ public class EntityControllerTest {
         assumeTrue(controller.add(entity2));
 
         controller.update();
-        verify(entity1).removable();
-        verify(entity2).removable();
+        verify(entity1, times(2)).removable();
+        verify(entity2, times(2)).removable();
         Mockito.verifyNoMoreInteractions(entity1, entity2);
         assertTrue(controller.isEmpty());
     }
@@ -80,7 +80,7 @@ public class EntityControllerTest {
         assumeTrue(controller.add(entity1));
 
         controller.update();
-        verify(entity1).removable();
+        verify(entity1, times(2)).removable();
         verify(entity1).update();
         verify(entity1).draw();
         Mockito.verifyNoMoreInteractions(entity1);
@@ -96,10 +96,10 @@ public class EntityControllerTest {
         assumeTrue(controller.add(entity2));
 
         controller.update();
-        verify(entity1).removable();
+        verify(entity1, times(2)).removable();
         verify(entity1).update();
         verify(entity1).draw();
-        verify(entity2).removable();
+        verify(entity2, times(2)).removable();
         verify(entity2).update();
         verify(entity2).draw();
         Mockito.verifyNoMoreInteractions(entity1, entity2);

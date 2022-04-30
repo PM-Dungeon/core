@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * A controller is a LinkedHashSet and manages elements of a specific type.
@@ -49,5 +50,11 @@ public abstract class AbstractController<T> extends ArrayDeque<T> {
         T e = super.removeLast();
         set.remove(e);
         return e;
+    }
+
+    @Override
+    public boolean removeIf(Predicate<? super T> filter) {
+        set.removeIf(filter);
+        return super.removeIf(filter);
     }
 }
