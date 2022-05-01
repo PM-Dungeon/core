@@ -57,4 +57,26 @@ public abstract class AbstractController<T> extends ArrayDeque<T> {
         set.removeIf(filter);
         return super.removeIf(filter);
     }
+
+    @Override
+    public boolean removeFirstOccurrence(Object o) {
+        if (super.removeFirstOccurrence(o)) {
+            @SuppressWarnings("unchecked")
+            T e = (T) o;
+            set.remove(e);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeLastOccurrence(Object o) {
+        if (super.removeLastOccurrence(o)) {
+            @SuppressWarnings("unchecked")
+            T e = (T) o;
+            set.remove(e);
+            return true;
+        }
+        return false;
+    }
 }
