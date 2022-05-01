@@ -37,7 +37,8 @@ public class Level implements IndexedGraph<Tile> {
     private Node endNode;
     private Tile startTile;
     private Tile endTile;
-    private int nodeCount = 0, levelXOffset, levelYOffset;
+    private int nodeCount = 0;
+    private int levelXOffset, levelYOffset;
     private Tile[][] levelTilesGlobal;
 
     /**
@@ -286,9 +287,8 @@ public class Level implements IndexedGraph<Tile> {
      * @return The tile on that point.
      */
     public Tile getTileAt(Coordinate globalPoint) {
-        if (levelTilesGlobal == null)
-            generateTileArray(); // Workaround to initialize the tile array for save files without
-        // it
+        // Workaround to initialize the tile array for save files without it
+        if (levelTilesGlobal == null) generateTileArray();
         return levelTilesGlobal[globalPoint.x - levelXOffset][globalPoint.y - levelYOffset];
     }
 
