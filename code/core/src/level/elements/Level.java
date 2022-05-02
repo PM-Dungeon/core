@@ -165,7 +165,7 @@ public class Level implements IndexedGraph<Tile> {
         do {
             startT = getRoomToNode(startN).getRandomFloorTile();
         } while (startT.getLevelElement() == LevelElement.PLACED_DOOR
-                && neighbourTileIsDoor(startT));
+            || neighbourTileIsDoor(startT));
 
         setStartTile(startT);
         setStartNode(startN);
@@ -177,7 +177,7 @@ public class Level implements IndexedGraph<Tile> {
         Tile endT;
         do {
             endT = getRoomToNode(endN).getRandomFloorTile();
-        } while (endT.getLevelElement() == LevelElement.PLACED_DOOR && neighbourTileIsDoor(endT));
+        } while (endT.getLevelElement() == LevelElement.PLACED_DOOR || neighbourTileIsDoor(endT));
         DesignLabel l = getRoomToNode(endN).getDesign();
         endT.setLevelElement(
                 LevelElement.EXIT,
