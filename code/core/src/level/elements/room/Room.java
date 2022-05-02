@@ -15,7 +15,7 @@ public class Room {
     private final DesignLabel design;
     private final Coordinate referencePointGlobal;
     private final Coordinate referencePointLocal;
-    private Tile[][] layout;
+    private final Tile[][] layout;
 
     /**
      * @param layout List of tiles that defines the layout of the room.
@@ -64,15 +64,6 @@ public class Room {
     /** @return A copy of the layout. */
     public Tile[][] getLayout() {
         return layout;
-    }
-
-    /**
-     * Set the layout of the room.
-     *
-     * @param layout The new layout.
-     */
-    public void setLayout(Tile[][] layout) {
-        this.layout = copyLayout(layout);
     }
 
     /**
