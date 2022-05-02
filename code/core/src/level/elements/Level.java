@@ -38,7 +38,8 @@ public class Level implements IndexedGraph<Tile> {
     private Tile startTile;
     private Tile endTile;
     private int nodeCount = 0;
-    private int levelXOffset, levelYOffset;
+    private int levelXOffset;
+    private int levelYOffset;
     private Tile[][] levelTilesGlobal;
 
     /**
@@ -65,10 +66,11 @@ public class Level implements IndexedGraph<Tile> {
      * access
      */
     private void generateTileArray() {
-        int minX = Integer.MAX_VALUE,
-                maxX = Integer.MIN_VALUE,
-                minY = Integer.MAX_VALUE,
-                maxY = Integer.MIN_VALUE;
+        // initalizing levelXOffset, levelYOffset and levelTilesGlobal
+        int minX = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxY = Integer.MIN_VALUE;
         for (Room r : getRooms()) {
             for (Tile[] tA : r.getLayout()) {
                 for (Tile t : tA) {
@@ -79,9 +81,11 @@ public class Level implements IndexedGraph<Tile> {
                 }
             }
         }
+        // offset for coordinates not starting with 0
         levelXOffset = minX;
-        levelYOffset = minY; // offset for coordinates not starting with 0
+        levelYOffset = minY;
         levelTilesGlobal = new Tile[maxX - minX + 1][maxY - minY + 1];
+        // insert tiles into levelTilesGlobal array
         for (Room r : getRooms()) {
             for (Tile[] tA : r.getLayout()) {
                 for (Tile t : tA) {
