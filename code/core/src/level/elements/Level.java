@@ -187,6 +187,7 @@ public class Level implements IndexedGraph<Tile> {
 
     private boolean neighbourTileIsDoor(Tile tile) {
         Coordinate tc = tile.getCoordinate();
+
         Tile neighbour = getTileAt(new Coordinate(tc.x - 1, tc.y));
         if (isDoor(neighbour)) {
             return true;
@@ -196,10 +197,12 @@ public class Level implements IndexedGraph<Tile> {
         if (isDoor(neighbour)) {
             return true;
         }
+
         neighbour = getTileAt(new Coordinate(tc.x, tc.y - 1));
         if (isDoor(neighbour)) {
             return true;
         }
+
         neighbour = getTileAt(new Coordinate(tc.x, tc.y + 1));
         if (isDoor(neighbour)) {
             return true;
