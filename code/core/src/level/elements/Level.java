@@ -79,7 +79,7 @@ public class Level implements IndexedGraph<Tile> {
         }
     }
 
-    /**
+    /*
      * initalizes <code>levelXOffset</code>, <code>levelYOffset</code> and <code>levelTilesGlobal
      * </code>
      */
