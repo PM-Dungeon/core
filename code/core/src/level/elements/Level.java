@@ -164,8 +164,7 @@ public class Level implements IndexedGraph<Tile> {
         Tile startT;
         do {
             startT = getRoomToNode(startN).getRandomFloorTile();
-        } while (startT.getLevelElement() == LevelElement.PLACED_DOOR
-            || neighbourTileIsDoor(startT));
+        } while (isDoor(startT) || neighbourTileIsDoor(startT));
 
         setStartTile(startT);
         setStartNode(startN);
@@ -177,7 +176,7 @@ public class Level implements IndexedGraph<Tile> {
         Tile endT;
         do {
             endT = getRoomToNode(endN).getRandomFloorTile();
-        } while (endT.getLevelElement() == LevelElement.PLACED_DOOR || neighbourTileIsDoor(endT));
+        } while (isDoor(endT) || neighbourTileIsDoor(endT));
         DesignLabel l = getRoomToNode(endN).getDesign();
         endT.setLevelElement(
                 LevelElement.EXIT,
@@ -189,24 +188,28 @@ public class Level implements IndexedGraph<Tile> {
     private boolean neighbourTileIsDoor(Tile tile) {
         Coordinate tc = tile.getCoordinate();
         Tile neighbour = getTileAt(new Coordinate(tc.x - 1, tc.y));
-        if (neighbour.getLevelElement() == LevelElement.PLACED_DOOR) {
+        if (isDoor(neighbour)) {
             return true;
         }
 
         neighbour = getTileAt(new Coordinate(tc.x + 1, tc.y));
-        if (neighbour.getLevelElement() == LevelElement.PLACED_DOOR) {
+        if (isDoor(neighbour)) {
             return true;
         }
         neighbour = getTileAt(new Coordinate(tc.x, tc.y - 1));
-        if (neighbour.getLevelElement() == LevelElement.PLACED_DOOR) {
+        if (isDoor(neighbour)) {
             return true;
         }
         neighbour = getTileAt(new Coordinate(tc.x, tc.y + 1));
-        if (neighbour.getLevelElement() == LevelElement.PLACED_DOOR) {
+        if (isDoor(neighbour)) {
             return true;
         }
 
         return false;
+    }
+
+    private boolean isDoor(Tile t) {
+        return t.getLevelElement() == LevelElement.PLACED_DOOR;
     }
 
     /**
