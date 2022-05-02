@@ -65,6 +65,11 @@ jobs:
                     ./gradlew spotbugsMain
                     ./gradlew spotbugsTest
                 working-directory: code
+            -   name: SpotBugs Report
+                uses: jwgmeligmeyling/spotbugs-github-action@master
+                with:
+                    path: '**/spotbugsXml.xml'
+                    name: 'SpotBugs Report'
 
     checkstyle:
         needs: build
@@ -81,6 +86,10 @@ jobs:
             -   name: Checkstyle
                 run: ./gradlew check
                 working-directory: code
+            -   name: Checkstyle Report
+                uses: jwgmeligmeyling/checkstyle-github-action@master
+                with:
+                    path: '**/checkstyle/*.xml'
 
     spotless-java-format:
         needs: build
