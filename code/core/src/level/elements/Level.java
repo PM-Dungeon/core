@@ -71,14 +71,17 @@ public class Level implements IndexedGraph<Tile> {
         for (Room r : getRooms()) {
             for (Tile[] tA : r.getLayout()) {
                 for (Tile t : tA) {
-                    levelTilesGlobal[t.getCoordinate().x - levelXOffset][t.getCoordinate().y - levelYOffset] = t;
+                    levelTilesGlobal[t.getCoordinate().x - levelXOffset][
+                                    t.getCoordinate().y - levelYOffset] =
+                            t;
                 }
             }
         }
     }
-    
+
     /**
-     * initalizes <code>levelXOffset</code>, <code>levelYOffset</code> and <code>levelTilesGlobal</code>
+     * initalizes <code>levelXOffset</code>, <code>levelYOffset</code> and <code>levelTilesGlobal
+     * </code>
      */
     private void initalizeTileArray() {
         int minX = Integer.MAX_VALUE;
@@ -335,7 +338,9 @@ public class Level implements IndexedGraph<Tile> {
      */
     public Tile getTileAt(Coordinate globalPoint) {
         // Workaround to initialize the tile array for save files without it
-        if (levelTilesGlobal == null) { generateTileArray(); }
+        if (levelTilesGlobal == null) {
+            generateTileArray();
+        }
         return levelTilesGlobal[globalPoint.x - levelXOffset][globalPoint.y - levelYOffset];
     }
 
