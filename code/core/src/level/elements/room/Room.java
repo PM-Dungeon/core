@@ -63,7 +63,7 @@ public class Room {
 
     /** @return A copy of the layout. */
     public Tile[][] getLayout() {
-        return copyLayout(layout);
+        return layout;
     }
 
     /**
@@ -72,20 +72,7 @@ public class Room {
      * @param layout The new layout.
      */
     public void setLayout(Tile[][] layout) {
-        this.layout = copyLayout(layout);
-    }
-
-    /**
-     * Copy's an layout.
-     *
-     * @param toCopy Layout to copy.
-     * @return The copy.
-     */
-    private Tile[][] copyLayout(Tile[][] toCopy) {
-        Tile[][] copy = new Tile[layout.length][layout[0].length];
-        for (int y = 0; y < toCopy.length; y++)
-            System.arraycopy(toCopy[y], 0, copy[y], 0, toCopy[0].length);
-        return copy;
+        this.layout = layout;
     }
 
     /** @return Random Tile in the room. */
