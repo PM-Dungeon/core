@@ -66,7 +66,21 @@ public class Level implements IndexedGraph<Tile> {
      * access
      */
     private void generateTileArray() {
-        // initalizing levelXOffset, levelYOffset and levelTilesGlobal
+        initalizeTileArray();
+        // insert tiles into levelTilesGlobal array
+        for (Room r : getRooms()) {
+            for (Tile[] tA : r.getLayout()) {
+                for (Tile t : tA) {
+                    levelTilesGlobal[t.getCoordinate().x - levelXOffset][t.getCoordinate().y - levelYOffset] = t;
+                }
+            }
+        }
+    }
+    
+    /**
+     * initalizes <code>levelXOffset</code>, <code>levelYOffset</code> and <code>levelTilesGlobal</code>
+     */
+    private void initalizeTileArray() {
         int minX = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
         int minY = Integer.MAX_VALUE;
@@ -74,10 +88,10 @@ public class Level implements IndexedGraph<Tile> {
         for (Room r : getRooms()) {
             for (Tile[] tA : r.getLayout()) {
                 for (Tile t : tA) {
-                    if (t.getCoordinate().x < minX) minX = t.getCoordinate().x;
-                    if (t.getCoordinate().x > maxX) maxX = t.getCoordinate().x;
-                    if (t.getCoordinate().y < minY) minY = t.getCoordinate().y;
-                    if (t.getCoordinate().y > maxY) maxY = t.getCoordinate().y;
+                    minX = Math.min(minX, t.getCoordinate().x);
+                    maxX = Math.max(maxX, t.getCoordinate().x);
+                    minY = Math.min(minY, t.getCoordinate().y);
+                    maxY = Math.max(maxY, t.getCoordinate().y);
                 }
             }
         }
@@ -85,14 +99,6 @@ public class Level implements IndexedGraph<Tile> {
         levelXOffset = minX;
         levelYOffset = minY;
         levelTilesGlobal = new Tile[maxX - minX + 1][maxY - minY + 1];
-        // insert tiles into levelTilesGlobal array
-        for (Room r : getRooms()) {
-            for (Tile[] tA : r.getLayout()) {
-                for (Tile t : tA) {
-                    levelTilesGlobal[t.getCoordinate().x - minX][t.getCoordinate().y - minY] = t;
-                }
-            }
-        }
     }
 
     /** @return A random room in the level. */
@@ -329,7 +335,7 @@ public class Level implements IndexedGraph<Tile> {
      */
     public Tile getTileAt(Coordinate globalPoint) {
         // Workaround to initialize the tile array for save files without it
-        if (levelTilesGlobal == null) generateTileArray();
+        if (levelTilesGlobal == null) { generateTileArray(); }
         return levelTilesGlobal[globalPoint.x - levelXOffset][globalPoint.y - levelYOffset];
     }
 
