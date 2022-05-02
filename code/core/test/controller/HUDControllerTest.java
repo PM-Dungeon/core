@@ -77,7 +77,7 @@ public class HUDControllerTest {
     public void test_update_empty() {
         assumeTrue(controller.isEmpty());
 
-        controller.update();
+        //controller.update();
         // verify HUDController constructor logic:
         // verify update method logic:
         verify(textStage).act();
