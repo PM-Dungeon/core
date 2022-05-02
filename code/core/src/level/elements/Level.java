@@ -58,14 +58,14 @@ public class Level implements IndexedGraph<Tile> {
         setRandomStart();
 
         // Generate tile lookup array while initializing
-        generateTileArray();
+        generateTilesCache();
     }
 
     /*
-     * Calculates the global positions of all tiles and safes them in a two-dimensional array for the fast access.
+     * Calculates the global positions of all tiles and safes them in a two-dimensional array for fast access.
      */
-    private void generateTileArray() {
-        initializeTileArray();
+    private void generateTilesCache() {
+        initializeTilesCache();
         // insert tiles into tilesCache array
         for (Room r : getRooms()) {
             for (Tile[] ta : r.getLayout()) {
@@ -81,14 +81,14 @@ public class Level implements IndexedGraph<Tile> {
     /*
      * Initializes <code>levelXOffset</code>, <code>levelYOffset</code> and <code>tilesCache</code>
      */
-    private void initializeTileArray() {
+    private void initializeTilesCache() {
         int minX = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
         int minY = Integer.MAX_VALUE;
         int maxY = Integer.MIN_VALUE;
         for (Room r : getRooms()) {
-            for (Tile[] tA : r.getLayout()) {
-                for (Tile t : tA) {
+            for (Tile[] ta : r.getLayout()) {
+                for (Tile t : ta) {
                     minX = Math.min(minX, t.getCoordinate().x);
                     maxX = Math.max(maxX, t.getCoordinate().x);
                     minY = Math.min(minY, t.getCoordinate().y);
@@ -337,7 +337,7 @@ public class Level implements IndexedGraph<Tile> {
     public Tile getTileAt(Coordinate globalPoint) {
         // Workaround to initialize the tile array for save files without it
         if (tilesCache == null) {
-            generateTileArray();
+            generateTilesCache();
         }
         return tilesCache[globalPoint.x - levelXOffset][globalPoint.y - levelYOffset];
     }
