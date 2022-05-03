@@ -15,7 +15,7 @@ public class Room {
     private final DesignLabel design;
     private final Coordinate referencePointGlobal;
     private final Coordinate referencePointLocal;
-    private Tile[][] layout;
+    private final Tile[][] layout;
 
     /**
      * @param layout List of tiles that defines the layout of the room.
