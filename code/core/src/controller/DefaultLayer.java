@@ -1,9 +1,9 @@
 package controller;
 
 public enum DefaultLayer {
-    LOW(10),
+    BOTTOM(10),
     DEFAULT(20),
-    HIGH(30);
+    TOP(30);
     public final int value;
 
     DefaultLayer(int value) {
