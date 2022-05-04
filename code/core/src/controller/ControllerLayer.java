@@ -5,23 +5,23 @@ public class ControllerLayer implements Comparable<ControllerLayer> {
     public static final ControllerLayer DEFAULT = new ControllerLayer(DefaultLayer.DEFAULT);
     public static final ControllerLayer TOP = new ControllerLayer(DefaultLayer.TOP);
 
-    public final int priority;
+    public final int value;
 
     public ControllerLayer() {
-        this.priority = DefaultLayer.DEFAULT.value;
+        this.value = DefaultLayer.DEFAULT.value;
     }
 
     public ControllerLayer(DefaultLayer layer) {
-        this.priority = layer.value;
+        this.value = layer.value;
     }
 
-    public ControllerLayer(int priority) {
-        assert (priority >= 1 && priority <= 40);
-        this.priority = priority;
+    public ControllerLayer(int value) {
+        assert (value >= 1 && value <= 40);
+        this.value = value;
     }
 
     @Override
     public int compareTo(ControllerLayer o) {
-        return Integer.compare(priority, o.priority);
+        return Integer.compare(value, o.value);
     }
 }

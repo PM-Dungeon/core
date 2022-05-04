@@ -78,6 +78,12 @@ public abstract class AbstractController<T> implements Iterable<T> {
         return map2.isEmpty();
     }
 
+    /** Clears the entire controller (removes all elements). */
+    public void clear() {
+        map.clear();
+        map2.clear();
+    }
+
     @Override
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
