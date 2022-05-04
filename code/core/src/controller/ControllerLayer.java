@@ -1,9 +1,9 @@
 package controller;
 
 public class ControllerLayer implements Comparable<ControllerLayer> {
-    public static final ControllerLayer LOW = new ControllerLayer(DefaultLayer.LOW);
+    public static final ControllerLayer BOTTOM = new ControllerLayer(DefaultLayer.BOTTOM);
     public static final ControllerLayer DEFAULT = new ControllerLayer(DefaultLayer.DEFAULT);
-    public static final ControllerLayer HIGH = new ControllerLayer(DefaultLayer.HIGH);
+    public static final ControllerLayer TOP = new ControllerLayer(DefaultLayer.TOP);
 
     public final int priority;
 
