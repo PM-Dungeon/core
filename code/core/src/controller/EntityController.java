@@ -8,7 +8,11 @@ public class EntityController extends AbstractController<Entity> {
      * Removes deletable entities and calls the update and draw method for every registered entity.
      */
     public void update() {
-        removeIf(Entity::removable);
+        for (Entity e : this) {
+            if (e.removable()) {
+                remove(e);
+            }
+        }
         forEach(Entity::update);
         forEach(Entity::draw);
     }

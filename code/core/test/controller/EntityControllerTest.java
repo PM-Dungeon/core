@@ -7,7 +7,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import basiselements.Entity;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,14 +31,13 @@ public class EntityControllerTest {
     @Test
     public void test_update_withEmptyController() {
         EntityController ecSpy = Mockito.spy(new EntityController());
-        PowerMockito.doReturn(false).when(ecSpy).removeIf(any());
         PowerMockito.doNothing().when(ecSpy).forEach(any());
         assumeTrue(ecSpy.isEmpty());
         verify(ecSpy).isEmpty();
 
         ecSpy.update();
         verify(ecSpy).update();
-        verify(ecSpy).removeIf(any());
+        verify(ecSpy).iterator();
         verify(ecSpy, times(2)).forEach(any());
         Mockito.verifyNoMoreInteractions(ecSpy);
         assertTrue(ecSpy.isEmpty());
@@ -103,6 +101,7 @@ public class EntityControllerTest {
         verify(entity2).update();
         verify(entity2).draw();
         Mockito.verifyNoMoreInteractions(entity1, entity2);
-        assertTrue(controller.containsAll(List.of(entity1, entity2)));
+        assertTrue(controller.contains(entity1));
+        assertTrue(controller.contains(entity2));
     }
 }

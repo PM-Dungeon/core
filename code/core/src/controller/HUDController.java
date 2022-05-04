@@ -24,7 +24,11 @@ public class HUDController extends AbstractController<HUDElement> {
     /** Redraws the HUD and all HUD elements. */
     @Override
     public void update() {
-        removeIf(HUDElement::removable);
+        for (HUDElement e : this) {
+            if (e.removable()) {
+                remove(e);
+            }
+        }
         forEach(HUDElement::update);
         forEach(HUDElement::draw);
         textStage.act();
