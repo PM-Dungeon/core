@@ -40,6 +40,8 @@ public class EntityControllerTest {
         verify(ecSpy).iterator();
         verify(ecSpy, times(2)).forEach(any());
         Mockito.verifyNoMoreInteractions(ecSpy);
+        assertFalse(ecSpy.contains(entity1));
+        assertFalse(ecSpy.contains(entity2));
         assertTrue(ecSpy.isEmpty());
     }
 
@@ -53,6 +55,7 @@ public class EntityControllerTest {
         verify(entity1).removable();
         Mockito.verifyNoMoreInteractions(entity1);
         assertFalse(controller.contains(entity1));
+        assertFalse(controller.contains(entity2));
         assertTrue(controller.isEmpty());
     }
 
@@ -68,6 +71,8 @@ public class EntityControllerTest {
         verify(entity1).removable();
         verify(entity2).removable();
         Mockito.verifyNoMoreInteractions(entity1, entity2);
+        assertFalse(controller.contains(entity1));
+        assertFalse(controller.contains(entity2));
         assertTrue(controller.isEmpty());
     }
 
@@ -83,6 +88,8 @@ public class EntityControllerTest {
         verify(entity1).draw();
         Mockito.verifyNoMoreInteractions(entity1);
         assertTrue(controller.contains(entity1));
+        assertFalse(controller.contains(entity2));
+        assertFalse(controller.isEmpty());
     }
 
     @Test
@@ -103,5 +110,29 @@ public class EntityControllerTest {
         Mockito.verifyNoMoreInteractions(entity1, entity2);
         assertTrue(controller.contains(entity1));
         assertTrue(controller.contains(entity2));
+        assertFalse(controller.isEmpty());
+    }
+
+    @Test
+    public void test_update_withDifferentLayer() {
+        // should not be removed
+        when(entity1.removable()).thenReturn(false);
+        when(entity2.removable()).thenReturn(false);
+        assumeTrue(controller.add(entity1, ControllerLayer.TOP));
+        assumeTrue(controller.add(entity2, ControllerLayer.BOTTOM));
+        assumeTrue(controller.remove(entity1));
+        assumeTrue(controller.add(entity1, ControllerLayer.TOP));
+
+        controller.update();
+        verify(entity1).removable();
+        verify(entity1).update();
+        verify(entity1).draw();
+        verify(entity2).removable();
+        verify(entity2).update();
+        verify(entity2).draw();
+        Mockito.verifyNoMoreInteractions(entity1, entity2);
+        assertTrue(controller.contains(entity1));
+        assertTrue(controller.contains(entity2));
+        assertFalse(controller.isEmpty());
     }
 }
