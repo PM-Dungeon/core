@@ -84,6 +84,14 @@ public abstract class AbstractController<T> implements Iterable<T> {
         map2.clear();
     }
 
+    /** Removes all elements in the specific layer. */
+    public void clearLayer(ControllerLayer layer) {
+        for (T t : map.get(layer)) {
+            map2.remove(t);
+        }
+        map.get(layer).clear();
+    }
+
     @Override
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
