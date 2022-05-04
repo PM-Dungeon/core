@@ -3,7 +3,7 @@ package controller;
 import java.util.*;
 
 /**
- * A controller is a LinkedHashSet and manages elements of a specific type.
+ * A controller manages elements of a certain type and is based on a layer system.
  *
  * @param <T> Type of elements to manage.
  */
@@ -11,8 +11,7 @@ public abstract class AbstractController<T> implements Iterable<T> {
     /** Updates all elements that are registered at this controller */
     public abstract void update();
 
-    private final TreeMap<ControllerLayer, List<T>> map =
-            new TreeMap<>(Comparator.comparingInt(o -> o.priority));
+    private final Map<ControllerLayer, List<T>> map = new TreeMap<>();
 
     public boolean contains(T t) {
         assert (t != null);
@@ -31,6 +30,9 @@ public abstract class AbstractController<T> implements Iterable<T> {
 
     public boolean add(T t, ControllerLayer layer) {
         assert (t != null);
+        if (contains(t)) {
+            return false;
+        }
         return map.computeIfAbsent(layer, x -> new ArrayList<>()).add(t);
     }
 
