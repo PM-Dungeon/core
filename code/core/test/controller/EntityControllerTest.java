@@ -39,7 +39,6 @@ public class EntityControllerTest {
         ecSpy.update();
         verify(ecSpy).update();
         verify(ecSpy).iterator();
-        verify(ecSpy, times(2)).forEach(any());
         Mockito.verifyNoMoreInteractions(ecSpy);
         assertFalse(ecSpy.contains(entity1));
         assertFalse(ecSpy.contains(entity2));

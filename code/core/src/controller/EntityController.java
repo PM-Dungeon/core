@@ -11,9 +11,10 @@ public class EntityController extends AbstractController<Entity> {
         for (Entity e : this) {
             if (e.removable()) {
                 remove(e);
+            } else {
+                e.update();
+                e.draw();
             }
         }
-        forEach(Entity::update);
-        forEach(Entity::draw);
     }
 }

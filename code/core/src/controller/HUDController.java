@@ -27,10 +27,12 @@ public class HUDController extends AbstractController<HUDElement> {
         for (HUDElement e : this) {
             if (e.removable()) {
                 remove(e);
+            } else {
+                e.update();
+                e.draw();
             }
         }
-        forEach(HUDElement::update);
-        forEach(HUDElement::draw);
+
         textStage.act();
         textStage.draw();
     }
