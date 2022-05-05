@@ -67,15 +67,6 @@ public class Room {
     }
 
     /**
-     * Set the layout of the room.
-     *
-     * @param layout The new layout.
-     */
-    public void setLayout(Tile[][] layout) {
-        this.layout = copyLayout(layout);
-    }
-
-    /**
      * Copy's an layout.
      *
      * @param toCopy Layout to copy.
