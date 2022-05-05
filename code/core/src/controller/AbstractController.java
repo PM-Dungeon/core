@@ -7,7 +7,7 @@ import java.util.*;
  *
  * @param <T> Type of elements to manage.
  */
-public abstract class AbstractController<T> implements Iterable<T> {
+public abstract class AbstractController<T> extends LinkedHashSet<T> implements Iterable<T> {
     /** Updates all elements that are registered at this controller */
     public abstract void update();
 
@@ -20,7 +20,8 @@ public abstract class AbstractController<T> implements Iterable<T> {
      * @param t Element to look for.
      * @return true, if the element is in this controller.
      */
-    public boolean contains(T t) {
+    @Override
+    public boolean contains(Object t) {
         assert (t != null);
         return map2.containsKey(t);
     }
@@ -31,6 +32,7 @@ public abstract class AbstractController<T> implements Iterable<T> {
      * @param t Element to add.
      * @return true, if this was successful.
      */
+    @Override
     public boolean add(T t) {
         assert (t != null);
         return add(t, ControllerLayer.DEFAULT);
@@ -59,7 +61,8 @@ public abstract class AbstractController<T> implements Iterable<T> {
      * @param t Element to remove.
      * @return true, if this was successful.
      */
-    public boolean remove(T t) {
+    @Override
+    public boolean remove(Object t) {
         assert (t != null);
         if (!contains(t)) {
             return false;
@@ -74,11 +77,13 @@ public abstract class AbstractController<T> implements Iterable<T> {
      *
      * @return true, if empty.
      */
+    @Override
     public boolean isEmpty() {
         return map2.isEmpty();
     }
 
     /** Clears the entire controller (removes all elements). */
+    @Override
     public void clear() {
         map.clear();
         map2.clear();
@@ -92,6 +97,7 @@ public abstract class AbstractController<T> implements Iterable<T> {
         map.get(layer).clear();
     }
 
+    /** @return An unmodifiable iterator. */
     @Override
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
