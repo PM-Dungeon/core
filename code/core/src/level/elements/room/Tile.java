@@ -44,6 +44,7 @@ public class Tile {
             case FLOOR:
             case EXIT:
             case DOOR:
+            case PLACED_DOOR:
                 return true;
             case WALL:
             default:
