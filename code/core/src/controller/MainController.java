@@ -56,7 +56,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
      */
     @Override
     public void render(float delta) {
-        if (runLoop() && doFirstFrame) {
+        if (doFirstFrame && runLoop()) {
             firstFrame();
         }
         if (runLoop()) {
