@@ -1,6 +1,10 @@
 package controller;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * A controller manages elements of a certain type and is based on a layer system.
@@ -108,5 +112,96 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> implements 
         return list.iterator();
         // will not work with PowerMock:
         // return map.values().stream().flatMap(List::stream).toList().iterator();
+    }
+
+    // from LinkedHashSet
+    @Override
+    public Spliterator<T> spliterator() {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    // from HashSet
+    @Override
+    public int size() {
+        return map2.size();
+    }
+
+    @Override
+    public Object clone() {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public Object[] toArray() {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public <T1> T1[] toArray(T1[] a) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    // from AbstractSet
+    @Override
+    public boolean equals(Object o) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    // from AbstractCollection
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public String toString() {
+        return map2.keySet().toString();
+    }
+
+    // from Collection
+    @Override
+    public <T1> T1[] toArray(IntFunction<T1[]> generator) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public boolean removeIf(Predicate<? super T> filter) {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public Stream<T> stream() {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    @Override
+    public Stream<T> parallelStream() {
+        throw new UnsupportedOperationException("please don't use this method");
+    }
+
+    // from Iterable
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        iterator().forEachRemaining(action);
     }
 }
