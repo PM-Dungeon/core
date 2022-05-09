@@ -1,6 +1,7 @@
 package controller;
 
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -72,22 +73,23 @@ class MainControllerTest {
         Mockito.verify(controller).setup();
         Mockito.verify(controller).beginFrame();
         Mockito.verify(controller).endFrame();
+        Mockito.verify(controller, Mockito.times(7)).runLoop();
         Mockito.verifyNoMoreInteractions(controller);
     }
 
     @Test
     public void test_render_paused() {
         controller.setSpriteBatch(batch);
+        when(controller.runLoop()).thenReturn(false);
         Mockito.verify(controller).setSpriteBatch(batch);
         Mockito.verifyNoMoreInteractions(controller, batch);
 
-        controller.pauseLoop();
-        Mockito.verify(controller).pauseLoop();
         controller.render(someArbitraryValueGreater0forDelta);
         Mockito.verify(controller).render(someArbitraryValueGreater0forDelta);
         Mockito.verify(controller, never()).setup();
         Mockito.verify(controller, never()).beginFrame();
         Mockito.verify(controller, never()).endFrame();
+        Mockito.verify(controller, Mockito.times(7)).runLoop();
         Mockito.verifyNoMoreInteractions(controller);
     }
 }

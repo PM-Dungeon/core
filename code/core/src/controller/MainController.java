@@ -37,9 +37,6 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     /** Generates the level */
     protected IGenerator generator;
 
-    /** Should the gameloop run normal? */
-    private boolean activeLoop = true;
-
     private boolean doFirstFrame = true;
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
@@ -59,29 +56,29 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
      */
     @Override
     public void render(float delta) {
-        if (activeLoop && doFirstFrame) {
+        if (runLoop() && doFirstFrame) {
             firstFrame();
         }
-        if (activeLoop) {
+        if (runLoop()) {
             // clears the screen
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
             batch.setProjectionMatrix(camera.combined);
             beginFrame();
         }
-        if (activeLoop) {
+        if (runLoop()) {
             levelAPI.update();
         }
-        if (activeLoop) {
+        if (runLoop()) {
             entityController.update();
         }
-        if (activeLoop) {
+        if (runLoop()) {
             camera.update();
         }
-        if (activeLoop) {
+        if (runLoop()) {
             hudController.update();
         }
-        if (activeLoop) {
+        if (runLoop()) {
             endFrame();
         }
     }
@@ -110,14 +107,8 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
         this.hudBatch = batch;
     }
 
-    /** pause the gameloop */
-    public void pauseLoop() {
-        activeLoop = false;
-    }
-
-    /** continue the gameloop */
-    public void continueLoop() {
-        activeLoop = true;
+    protected boolean runLoop() {
+        return true;
     }
 
     private void setupCameras() {
