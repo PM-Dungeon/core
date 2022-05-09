@@ -65,21 +65,21 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
             Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
             batch.setProjectionMatrix(camera.combined);
             beginFrame();
-        }
-        if (runLoop()) {
-            levelAPI.update();
-        }
-        if (runLoop()) {
-            entityController.update();
-        }
-        if (runLoop()) {
-            camera.update();
-        }
-        if (runLoop()) {
-            hudController.update();
-        }
-        if (runLoop()) {
-            endFrame();
+            if (runLoop()) {
+                levelAPI.update();
+                if (runLoop()) {
+                    entityController.update();
+                    if (runLoop()) {
+                        camera.update();
+                        if (runLoop()) {
+                            hudController.update();
+                            if (runLoop()) {
+                                endFrame();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
