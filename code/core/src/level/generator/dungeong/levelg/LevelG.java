@@ -384,24 +384,7 @@ public class LevelG implements IGenerator {
             List<ConfigurationSpace> partSolution) {
         List<ConfigurationSpace> possibleSpaces = new ArrayList<>();
         for (ConfigurationSpace neighbourSpace : neighbourSpaces)
-            if (possibleSpaces.isEmpty())
-                possibleSpaces = calCS(neighbourSpace, node, templates, partSolution);
-            else {
-                List<ConfigurationSpace> newSpaces =
-                        calCS(neighbourSpace, node, templates, partSolution);
-                List<ConfigurationSpace> drop = new ArrayList<>();
-
-                for (ConfigurationSpace newSpace : newSpaces) {
-                    boolean equal = false;
-                    for (ConfigurationSpace possibleSpace : possibleSpaces) {
-                        if (newSpace.getGlobalPosition().equals(possibleSpace.getGlobalPosition())
-                                && newSpace.layoutEquals(possibleSpace)) equal = true;
-                    }
-                    if (!equal) drop.add(newSpace);
-                }
-                possibleSpaces = newSpaces;
-                possibleSpaces.removeAll(drop);
-            }
+            possibleSpaces.addAll(calCS(neighbourSpace, node, templates, partSolution));
         return possibleSpaces;
     }
 
