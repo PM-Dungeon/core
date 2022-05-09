@@ -37,6 +37,9 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     /** Generates the level */
     protected IGenerator generator;
 
+    /** Should the gameloop run normal? */
+    private boolean activeLoop = true;
+
     private boolean doFirstFrame = true;
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
@@ -55,22 +58,32 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
      * @param delta Time since last loop.
      */
     @Override
-    public final void render(float delta) {
-        if (doFirstFrame) {
+    public void render(float delta) {
+        if (activeLoop && doFirstFrame) {
             firstFrame();
         }
-
-        // clears the screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
-
-        beginFrame();
-        levelAPI.update();
-        entityController.update();
-        camera.update();
-        hudController.update();
-        endFrame();
+        if (activeLoop) {
+            // clears the screen
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+            batch.setProjectionMatrix(camera.combined);
+            beginFrame();
+        }
+        if (activeLoop) {
+            levelAPI.update();
+        }
+        if (activeLoop) {
+            entityController.update();
+        }
+        if (activeLoop) {
+            camera.update();
+        }
+        if (activeLoop) {
+            hudController.update();
+        }
+        if (activeLoop) {
+            endFrame();
+        }
     }
 
     private void firstFrame() {
@@ -95,6 +108,16 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
 
     public void setHudBatch(SpriteBatch batch) {
         this.hudBatch = batch;
+    }
+
+    /** pause the gameloop */
+    public void pauseLoop() {
+        activeLoop = false;
+    }
+
+    /** continue the gameloop */
+    public void continueLoop() {
+        activeLoop = true;
     }
 
     private void setupCameras() {
