@@ -56,16 +56,14 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
      */
     @Override
     public void render(float delta) {
-        if (doFirstFrame && runLoop()) {
+        if (doFirstFrame) {
             firstFrame();
         }
+        batch.setProjectionMatrix(camera.combined);
         if (runLoop()) {
-            // clears the screen
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-            batch.setProjectionMatrix(camera.combined);
             beginFrame();
             if (runLoop()) {
+                clearScreen();
                 levelAPI.update();
                 if (runLoop()) {
                     entityController.update();
@@ -81,6 +79,11 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
                 }
             }
         }
+    }
+
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
     }
 
     private void firstFrame() {

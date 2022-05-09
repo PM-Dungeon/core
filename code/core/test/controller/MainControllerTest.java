@@ -73,7 +73,7 @@ class MainControllerTest {
         Mockito.verify(controller).setup();
         Mockito.verify(controller).beginFrame();
         Mockito.verify(controller).endFrame();
-        Mockito.verify(controller, Mockito.times(7)).runLoop();
+        Mockito.verify(controller, Mockito.times(6)).runLoop();
         Mockito.verifyNoMoreInteractions(controller);
     }
 
@@ -86,11 +86,11 @@ class MainControllerTest {
 
         controller.render(someArbitraryValueGreater0forDelta);
         Mockito.verify(controller).render(someArbitraryValueGreater0forDelta);
-        Mockito.verify(controller, never()).setup();
+        Mockito.verify(controller).setup();
         Mockito.verify(controller, never()).beginFrame();
         when(controller.runLoop()).thenReturn(true);
         Mockito.verify(controller, never()).endFrame();
-        Mockito.verify(controller, Mockito.times(2)).runLoop();
+        Mockito.verify(controller, Mockito.times(1)).runLoop();
         Mockito.verifyNoMoreInteractions(controller);
     }
 }
