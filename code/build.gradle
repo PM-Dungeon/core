@@ -52,9 +52,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: "com.google.code.gson", name: "gson", version: gsonVersion
-
-    // https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-annotations
-    // implementation "com.github.spotbugs:spotbugs-annotations:4.+"
 }
 
 test {
