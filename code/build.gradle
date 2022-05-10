@@ -24,11 +24,6 @@ sourceCompatibility = 17
 sourceSets.main.java.srcDirs = ["core/src/"]
 sourceSets.test.java.srcDirs = ["core/test/"]
 
-configurations.all {
-    resolutionStrategy.cacheDynamicVersionsFor 6, "hours"
-    resolutionStrategy.cacheChangingModulesFor 6, "hours"
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
