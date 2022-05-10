@@ -1,7 +1,6 @@
 plugins {
     // we can not use ext variables here
     id "java"
-    id "eclipse"
     id "checkstyle"
     id "com.github.spotbugs" version "5.+"
     id "com.diffplug.spotless" version "6.+"
@@ -39,9 +38,6 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-annotations
-    implementation "com.github.spotbugs:spotbugs-annotations:4.+"
-
     // LibGDX
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
@@ -61,6 +57,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: "com.google.code.gson", name: "gson", version: gsonVersion
+
+    // https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-annotations
+    // implementation "com.github.spotbugs:spotbugs-annotations:4.+"
 }
 
 test {
