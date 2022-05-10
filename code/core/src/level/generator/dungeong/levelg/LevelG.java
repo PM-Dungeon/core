@@ -308,7 +308,6 @@ public class LevelG implements IGenerator {
             List<ConfigurationSpace> partSolution,
             List<RoomTemplate> templates) {
         // todo switch from bfs to dfs
-
         if (notPlaced.isEmpty()) return partSolution; // end solution found
 
         // take next node
@@ -337,9 +336,11 @@ public class LevelG implements IGenerator {
 
         // add some random factor
         Collections.shuffle(spaces);
+        //only test the first three spaces
+        spaces = spaces.subList(0, (spaces.size()<3)?spaces.size():3);
 
         // todo bfs ends
-
+        
         // go one step deeper
         for (ConfigurationSpace cs : spaces) {
             List<ConfigurationSpace> thisPartSolution = new ArrayList<>(partSolution);
