@@ -19,6 +19,21 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     private final Map<T, List<T>> map2 = new HashMap<>();
 
     /**
+     * Updates all elements that are registered at this controller, removes deletable elements and
+     * calls the update and draw method for every registered element.
+     */
+    public void update() {
+        for (T e : this) {
+            if (e.removable()) {
+                remove(e);
+            } else {
+                e.update();
+                e.draw();
+            }
+        }
+    }
+
+    /**
      * Returns true, if the element is in this controller.
      *
      * @param t Element to look for.
@@ -116,16 +131,28 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         // return map.values().stream().flatMap(List::stream).toList().iterator();
     }
 
-    // from LinkedHashSet
-    @Override
-    public Spliterator<T> spliterator() {
-        throw new UnsupportedOperationException("please don't use this method");
-    }
-
     // from HashSet
     @Override
     public int size() {
         return map2.size();
+    }
+
+    // from Iterable
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        iterator().forEachRemaining(action);
+    }
+
+    @Override
+    public String toString() {
+        return map2.keySet().toString();
+    }
+
+    // not needed methods
+    // from LinkedHashSet, HashSet, AbstractSet, AbstractCollection and Collection
+    @Override
+    public Spliterator<T> spliterator() {
+        throw new UnsupportedOperationException("please don't use this method");
     }
 
     @Override
@@ -143,7 +170,6 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         throw new UnsupportedOperationException("please don't use this method");
     }
 
-    // from AbstractSet
     @Override
     public boolean equals(Object o) {
         throw new UnsupportedOperationException("please don't use this method");
@@ -159,7 +185,6 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         throw new UnsupportedOperationException("please don't use this method");
     }
 
-    // from AbstractCollection
     @Override
     public boolean containsAll(Collection<?> c) {
         throw new UnsupportedOperationException("please don't use this method");
@@ -175,12 +200,6 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         throw new UnsupportedOperationException("please don't use this method");
     }
 
-    @Override
-    public String toString() {
-        return map2.keySet().toString();
-    }
-
-    // from Collection
     @Override
     public <T1> T1[] toArray(IntFunction<T1[]> generator) {
         throw new UnsupportedOperationException("please don't use this method");
@@ -199,26 +218,5 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     @Override
     public Stream<T> parallelStream() {
         throw new UnsupportedOperationException("please don't use this method");
-    }
-
-    // from Iterable
-    @Override
-    public void forEach(Consumer<? super T> action) {
-        iterator().forEachRemaining(action);
-    }
-
-    /**
-     * Updates all elements that are registered at this controller, removes deletable elements and
-     * calls the update and draw method for every registered element.
-     */
-    public void update() {
-        for (T e : this) {
-            if (e.removable()) {
-                remove(e);
-            } else {
-                e.update();
-                e.draw();
-            }
-        }
     }
 }
