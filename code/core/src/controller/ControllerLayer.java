@@ -9,7 +9,7 @@ package controller;
  *
  * <p>ControllerLayers with a higher value are drawn last (i.e. over other entities).
  */
-public class ControllerLayer implements Comparable<ControllerLayer> {
+public record ControllerLayer(int value) implements Comparable<ControllerLayer> {
     public static final int BOTTOM_VALUE = 100;
     public static final int DEFAULT_VALUE = 200;
     public static final int TOP_VALUE = 300;
@@ -17,16 +17,13 @@ public class ControllerLayer implements Comparable<ControllerLayer> {
     public static final ControllerLayer DEFAULT = new ControllerLayer(DEFAULT_VALUE);
     public static final ControllerLayer TOP = new ControllerLayer(TOP_VALUE);
 
-    public final int value;
-
     /**
      * Constructs a user-defined ControllerLayer. The value must be between 1 and 1000.
      *
      * @param value between 1 and 1000.
      */
-    public ControllerLayer(int value) {
+    public ControllerLayer {
         assert (value >= 1 && value <= 1000);
-        this.value = value;
     }
 
     @Override
