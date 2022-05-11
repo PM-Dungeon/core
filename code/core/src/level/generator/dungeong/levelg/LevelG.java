@@ -336,11 +336,11 @@ public class LevelG implements IGenerator {
 
         // add some random factor
         Collections.shuffle(spaces);
-        //only test the first three spaces
-        spaces = spaces.subList(0, (spaces.size()<3)?spaces.size():3);
+        // only test the first three spaces
+        spaces = spaces.subList(0, (spaces.size() < 3) ? spaces.size() : 3);
 
         // todo bfs ends
-        
+
         // go one step deeper
         for (ConfigurationSpace cs : spaces) {
             List<ConfigurationSpace> thisPartSolution = new ArrayList<>(partSolution);
