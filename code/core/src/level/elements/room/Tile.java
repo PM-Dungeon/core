@@ -43,7 +43,6 @@ public class Tile {
         switch (e) {
             case FLOOR:
             case EXIT:
-            case DOOR:
             case PLACED_DOOR:
                 return true;
             case WALL:
