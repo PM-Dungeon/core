@@ -25,9 +25,9 @@ sourceSets.main.java.srcDirs = ["core/src/"]
 sourceSets.test.java.srcDirs = ["core/test/"]
 
 repositories {
-    gradlePluginPortal()
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    gradlePluginPortal()
     google()
 }
 
