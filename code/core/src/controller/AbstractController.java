@@ -1,5 +1,6 @@
 package controller;
 
+import basiselements.DungeonElement;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -11,9 +12,8 @@ import java.util.stream.Stream;
  *
  * @param <T> Type of elements to manage.
  */
-public abstract class AbstractController<T> extends LinkedHashSet<T> implements Iterable<T> {
-    /** Updates all elements that are registered at this controller */
-    public abstract void update();
+public abstract class AbstractController<T extends DungeonElement> extends LinkedHashSet<T>
+        implements Iterable<T> {
 
     private final Map<ControllerLayer, List<T>> map = new TreeMap<>();
     private final Map<T, List<T>> map2 = new HashMap<>();
@@ -101,7 +101,9 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> implements 
         map.get(layer).clear();
     }
 
-    /** @return An unmodifiable iterator. */
+    /**
+     * @return An unmodifiable iterator.
+     */
     @Override
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
@@ -203,5 +205,20 @@ public abstract class AbstractController<T> extends LinkedHashSet<T> implements 
     @Override
     public void forEach(Consumer<? super T> action) {
         iterator().forEachRemaining(action);
+    }
+
+    /**
+     * Updates all elements that are registered at this controller, removes deletable elements and
+     * calls the update and draw method for every registered element.
+     */
+    public void update() {
+        for (T e : this) {
+            if (e.removable()) {
+                remove(e);
+            } else {
+                e.update();
+                e.draw();
+            }
+        }
     }
 }
