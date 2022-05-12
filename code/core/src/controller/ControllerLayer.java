@@ -8,6 +8,8 @@ package controller;
  * TOP: 300 (you can de- or increase this value if you need to)
  *
  * <p>ControllerLayers with a higher value are drawn last (i.e. over other entities).
+ *
+ * <p>You can construct a user-defined ControllerLayer with any possible integer value.
  */
 public record ControllerLayer(int value) implements Comparable<ControllerLayer> {
     public static final int BOTTOM_VALUE = 100;
@@ -16,15 +18,6 @@ public record ControllerLayer(int value) implements Comparable<ControllerLayer> 
     public static final ControllerLayer BOTTOM = new ControllerLayer(BOTTOM_VALUE);
     public static final ControllerLayer DEFAULT = new ControllerLayer(DEFAULT_VALUE);
     public static final ControllerLayer TOP = new ControllerLayer(TOP_VALUE);
-
-    /**
-     * Constructs a user-defined ControllerLayer. The value must be between 1 and 1000.
-     *
-     * @param value between 1 and 1000.
-     */
-    public ControllerLayer {
-        assert (value >= 1 && value <= 1000);
-    }
 
     @Override
     public int compareTo(ControllerLayer o) {
