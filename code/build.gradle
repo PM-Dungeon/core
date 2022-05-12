@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.pm-dungeon"
-version = "4.0.7"
+version = "4.0.8"
 ext {
     // we can not use the + operator here
     gdxVersion = "1.10.1-SNAPSHOT"
@@ -51,6 +51,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: "com.google.code.gson", name: "gson", version: gsonVersion
+
+    // SpotBugs
+    // uncomment this if you wish the newest version of spotbugs, but the + operator is not allowed here
+    // spotbugs "com.github.spotbugs:spotbugs:4.6.0"
 }
 
 test {
@@ -61,21 +65,32 @@ test {
 
 checkstyle {
     configFile file("checkstyle-config/checks.xml")
-    toolVersion "9.2.1"
     showViolations = true
 }
 
 spotbugs {
-    toolVersion = "4.2.2"
     ignoreFailures = true
     showStackTraces = false
+    showProgress = true
+    reportLevel = "low" // or default...
 }
 
 spotbugsMain {
     reports {
-        xml {
-            enabled = true
-            destination = file("$buildDir/reports/spotbugsXml.xml")
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            stylesheet = "fancy-hist.xsl"
+        }
+    }
+}
+
+spotbugsTest {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+            stylesheet = "fancy-hist.xsl"
         }
     }
 }
@@ -122,7 +137,7 @@ publishing {
                         email = "pm-dungeon@fh-bielefeld.de"
                     }
                     developer {
-                        id = "Tobias321"
+                        id = "TGrothe"
                         name = "Tobias Grothe"
                         email = "pm-dungeon@fh-bielefeld.de"
                     }
