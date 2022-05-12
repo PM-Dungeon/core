@@ -51,10 +51,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: "com.google.code.gson", name: "gson", version: gsonVersion
-
-    // SpotBugs
-    // uncomment this if you wish the newest version of spotbugs, but the + operator is not allowed here
-    // spotbugs "com.github.spotbugs:spotbugs:4.6.0"
 }
 
 test {
@@ -72,7 +68,7 @@ spotbugs {
     ignoreFailures = true
     showStackTraces = false
     showProgress = true
-    reportLevel = "low" // or default...
+    reportLevel = "low"
 }
 
 spotbugsMain {
