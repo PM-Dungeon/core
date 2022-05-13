@@ -67,12 +67,15 @@ checkstyle {
 spotbugs {
     ignoreFailures = true
     showStackTraces = false
-    showProgress = true
     reportLevel = "low"
 }
 
 spotbugsMain {
     reports {
+        xml {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.xml")
+        }
         html {
             required = true
             outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.html")
@@ -83,6 +86,10 @@ spotbugsMain {
 
 spotbugsTest {
     reports {
+        xml {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/test/spotbugs.xml")
+        }
         html {
             required = true
             outputLocation = file("$buildDir/reports/spotbugs/test/spotbugs.html")
