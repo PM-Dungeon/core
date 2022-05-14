@@ -60,11 +60,13 @@ test {
 }
 
 checkstyle {
-    configFile file("checkstyle-config/checks.xml")
+    toolVersion = "10.2"
+    configFile = file("checkstyle-config/checks.xml")
     showViolations = true
 }
 
 spotbugs {
+    toolVersion = "4.7.0"
     ignoreFailures = true
     showStackTraces = false
     reportLevel = "low"
