@@ -107,7 +107,9 @@ public abstract class AbstractController<T extends DungeonElement> implements It
         map.get(layer).clear();
     }
 
-    /** @return An unmodifiable iterator. */
+    /**
+     * @return An unmodifiable iterator.
+     */
     @Override
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
