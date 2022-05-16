@@ -59,12 +59,13 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        boolean modified = false;
         for (T e : c) {
-            if (!add(e)) {
-                return false;
+            if (add(e)) {
+                modified = true;
             }
         }
-        return true;
+        return modified;
     }
 
     /**
