@@ -171,7 +171,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        Objects.requireNonNull(c);
+        assert (c != null);
         boolean modified = false;
         for (Object e : c) {
             modified |= remove(e);
@@ -186,7 +186,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        Objects.requireNonNull(c);
+        assert (c != null);
         boolean modified = false;
         for (T e : this) {
             if (!c.contains(e)) {
