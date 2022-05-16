@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * A controller manages elements of a certain type and is based on a layer system.
@@ -118,15 +117,23 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     }
 
     /**
-     * @return An unmodifiable iterator.
+     * @return An ordered list of all elements in this controller.
      */
-    @Override
-    public Iterator<T> iterator() {
-        // creates a list copy of merged lists
+    public List<T> toList() {
         final List<T> list = new ArrayList<>();
         for (List<T> l : layerTreeMap.values()) {
             list.addAll(l);
         }
+        return list;
+    }
+
+    /**
+     * @return An iterator.
+     */
+    @Override
+    public Iterator<T> iterator() {
+        // creates a list copy of merged lists
+        final List<T> list = toList();
         return new Iterator<T>() {
             int i = 0;
 
@@ -163,14 +170,14 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public String toString() {
-        return elementHashMap.keySet().toString();
+        return toList().toString();
     }
 
     // not needed methods
     // from LinkedHashSet, HashSet, AbstractSet, AbstractCollection and Collection
     @Override
     public Spliterator<T> spliterator() {
-        return Spliterators.spliteratorUnknownSize(iterator(), Spliterator.ORDERED);
+        return toList().spliterator();
     }
 
     @Override
@@ -180,12 +187,12 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public Object[] toArray() {
-        return elementHashMap.keySet().toArray();
+        return toList().toArray();
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return elementHashMap.keySet().toArray(a);
+        return toList().toArray(a);
     }
 
     @Override
@@ -195,7 +202,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public <T1> T1[] toArray(IntFunction<T1[]> generator) {
-        return stream().toArray(generator);
+        return toList().toArray(generator);
     }
 
     @Override
@@ -205,11 +212,11 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public Stream<T> stream() {
-        return StreamSupport.stream(spliterator(), false);
+        return toList().stream();
     }
 
     @Override
     public Stream<T> parallelStream() {
-        return StreamSupport.stream(spliterator(), true);
+        return toList().parallelStream();
     }
 }
