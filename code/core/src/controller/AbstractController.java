@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * A controller manages elements of a certain type and is based on a layer system.
@@ -15,8 +16,8 @@ import java.util.stream.Stream;
 public abstract class AbstractController<T extends DungeonElement> extends LinkedHashSet<T>
         implements Iterable<T> {
 
-    private final Map<ControllerLayer, List<T>> map = new TreeMap<>();
-    private final Map<T, List<T>> map2 = new HashMap<>();
+    private final TreeMap<ControllerLayer, List<T>> layerTreeMap = new TreeMap<>();
+    private final HashMap<T, List<T>> elementHashMap = new HashMap<>();
 
     /**
      * Updates all elements that are registered at this controller, removes deletable elements and
@@ -42,7 +43,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     @Override
     public boolean contains(Object t) {
         assert (t != null);
-        return map2.containsKey(t);
+        return elementHashMap.containsKey(t);
     }
 
     /**
@@ -59,13 +60,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        boolean modified = false;
-        for (T e : c) {
-            if (add(e)) {
-                modified = true;
-            }
-        }
-        return modified;
+        return super.addAll(c);
     }
 
     /**
@@ -80,8 +75,8 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         if (contains(t)) {
             return false;
         }
-        map.computeIfAbsent(layer, x -> new ArrayList<>()).add(t);
-        map2.put(t, map.get(layer));
+        layerTreeMap.computeIfAbsent(layer, x -> new ArrayList<>()).add(t);
+        elementHashMap.put(t, layerTreeMap.get(layer));
         return true;
     }
 
@@ -97,8 +92,8 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         if (!contains(t)) {
             return false;
         }
-        map2.get(t).remove(t);
-        map2.remove(t);
+        elementHashMap.get(t).remove(t);
+        elementHashMap.remove(t);
         return true;
     }
 
@@ -109,22 +104,22 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
      */
     @Override
     public boolean isEmpty() {
-        return map2.isEmpty();
+        return elementHashMap.isEmpty();
     }
 
     /** Clears the entire controller (removes all elements). */
     @Override
     public void clear() {
-        map.clear();
-        map2.clear();
+        layerTreeMap.clear();
+        elementHashMap.clear();
     }
 
     /** Removes all elements in the specific layer. */
     public void clearLayer(ControllerLayer layer) {
-        for (T t : map.get(layer)) {
-            map2.remove(t);
+        for (T t : layerTreeMap.get(layer)) {
+            elementHashMap.remove(t);
         }
-        map.get(layer).clear();
+        layerTreeMap.get(layer).clear();
     }
 
     /**
@@ -134,7 +129,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
         List<T> list = new ArrayList<>();
-        for (List<T> l : map.values()) {
+        for (List<T> l : layerTreeMap.values()) {
             list.addAll(l);
         }
         return list.iterator();
@@ -145,7 +140,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     // from HashSet
     @Override
     public int size() {
-        return map2.size();
+        return elementHashMap.size();
     }
 
     // from Iterable
@@ -156,73 +151,78 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public String toString() {
-        return map2.keySet().toString();
+        return elementHashMap.keySet().toString();
     }
 
     // not needed methods
     // from LinkedHashSet, HashSet, AbstractSet, AbstractCollection and Collection
     @Override
     public Spliterator<T> spliterator() {
-        throw new UnsupportedOperationException("please don't use this method");
+        return Spliterators.spliteratorUnknownSize(iterator(), Spliterator.ORDERED);
     }
 
     @Override
     public Object clone() {
-        throw new UnsupportedOperationException("please don't use this method");
+        return super.clone();
     }
 
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("please don't use this method");
+        return elementHashMap.keySet().toArray();
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        throw new UnsupportedOperationException("please don't use this method");
+        return elementHashMap.keySet().toArray(a);
     }
 
     @Override
     public boolean equals(Object o) {
-        throw new UnsupportedOperationException("please don't use this method");
+        return Objects.equals(this, o);
     }
 
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException("please don't use this method");
+        return Objects.hashCode(this);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException("please don't use this method");
+        Objects.requireNonNull(c);
+        boolean modified = false;
+        for (Object e : c) {
+            modified |= remove(e);
+        }
+        return modified;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        throw new UnsupportedOperationException("please don't use this method");
+        return elementHashMap.keySet().containsAll(c);
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException("please don't use this method");
+        return removeAll(c);
     }
 
     @Override
     public <T1> T1[] toArray(IntFunction<T1[]> generator) {
-        throw new UnsupportedOperationException("please don't use this method");
+        return stream().toArray(generator);
     }
 
     @Override
     public boolean removeIf(Predicate<? super T> filter) {
-        throw new UnsupportedOperationException("please don't use this method");
+        return removeAll(stream().filter(filter).toList());
     }
 
     @Override
     public Stream<T> stream() {
-        throw new UnsupportedOperationException("please don't use this method");
+        return StreamSupport.stream(spliterator(), false);
     }
 
     @Override
     public Stream<T> parallelStream() {
-        throw new UnsupportedOperationException("please don't use this method");
+        return StreamSupport.stream(spliterator(), true);
     }
 }
