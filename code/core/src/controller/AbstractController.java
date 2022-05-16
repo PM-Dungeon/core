@@ -58,11 +58,6 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         return add(t, ControllerLayer.DEFAULT);
     }
 
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return super.addAll(c);
-    }
-
     /**
      * Adds the element with the specific layer to this controller, if it is not already added.
      *
@@ -137,13 +132,11 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         // return map.values().stream().flatMap(List::stream).toList().iterator();
     }
 
-    // from HashSet
     @Override
     public int size() {
         return elementHashMap.size();
     }
 
-    // from Iterable
     @Override
     public void forEach(Consumer<? super T> action) {
         iterator().forEachRemaining(action);
@@ -163,7 +156,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public Object clone() {
-        return super.clone();
+        throw new UnsupportedOperationException("please don't use this method");
     }
 
     @Override
@@ -174,16 +167,6 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     @Override
     public <T1> T1[] toArray(T1[] a) {
         return elementHashMap.keySet().toArray(a);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override
