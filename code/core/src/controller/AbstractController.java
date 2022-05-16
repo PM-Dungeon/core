@@ -57,6 +57,16 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
         return add(t, ControllerLayer.DEFAULT);
     }
 
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        for (T e : c) {
+            if (!add(e)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Adds the element with the specific layer to this controller, if it is not already added.
      *
@@ -187,11 +197,6 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        throw new UnsupportedOperationException("please don't use this method");
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
         throw new UnsupportedOperationException("please don't use this method");
     }
 
