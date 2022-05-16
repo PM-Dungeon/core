@@ -144,7 +144,8 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
             @Override
             public void remove() {
-                AbstractController.super.remove(list.get(i));
+                i--;
+                AbstractController.this.remove(list.get(i));
                 list.remove(i);
             }
         };

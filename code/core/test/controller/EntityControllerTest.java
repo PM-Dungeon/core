@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import basiselements.Entity;
+import java.util.Iterator;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -184,6 +185,16 @@ public class EntityControllerTest {
         assertFalse(controller.retainAll(l3)); // 4
         assertFalse(controller.isEmpty());
         assertTrue(controller.removeIf(e -> e == e4)); // -
+        assertTrue(controller.isEmpty());
+        assertTrue(controller.addAll(l1)); // 1,2,3,4
+        for (Iterator<Entity> it = controller.iterator(); it.hasNext(); ) {
+            Entity e = it.next();
+            if (e != e4) {
+                it.remove();
+            }
+        }
+        assertFalse(controller.isEmpty());
+        assertTrue(controller.removeAll(l3));
         assertTrue(controller.isEmpty());
     }
 }
