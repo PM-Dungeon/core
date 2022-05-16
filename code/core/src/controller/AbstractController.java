@@ -189,31 +189,8 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
-        assert (c != null);
-        boolean modified = false;
-        for (Object e : c) {
-            modified |= remove(e);
-        }
-        return modified;
-    }
-
-    @Override
     public boolean containsAll(Collection<?> c) {
         return elementHashMap.keySet().containsAll(c);
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        assert (c != null);
-        boolean modified = false;
-        for (T e : this) {
-            if (!c.contains(e)) {
-                remove(e);
-                modified = true;
-            }
-        }
-        return modified;
     }
 
     @Override
