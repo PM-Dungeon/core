@@ -16,8 +16,8 @@ import java.util.stream.StreamSupport;
 public abstract class AbstractController<T extends DungeonElement> extends LinkedHashSet<T>
         implements Iterable<T> {
 
-    private final TreeMap<ControllerLayer, List<T>> layerTreeMap = new TreeMap<>();
-    private final HashMap<T, List<T>> elementHashMap = new HashMap<>();
+    private final Map<ControllerLayer, List<T>> layerTreeMap = new TreeMap<>();
+    private final Map<T, List<T>> elementHashMap = new HashMap<>();
 
     /**
      * Updates all elements that are registered at this controller, removes deletable elements and
