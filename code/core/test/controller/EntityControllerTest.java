@@ -169,7 +169,7 @@ public class EntityControllerTest {
     }
 
     @Test
-    public void test_random() {
+    public void test_listBehavior() {
         Entity e1 = Mockito.mock(Entity.class);
         Entity e2 = Mockito.mock(Entity.class);
         Entity e3 = Mockito.mock(Entity.class);
