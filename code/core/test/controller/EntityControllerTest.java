@@ -18,7 +18,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({EntityController.class})
+@PrepareForTest({})
 public class EntityControllerTest {
     private Entity entity1, entity2;
     private EntityController controller;
@@ -183,7 +183,7 @@ public class EntityControllerTest {
         assertFalse(controller.retainAll(l2)); // 4
         assertFalse(controller.retainAll(l3)); // 4
         assertFalse(controller.isEmpty());
-        assertTrue(controller.removeAll(l2)); // -
+        assertTrue(controller.removeIf(e -> e == e4)); // -
         assertTrue(controller.isEmpty());
     }
 }
