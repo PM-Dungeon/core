@@ -123,13 +123,31 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     @Override
     public Iterator<T> iterator() {
         // creates a list copy of merged lists
-        List<T> list = new ArrayList<>();
+        final List<T> list = new ArrayList<>();
         for (List<T> l : layerTreeMap.values()) {
             list.addAll(l);
         }
-        return list.iterator();
-        // will not work with PowerMock:
-        // return map.values().stream().flatMap(List::stream).toList().iterator();
+        return new Iterator<T>() {
+            int i = 0;
+
+            @Override
+            public boolean hasNext() {
+                return i < list.size();
+            }
+
+            @Override
+            public T next() {
+                T e = list.get(i);
+                i++;
+                return e;
+            }
+
+            @Override
+            public void remove() {
+                AbstractController.super.remove(list.get(i));
+                list.remove(i);
+            }
+        };
     }
 
     @Override
