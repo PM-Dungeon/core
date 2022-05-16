@@ -178,12 +178,12 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
 
     @Override
     public boolean equals(Object o) {
-        return Objects.equals(this, o);
+        return super.equals(o);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this);
+        return super.hashCode();
     }
 
     @Override
