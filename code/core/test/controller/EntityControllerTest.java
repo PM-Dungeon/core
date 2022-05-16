@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import basiselements.Entity;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -164,5 +165,25 @@ public class EntityControllerTest {
         assertTrue(controller.contains(entity1));
         assertFalse(controller.contains(entity2));
         assertFalse(controller.isEmpty());
+    }
+
+    @Test
+    public void test_random() {
+        Entity e1 = Mockito.mock(Entity.class);
+        Entity e2 = Mockito.mock(Entity.class);
+        Entity e3 = Mockito.mock(Entity.class);
+        Entity e4 = Mockito.mock(Entity.class);
+        List<Entity> l1 = List.of(e1, e2, e3, e4);
+        List<Entity> l2 = List.of(e1, e4);
+        List<Entity> l3 = List.of(e4);
+
+        assertTrue(controller.addAll(l1)); // 1,2,3,4
+        assertTrue(controller.remove(e1)); // 2,3,4
+        assertTrue(controller.retainAll(l2)); // 4
+        assertFalse(controller.retainAll(l2)); // 4
+        assertFalse(controller.retainAll(l3)); // 4
+        assertFalse(controller.isEmpty());
+        assertTrue(controller.removeAll(l2)); // -
+        assertTrue(controller.isEmpty());
     }
 }
