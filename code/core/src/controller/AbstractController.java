@@ -119,7 +119,7 @@ public abstract class AbstractController<T extends DungeonElement> extends Linke
     /**
      * @return An ordered list of all elements in this controller.
      */
-    public List<T> toList() {
+    private List<T> toList() {
         final List<T> list = new ArrayList<>();
         for (List<T> l : layerTreeMap.values()) {
             list.addAll(l);
