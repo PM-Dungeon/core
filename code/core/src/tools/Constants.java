@@ -72,5 +72,4 @@ public final class Constants {
     public static String getPathToRoomTemplates() {
         return getResourceString("level/roomTemplates.json");
     }
-
 }
