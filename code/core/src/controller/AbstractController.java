@@ -51,7 +51,7 @@ public abstract class AbstractController<T extends DungeonElement> implements It
      */
     public boolean add(T t) {
         assert (t != null);
-        return addToLayer(t, ControllerLayer.DEFAULT);
+        return add(t, ControllerLayer.DEFAULT);
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class AbstractController<T extends DungeonElement> implements It
      * @param layer Layer to add the element in.
      * @return true, if this was successful.
      */
-    public boolean addToLayer(T t, ControllerLayer layer) {
+    public boolean add(T t, ControllerLayer layer) {
         assert (t != null);
         if (contains(t)) {
             return false;
@@ -81,7 +81,7 @@ public abstract class AbstractController<T extends DungeonElement> implements It
         assert (c != null);
         boolean modified = false;
         for (T e : c) {
-            modified |= addToLayer(e, ControllerLayer.DEFAULT);
+            modified |= add(e, ControllerLayer.DEFAULT);
         }
         return modified;
     }
@@ -93,11 +93,11 @@ public abstract class AbstractController<T extends DungeonElement> implements It
      * @param layer Layer to add the element in.
      * @return true, if this was modified.
      */
-    public boolean addAllToLayer(Collection<T> c, ControllerLayer layer) {
+    public boolean addAll(Collection<T> c, ControllerLayer layer) {
         assert (c != null);
         boolean modified = false;
         for (T e : c) {
-            modified |= addToLayer(e, layer);
+            modified |= add(e, layer);
         }
         return modified;
     }
@@ -158,26 +158,26 @@ public abstract class AbstractController<T extends DungeonElement> implements It
     @Override
     public Iterator<T> iterator() {
         final List<T> list = toList();
-        final Iterator<T> it = list.iterator();
         return new Iterator<T>() {
             int i = 0;
 
             @Override
             public boolean hasNext() {
-                return it.hasNext();
+                return i < list.size();
             }
 
             @Override
             public T next() {
+                T e = list.get(i);
                 i++;
-                return it.next();
+                return e;
             }
 
             @Override
             public void remove() {
                 i--;
                 AbstractController.this.remove(list.get(i));
-                it.remove();
+                list.remove(i);
             }
         };
     }

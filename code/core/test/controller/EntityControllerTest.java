@@ -116,10 +116,10 @@ public class EntityControllerTest {
         // should not be removed
         when(entity1.removable()).thenReturn(false);
         when(entity2.removable()).thenReturn(false);
-        assumeTrue(controller.addToLayer(entity1, ControllerLayer.TOP));
-        assumeTrue(controller.addToLayer(entity2, ControllerLayer.BOTTOM));
+        assumeTrue(controller.add(entity1, ControllerLayer.TOP));
+        assumeTrue(controller.add(entity2, ControllerLayer.BOTTOM));
         assumeTrue(controller.remove(entity1));
-        assumeTrue(controller.addToLayer(entity1, ControllerLayer.TOP));
+        assumeTrue(controller.add(entity1, ControllerLayer.TOP));
 
         controller.update();
         verify(entity1).removable();
@@ -139,12 +139,12 @@ public class EntityControllerTest {
         // should not be removed
         when(entity1.removable()).thenReturn(false);
         when(entity2.removable()).thenReturn(false);
-        assumeTrue(controller.addToLayer(entity1, ControllerLayer.TOP));
-        assumeTrue(controller.addToLayer(entity2, ControllerLayer.BOTTOM));
-        assumeFalse(controller.addToLayer(entity1, ControllerLayer.BOTTOM));
-        assumeFalse(controller.addToLayer(entity2, ControllerLayer.TOP));
+        assumeTrue(controller.add(entity1, ControllerLayer.TOP));
+        assumeTrue(controller.add(entity2, ControllerLayer.BOTTOM));
+        assumeFalse(controller.add(entity1, ControllerLayer.BOTTOM));
+        assumeFalse(controller.add(entity2, ControllerLayer.TOP));
         assumeTrue(controller.remove(entity1));
-        assumeTrue(controller.addToLayer(entity1, ControllerLayer.TOP));
+        assumeTrue(controller.add(entity1, ControllerLayer.TOP));
 
         controller.update();
 
