@@ -73,13 +73,4 @@ public final class Constants {
         return getResourceString("level/roomTemplates.json");
     }
 
-    /**
-     * Returns the absolute path to the resource inside the "assets" folder. The location of the
-     * "assets" folder is determined dynamically.
-     *
-     * @return the absolute path to the resource inside the "assets" folder.
-     */
-    public static String getPathToReplacements() {
-        return getResourceString("level/replacements.json");
-    }
 }
