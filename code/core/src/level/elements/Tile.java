@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import level.elements.astar.TileConnection;
 import level.tools.Coordinate;
+import level.tools.DesignLabel;
 import level.tools.LevelElement;
 
 /**
@@ -14,12 +15,12 @@ import level.tools.LevelElement;
  * @author Andre Matutat
  */
 public class Tile {
-
     private final Coordinate globalPosition;
     private transient Array<Connection<Tile>> connections = new Array<>();
     private String texturePath;
     private LevelElement elementType;
     private int index;
+    private DesignLabel designLabel;
 
     /**
      * Creates a new Tile.
@@ -28,10 +29,15 @@ public class Tile {
      * @param globalPosition Position of the tile in the global system.
      * @param elementType The type of the tile.
      */
-    public Tile(String texturePath, Coordinate globalPosition, LevelElement elementType) {
+    public Tile(
+            String texturePath,
+            Coordinate globalPosition,
+            LevelElement elementType,
+            DesignLabel designLabel) {
         this.texturePath = texturePath;
         this.elementType = elementType;
         this.globalPosition = globalPosition;
+        this.designLabel = designLabel;
     }
 
     /**
@@ -43,7 +49,6 @@ public class Tile {
         switch (elementType) {
             case FLOOR:
             case EXIT:
-            case DOOR:
                 return true;
             case WALL:
             default:
@@ -75,6 +80,10 @@ public class Tile {
     public void setLevelElement(LevelElement elementType, String texture) {
         this.elementType = elementType;
         this.texturePath = texture;
+    }
+
+    public DesignLabel getDesignLabel() {
+        return designLabel;
     }
 
     /**

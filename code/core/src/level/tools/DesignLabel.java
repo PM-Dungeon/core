@@ -11,8 +11,7 @@ import java.util.Random;
  * @author Andre Matutat
  */
 public enum DesignLabel {
-    DEFAULT,
-    ALL;
+    DEFAULT;
 
     private static final List<DesignLabel> VALUES =
             Collections.unmodifiableList(Arrays.asList(values()));

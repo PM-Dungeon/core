@@ -15,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import level.elements.astar.TileHeuristic;
 import level.tools.Coordinate;
+import level.tools.DesignLabel;
 import level.tools.LevelElement;
+import level.tools.TileTextureFactory;
 import tools.Point;
 
 /**
@@ -43,6 +45,24 @@ public class Level implements IndexedGraph<Tile> {
         setRandomStart();
     }
 
+    public Level(LevelElement[][] layout, DesignLabel designLabel) {
+        this(convertLevelElementToTiles(layout, designLabel));
+    }
+
+    private static Tile[][] convertLevelElementToTiles(
+            LevelElement[][] layout, DesignLabel designLabel) {
+        Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
+        for (int x = 0; x < layout[0].length; x++)
+            for (int y = 0; y < layout.length; y++) {
+                Coordinate coordinate = new Coordinate(y, x);
+                String texturePath =
+                        TileTextureFactory.findTexturePath(
+                                layout[y][x], designLabel, layout, coordinate);
+                tileLayout[y][x] = new Tile(texturePath, coordinate, layout[y][x], designLabel);
+            }
+        return tileLayout;
+    }
+
     public Tile[][] getLayout() {
         return layout;
     }
@@ -63,7 +83,8 @@ public class Level implements IndexedGraph<Tile> {
      */
     public void setStartTile(Tile start) {
         startTile = start;
-        startTile.setLevelElement(LevelElement.FLOOR, "TEXTURE TODO");
+        startTile.setLevelElement(
+                LevelElement.FLOOR, TileTextureFactory.findTexturePath(startTile, layout));
     }
 
     /**
@@ -81,9 +102,12 @@ public class Level implements IndexedGraph<Tile> {
      * @param end The end tile.
      */
     public void setEndTile(Tile end) {
-        if (endTile != null) endTile.setLevelElement(LevelElement.FLOOR, "TEXTURE TODO");
+        if (endTile != null)
+            endTile.setLevelElement(
+                    LevelElement.FLOOR, TileTextureFactory.findTexturePath(endTile, layout));
         endTile = end;
-        endTile.setLevelElement(LevelElement.EXIT, "TEXTURE TODO");
+        endTile.setLevelElement(
+                LevelElement.EXIT, TileTextureFactory.findTexturePath(endTile, layout));
     }
 
     /** Mark a random tile as start */

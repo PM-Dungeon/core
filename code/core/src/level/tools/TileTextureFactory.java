@@ -1,5 +1,7 @@
 package level.tools;
 
+import level.elements.Tile;
+
 public class TileTextureFactory {
     /**
      * Checks which texture must be used for the passed field based on the surrounding fields.
@@ -17,8 +19,7 @@ public class TileTextureFactory {
             Coordinate position) {
         String path = design.name().toLowerCase() + "/";
         if (element == LevelElement.SKIP) path += "floor/empty";
-        else if (element == LevelElement.FLOOR || element == LevelElement.DOOR)
-            path += "floor/floor_1";
+        else if (element == LevelElement.FLOOR) path += "floor/floor_1";
         else if (element == LevelElement.EXIT) path += "floor/floor_ladder";
 
         // is field in a non-playable area?
@@ -54,6 +55,26 @@ public class TileTextureFactory {
         else path += "floor/empty";
 
         return "textures/dungeon/" + path + ".png";
+    }
+
+    /**
+     * Checks which texture must be used for the passed tile based on the surrounding tiles.
+     *
+     * @param element Tile to check for
+     * @param layout The level
+     * @return Path to texture
+     */
+    public static String findTexturePath(Tile element, Tile[][] layout) {
+        LevelElement[][] elementLayout = new LevelElement[layout.length][layout[0].length];
+        for (int x = 0; x < layout[0].length; x++)
+            for (int y = 0; y < layout.length; y++) {
+                elementLayout[y][x] = layout[y][x].getLevelElement();
+            }
+        return findTexturePath(
+                element.getLevelElement(),
+                element.getDesignLabel(),
+                elementLayout,
+                element.getCoordinate());
     }
 
     private static boolean isInSpace(Coordinate p, LevelElement[][] layout) {
@@ -193,8 +214,7 @@ public class TileTextureFactory {
     private static boolean aboveIsFloor(Coordinate p, LevelElement[][] layout) {
         try {
             return layout[(int) p.y + 1][(int) p.x] == LevelElement.FLOOR
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.DOOR;
+                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
@@ -204,8 +224,7 @@ public class TileTextureFactory {
     private static boolean belowIsFloor(Coordinate p, LevelElement[][] layout) {
         try {
             return layout[(int) p.y - 1][(int) p.x] == LevelElement.FLOOR
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.DOOR;
+                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
@@ -215,8 +234,7 @@ public class TileTextureFactory {
     private static boolean leftIsFloor(Coordinate p, LevelElement[][] layout) {
         try {
             return layout[(int) p.y][(int) p.x - 1] == LevelElement.FLOOR
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.DOOR;
+                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
@@ -226,8 +244,7 @@ public class TileTextureFactory {
     private static boolean rightIsFloor(Coordinate p, LevelElement[][] layout) {
         try {
             return layout[(int) p.y][(int) p.x + 1] == LevelElement.FLOOR
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT
-                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.DOOR;
+                    || layout[(int) p.y + 1][(int) p.x] == LevelElement.EXIT;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
