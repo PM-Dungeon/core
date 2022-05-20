@@ -12,7 +12,6 @@ import java.util.Random;
  */
 public enum DesignLabel {
     DEFAULT,
-    ICE,
     ALL;
 
     private static final List<DesignLabel> VALUES =

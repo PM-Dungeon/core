@@ -3,11 +3,8 @@ package level;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
 import level.elements.Level;
-import level.elements.room.Room;
-import level.elements.room.Tile;
+import level.elements.Tile;
 import level.generator.IGenerator;
-import level.generator.dungeong.graphg.NoSolutionException;
-import level.tools.DesignLabel;
 import level.tools.LevelElement;
 import tools.Point;
 
@@ -36,27 +33,9 @@ public class LevelAPI {
         this.onLevelLoader = onLevelLoader;
     }
 
-    /**
-     * Load a new level.
-     *
-     * @throws NoSolutionException if no level can be loaded.
-     */
-    public void loadLevel() throws NoSolutionException {
+    /** Load a new level. */
+    public void loadLevel() {
         currentLevel = gen.getLevel();
-        onLevelLoader.onLevelLoad();
-    }
-
-    /**
-     * Load a new level with the given configuration.
-     *
-     * @param nodes Number of rooms in the level
-     * @param edges Number of loops in the level
-     * @param designLabel design of the level
-     * @throws NoSolutionException if no level can be loaded.
-     */
-    public void loadLevel(int nodes, int edges, DesignLabel designLabel)
-            throws NoSolutionException {
-        currentLevel = gen.getLevel(nodes, edges, designLabel);
         onLevelLoader.onLevelLoad();
     }
 
@@ -70,16 +49,16 @@ public class LevelAPI {
     }
 
     private void drawLevel() {
-        for (Room r : getCurrentLevel().getRooms())
-            for (int y = 0; y < r.getLayout().length; y++)
-                for (int x = 0; x < r.getLayout()[0].length; x++) {
-                    Tile t = r.getLayout()[y][x];
-                    if (t.getLevelElement() != LevelElement.SKIP)
-                        painter.draw(
-                                t.getTexturePath(),
-                                new Point(t.getCoordinate().x, t.getCoordinate().y),
-                                batch);
-                }
+        Tile[][] layout = currentLevel.getLayout();
+        for (int y = 0; y < layout.length; y++)
+            for (int x = 0; x < layout[0].length; x++) {
+                Tile t = layout[y][x];
+                if (t.getLevelElement() != LevelElement.SKIP)
+                    painter.draw(
+                            t.getTexturePath(),
+                            new Point(t.getCoordinate().x, t.getCoordinate().y),
+                            batch);
+            }
     }
 
     /**

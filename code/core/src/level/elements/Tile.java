@@ -1,4 +1,4 @@
-package level.elements.room;
+package level.elements;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.utils.Array;
@@ -17,8 +17,8 @@ public class Tile {
 
     private final Coordinate globalPosition;
     private transient Array<Connection<Tile>> connections = new Array<>();
-    private String texture;
-    private LevelElement e;
+    private String texturePath;
+    private LevelElement elementType;
     private int index;
 
     /**
@@ -29,8 +29,8 @@ public class Tile {
      * @param elementType The type of the tile.
      */
     public Tile(String texturePath, Coordinate globalPosition, LevelElement elementType) {
-        this.texture = texturePath;
-        this.e = elementType;
+        this.texturePath = texturePath;
+        this.elementType = elementType;
         this.globalPosition = globalPosition;
     }
 
@@ -40,10 +40,10 @@ public class Tile {
      * @return true if the tile is floor or exit; false if it is a wall or empty.
      */
     public boolean isAccessible() {
-        switch (e) {
+        switch (elementType) {
             case FLOOR:
             case EXIT:
-            case PLACED_DOOR:
+            case DOOR:
                 return true;
             case WALL:
             default:
@@ -52,7 +52,7 @@ public class Tile {
     }
 
     public String getTexturePath() {
-        return texture;
+        return texturePath;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Tile {
     }
 
     public LevelElement getLevelElement() {
-        return e;
+        return elementType;
     }
 
     /**
@@ -73,8 +73,8 @@ public class Tile {
      * @param texture New texture of the tile.
      */
     public void setLevelElement(LevelElement elementType, String texture) {
-        this.e = elementType;
-        this.texture = texture;
+        this.elementType = elementType;
+        this.texturePath = texture;
     }
 
     /**
