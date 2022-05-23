@@ -188,7 +188,6 @@ public class Level implements IndexedGraph<Tile> {
      * @param changeInto The LevelElement to change the Tile into.
      */
     public void changeTileElementType(Tile tile, LevelElement changeInto) {
-        System.out.println("DEBUG" + tile.getLevelElement());
         tile.setLevelElement(changeInto, TileTextureFactory.findTexturePath(tile, layout));
     }
 
