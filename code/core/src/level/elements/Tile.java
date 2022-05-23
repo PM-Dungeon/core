@@ -15,12 +15,12 @@ import level.tools.LevelElement;
  * @author Andre Matutat
  */
 public class Tile {
-    private final Coordinate globalPosition;
-    private transient Array<Connection<Tile>> connections = new Array<>();
-    private String texturePath;
     private LevelElement elementType;
-    private int index;
     private DesignLabel designLabel;
+    private final Coordinate globalPosition;
+    private String texturePath;
+    private transient Array<Connection<Tile>> connections = new Array<>();
+    private int index;
 
     /**
      * Creates a new Tile.
@@ -56,6 +56,17 @@ public class Tile {
         }
     }
 
+    /**
+     * Change the type and texture of the tile.
+     *
+     * @param elementType New type of the tile.
+     * @param texture New texture of the tile.
+     */
+    public void setLevelElement(LevelElement elementType, String texture) {
+        this.elementType = elementType;
+        this.texturePath = texture;
+    }
+
     public String getTexturePath() {
         return texturePath;
     }
@@ -71,19 +82,24 @@ public class Tile {
         return elementType;
     }
 
-    /**
-     * Change the type and texture of the tile.
-     *
-     * @param elementType New type of the tile.
-     * @param texture New texture of the tile.
-     */
-    public void setLevelElement(LevelElement elementType, String texture) {
-        this.elementType = elementType;
-        this.texturePath = texture;
-    }
-
     public DesignLabel getDesignLabel() {
         return designLabel;
+    }
+
+    // --------------------------- For LibGDX Pathfinding ---------------------------
+    public enum Direction {
+        N,
+        E,
+        S,
+        W,
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     /**
@@ -122,21 +138,6 @@ public class Tile {
         return directions.toArray(new Direction[0]);
     }
 
-    public int getIndex() {
-        return index;
-    }
+    // --------------------------- End LibGDX Pathfinding ---------------------------
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    /**
-     * @author Marti Stuwe
-     */
-    public enum Direction {
-        N,
-        E,
-        S,
-        W,
-    }
 }
