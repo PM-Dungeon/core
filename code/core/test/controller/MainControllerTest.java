@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.DungeonCamera;
 import graphic.Painter;
 import level.LevelAPI;
-import level.generator.IGenerator;
 import level.generator.randomwalk.RandomWalkGenerator;
 import org.junit.Before;
 import org.junit.Test;
