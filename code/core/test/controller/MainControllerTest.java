@@ -65,6 +65,7 @@ class MainControllerTest {
     @Test
     public void test_render() {
         controller.setSpriteBatch(batch);
+
         Mockito.verify(controller).setSpriteBatch(batch);
         Mockito.verifyNoMoreInteractions(controller, batch);
 

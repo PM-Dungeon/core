@@ -42,6 +42,7 @@ public class LevelAPI {
 
     /**
      * Load a new level
+     *
      * @param designLabel The design that the level should have
      */
     public void loadLevel(DesignLabel designLabel) {

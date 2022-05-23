@@ -7,7 +7,6 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Random;
 import level.elements.astar.TileHeuristic;
 import level.tools.Coordinate;
@@ -43,6 +42,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Create a new Level
+     *
      * @param layout The layout of the Level
      * @param designLabel The design the level should have
      */
@@ -95,6 +95,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get a random Tile
+     *
      * @param elementType Type of the Tile
      * @return A random Tile of the given Type
      */
@@ -106,6 +107,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get the position of a random Tile as Point
+     *
      * @return Position of the Tile as Point
      */
     public Point getRandomTilePoint() {
@@ -114,6 +116,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Get the position of a random Tile as Point
+     *
      * @param elementTyp Type of the Tile
      * @return Position of the Tile as Point
      */
@@ -132,9 +135,7 @@ public class Level implements IndexedGraph<Tile> {
      */
     public void setStartTile(Tile start) {
         startTile = start;
-        changeTileElementType(startTile,LevelElement.FLOOR);
-
-
+        changeTileElementType(startTile, LevelElement.FLOOR);
     }
 
     /** Mark a random tile as start */
@@ -159,9 +160,9 @@ public class Level implements IndexedGraph<Tile> {
     public void setEndTile(Tile end) {
         if (endTile != null)
             endTile.setLevelElement(
-                LevelElement.FLOOR, TileTextureFactory.findTexturePath(endTile, layout));
+                    LevelElement.FLOOR, TileTextureFactory.findTexturePath(endTile, layout));
         endTile = end;
-        changeTileElementType(endTile,LevelElement.EXIT);
+        changeTileElementType(endTile, LevelElement.EXIT);
     }
 
     /** Mark a random tile as end */
@@ -180,11 +181,12 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Change the type of a tile (including changing texture)
+     *
      * @param tile The Tile you want to change
      * @param changeInto The LevelElement to change the Tile into.
      */
-    public void changeTileElementType (Tile tile, LevelElement changeInto){
-        tile.setLevelElement(changeInto,TileTextureFactory.findTexturePath(tile,layout));
+    public void changeTileElementType(Tile tile, LevelElement changeInto) {
+        tile.setLevelElement(changeInto, TileTextureFactory.findTexturePath(tile, layout));
     }
 
     // --------------------------- END API ---------------------------
@@ -203,16 +205,14 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * For libgDX pathfinding algorithms
+     *
      * @return nodeCount
      */
     public int getNodeCount() {
         return nodeCount;
     }
 
-    /**
-     * Connect each tile with it neighbour tiles.
-     *
-     */
+    /** Connect each tile with it neighbour tiles. */
     private void makeConnections() {
         for (int x = 0; x < layout[0].length; x++)
             for (int y = 0; y < layout.length; y++)
@@ -231,24 +231,24 @@ public class Level implements IndexedGraph<Tile> {
 
         // upperTile
         Coordinate upper =
-            new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y + 1);
+                new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y + 1);
         Tile upperTile = getTileAt(upper);
         if (upperTile != null && upperTile.isAccessible()) checkTile.addConnection(upperTile);
 
         // lowerTile
         Coordinate lower =
-            new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y - 1);
+                new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y - 1);
         Tile lowerTile = getTileAt(lower);
         if (lowerTile != null && lowerTile.isAccessible()) checkTile.addConnection(lowerTile);
 
         // leftTile
         Coordinate left =
-            new Coordinate(checkTile.getCoordinate().x - 1, checkTile.getCoordinate().y);
+                new Coordinate(checkTile.getCoordinate().x - 1, checkTile.getCoordinate().y);
         Tile leftTile = getTileAt(left);
         if (leftTile != null && leftTile.isAccessible()) checkTile.addConnection(leftTile);
         // rightTile
         Coordinate right =
-            new Coordinate(checkTile.getCoordinate().x + 1, checkTile.getCoordinate().y);
+                new Coordinate(checkTile.getCoordinate().x + 1, checkTile.getCoordinate().y);
         Tile rightTile = getTileAt(right);
         if (rightTile != null && rightTile.isAccessible()) checkTile.addConnection(rightTile);
     }
@@ -257,19 +257,20 @@ public class Level implements IndexedGraph<Tile> {
 
     /**
      * Converts the given LevelElement[][] in a corresponding Tile[][]
+     *
      * @param layout The LevelElement[][]
      * @param designLabel The selected Design for the Tiles
      * @return The converted Tile[][]
      */
     private static Tile[][] convertLevelElementToTile(
-        LevelElement[][] layout, DesignLabel designLabel) {
+            LevelElement[][] layout, DesignLabel designLabel) {
         Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
         for (int x = 0; x < layout[0].length; x++)
             for (int y = 0; y < layout.length; y++) {
                 Coordinate coordinate = new Coordinate(y, x);
                 String texturePath =
-                    TileTextureFactory.findTexturePath(
-                        layout[y][x], designLabel, layout, coordinate);
+                        TileTextureFactory.findTexturePath(
+                                layout[y][x], designLabel, layout, coordinate);
                 tileLayout[y][x] = new Tile(texturePath, coordinate, layout[y][x], designLabel);
             }
         return tileLayout;

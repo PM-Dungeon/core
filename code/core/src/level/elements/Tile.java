@@ -122,7 +122,6 @@ public class Tile {
      *
      * @param goal To which tile is the direction.
      * @return Can either be north, east, south, west or a combination of two.
-     * @author Marti Stuwe
      */
     public Direction[] directionTo(Tile goal) {
         List<Direction> directions = new ArrayList<>();
@@ -130,7 +129,8 @@ public class Tile {
             directions.add(Direction.E);
         } else if (globalPosition.x > goal.getCoordinate().x) {
             directions.add(Direction.W);
-        } else if (globalPosition.y < goal.getCoordinate().y) {
+        }
+        if (globalPosition.y < goal.getCoordinate().y) {
             directions.add(Direction.N);
         } else if (globalPosition.y > goal.getCoordinate().y) {
             directions.add(Direction.S);

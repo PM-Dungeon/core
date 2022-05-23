@@ -26,7 +26,7 @@ public class CoordinateTest {
     @Test
     public void test_toPoint() {
         Point point = coordinate.toPoint();
-        assertEquals(point.x, (float) coordinate.x, 0.0f);
-        assertEquals(point.y, (float) coordinate.y, 0.0f);
+        assertEquals((float) coordinate.x, point.x, 0.0f);
+        assertEquals((float) coordinate.y, point.y, 0.0f);
     }
 }
