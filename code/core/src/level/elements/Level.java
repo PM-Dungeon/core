@@ -80,10 +80,14 @@ public class Level implements IndexedGraph<Tile> {
      * Get a tile on the global position.
      *
      * @param globalPoint Position form where to get the tile.
-     * @return The tile on that point.
+     * @return The tile on that point. null if there is no Tile or the Coordinate is out of bound
      */
     public Tile getTileAt(Coordinate globalPoint) {
-        return layout[globalPoint.x][globalPoint.y];
+        try {
+            return layout[globalPoint.x][globalPoint.y];
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
@@ -140,7 +144,7 @@ public class Level implements IndexedGraph<Tile> {
 
     /** Mark a random tile as start */
     public void setRandomStart() {
-        setStartTile(getRandomTile(LevelElement.WALL));
+        setStartTile(getRandomTile(LevelElement.FLOOR));
     }
 
     /**
@@ -158,9 +162,7 @@ public class Level implements IndexedGraph<Tile> {
      * @param end The end tile.
      */
     public void setEndTile(Tile end) {
-        if (endTile != null)
-            endTile.setLevelElement(
-                    LevelElement.FLOOR, TileTextureFactory.findTexturePath(endTile, layout));
+        if (endTile != null) changeTileElementType(endTile, LevelElement.FLOOR);
         endTile = end;
         changeTileElementType(endTile, LevelElement.EXIT);
     }
@@ -186,6 +188,7 @@ public class Level implements IndexedGraph<Tile> {
      * @param changeInto The LevelElement to change the Tile into.
      */
     public void changeTileElementType(Tile tile, LevelElement changeInto) {
+        System.out.println("DEBUG" + tile.getLevelElement());
         tile.setLevelElement(changeInto, TileTextureFactory.findTexturePath(tile, layout));
     }
 
@@ -265,9 +268,9 @@ public class Level implements IndexedGraph<Tile> {
     private static Tile[][] convertLevelElementToTile(
             LevelElement[][] layout, DesignLabel designLabel) {
         Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
-        for (int x = 0; x < layout[0].length; x++)
-            for (int y = 0; y < layout.length; y++) {
-                Coordinate coordinate = new Coordinate(y, x);
+        for (int y = 0; y < layout.length; y++)
+            for (int x = 0; x < layout[0].length; x++) {
+                Coordinate coordinate = new Coordinate(x, y);
                 String texturePath =
                         TileTextureFactory.findTexturePath(
                                 layout[y][x], designLabel, layout, coordinate);
