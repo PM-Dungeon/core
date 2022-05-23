@@ -5,6 +5,7 @@ import graphic.Painter;
 import level.elements.Level;
 import level.elements.Tile;
 import level.generator.IGenerator;
+import level.tools.DesignLabel;
 import level.tools.LevelElement;
 import tools.Point;
 
@@ -36,6 +37,15 @@ public class LevelAPI {
     /** Load a new level. */
     public void loadLevel() {
         currentLevel = gen.getLevel();
+        onLevelLoader.onLevelLoad();
+    }
+
+    /**
+     * Load a new level
+     * @param designLabel The design that the level should have
+     */
+    public void loadLevel(DesignLabel designLabel) {
+        currentLevel = gen.getLevel(designLabel);
         onLevelLoader.onLevelLoad();
     }
 

@@ -11,7 +11,7 @@ import graphic.Painter;
 import level.IOnLevelLoader;
 import level.LevelAPI;
 import level.generator.IGenerator;
-import level.generator.dungeong.levelg.LevelG;
+import level.generator.pearlnoise.PearlNoiseGenerator;
 import tools.Constants;
 
 /** The heart of the framework. From here all strings are pulled. */
@@ -93,9 +93,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
         painter = new Painter(camera);
         hudPainter = new HUDPainter();
         hudController = new HUDController(hudBatch);
-        generator =
-                new LevelG(
-                        Constants.getPathToRoomTemplates(), Constants.getPathToGraph()); // DungeonG
+        generator = new PearlNoiseGenerator();
         levelAPI = new LevelAPI(batch, painter, generator, this);
         setup();
     }

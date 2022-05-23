@@ -7,11 +7,7 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
-import com.google.gson.Gson;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+
 import java.util.Random;
 import level.elements.astar.TileHeuristic;
 import level.tools.Coordinate;
@@ -21,7 +17,7 @@ import level.tools.TileTextureFactory;
 import tools.Point;
 
 /**
- * A level is a set of connect rooms to play in.
+ * A level is a 2D-Array of Tiles.
  *
  * @author Andre Matutat
  */
@@ -45,90 +41,16 @@ public class Level implements IndexedGraph<Tile> {
         setRandomStart();
     }
 
+    /**
+     * Create a new Level
+     * @param layout The layout of the Level
+     * @param designLabel The design the level should have
+     */
     public Level(LevelElement[][] layout, DesignLabel designLabel) {
-        this(convertLevelElementToTiles(layout, designLabel));
+        this(convertLevelElementToTile(layout, designLabel));
     }
 
-    private static Tile[][] convertLevelElementToTiles(
-            LevelElement[][] layout, DesignLabel designLabel) {
-        Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
-        for (int x = 0; x < layout[0].length; x++)
-            for (int y = 0; y < layout.length; y++) {
-                Coordinate coordinate = new Coordinate(y, x);
-                String texturePath =
-                        TileTextureFactory.findTexturePath(
-                                layout[y][x], designLabel, layout, coordinate);
-                tileLayout[y][x] = new Tile(texturePath, coordinate, layout[y][x], designLabel);
-            }
-        return tileLayout;
-    }
-
-    public Tile[][] getLayout() {
-        return layout;
-    }
-
-    /**
-     * Get the start tile.
-     *
-     * @return The start tile.
-     */
-    public Tile getStartTile() {
-        return startTile;
-    }
-
-    /**
-     * Set the start tile.
-     *
-     * @param start The start tile.
-     */
-    public void setStartTile(Tile start) {
-        startTile = start;
-        startTile.setLevelElement(
-                LevelElement.FLOOR, TileTextureFactory.findTexturePath(startTile, layout));
-    }
-
-    /**
-     * Get the end tile.
-     *
-     * @return The end tile.
-     */
-    public Tile getEndTile() {
-        return endTile;
-    }
-
-    /**
-     * Set the end tile.
-     *
-     * @param end The end tile.
-     */
-    public void setEndTile(Tile end) {
-        if (endTile != null)
-            endTile.setLevelElement(
-                    LevelElement.FLOOR, TileTextureFactory.findTexturePath(endTile, layout));
-        endTile = end;
-        endTile.setLevelElement(
-                LevelElement.EXIT, TileTextureFactory.findTexturePath(endTile, layout));
-    }
-
-    /** Mark a random tile as start */
-    public void setRandomStart() {
-        setStartTile(getRandomTile(LevelElement.WALL));
-    }
-
-    /** Mark a random tile as end */
-    public void setRandomEnd() {
-        setEndTile(getRandomTile(LevelElement.FLOOR));
-    }
-
-    /**
-     * Get a tile on the global position.
-     *
-     * @param globalPoint Position form where to get the tile.
-     * @return The tile on that point.
-     */
-    public Tile getTileAt(Coordinate globalPoint) {
-        return layout[globalPoint.x][globalPoint.y];
-    }
+    // --------------------------- API ---------------------------
 
     /**
      * Starts the indexed A* pathfinding algorithm a returns a path
@@ -145,11 +67,153 @@ public class Level implements IndexedGraph<Tile> {
     }
 
     /**
+     * Checks if the passed entity is on the tile to the next level.
+     *
+     * @param entity entity to check for.
+     * @return if the passed entity is on the tile to the next level
+     */
+    public boolean isOnEndTile(Entity entity) {
+        return entity.getPosition().toCoordinate().equals(getEndTile().getCoordinate());
+    }
+
+    /**
+     * Get a tile on the global position.
+     *
+     * @param globalPoint Position form where to get the tile.
+     * @return The tile on that point.
+     */
+    public Tile getTileAt(Coordinate globalPoint) {
+        return layout[globalPoint.x][globalPoint.y];
+    }
+
+    /**
+     * @return a random Tile in the Level
+     */
+    public Tile getRandomTile() {
+        return layout[RANDOM.nextInt(layout.length)][RANDOM.nextInt(layout[0].length)];
+    }
+
+    /**
+     * Get a random Tile
+     * @param elementType Type of the Tile
+     * @return A random Tile of the given Type
+     */
+    public Tile getRandomTile(LevelElement elementType) {
+        Tile randomTile = getRandomTile();
+        if (randomTile.getLevelElement() == elementType) return randomTile;
+        else return getRandomTile(elementType);
+    }
+
+    /**
+     * Get the position of a random Tile as Point
+     * @return Position of the Tile as Point
+     */
+    public Point getRandomTilePoint() {
+        return getRandomTile().getCoordinate().toPoint();
+    }
+
+    /**
+     * Get the position of a random Tile as Point
+     * @param elementTyp Type of the Tile
+     * @return Position of the Tile as Point
+     */
+    public Point getRandomTilePoint(LevelElement elementTyp) {
+        return getRandomTile(elementTyp).getCoordinate().toPoint();
+    }
+
+    public Tile[][] getLayout() {
+        return layout;
+    }
+
+    /**
+     * Set the start tile.
+     *
+     * @param start The start tile.
+     */
+    public void setStartTile(Tile start) {
+        startTile = start;
+        changeTileElementType(startTile,LevelElement.FLOOR);
+
+
+    }
+
+    /** Mark a random tile as start */
+    public void setRandomStart() {
+        setStartTile(getRandomTile(LevelElement.WALL));
+    }
+
+    /**
+     * Get the start tile.
+     *
+     * @return The start tile.
+     */
+    public Tile getStartTile() {
+        return startTile;
+    }
+
+    /**
+     * Set the end tile.
+     *
+     * @param end The end tile.
+     */
+    public void setEndTile(Tile end) {
+        if (endTile != null)
+            endTile.setLevelElement(
+                LevelElement.FLOOR, TileTextureFactory.findTexturePath(endTile, layout));
+        endTile = end;
+        changeTileElementType(endTile,LevelElement.EXIT);
+    }
+
+    /** Mark a random tile as end */
+    public void setRandomEnd() {
+        setEndTile(getRandomTile(LevelElement.FLOOR));
+    }
+
+    /**
+     * Get the end tile.
+     *
+     * @return The end tile.
+     */
+    public Tile getEndTile() {
+        return endTile;
+    }
+
+    /**
+     * Change the type of a tile (including changing texture)
+     * @param tile The Tile you want to change
+     * @param changeInto The LevelElement to change the Tile into.
+     */
+    public void changeTileElementType (Tile tile, LevelElement changeInto){
+        tile.setLevelElement(changeInto,TileTextureFactory.findTexturePath(tile,layout));
+    }
+
+    // --------------------------- END API ---------------------------
+
+    // --------------------------- For LibGDX Pathfinding ---------------------------
+
+    @Override
+    public int getIndex(Tile tile) {
+        return tile.getIndex();
+    }
+
+    @Override
+    public Array<Connection<Tile>> getConnections(Tile fromNode) {
+        return fromNode.getConnections();
+    }
+
+    /**
+     * For libgDX pathfinding algorithms
+     * @return nodeCount
+     */
+    public int getNodeCount() {
+        return nodeCount;
+    }
+
+    /**
      * Connect each tile with it neighbour tiles.
      *
-     * @author Marti Stuwe
      */
-    public void makeConnections() {
+    private void makeConnections() {
         for (int x = 0; x < layout[0].length; x++)
             for (int y = 0; y < layout.length; y++)
                 if (layout[y][x].isAccessible()) {
@@ -167,93 +231,47 @@ public class Level implements IndexedGraph<Tile> {
 
         // upperTile
         Coordinate upper =
-                new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y + 1);
+            new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y + 1);
         Tile upperTile = getTileAt(upper);
         if (upperTile != null && upperTile.isAccessible()) checkTile.addConnection(upperTile);
 
         // lowerTile
         Coordinate lower =
-                new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y - 1);
+            new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y - 1);
         Tile lowerTile = getTileAt(lower);
         if (lowerTile != null && lowerTile.isAccessible()) checkTile.addConnection(lowerTile);
 
         // leftTile
         Coordinate left =
-                new Coordinate(checkTile.getCoordinate().x - 1, checkTile.getCoordinate().y);
+            new Coordinate(checkTile.getCoordinate().x - 1, checkTile.getCoordinate().y);
         Tile leftTile = getTileAt(left);
         if (leftTile != null && leftTile.isAccessible()) checkTile.addConnection(leftTile);
         // rightTile
         Coordinate right =
-                new Coordinate(checkTile.getCoordinate().x + 1, checkTile.getCoordinate().y);
+            new Coordinate(checkTile.getCoordinate().x + 1, checkTile.getCoordinate().y);
         Tile rightTile = getTileAt(right);
         if (rightTile != null && rightTile.isAccessible()) checkTile.addConnection(rightTile);
     }
 
-    @Override
-    public int getIndex(Tile tile) {
-        return tile.getIndex();
-    }
+    // --------------------------- End LibGDX Pathfinding ---------------------------
 
     /**
-     * @return a random Tile in the Level
+     * Converts the given LevelElement[][] in a corresponding Tile[][]
+     * @param layout The LevelElement[][]
+     * @param designLabel The selected Design for the Tiles
+     * @return The converted Tile[][]
      */
-    public Tile getRandomTile() {
-        return layout[RANDOM.nextInt(layout.length)][RANDOM.nextInt(layout[0].length)];
-    }
-
-    public Tile getRandomTile(LevelElement elementType) {
-        Tile randomTile = getRandomTile();
-        if (randomTile.getLevelElement() == elementType) return randomTile;
-        else return getRandomTile(elementType);
-    }
-
-    public Point getRandomTilePoint() {
-        return getRandomTile().getCoordinate().toPoint();
-    }
-
-    public Point getRandomTilePoint(LevelElement elementTyp) {
-        return getRandomTile(elementTyp).getCoordinate().toPoint();
-    }
-
-    @Override
-    public Array<Connection<Tile>> getConnections(Tile fromNode) {
-        return fromNode.getConnections();
-    }
-
-    /**
-     * Checks if the passed entity is on the tile to the next level.
-     *
-     * @param entity entity to check for.
-     * @return if the passed entity is on the tile to the next level
-     */
-    public boolean isOnEndTile(Entity entity) {
-        return entity.getPosition().toCoordinate().equals(getEndTile().getCoordinate());
-    }
-
-    public int getNodeCount() {
-        return nodeCount;
-    }
-
-    /**
-     * Converts Level in JSON.
-     *
-     * @return Level as JSON
-     */
-    public String toJSON() {
-        return new Gson().toJson(this);
-    }
-
-    /**
-     * Writes down this level in a json.
-     *
-     * @param path Where to save.
-     */
-    public void writeToJSON(String path) {
-        try (BufferedWriter writer =
-                new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8))) {
-            writer.write(toJSON());
-        } catch (IOException e) {
-            System.out.println("File" + path + " not found");
-        }
+    private static Tile[][] convertLevelElementToTile(
+        LevelElement[][] layout, DesignLabel designLabel) {
+        Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
+        for (int x = 0; x < layout[0].length; x++)
+            for (int y = 0; y < layout.length; y++) {
+                Coordinate coordinate = new Coordinate(y, x);
+                String texturePath =
+                    TileTextureFactory.findTexturePath(
+                        layout[y][x], designLabel, layout, coordinate);
+                tileLayout[y][x] = new Tile(texturePath, coordinate, layout[y][x], designLabel);
+            }
+        return tileLayout;
     }
 }
