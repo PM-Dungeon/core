@@ -192,6 +192,23 @@ public class Level implements IndexedGraph<Tile> {
         tile.setLevelElement(changeInto, TileTextureFactory.findTexturePath(tile, layout));
     }
 
+    /**
+     * F=Floor, W=Wall, E=Exit
+     *
+     * @return The level layout in String format
+     */
+    public String printLevel() {
+        String output = "";
+        for (int y = 0; y < layout.length; y++) {
+            for (int x = 0; x < layout[0].length; x++) {
+                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) output += "F";
+                else if (layout[y][x].getLevelElement() == LevelElement.WALL) output += "W";
+                else output += "E";
+            }
+            output += "\n";
+        }
+        return output;
+    }
     // --------------------------- END API ---------------------------
 
     // --------------------------- For LibGDX Pathfinding ---------------------------

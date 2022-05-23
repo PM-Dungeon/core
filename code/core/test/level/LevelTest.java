@@ -184,4 +184,18 @@ public class LevelTest {
         assertEquals(LevelElement.EXIT, newEnd.getLevelElement());
         assertEquals(newEnd, level.getEndTile());
     }
+
+    @Test
+    public void test_toString() {
+        String compareString = "";
+        for (int y = 0; y < layout.length; y++) {
+            for (int x = 0; x < layout[0].length; x++) {
+                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) compareString += "F";
+                else if (layout[y][x].getLevelElement() == LevelElement.WALL) compareString += "W";
+                else compareString += "E";
+            }
+            compareString += "\n";
+        }
+        assertEquals(compareString, level.printLevel());
+    }
 }
