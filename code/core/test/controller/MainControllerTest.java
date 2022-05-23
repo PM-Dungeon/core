@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.DungeonCamera;
 import graphic.Painter;
 import level.LevelAPI;
-import level.generator.dungeong.levelg.LevelG;
+import level.generator.pearlnoise.PearlNoiseGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,9 +55,9 @@ class MainControllerTest {
         PowerMockito.whenNew(DungeonCamera.class)
                 .withAnyArguments()
                 .thenReturn(Mockito.mock(DungeonCamera.class));
-        PowerMockito.whenNew(LevelG.class)
+        PowerMockito.whenNew(PearlNoiseGenerator.class)
                 .withAnyArguments()
-                .thenReturn(Mockito.mock(LevelG.class));
+                .thenReturn(Mockito.mock(PearlNoiseGenerator.class));
 
         PowerMockito.mockStatic(Constants.class, invocation -> "abc");
     }
