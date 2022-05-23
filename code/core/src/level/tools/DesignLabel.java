@@ -15,7 +15,7 @@ public enum DesignLabel {
 
     private static final List<DesignLabel> VALUES =
             Collections.unmodifiableList(Arrays.asList(values()));
-    private static final int SIZE = VALUES.size() - 1;
+    private static final int SIZE = VALUES.size();
     private static final Random RANDOM = new Random();
 
     public static DesignLabel randomDesign() {
