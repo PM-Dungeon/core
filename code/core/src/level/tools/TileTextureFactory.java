@@ -65,16 +65,26 @@ public class TileTextureFactory {
      * @return Path to texture
      */
     public static String findTexturePath(Tile element, Tile[][] layout) {
+        return findTexturePath(element, layout, element.getLevelElement());
+    }
+
+    /**
+     * Checks which texture must be used for the passed tile based on the surrounding tiles.
+     *
+     * @param element Tile to check for
+     * @param layout The level
+     * @param elementType The type ot the tile if different than the attribute
+     * @return Path to texture
+     */
+    public static String findTexturePath(Tile element, Tile[][] layout, LevelElement elementType) {
         LevelElement[][] elementLayout = new LevelElement[layout.length][layout[0].length];
         for (int x = 0; x < layout[0].length; x++)
             for (int y = 0; y < layout.length; y++) {
                 elementLayout[y][x] = layout[y][x].getLevelElement();
             }
+        elementLayout[element.getCoordinate().y][element.getCoordinate().x] = elementType;
         return findTexturePath(
-                element.getLevelElement(),
-                element.getDesignLabel(),
-                elementLayout,
-                element.getCoordinate());
+                elementType, element.getDesignLabel(), elementLayout, element.getCoordinate());
     }
 
     private static boolean isInSpace(Coordinate p, LevelElement[][] layout) {

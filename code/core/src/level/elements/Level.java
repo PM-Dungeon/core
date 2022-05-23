@@ -84,7 +84,7 @@ public class Level implements IndexedGraph<Tile> {
      */
     public Tile getTileAt(Coordinate globalPoint) {
         try {
-            return layout[globalPoint.x][globalPoint.y];
+            return layout[globalPoint.y][globalPoint.x];
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
@@ -163,8 +163,9 @@ public class Level implements IndexedGraph<Tile> {
      */
     public void setEndTile(Tile end) {
         if (endTile != null) changeTileElementType(endTile, LevelElement.FLOOR);
+        System.out.println(end.getLevelElement());
         endTile = end;
-        changeTileElementType(endTile, LevelElement.EXIT);
+        changeTileElementType(end, LevelElement.EXIT);
     }
 
     /** Mark a random tile as end */
@@ -182,17 +183,18 @@ public class Level implements IndexedGraph<Tile> {
     }
 
     /**
-     * Change the type of a tile (including changing texture)
+     * Change the type of tile (including changing texture)
      *
      * @param tile The Tile you want to change
      * @param changeInto The LevelElement to change the Tile into.
      */
     public void changeTileElementType(Tile tile, LevelElement changeInto) {
-        tile.setLevelElement(changeInto, TileTextureFactory.findTexturePath(tile, layout));
+        tile.setLevelElement(
+                changeInto, TileTextureFactory.findTexturePath(tile, layout, changeInto));
     }
 
     /**
-     * F=Floor, W=Wall, E=Exit
+     * F=Floor, W=Wall, E=Exit, S=Skip/Blank
      *
      * @return The level layout in String format
      */
@@ -202,7 +204,8 @@ public class Level implements IndexedGraph<Tile> {
             for (int x = 0; x < layout[0].length; x++) {
                 if (layout[y][x].getLevelElement() == LevelElement.FLOOR) output += "F";
                 else if (layout[y][x].getLevelElement() == LevelElement.WALL) output += "W";
-                else output += "E";
+                else if (layout[y][x].getLevelElement() == LevelElement.EXIT) output += "E";
+                else output += "S";
             }
             output += "\n";
         }
