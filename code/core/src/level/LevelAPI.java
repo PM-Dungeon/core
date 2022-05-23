@@ -81,6 +81,10 @@ public class LevelAPI {
         gen = generator;
     }
 
+    public IGenerator getGenerator() {
+        return gen;
+    }
+
     /**
      * Sets the current level to the given level and calls onLevelLoad().
      *
