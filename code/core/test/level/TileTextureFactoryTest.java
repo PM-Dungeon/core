@@ -22,22 +22,30 @@ public class TileTextureFactoryTest {
         layout = new LevelElement[10][11];
 
         // skips
-        for (int y = 0; y < 10; y++)
+        for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 2; x++) {
                 layout[y][x] = LevelElement.SKIP;
             }
+        }
 
         // outer walls and inner floors
-        for (int y = 0; y < 10; y++)
+        for (int y = 0; y < 10; y++) {
             for (int x = 2; x < 11; x++) {
                 if (y > 0 && y < 9 && x > 2 && x < 10) {
                     layout[y][x] = LevelElement.FLOOR;
-                } else layout[y][x] = LevelElement.WALL;
+                } else {
+                    layout[y][x] = LevelElement.WALL;
+                }
             }
+        }
 
         // inner walls
-        for (int y = 0; y < 10; y++) layout[y][8] = LevelElement.WALL;
-        for (int x = 2; x < 9; x++) layout[4][x] = LevelElement.WALL;
+        for (int y = 0; y < 10; y++) {
+            layout[y][8] = LevelElement.WALL;
+        }
+        for (int x = 2; x < 9; x++) {
+            layout[4][x] = LevelElement.WALL;
+        }
 
         // exit
         layout[1][6] = LevelElement.EXIT;
