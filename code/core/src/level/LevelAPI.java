@@ -59,7 +59,7 @@ public class LevelAPI {
         return currentLevel;
     }
 
-    private void drawLevel() {
+    protected void drawLevel() {
         Tile[][] layout = currentLevel.getLayout();
         for (int y = 0; y < layout.length; y++) {
             for (int x = 0; x < layout[0].length; x++) {

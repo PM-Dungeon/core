@@ -15,12 +15,12 @@ import level.tools.LevelElement;
  * @author Andre Matutat
  */
 public class Tile {
-    private final Coordinate globalPosition;
-    private LevelElement elementType;
-    private DesignLabel designLabel;
-    private String texturePath;
-    private transient Array<Connection<Tile>> connections = new Array<>();
-    private int index;
+    protected final Coordinate globalPosition;
+    protected LevelElement elementType;
+    protected DesignLabel designLabel;
+    protected String texturePath;
+    protected transient Array<Connection<Tile>> connections = new Array<>();
+    protected int index;
 
     /**
      * Creates a new Tile.

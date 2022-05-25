@@ -21,12 +21,12 @@ import tools.Point;
  * @author Andre Matutat
  */
 public class Level implements IndexedGraph<Tile> {
-    private static final Random RANDOM = new Random();
-    private final TileHeuristic tileHeuristic = new TileHeuristic();
-    private Tile startTile;
-    private Tile endTile;
-    private int nodeCount = 0;
-    private Tile[][] layout;
+    protected static final Random RANDOM = new Random();
+    protected final TileHeuristic tileHeuristic = new TileHeuristic();
+    protected Tile startTile;
+    protected Tile endTile;
+    protected int nodeCount = 0;
+    protected Tile[][] layout;
 
     /**
      * Create a new level
@@ -59,7 +59,7 @@ public class Level implements IndexedGraph<Tile> {
      * @param designLabel The selected Design for the Tiles
      * @return The converted Tile[][]
      */
-    private static Tile[][] convertLevelElementToTile(
+    protected static Tile[][] convertLevelElementToTile(
             LevelElement[][] layout, DesignLabel designLabel) {
         Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
         for (int y = 0; y < layout.length; y++) {
@@ -267,7 +267,7 @@ public class Level implements IndexedGraph<Tile> {
     }
 
     /** Connect each tile with it neighbour tiles. */
-    private void makeConnections() {
+    protected void makeConnections() {
         for (int x = 0; x < layout[0].length; x++) {
             for (int y = 0; y < layout.length; y++) {
                 if (layout[y][x].isAccessible()) {
@@ -285,7 +285,7 @@ public class Level implements IndexedGraph<Tile> {
      *
      * @param checkTile Tile to check for.
      */
-    private void addConnectionsToNeighbours(Tile checkTile) {
+    protected void addConnectionsToNeighbours(Tile checkTile) {
 
         // upperTile
         Coordinate upper =
