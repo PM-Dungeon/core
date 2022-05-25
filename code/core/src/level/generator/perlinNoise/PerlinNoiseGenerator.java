@@ -62,7 +62,7 @@ public class PerlinNoiseGenerator implements IGenerator {
         int height = getHeightFromLevelSize(size, random);
         LOG.info("Level dimensions: " + width + " x " + height);
         // playing field
-        final Area playingArea = generateNoiseArea(width, height, random);
+        final NoiseArea playingArea = generateNoiseArea(width, height, random);
         LevelElement[][] elements = toLevelElementArray(playingArea);
         Level generatedLevel = new Level(toTilesArray(elements, designLabel));
 
@@ -80,14 +80,14 @@ public class PerlinNoiseGenerator implements IGenerator {
         return generatedLevel;
     }
 
-    private static Area generateNoiseArea(int width, int height, Random randomGenerator) {
+    private static NoiseArea generateNoiseArea(int width, int height, Random randomGenerator) {
         final PerlinNoise pNoise =
                 new PerlinNoise(width, height, new int[] {2, 3}, false, randomGenerator);
         final double[][] noise = pNoise.noiseAll(1);
 
-        final Area[] areas = NoiseArea.getAreas(0.4, 0.6, noise, false);
-        Area area = areas[0];
-        for (final Area f : areas) {
+        final NoiseArea[] areas = NoiseArea.getAreas(0.4, 0.6, noise, false);
+        NoiseArea area = areas[0];
+        for (final NoiseArea f : areas) {
             if (area.getSize() < f.getSize()) {
                 area = f;
             }
@@ -95,7 +95,7 @@ public class PerlinNoiseGenerator implements IGenerator {
         return area;
     }
 
-    private static LevelElement[][] toLevelElementArray(Area playingArea) {
+    private static LevelElement[][] toLevelElementArray(NoiseArea playingArea) {
         LevelElement[][] res = new LevelElement[playingArea.getWidth()][playingArea.getHeight()];
         for (int i = 0; i < playingArea.getWidth(); i++) {
             for (int j = 0; j < playingArea.getHeight(); j++) {
