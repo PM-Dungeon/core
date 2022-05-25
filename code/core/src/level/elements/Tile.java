@@ -46,14 +46,7 @@ public class Tile {
      * @return true if the tile is floor or exit; false if it is a wall or empty.
      */
     public boolean isAccessible() {
-        switch (elementType) {
-            case FLOOR:
-            case EXIT:
-                return true;
-            case WALL:
-            default:
-                return false;
-        }
+        return elementType.getValue();
     }
 
     /**
