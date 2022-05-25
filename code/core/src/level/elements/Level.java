@@ -53,6 +53,28 @@ public class Level implements IndexedGraph<Tile> {
     // --------------------------- API ---------------------------
 
     /**
+     * Converts the given LevelElement[][] in a corresponding Tile[][]
+     *
+     * @param layout The LevelElement[][]
+     * @param designLabel The selected Design for the Tiles
+     * @return The converted Tile[][]
+     */
+    private static Tile[][] convertLevelElementToTile(
+            LevelElement[][] layout, DesignLabel designLabel) {
+        Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
+        for (int y = 0; y < layout.length; y++) {
+            for (int x = 0; x < layout[0].length; x++) {
+                Coordinate coordinate = new Coordinate(x, y);
+                String texturePath =
+                        TileTextureFactory.findTexturePath(
+                                layout[y][x], designLabel, layout, coordinate);
+                tileLayout[y][x] = new Tile(texturePath, coordinate, layout[y][x], designLabel);
+            }
+        }
+        return tileLayout;
+    }
+
+    /**
      * Starts the indexed A* pathfinding algorithm a returns a path
      *
      * @param start Start tile
@@ -105,8 +127,11 @@ public class Level implements IndexedGraph<Tile> {
      */
     public Tile getRandomTile(LevelElement elementType) {
         Tile randomTile = getRandomTile();
-        if (randomTile.getLevelElement() == elementType) return randomTile;
-        else return getRandomTile(elementType);
+        if (randomTile.getLevelElement() == elementType) {
+            return randomTile;
+        } else {
+            return getRandomTile(elementType);
+        }
     }
 
     /**
@@ -132,16 +157,6 @@ public class Level implements IndexedGraph<Tile> {
         return layout;
     }
 
-    /**
-     * Set the start tile.
-     *
-     * @param start The start tile.
-     */
-    public void setStartTile(Tile start) {
-        startTile = start;
-        changeTileElementType(startTile, LevelElement.FLOOR);
-    }
-
     /** Mark a random tile as start */
     public void setRandomStart() {
         setStartTile(getRandomTile(LevelElement.FLOOR));
@@ -157,15 +172,13 @@ public class Level implements IndexedGraph<Tile> {
     }
 
     /**
-     * Set the end tile.
+     * Set the start tile.
      *
-     * @param end The end tile.
+     * @param start The start tile.
      */
-    public void setEndTile(Tile end) {
-        if (endTile != null) changeTileElementType(endTile, LevelElement.FLOOR);
-        System.out.println(end.getLevelElement());
-        endTile = end;
-        changeTileElementType(end, LevelElement.EXIT);
+    public void setStartTile(Tile start) {
+        startTile = start;
+        changeTileElementType(startTile, LevelElement.FLOOR);
     }
 
     /** Mark a random tile as end */
@@ -183,6 +196,20 @@ public class Level implements IndexedGraph<Tile> {
     }
 
     /**
+     * Set the end tile.
+     *
+     * @param end The end tile.
+     */
+    public void setEndTile(Tile end) {
+        if (endTile != null) {
+            changeTileElementType(endTile, LevelElement.FLOOR);
+        }
+        System.out.println(end.getLevelElement());
+        endTile = end;
+        changeTileElementType(end, LevelElement.EXIT);
+    }
+
+    /**
      * Change the type of tile (including changing texture)
      *
      * @param tile The Tile you want to change
@@ -192,6 +219,9 @@ public class Level implements IndexedGraph<Tile> {
         tile.setLevelElement(
                 changeInto, TileTextureFactory.findTexturePath(tile, layout, changeInto));
     }
+    // --------------------------- END API ---------------------------
+
+    // --------------------------- For LibGDX Pathfinding ---------------------------
 
     /**
      * F=Floor, W=Wall, E=Exit, S=Skip/Blank
@@ -202,18 +232,20 @@ public class Level implements IndexedGraph<Tile> {
         String output = "";
         for (int y = 0; y < layout.length; y++) {
             for (int x = 0; x < layout[0].length; x++) {
-                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) output += "F";
-                else if (layout[y][x].getLevelElement() == LevelElement.WALL) output += "W";
-                else if (layout[y][x].getLevelElement() == LevelElement.EXIT) output += "E";
-                else output += "S";
+                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) {
+                    output += "F";
+                } else if (layout[y][x].getLevelElement() == LevelElement.WALL) {
+                    output += "W";
+                } else if (layout[y][x].getLevelElement() == LevelElement.EXIT) {
+                    output += "E";
+                } else {
+                    output += "S";
+                }
             }
             output += "\n";
         }
         return output;
     }
-    // --------------------------- END API ---------------------------
-
-    // --------------------------- For LibGDX Pathfinding ---------------------------
 
     @Override
     public int getIndex(Tile tile) {
@@ -236,13 +268,17 @@ public class Level implements IndexedGraph<Tile> {
 
     /** Connect each tile with it neighbour tiles. */
     private void makeConnections() {
-        for (int x = 0; x < layout[0].length; x++)
-            for (int y = 0; y < layout.length; y++)
+        for (int x = 0; x < layout[0].length; x++) {
+            for (int y = 0; y < layout.length; y++) {
                 if (layout[y][x].isAccessible()) {
                     layout[y][x].setIndex(nodeCount++);
                     addConnectionsToNeighbours(layout[y][x]);
                 }
+            }
+        }
     }
+
+    // --------------------------- End LibGDX Pathfinding ---------------------------
 
     /**
      * Check each tile around the tile, if it is accessible add it to the connectionList.
@@ -255,46 +291,31 @@ public class Level implements IndexedGraph<Tile> {
         Coordinate upper =
                 new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y + 1);
         Tile upperTile = getTileAt(upper);
-        if (upperTile != null && upperTile.isAccessible()) checkTile.addConnection(upperTile);
+        if (upperTile != null && upperTile.isAccessible()) {
+            checkTile.addConnection(upperTile);
+        }
 
         // lowerTile
         Coordinate lower =
                 new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y - 1);
         Tile lowerTile = getTileAt(lower);
-        if (lowerTile != null && lowerTile.isAccessible()) checkTile.addConnection(lowerTile);
+        if (lowerTile != null && lowerTile.isAccessible()) {
+            checkTile.addConnection(lowerTile);
+        }
 
         // leftTile
         Coordinate left =
                 new Coordinate(checkTile.getCoordinate().x - 1, checkTile.getCoordinate().y);
         Tile leftTile = getTileAt(left);
-        if (leftTile != null && leftTile.isAccessible()) checkTile.addConnection(leftTile);
+        if (leftTile != null && leftTile.isAccessible()) {
+            checkTile.addConnection(leftTile);
+        }
         // rightTile
         Coordinate right =
                 new Coordinate(checkTile.getCoordinate().x + 1, checkTile.getCoordinate().y);
         Tile rightTile = getTileAt(right);
-        if (rightTile != null && rightTile.isAccessible()) checkTile.addConnection(rightTile);
-    }
-
-    // --------------------------- End LibGDX Pathfinding ---------------------------
-
-    /**
-     * Converts the given LevelElement[][] in a corresponding Tile[][]
-     *
-     * @param layout The LevelElement[][]
-     * @param designLabel The selected Design for the Tiles
-     * @return The converted Tile[][]
-     */
-    private static Tile[][] convertLevelElementToTile(
-            LevelElement[][] layout, DesignLabel designLabel) {
-        Tile[][] tileLayout = new Tile[layout.length][layout[0].length];
-        for (int y = 0; y < layout.length; y++)
-            for (int x = 0; x < layout[0].length; x++) {
-                Coordinate coordinate = new Coordinate(x, y);
-                String texturePath =
-                        TileTextureFactory.findTexturePath(
-                                layout[y][x], designLabel, layout, coordinate);
-                tileLayout[y][x] = new Tile(texturePath, coordinate, layout[y][x], designLabel);
-            }
-        return tileLayout;
+        if (rightTile != null && rightTile.isAccessible()) {
+            checkTile.addConnection(rightTile);
+        }
     }
 }

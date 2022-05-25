@@ -15,9 +15,9 @@ import level.tools.LevelElement;
  * @author Andre Matutat
  */
 public class Tile {
+    private final Coordinate globalPosition;
     private LevelElement elementType;
     private DesignLabel designLabel;
-    private final Coordinate globalPosition;
     private String texturePath;
     private transient Array<Connection<Tile>> connections = new Array<>();
     private int index;
@@ -86,20 +86,12 @@ public class Tile {
         return designLabel;
     }
 
-    // --------------------------- For LibGDX Pathfinding ---------------------------
-    public enum Direction {
-        N,
-        E,
-        S,
-        W,
+    public int getIndex() {
+        return index;
     }
 
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     /**
@@ -109,7 +101,9 @@ public class Tile {
      * @param to Tile to connect with.
      */
     public void addConnection(Tile to) {
-        if (connections == null) connections = new Array<>();
+        if (connections == null) {
+            connections = new Array<>();
+        }
         connections.add(new TileConnection(this, to));
     }
 
@@ -136,6 +130,14 @@ public class Tile {
             directions.add(Direction.S);
         }
         return directions.toArray(new Direction[0]);
+    }
+
+    // --------------------------- For LibGDX Pathfinding ---------------------------
+    public enum Direction {
+        N,
+        E,
+        S,
+        W,
     }
 
     // --------------------------- End LibGDX Pathfinding ---------------------------

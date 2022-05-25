@@ -25,23 +25,25 @@ public class LevelTest {
     @Before
     public void setup() {
         layout = new Tile[3][3];
-        for (int x = 0; x < 3; x++)
+        for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                if (x < 2)
+                if (x < 2) {
                     layout[y][x] =
                             new Tile(
                                     "",
                                     new Coordinate(x, y),
                                     LevelElement.FLOOR,
                                     DesignLabel.DEFAULT);
-                else
+                } else {
                     layout[y][x] =
                             new Tile(
                                     "",
                                     new Coordinate(x, y),
                                     LevelElement.WALL,
                                     DesignLabel.DEFAULT);
+                }
             }
+        }
 
         level = new Level(layout);
         endTile = level.getEndTile();
@@ -70,10 +72,12 @@ public class LevelTest {
     @Test
     public void test_findPath_onlyOnePathPossible() {
         layout = new Tile[3][3];
-        for (int x = 0; x < 3; x++)
-            for (int y = 0; y < 3; y++)
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
                 layout[y][x] =
                         new Tile("", new Coordinate(x, y), LevelElement.FLOOR, DesignLabel.DEFAULT);
+            }
+        }
         layout[1][1] = new Tile("", new Coordinate(1, 1), LevelElement.WALL, DesignLabel.DEFAULT);
         layout[0][1] = new Tile("", new Coordinate(0, 1), LevelElement.WALL, DesignLabel.DEFAULT);
         level = new Level(layout);
@@ -94,10 +98,12 @@ public class LevelTest {
     @Test
     public void test_findPath_moreThanOnePathPossible() {
         layout = new Tile[3][3];
-        for (int x = 0; x < 3; x++)
-            for (int y = 0; y < 3; y++)
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
                 layout[y][x] =
                         new Tile("", new Coordinate(x, y), LevelElement.FLOOR, DesignLabel.DEFAULT);
+            }
+        }
         layout[0][1] = new Tile("", new Coordinate(0, 1), LevelElement.WALL, DesignLabel.DEFAULT);
         level = new Level(layout);
         level.setStartTile(layout[0][0]);
@@ -190,9 +196,13 @@ public class LevelTest {
         String compareString = "";
         for (int y = 0; y < layout.length; y++) {
             for (int x = 0; x < layout[0].length; x++) {
-                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) compareString += "F";
-                else if (layout[y][x].getLevelElement() == LevelElement.WALL) compareString += "W";
-                else compareString += "E";
+                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) {
+                    compareString += "F";
+                } else if (layout[y][x].getLevelElement() == LevelElement.WALL) {
+                    compareString += "W";
+                } else {
+                    compareString += "E";
+                }
             }
             compareString += "\n";
         }

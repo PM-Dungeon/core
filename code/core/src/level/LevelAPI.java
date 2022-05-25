@@ -61,15 +61,21 @@ public class LevelAPI {
 
     private void drawLevel() {
         Tile[][] layout = currentLevel.getLayout();
-        for (int y = 0; y < layout.length; y++)
+        for (int y = 0; y < layout.length; y++) {
             for (int x = 0; x < layout[0].length; x++) {
                 Tile t = layout[y][x];
-                if (t.getLevelElement() != LevelElement.SKIP)
+                if (t.getLevelElement() != LevelElement.SKIP) {
                     painter.draw(
                             t.getTexturePath(),
                             new Point(t.getCoordinate().x, t.getCoordinate().y),
                             batch);
+                }
             }
+        }
+    }
+
+    public IGenerator getGenerator() {
+        return gen;
     }
 
     /**
@@ -79,10 +85,6 @@ public class LevelAPI {
      */
     public void setGenerator(IGenerator generator) {
         gen = generator;
-    }
-
-    public IGenerator getGenerator() {
-        return gen;
     }
 
     /**

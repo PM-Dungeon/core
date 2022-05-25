@@ -10,6 +10,7 @@ import level.tools.LevelSize;
 
 public class RandomWalkGenerator implements IGenerator {
 
+    private static Random random = new Random();
     private final int SMALL_MIN_X_SIZE = 10;
     private final int SMALL_MIN_Y_SIZE = 10;
     private final int SMALL_MAX_X_SIZE = 30;
@@ -24,7 +25,6 @@ public class RandomWalkGenerator implements IGenerator {
     private final int BIG_MAX_Y_SIZE = 300;
     private final int MIN_STEPS_FACTOR = 4;
     private final int MAX_STEPS_FACTOR = 2;
-    private static Random random = new Random();
 
     @Override
     public Level getLevel(DesignLabel designLabel, LevelSize size) {
@@ -57,8 +57,11 @@ public class RandomWalkGenerator implements IGenerator {
         int xSize = random.nextInt(minX, maxX);
         int ySize = random.nextInt(minY, maxY);
         LevelElement[][] layout = new LevelElement[ySize][xSize];
-        for (int y = 0; y < ySize; y++)
-            for (int x = 0; x < xSize; x++) layout[y][x] = LevelElement.SKIP;
+        for (int y = 0; y < ySize; y++) {
+            for (int x = 0; x < xSize; x++) {
+                layout[y][x] = LevelElement.SKIP;
+            }
+        }
 
         Coordinate position = new Coordinate(random.nextInt(0, xSize), random.nextInt(0, ySize));
         int steps =

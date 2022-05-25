@@ -32,6 +32,7 @@ public interface IGenerator {
     default Level getLevel(DesignLabel designLabel) {
         return getLevel(designLabel, LevelSize.randomSize());
     }
+
     /**
      * Get a level with the given configuration and a random design.
      *
