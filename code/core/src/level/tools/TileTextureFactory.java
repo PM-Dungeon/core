@@ -46,18 +46,6 @@ public class TileTextureFactory {
             path += "wall/top_bottom";
         }
 
-        /*     //crossroads
-                else if (isFourWayCross(p, layout))
-                    path += "wall/fourway_cross";
-                else if (isThreeWayCrossDown(p, layout))
-                    path += "wall/top";
-                else if (isThreeWayCrossUp(p, layout))
-                    path += "wall/bottom";
-                else if (isThreeWayCrossLeft(p, layout))
-                    path += "wall/threeway_cross_left";
-                else if (isThreeWayCrossRight(p, layout))
-                    path += "wall/threeway_cross_right";
-        */
         // corners
         else if (isBottomLeftCorner(position, layout)) {
             path += "wall/corner_bottom_left";
