@@ -2,12 +2,12 @@
 name: Feature request
 about: Suggest an idea for this project
 title: "[FEATURE] "
-labels: ''
+labels: ["enhancement"]
 assignees: ''
 
 ---
 
-*Note: An English version can be found below.* 
+*Note: An English version can be found below.*
 
 **Bezieht sich Ihre Funktionsanfrage auf ein Problem? Bitte beschreiben Sie es.**
 Eine klare und prägnante Beschreibung des Problems. Beispiel: Ich bin immer frustriert, wenn [...]

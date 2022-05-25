@@ -2,23 +2,23 @@
 name: Bug report
 about: Create a report to help us improve
 title: "[BUG] "
-labels: ''
+labels: ["bug"]
 assignees: ''
 
 ---
 
-*Note: An English version can be found below.* 
+*Note: An English version can be found below.*
 
-**Fehlerbeschreibung** 
+**Fehlerbeschreibung**
 Eine klare und prägnante Beschreibung des Fehlers:
 
-**Anleitung zum Reproduzieren** 
+**Anleitung zum Reproduzieren**
 Schritte, um das Verhalten zu reproduzieren:
 
-**Erwartetes Verhalten** 
+**Erwartetes Verhalten**
 Eine klare und prägnante Beschreibung dessen, was Sie erwartet haben:
 
-**Screenshots** 
+**Screenshots**
 Fügen Sie ggf. Screenshots hinzu, um Ihr Problem zu erläutern:
 
 **Systembeschreibung (Bitte füllen Sie die folgenden Informationen aus)**
