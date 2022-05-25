@@ -11,20 +11,20 @@ import level.tools.LevelSize;
 public class RandomWalkGenerator implements IGenerator {
 
     private static Random random = new Random();
-    private final int SMALL_MIN_X_SIZE = 10;
-    private final int SMALL_MIN_Y_SIZE = 10;
-    private final int SMALL_MAX_X_SIZE = 30;
-    private final int SMALL_MAX_Y_SIZE = 30;
-    private final int MEDIUM_MIN_X_SIZE = 30;
-    private final int MEDIUM_MIN_Y_SIZE = 30;
-    private final int MEDIUM_MAX_X_SIZE = 100;
-    private final int MEDIUM_MAX_Y_SIZE = 100;
-    private final int BIG_MIN_X_SIZE = 100;
-    private final int BIG_MIN_Y_SIZE = 100;
-    private final int BIG_MAX_X_SIZE = 300;
-    private final int BIG_MAX_Y_SIZE = 300;
-    private final int MIN_STEPS_FACTOR = 4;
-    private final int MAX_STEPS_FACTOR = 2;
+    private static final int SMALL_MIN_X_SIZE = 10;
+    private static final int SMALL_MIN_Y_SIZE = 10;
+    private static final int SMALL_MAX_X_SIZE = 30;
+    private static final int SMALL_MAX_Y_SIZE = 30;
+    private static final int MEDIUM_MIN_X_SIZE = 30;
+    private static final int MEDIUM_MIN_Y_SIZE = 30;
+    private static final int MEDIUM_MAX_X_SIZE = 100;
+    private static final int MEDIUM_MAX_Y_SIZE = 100;
+    private static final int BIG_MIN_X_SIZE = 100;
+    private static final int BIG_MIN_Y_SIZE = 100;
+    private static final int BIG_MAX_X_SIZE = 300;
+    private static final int BIG_MAX_Y_SIZE = 300;
+    private static final int MIN_STEPS_FACTOR = 4;
+    private static final int MAX_STEPS_FACTOR = 2;
 
     @Override
     public Level getLevel(DesignLabel designLabel, LevelSize size) {
