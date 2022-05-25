@@ -55,6 +55,9 @@ public class LevelAPI {
         drawLevel();
     }
 
+    /**
+     * @return The currently loaded level.
+     */
     public Level getCurrentLevel() {
         return currentLevel;
     }
@@ -74,6 +77,9 @@ public class LevelAPI {
         }
     }
 
+    /**
+     * @return The currently used Level-Generator
+     */
     public IGenerator getGenerator() {
         return gen;
     }
