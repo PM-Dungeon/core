@@ -7,6 +7,8 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import level.elements.astar.TileHeuristic;
 import level.tools.Coordinate;
@@ -153,6 +155,9 @@ public class Level implements IndexedGraph<Tile> {
         return getRandomTile(elementTyp).getCoordinate().toPoint();
     }
 
+    /**
+     * @return The layout of the level
+     */
     public Tile[][] getLayout() {
         return layout;
     }
@@ -291,31 +296,29 @@ public class Level implements IndexedGraph<Tile> {
         Coordinate upper =
                 new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y + 1);
         Tile upperTile = getTileAt(upper);
-        if (upperTile != null && upperTile.isAccessible()) {
-            checkTile.addConnection(upperTile);
-        }
-
         // lowerTile
         Coordinate lower =
                 new Coordinate(checkTile.getCoordinate().x, checkTile.getCoordinate().y - 1);
         Tile lowerTile = getTileAt(lower);
-        if (lowerTile != null && lowerTile.isAccessible()) {
-            checkTile.addConnection(lowerTile);
-        }
-
         // leftTile
         Coordinate left =
                 new Coordinate(checkTile.getCoordinate().x - 1, checkTile.getCoordinate().y);
         Tile leftTile = getTileAt(left);
-        if (leftTile != null && leftTile.isAccessible()) {
-            checkTile.addConnection(leftTile);
-        }
         // rightTile
         Coordinate right =
                 new Coordinate(checkTile.getCoordinate().x + 1, checkTile.getCoordinate().y);
         Tile rightTile = getTileAt(right);
-        if (rightTile != null && rightTile.isAccessible()) {
-            checkTile.addConnection(rightTile);
+
+        List<Tile> neighbourTiles = new ArrayList<>();
+        neighbourTiles.add(upperTile);
+        neighbourTiles.add(lowerTile);
+        neighbourTiles.add(leftTile);
+        neighbourTiles.add(rightTile);
+
+        for (Tile n : neighbourTiles) {
+            if (n != null) {
+                checkTile.addConnection(n);
+            }
         }
     }
 }
