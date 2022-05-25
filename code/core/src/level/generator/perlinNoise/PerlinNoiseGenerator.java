@@ -30,7 +30,7 @@ public class PerlinNoiseGenerator implements IGenerator {
     public Level getLevel(DesignLabel designLabel, LevelSize size) {
         final int seed = (int) (Math.random() * Integer.MAX_VALUE);
         LOG.info("Seed: " + seed);
-        return null;
+        return getLevel(designLabel, size, new Random(seed));
     }
 
     /**
@@ -43,9 +43,8 @@ public class PerlinNoiseGenerator implements IGenerator {
      */
     public Level getLevel(long seed) {
         final Random random = new Random(seed);
-        DesignLabel designLabel =
-                DesignLabel.values()[random.nextInt(DesignLabel.values().length - 1)];
-        LevelSize size = LevelSize.values()[random.nextInt(LevelSize.values().length - 1)];
+        DesignLabel designLabel = DesignLabel.values()[random.nextInt(DesignLabel.values().length)];
+        LevelSize size = LevelSize.values()[random.nextInt(LevelSize.values().length)];
         return getLevel(designLabel, size, random);
     }
 
@@ -58,20 +57,17 @@ public class PerlinNoiseGenerator implements IGenerator {
      * @return the generated Level
      */
     public Level getLevel(DesignLabel designLabel, LevelSize size, final Random random) {
-        int width = getWidthFromLevelSize(size, random);
-        int height = getHeightFromLevelSize(size, random);
-        LOG.info("Level dimensions: " + width + " x " + height);
         // playing field
-        final NoiseArea playingArea = generateNoiseArea(width, height, random);
+        final NoiseArea playingArea = generateNoiseArea(size, random);
         LevelElement[][] elements = toLevelElementArray(playingArea);
         Level generatedLevel = new Level(toTilesArray(elements, designLabel));
 
         // end tile
         final Tile end = generatedLevel.getEndTile();
-        elements[end.getCoordinate().x][end.getCoordinate().y] = LevelElement.EXIT;
+        elements[end.getCoordinate().y][end.getCoordinate().x] = LevelElement.EXIT;
         String endTexturePath =
                 TileTextureFactory.findTexturePath(
-                        elements[end.getCoordinate().x][end.getCoordinate().y],
+                        elements[end.getCoordinate().y][end.getCoordinate().x],
                         designLabel,
                         elements,
                         end.getCoordinate());
@@ -80,9 +76,27 @@ public class PerlinNoiseGenerator implements IGenerator {
         return generatedLevel;
     }
 
-    private static NoiseArea generateNoiseArea(int width, int height, Random randomGenerator) {
+    private static NoiseArea generateNoiseArea(final LevelSize size, final Random randomGenerator) {
+        final int width = getWidthFromLevelSize(size, randomGenerator);
+        final int height = getHeightFromLevelSize(size, randomGenerator);
+        LOG.info("Level dimensions: " + width + " x " + height);
+        int octavesAdd = 0;
+        switch (size) {
+            case LARGE:
+                octavesAdd += 1;
+            case MEDIUM:
+                octavesAdd += 1;
+            case SMALL:
+            default:
+                octavesAdd += 1;
+        }
         final PerlinNoise pNoise =
-                new PerlinNoise(width, height, new int[] {2, 3}, false, randomGenerator);
+                new PerlinNoise(
+                        width,
+                        height,
+                        new int[] {1 + octavesAdd, 2 + octavesAdd},
+                        false,
+                        randomGenerator);
         final double[][] noise = pNoise.noiseAll(1);
 
         final NoiseArea[] areas = NoiseArea.getAreas(0.4, 0.6, noise, false);
@@ -112,13 +126,13 @@ public class PerlinNoiseGenerator implements IGenerator {
     private static Tile[][] toTilesArray(
             final LevelElement[][] levelElements, final DesignLabel design) {
         final Tile[][] res = new Tile[levelElements.length][levelElements[0].length];
-        for (int x = 0; x < res.length; x++) {
-            for (int y = 0; y < res[0].length; y++) {
+        for (int y = 0; y < res.length; y++) {
+            for (int x = 0; x < res[0].length; x++) {
                 String texturePath =
                         TileTextureFactory.findTexturePath(
-                                levelElements[x][y], design, levelElements, new Coordinate(x, y));
-                res[x][y] =
-                        new Tile(texturePath, new Coordinate(x, y), levelElements[x][y], design);
+                                levelElements[y][x], design, levelElements, new Coordinate(x, y));
+                res[y][x] =
+                        new Tile(texturePath, new Coordinate(x, y), levelElements[y][x], design);
             }
         }
         return res;
