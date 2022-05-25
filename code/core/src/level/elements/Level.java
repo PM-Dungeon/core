@@ -82,7 +82,6 @@ public class Level implements IndexedGraph<Tile> {
      * @param start Start tile
      * @param end End tile
      * @return Generated path
-     * @author Marti Stuwe
      */
     public GraphPath<Tile> findPath(Tile start, Tile end) {
         GraphPath<Tile> path = new DefaultGraphPath<>();
