@@ -60,6 +60,9 @@ public class Tile {
         this.texturePath = texture;
     }
 
+    /**
+     * @return path to the texture of this tile
+     */
     public String getTexturePath() {
         return texturePath;
     }
@@ -71,18 +74,34 @@ public class Tile {
         return globalPosition;
     }
 
+    /**
+     * @return The LevelElement of this tile
+     */
     public LevelElement getLevelElement() {
         return elementType;
     }
 
+    /**
+     * @return the DesignLabel of this tile
+     */
     public DesignLabel getDesignLabel() {
         return designLabel;
     }
 
+    /**
+     * Used by libGDX pathfinding
+     *
+     * @return the index of this tile
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * Used by libGDX pathfinding
+     *
+     * @param index value of the index
+     */
     public void setIndex(int index) {
         this.index = index;
     }
@@ -100,6 +119,11 @@ public class Tile {
         connections.add(new TileConnection(this, to));
     }
 
+    /**
+     * Used by libGDX pathfinding
+     *
+     * @return all connections to other tiles
+     */
     public Array<Connection<Tile>> getConnections() {
         return connections;
     }
