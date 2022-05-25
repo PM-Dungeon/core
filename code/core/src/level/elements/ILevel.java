@@ -15,7 +15,7 @@ import level.tools.TileTextureFactory;
 import tools.Point;
 
 public interface ILevel extends IndexedGraph<Tile> {
-    static Random RANDOM = new Random();
+    Random RANDOM = new Random();
 
     /**
      * Starts the indexed A* pathfinding algorithm a returns a path
@@ -186,6 +186,7 @@ public interface ILevel extends IndexedGraph<Tile> {
         return tile.getIndex();
     }
 
+    @Override
     default Array<Connection<Tile>> getConnections(Tile fromNode) {
         return fromNode.getConnections();
     }
