@@ -1,7 +1,8 @@
 package level.generator.randomwalk;
 
 import java.util.Random;
-import level.elements.Level;
+import level.elements.ILevel;
+import level.elements.TileLevel;
 import level.generator.IGenerator;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
@@ -27,10 +28,10 @@ public class RandomWalkGenerator implements IGenerator {
     private static final int MAX_STEPS_FACTOR = 2;
 
     @Override
-    public Level getLevel(DesignLabel designLabel, LevelSize size) {
+    public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
         switch (size) {
             case SMALL:
-                return new Level(
+                return new TileLevel(
                         drunkWalk(
                                 SMALL_MIN_X_SIZE,
                                 SMALL_MAX_X_SIZE,
@@ -39,7 +40,7 @@ public class RandomWalkGenerator implements IGenerator {
                         designLabel);
             case MEDIUM:
             default:
-                return new Level(
+                return new TileLevel(
                         drunkWalk(
                                 MEDIUM_MIN_X_SIZE,
                                 MEDIUM_MAX_X_SIZE,
@@ -47,7 +48,7 @@ public class RandomWalkGenerator implements IGenerator {
                                 MEDIUM_MAX_Y_SIZE),
                         designLabel);
             case LARGE:
-                return new Level(
+                return new TileLevel(
                         drunkWalk(BIG_MIN_X_SIZE, BIG_MAX_X_SIZE, BIG_MIN_Y_SIZE, BIG_MAX_Y_SIZE),
                         designLabel);
         }

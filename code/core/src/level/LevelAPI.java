@@ -2,7 +2,7 @@ package level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
-import level.elements.Level;
+import level.elements.ILevel;
 import level.elements.Tile;
 import level.generator.IGenerator;
 import level.tools.DesignLabel;
@@ -15,7 +15,7 @@ public class LevelAPI {
     private final Painter painter;
     private final IOnLevelLoader onLevelLoader;
     private IGenerator gen;
-    private Level currentLevel;
+    private ILevel currentLevel;
 
     /**
      * @param batch Batch on which to draw.
@@ -58,7 +58,7 @@ public class LevelAPI {
     /**
      * @return The currently loaded level.
      */
-    public Level getCurrentLevel() {
+    public ILevel getCurrentLevel() {
         return currentLevel;
     }
 
@@ -98,7 +98,7 @@ public class LevelAPI {
      *
      * @param level The level to be set.
      */
-    public void setLevel(Level level) {
+    public void setLevel(ILevel level) {
         currentLevel = level;
         onLevelLoader.onLevelLoad();
     }

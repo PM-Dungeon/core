@@ -1,6 +1,6 @@
 package level.generator;
 
-import level.elements.Level;
+import level.elements.ILevel;
 import level.tools.DesignLabel;
 import level.tools.LevelSize;
 
@@ -12,14 +12,14 @@ public interface IGenerator {
      * @param size Size of the level
      * @return The level
      */
-    Level getLevel(DesignLabel designLabel, LevelSize size);
+    ILevel getLevel(DesignLabel designLabel, LevelSize size);
 
     /**
      * Get a level with a random configuration.
      *
      * @return The level.
      */
-    default Level getLevel() {
+    default ILevel getLevel() {
         return getLevel(DesignLabel.randomDesign(), LevelSize.randomSize());
     }
 
@@ -29,7 +29,7 @@ public interface IGenerator {
      * @param designLabel Design of the level
      * @return The level
      */
-    default Level getLevel(DesignLabel designLabel) {
+    default ILevel getLevel(DesignLabel designLabel) {
         return getLevel(designLabel, LevelSize.randomSize());
     }
 
@@ -39,7 +39,7 @@ public interface IGenerator {
      * @param size Size of the level
      * @return The level
      */
-    default Level getLevel(LevelSize size) {
+    default ILevel getLevel(LevelSize size) {
         return getLevel(DesignLabel.randomDesign(), size);
     }
 }
