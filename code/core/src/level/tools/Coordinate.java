@@ -8,14 +8,25 @@ public class Coordinate {
     public int x;
     public int y;
 
+    /**
+     * Create a new Coordinate
+     *
+     * @param x x-Coordinate
+     * @param y y-Coordinate
+     */
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Coordinate(Coordinate c) {
-        x = c.x;
-        y = c.y;
+    /**
+     * Copy a coordinate
+     *
+     * @param copyFrom Coordinate to copy
+     */
+    public Coordinate(Coordinate copyFrom) {
+        x = copyFrom.x;
+        y = copyFrom.y;
     }
 
     @Override
