@@ -23,6 +23,9 @@ public enum LevelElement {
         this.value = value;
     }
 
+    /**
+     * @return A random enum-value
+     */
     public boolean getValue() {
         return value;
     }

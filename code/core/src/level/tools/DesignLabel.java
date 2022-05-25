@@ -18,6 +18,9 @@ public enum DesignLabel {
     private static final int SIZE = VALUES.size();
     private static final Random RANDOM = new Random();
 
+    /**
+     * @return A random enum-value
+     */
     public static DesignLabel randomDesign() {
         return VALUES.get(RANDOM.nextInt(SIZE));
     }
