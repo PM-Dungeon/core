@@ -71,7 +71,6 @@ public class PerlinNoiseGenerator implements IGenerator {
                         designLabel,
                         elements,
                         end.getCoordinate());
-        System.out.println(endTexturePath);
         end.setLevelElement(LevelElement.EXIT, endTexturePath);
         return generatedLevel;
     }
