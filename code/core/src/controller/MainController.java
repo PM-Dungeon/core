@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.DungeonCamera;
 import graphic.HUDPainter;
 import graphic.Painter;
+import java.util.ArrayList;
+import java.util.List;
 import level.IOnLevelLoader;
 import level.LevelAPI;
 import level.generator.IGenerator;
@@ -21,6 +23,9 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
      * batch.
      */
     protected SpriteBatch batch;
+
+    /** Contais all Controller of the Dungeon */
+    protected List<AbstractController> controller;
 
     protected EntityController entityController;
     protected DungeonCamera camera;
@@ -40,10 +45,13 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     private boolean doFirstFrame = true;
 
     // --------------------------- OWN IMPLEMENTATION ---------------------------
+
+    /** Called once at the beginning of the game. */
     protected abstract void setup();
 
+    /** Called at the beginning of each frame. Before the controllers call <code>update</code>. */
     protected abstract void beginFrame();
-
+    /** Called at the end of each frame. After the controllers call <code>update</code>. */
     protected abstract void endFrame();
 
     // --------------------------- END OWN IMPLEMENTATION ------------------------
@@ -66,14 +74,11 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
                 clearScreen();
                 levelAPI.update();
                 if (runLoop()) {
-                    entityController.update();
+                    controller.forEach(c -> c.update());
                     if (runLoop()) {
                         camera.update();
                         if (runLoop()) {
-                            hudController.update();
-                            if (runLoop()) {
-                                endFrame();
-                            }
+                            endFrame();
                         }
                     }
                 }
@@ -88,11 +93,14 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
 
     private void firstFrame() {
         doFirstFrame = false;
+        controller = new ArrayList<>();
         entityController = new EntityController();
         setupCameras();
         painter = new Painter(camera);
         hudPainter = new HUDPainter();
         hudController = new HUDController(hudBatch);
+        controller.add(entityController);
+        controller.add(hudController);
         generator = new RandomWalkGenerator();
         levelAPI = new LevelAPI(batch, painter, generator, this);
         setup();
