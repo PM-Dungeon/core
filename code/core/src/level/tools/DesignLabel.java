@@ -1,7 +1,5 @@
 package level.tools;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -13,8 +11,7 @@ import java.util.Random;
 public enum DesignLabel {
     DEFAULT;
 
-    private static final List<DesignLabel> VALUES =
-            Collections.unmodifiableList(Arrays.asList(values()));
+    private static final List<DesignLabel> VALUES = List.of(values());
     private static final int SIZE = VALUES.size();
     private static final Random RANDOM = new Random();
 

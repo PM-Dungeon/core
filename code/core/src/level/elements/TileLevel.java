@@ -77,10 +77,10 @@ public class TileLevel implements ILevel {
     /** Connect each tile with it neighbour tiles. */
     protected void makeConnections() {
         for (int x = 0; x < layout[0].length; x++) {
-            for (int y = 0; y < layout.length; y++) {
-                if (layout[y][x].isAccessible()) {
-                    layout[y][x].setIndex(nodeCount++);
-                    addConnectionsToNeighbours(layout[y][x]);
+            for (Tile[] tiles : layout) {
+                if (tiles[x].isAccessible()) {
+                    tiles[x].setIndex(nodeCount++);
+                    addConnectionsToNeighbours(tiles[x]);
                 }
             }
         }
