@@ -1,8 +1,12 @@
 package starter;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import controller.MainController;
 
 public class DefaultMainController extends MainController {
+    private int zoomLevel = 10;
+
     @Override
     protected void setup() {
         // set the default generator
@@ -12,7 +16,19 @@ public class DefaultMainController extends MainController {
     }
 
     @Override
-    protected void beginFrame() {}
+    protected void beginFrame() {
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            zoomLevel++;
+            camera.zoom = 0.05f * zoomLevel;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            zoomLevel--;
+            if (zoomLevel <= 0) {
+                zoomLevel = 1;
+            }
+            camera.zoom = 0.05f * zoomLevel;
+        }
+    }
 
     @Override
     protected void endFrame() {}
