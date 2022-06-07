@@ -151,7 +151,7 @@ public interface ILevel extends IndexedGraph<Tile> {
     }
 
     /**
-     * For libgDX pathfinding algorithms
+     * For libGDX pathfinding algorithms
      *
      * @return nodeCount
      */
@@ -163,22 +163,22 @@ public interface ILevel extends IndexedGraph<Tile> {
      * @return The level layout in String format
      */
     default String printLevel() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int y = 0; y < getLayout().length; y++) {
             for (int x = 0; x < getLayout()[0].length; x++) {
                 if (getLayout()[y][x].getLevelElement() == LevelElement.FLOOR) {
-                    output += "F";
+                    output.append("F");
                 } else if (getLayout()[y][x].getLevelElement() == LevelElement.WALL) {
-                    output += "W";
+                    output.append("W");
                 } else if (getLayout()[y][x].getLevelElement() == LevelElement.EXIT) {
-                    output += "E";
+                    output.append("E");
                 } else {
-                    output += "S";
+                    output.append("S");
                 }
             }
-            output += "\n";
+            output.append("\n");
         }
-        return output;
+        return output.toString();
     }
 
     @Override

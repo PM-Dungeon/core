@@ -19,8 +19,8 @@ public class CoordinateTest {
 
     @Test
     public void test_equals() {
-        assertTrue(coordinate.equals(new Coordinate(x, y)));
-        assertFalse(coordinate.equals(new Coordinate(y, x)));
+        assertEquals(coordinate, new Coordinate(x, y));
+        assertNotEquals(coordinate, new Coordinate(y, x));
     }
 
     @Test

@@ -35,6 +35,7 @@ public final class Constants {
      * @param path the relative path to the resource
      * @return the absolute path of the internal resource
      */
+    @SuppressWarnings("unused")
     private static String getResourceString(String path) {
         URL url = ClassLoader.getSystemClassLoader().getResource(path);
         assert (url != null);

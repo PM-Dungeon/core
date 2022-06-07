@@ -25,7 +25,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     protected SpriteBatch batch;
 
     /** Contais all Controller of the Dungeon */
-    protected List<AbstractController> controller;
+    protected List<AbstractController<?>> controller;
 
     protected EntityController entityController;
     protected DungeonCamera camera;
@@ -51,6 +51,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
 
     /** Called at the beginning of each frame. Before the controllers call <code>update</code>. */
     protected abstract void beginFrame();
+
     /** Called at the end of each frame. After the controllers call <code>update</code>. */
     protected abstract void endFrame();
 
@@ -74,7 +75,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
                 clearScreen();
                 levelAPI.update();
                 if (runLoop()) {
-                    controller.forEach(c -> c.update());
+                    controller.forEach(AbstractController::update);
                     if (runLoop()) {
                         camera.update();
                         if (runLoop()) {

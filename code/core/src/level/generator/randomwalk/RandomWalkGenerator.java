@@ -11,7 +11,7 @@ import level.tools.LevelSize;
 
 public class RandomWalkGenerator implements IGenerator {
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private static final int SMALL_MIN_X_SIZE = 10;
     private static final int SMALL_MIN_Y_SIZE = 10;
     private static final int SMALL_MAX_X_SIZE = 30;
@@ -29,29 +29,22 @@ public class RandomWalkGenerator implements IGenerator {
 
     @Override
     public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
-        switch (size) {
-            case SMALL:
-                return new TileLevel(
-                        drunkWalk(
-                                SMALL_MIN_X_SIZE,
-                                SMALL_MAX_X_SIZE,
-                                SMALL_MIN_Y_SIZE,
-                                SMALL_MAX_Y_SIZE),
-                        designLabel);
-            case MEDIUM:
-            default:
-                return new TileLevel(
-                        drunkWalk(
-                                MEDIUM_MIN_X_SIZE,
-                                MEDIUM_MAX_X_SIZE,
-                                MEDIUM_MIN_Y_SIZE,
-                                MEDIUM_MAX_Y_SIZE),
-                        designLabel);
-            case LARGE:
-                return new TileLevel(
-                        drunkWalk(BIG_MIN_X_SIZE, BIG_MAX_X_SIZE, BIG_MIN_Y_SIZE, BIG_MAX_Y_SIZE),
-                        designLabel);
-        }
+        return switch (size) {
+            case SMALL -> new TileLevel(
+                    drunkWalk(
+                            SMALL_MIN_X_SIZE, SMALL_MAX_X_SIZE, SMALL_MIN_Y_SIZE, SMALL_MAX_Y_SIZE),
+                    designLabel);
+            case LARGE -> new TileLevel(
+                    drunkWalk(BIG_MIN_X_SIZE, BIG_MAX_X_SIZE, BIG_MIN_Y_SIZE, BIG_MAX_Y_SIZE),
+                    designLabel);
+            default -> new TileLevel(
+                    drunkWalk(
+                            MEDIUM_MIN_X_SIZE,
+                            MEDIUM_MAX_X_SIZE,
+                            MEDIUM_MIN_Y_SIZE,
+                            MEDIUM_MAX_Y_SIZE),
+                    designLabel);
+        };
     }
 
     private LevelElement[][] drunkWalk(int minX, int maxX, int minY, int maxY) {
