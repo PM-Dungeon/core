@@ -2,7 +2,11 @@ package level.generator.perlinNoise;
 
 import java.util.Random;
 
-/** Source: https://flafla2.github.io/2014/08/09/perlinnoise.html */
+/** 
+ * Class generating a perlin noise array
+ * 
+ * Source: <a href="https://flafla2.github.io/2014/08/09/perlinnoise.html">Blog by Flafla2 (09 August 2014)</a>
+ */
 public class PerlinNoise {
     private final int repetitionWidth;
     private final int repetitionHeight;
@@ -15,7 +19,6 @@ public class PerlinNoise {
      * @param repetitionWidth width of noise
      * @param repetitionHeight height of noise
      * @param octaves octaves for noise
-     * @param funktionTyp interpolation between values of one octave
      * @param ownPermutationForOctaves flag -> should each octave have own permutation
      */
     public PerlinNoise(
@@ -32,7 +35,6 @@ public class PerlinNoise {
      * @param repetitionWidth width of noise
      * @param repetitionHeight height of noise
      * @param octaves octaves for noise
-     * @param funktionTyp interpolation between values of one octave
      * @param ownPermutationForOctaves flag -> should each octave have own permutation
      * @param random Random object used for generation
      */

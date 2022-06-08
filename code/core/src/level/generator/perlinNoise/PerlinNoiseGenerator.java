@@ -13,7 +13,6 @@ import level.tools.LevelSize;
 import level.tools.TileTextureFactory;
 
 public class PerlinNoiseGenerator implements IGenerator {
-    public static final Logger LOG = Logger.getLogger(PerlinNoiseGenerator.class.getName());
     private static final int SMALL_MIN_X_SIZE = 30;
     private static final int SMALL_MIN_Y_SIZE = 30;
     private static final int SMALL_MAX_X_SIZE = 40;
@@ -51,8 +50,8 @@ public class PerlinNoiseGenerator implements IGenerator {
     /**
      * generates new Level
      *
-     * @param width width of level
-     * @param height height of level
+     * @param designLabel the design of the level
+     * @param size the level size
      * @param random Random Object used to generate the level
      * @return the generated Level
      */
@@ -137,26 +136,18 @@ public class PerlinNoiseGenerator implements IGenerator {
     }
 
     private static int getWidthFromLevelSize(LevelSize size, Random random) {
-        switch (size) {
-            case LARGE:
-                return random.nextInt(BIG_MAX_X_SIZE - BIG_MIN_X_SIZE) + BIG_MIN_X_SIZE;
-            case MEDIUM:
-                return random.nextInt(MEDIUM_MAX_X_SIZE - MEDIUM_MIN_X_SIZE) + MEDIUM_MIN_X_SIZE;
-            case SMALL:
-            default:
-                return random.nextInt(SMALL_MAX_X_SIZE - SMALL_MIN_X_SIZE) + SMALL_MIN_X_SIZE;
-        }
+        return switch (size) {
+            case LARGE -> random.nextInt(BIG_MAX_X_SIZE - BIG_MIN_X_SIZE) + BIG_MIN_X_SIZE;
+            case MEDIUM -> random.nextInt(MEDIUM_MAX_X_SIZE - MEDIUM_MIN_X_SIZE) + MEDIUM_MIN_X_SIZE;
+            default -> random.nextInt(SMALL_MAX_X_SIZE - SMALL_MIN_X_SIZE) + SMALL_MIN_X_SIZE;
+        };
     }
 
     private static int getHeightFromLevelSize(LevelSize size, Random random) {
-        switch (size) {
-            case LARGE:
-                return random.nextInt(BIG_MAX_Y_SIZE - BIG_MIN_Y_SIZE) + BIG_MIN_Y_SIZE;
-            case MEDIUM:
-                return random.nextInt(MEDIUM_MAX_Y_SIZE - MEDIUM_MIN_Y_SIZE) + MEDIUM_MIN_Y_SIZE;
-            case SMALL:
-            default:
-                return random.nextInt(SMALL_MAX_Y_SIZE - SMALL_MIN_Y_SIZE) + SMALL_MIN_Y_SIZE;
-        }
+        return switch (size) {
+            case LARGE -> random.nextInt(BIG_MAX_Y_SIZE - BIG_MIN_Y_SIZE) + BIG_MIN_Y_SIZE;
+            case MEDIUM -> random.nextInt(MEDIUM_MAX_Y_SIZE - MEDIUM_MIN_Y_SIZE) + MEDIUM_MIN_Y_SIZE;
+            default -> random.nextInt(SMALL_MAX_Y_SIZE - SMALL_MIN_Y_SIZE) + SMALL_MIN_Y_SIZE;
+        };
     }
 }
