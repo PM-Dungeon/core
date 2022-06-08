@@ -29,8 +29,7 @@ public class PerlinNoiseGenerator implements IGenerator {
 
     @Override
     public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
-        final int seed = (int) (Math.random() * Integer.MAX_VALUE);
-        LOG.info("Seed: " + seed);
+        final long seed = (long) (Math.random() * Long.MAX_VALUE);
         return getLevel(designLabel, size, new Random(seed));
     }
 
@@ -79,7 +78,6 @@ public class PerlinNoiseGenerator implements IGenerator {
     private static NoiseArea generateNoiseArea(final LevelSize size, final Random randomGenerator) {
         final int width = getWidthFromLevelSize(size, randomGenerator);
         final int height = getHeightFromLevelSize(size, randomGenerator);
-        LOG.info("Level dimensions: " + width + " x " + height);
         int octavesAdd = 0;
         switch (size) {
             case LARGE:
