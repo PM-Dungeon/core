@@ -4,18 +4,27 @@ import static org.junit.Assert.assertNotNull;
 
 import level.elements.ILevel;
 import level.generator.perlinNoise.PerlinNoiseGenerator;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+@RunWith(Parameterized.class)
 public class PerlinNoiseGeneratorTest {
 
-    private PerlinNoiseGenerator generator;
     private ILevel level;
 
-    @Before
-    public void setup() {
-        generator = new PerlinNoiseGenerator();
-        level = generator.getLevel();
+    @Parameterized.Parameters
+    public static ILevel[] data() {
+        PerlinNoiseGenerator generator = new PerlinNoiseGenerator();
+        ILevel[] params = new ILevel[10];
+        for (int i = 0; i < params.length; i++) {
+            params[i] = generator.getLevel();
+        }
+        return params;
+    }
+
+    public PerlinNoiseGeneratorTest(ILevel level) {
+        this.level = level;
     }
 
     @Test

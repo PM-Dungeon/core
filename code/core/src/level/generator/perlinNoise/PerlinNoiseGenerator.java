@@ -12,6 +12,7 @@ import level.tools.LevelSize;
 import level.tools.TileTextureFactory;
 
 public class PerlinNoiseGenerator implements IGenerator {
+    private static final Random GLOBAL_RANDOM = new Random();
     private static final int SMALL_MIN_X_SIZE = 30;
     private static final int SMALL_MIN_Y_SIZE = 30;
     private static final int SMALL_MAX_X_SIZE = 40;
@@ -27,8 +28,7 @@ public class PerlinNoiseGenerator implements IGenerator {
 
     @Override
     public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
-        final long seed = (long) (Math.random() * Long.MAX_VALUE);
-        return getLevel(designLabel, size, new Random(seed));
+        return getLevel(designLabel, size, GLOBAL_RANDOM);
     }
 
     /**

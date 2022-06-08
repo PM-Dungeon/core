@@ -141,7 +141,7 @@ public class NoiseArea {
                 }
             }
         }
-        return alRes.toArray(new NoiseArea[alRes.size()]);
+        return alRes.toArray(new NoiseArea[0]);
     }
 
     private static boolean[][] floodFill(
