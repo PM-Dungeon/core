@@ -2,7 +2,7 @@ package level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
-import level.elements.Level;
+import level.elements.ILevel;
 import level.elements.Tile;
 import level.generator.IGenerator;
 import level.tools.DesignLabel;
@@ -15,7 +15,7 @@ public class LevelAPI {
     private final Painter painter;
     private final IOnLevelLoader onLevelLoader;
     private IGenerator gen;
-    private Level currentLevel;
+    private ILevel currentLevel;
 
     /**
      * @param batch Batch on which to draw.
@@ -55,21 +55,33 @@ public class LevelAPI {
         drawLevel();
     }
 
-    public Level getCurrentLevel() {
+    /**
+     * @return The currently loaded level.
+     */
+    public ILevel getCurrentLevel() {
         return currentLevel;
     }
 
-    private void drawLevel() {
+    protected void drawLevel() {
         Tile[][] layout = currentLevel.getLayout();
-        for (int y = 0; y < layout.length; y++)
+        for (int y = 0; y < layout.length; y++) {
             for (int x = 0; x < layout[0].length; x++) {
                 Tile t = layout[y][x];
-                if (t.getLevelElement() != LevelElement.SKIP)
+                if (t.getLevelElement() != LevelElement.SKIP) {
                     painter.draw(
                             t.getTexturePath(),
                             new Point(t.getCoordinate().x, t.getCoordinate().y),
                             batch);
+                }
             }
+        }
+    }
+
+    /**
+     * @return The currently used Level-Generator
+     */
+    public IGenerator getGenerator() {
+        return gen;
     }
 
     /**
@@ -81,16 +93,12 @@ public class LevelAPI {
         gen = generator;
     }
 
-    public IGenerator getGenerator() {
-        return gen;
-    }
-
     /**
      * Sets the current level to the given level and calls onLevelLoad().
      *
      * @param level The level to be set.
      */
-    public void setLevel(Level level) {
+    public void setLevel(ILevel level) {
         currentLevel = level;
         onLevelLoader.onLevelLoad();
     }

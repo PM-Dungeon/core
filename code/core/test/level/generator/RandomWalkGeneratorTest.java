@@ -2,7 +2,7 @@ package level.generator;
 
 import static org.junit.Assert.assertNotNull;
 
-import level.elements.Level;
+import level.elements.ILevel;
 import level.generator.randomwalk.RandomWalkGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import org.junit.Test;
 public class RandomWalkGeneratorTest {
 
     private RandomWalkGenerator generator;
-    private Level level;
+    private ILevel level;
 
     @Before
     public void setup() {

@@ -15,12 +15,12 @@ import level.tools.LevelElement;
  * @author Andre Matutat
  */
 public class Tile {
-    private LevelElement elementType;
-    private DesignLabel designLabel;
-    private final Coordinate globalPosition;
-    private String texturePath;
-    private transient Array<Connection<Tile>> connections = new Array<>();
-    private int index;
+    protected final Coordinate globalPosition;
+    protected LevelElement elementType;
+    protected DesignLabel designLabel;
+    protected String texturePath;
+    protected transient Array<Connection<Tile>> connections = new Array<>();
+    protected int index;
 
     /**
      * Creates a new Tile.
@@ -46,14 +46,7 @@ public class Tile {
      * @return true if the tile is floor or exit; false if it is a wall or empty.
      */
     public boolean isAccessible() {
-        switch (elementType) {
-            case FLOOR:
-            case EXIT:
-                return true;
-            case WALL:
-            default:
-                return false;
-        }
+        return elementType.getValue();
     }
 
     /**
@@ -67,6 +60,9 @@ public class Tile {
         this.texturePath = texture;
     }
 
+    /**
+     * @return path to the texture of this tile
+     */
     public String getTexturePath() {
         return texturePath;
     }
@@ -78,28 +74,36 @@ public class Tile {
         return globalPosition;
     }
 
+    /**
+     * @return The LevelElement of this tile
+     */
     public LevelElement getLevelElement() {
         return elementType;
     }
 
+    /**
+     * @return the DesignLabel of this tile
+     */
     public DesignLabel getDesignLabel() {
         return designLabel;
     }
 
-    // --------------------------- For LibGDX Pathfinding ---------------------------
-    public enum Direction {
-        N,
-        E,
-        S,
-        W,
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
+    /**
+     * Used by libGDX pathfinding
+     *
+     * @return the index of this tile
+     */
     public int getIndex() {
         return index;
+    }
+
+    /**
+     * Used by libGDX pathfinding
+     *
+     * @param index value of the index
+     */
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     /**
@@ -109,10 +113,17 @@ public class Tile {
      * @param to Tile to connect with.
      */
     public void addConnection(Tile to) {
-        if (connections == null) connections = new Array<>();
+        if (connections == null) {
+            connections = new Array<>();
+        }
         connections.add(new TileConnection(this, to));
     }
 
+    /**
+     * Used by libGDX pathfinding
+     *
+     * @return all connections to other tiles
+     */
     public Array<Connection<Tile>> getConnections() {
         return connections;
     }
@@ -136,6 +147,14 @@ public class Tile {
             directions.add(Direction.S);
         }
         return directions.toArray(new Direction[0]);
+    }
+
+    // --------------------------- For LibGDX Pathfinding ---------------------------
+    public enum Direction {
+        N,
+        E,
+        S,
+        W,
     }
 
     // --------------------------- End LibGDX Pathfinding ---------------------------

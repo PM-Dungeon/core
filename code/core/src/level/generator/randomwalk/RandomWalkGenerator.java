@@ -1,7 +1,8 @@
 package level.generator.randomwalk;
 
 import java.util.Random;
-import level.elements.Level;
+import level.elements.ILevel;
+import level.elements.TileLevel;
 import level.generator.IGenerator;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
@@ -10,55 +11,51 @@ import level.tools.LevelSize;
 
 public class RandomWalkGenerator implements IGenerator {
 
-    private final int SMALL_MIN_X_SIZE = 10;
-    private final int SMALL_MIN_Y_SIZE = 10;
-    private final int SMALL_MAX_X_SIZE = 30;
-    private final int SMALL_MAX_Y_SIZE = 30;
-    private final int MEDIUM_MIN_X_SIZE = 30;
-    private final int MEDIUM_MIN_Y_SIZE = 30;
-    private final int MEDIUM_MAX_X_SIZE = 100;
-    private final int MEDIUM_MAX_Y_SIZE = 100;
-    private final int BIG_MIN_X_SIZE = 100;
-    private final int BIG_MIN_Y_SIZE = 100;
-    private final int BIG_MAX_X_SIZE = 300;
-    private final int BIG_MAX_Y_SIZE = 300;
-    private final int MIN_STEPS_FACTOR = 4;
-    private final int MAX_STEPS_FACTOR = 2;
-    private static Random random = new Random();
+    private static final Random random = new Random();
+    private static final int SMALL_MIN_X_SIZE = 10;
+    private static final int SMALL_MIN_Y_SIZE = 10;
+    private static final int SMALL_MAX_X_SIZE = 30;
+    private static final int SMALL_MAX_Y_SIZE = 30;
+    private static final int MEDIUM_MIN_X_SIZE = 30;
+    private static final int MEDIUM_MIN_Y_SIZE = 30;
+    private static final int MEDIUM_MAX_X_SIZE = 100;
+    private static final int MEDIUM_MAX_Y_SIZE = 100;
+    private static final int BIG_MIN_X_SIZE = 100;
+    private static final int BIG_MIN_Y_SIZE = 100;
+    private static final int BIG_MAX_X_SIZE = 300;
+    private static final int BIG_MAX_Y_SIZE = 300;
+    private static final int MIN_STEPS_FACTOR = 4;
+    private static final int MAX_STEPS_FACTOR = 2;
 
     @Override
-    public Level getLevel(DesignLabel designLabel, LevelSize size) {
-        switch (size) {
-            case SMALL:
-                return new Level(
-                        drunkWalk(
-                                SMALL_MIN_X_SIZE,
-                                SMALL_MAX_X_SIZE,
-                                SMALL_MIN_Y_SIZE,
-                                SMALL_MAX_Y_SIZE),
-                        designLabel);
-            case MEDIUM:
-            default:
-                return new Level(
-                        drunkWalk(
-                                MEDIUM_MIN_X_SIZE,
-                                MEDIUM_MAX_X_SIZE,
-                                MEDIUM_MIN_Y_SIZE,
-                                MEDIUM_MAX_Y_SIZE),
-                        designLabel);
-            case LARGE:
-                return new Level(
-                        drunkWalk(BIG_MIN_X_SIZE, BIG_MAX_X_SIZE, BIG_MIN_Y_SIZE, BIG_MAX_Y_SIZE),
-                        designLabel);
-        }
+    public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
+        return switch (size) {
+            case SMALL -> new TileLevel(
+                    drunkWalk(
+                            SMALL_MIN_X_SIZE, SMALL_MAX_X_SIZE, SMALL_MIN_Y_SIZE, SMALL_MAX_Y_SIZE),
+                    designLabel);
+            case LARGE -> new TileLevel(
+                    drunkWalk(BIG_MIN_X_SIZE, BIG_MAX_X_SIZE, BIG_MIN_Y_SIZE, BIG_MAX_Y_SIZE),
+                    designLabel);
+            default -> new TileLevel(
+                    drunkWalk(
+                            MEDIUM_MIN_X_SIZE,
+                            MEDIUM_MAX_X_SIZE,
+                            MEDIUM_MIN_Y_SIZE,
+                            MEDIUM_MAX_Y_SIZE),
+                    designLabel);
+        };
     }
 
     private LevelElement[][] drunkWalk(int minX, int maxX, int minY, int maxY) {
         int xSize = random.nextInt(minX, maxX);
         int ySize = random.nextInt(minY, maxY);
         LevelElement[][] layout = new LevelElement[ySize][xSize];
-        for (int y = 0; y < ySize; y++)
-            for (int x = 0; x < xSize; x++) layout[y][x] = LevelElement.SKIP;
+        for (int y = 0; y < ySize; y++) {
+            for (int x = 0; x < xSize; x++) {
+                layout[y][x] = LevelElement.SKIP;
+            }
+        }
 
         Coordinate position = new Coordinate(random.nextInt(0, xSize), random.nextInt(0, ySize));
         int steps =

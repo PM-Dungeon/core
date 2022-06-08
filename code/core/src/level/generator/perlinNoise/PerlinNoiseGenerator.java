@@ -2,8 +2,9 @@ package level.generator.perlinNoise;
 
 import java.util.Random;
 import java.util.logging.Logger;
-import level.elements.Level;
+import level.elements.ILevel;
 import level.elements.Tile;
+import level.elements.TileLevel;
 import level.generator.IGenerator;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
@@ -27,7 +28,7 @@ public class PerlinNoiseGenerator implements IGenerator {
     private static final int BIG_MAX_Y_SIZE = 300;
 
     @Override
-    public Level getLevel(DesignLabel designLabel, LevelSize size) {
+    public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
         final int seed = (int) (Math.random() * Integer.MAX_VALUE);
         LOG.info("Seed: " + seed);
         return getLevel(designLabel, size, new Random(seed));
@@ -41,7 +42,7 @@ public class PerlinNoiseGenerator implements IGenerator {
      * @param seed seed of level
      * @return The level.
      */
-    public Level getLevel(long seed) {
+    public ILevel getLevel(long seed) {
         final Random random = new Random(seed);
         DesignLabel designLabel = DesignLabel.values()[random.nextInt(DesignLabel.values().length)];
         LevelSize size = LevelSize.values()[random.nextInt(LevelSize.values().length)];
@@ -56,11 +57,11 @@ public class PerlinNoiseGenerator implements IGenerator {
      * @param random Random Object used to generate the level
      * @return the generated Level
      */
-    public Level getLevel(DesignLabel designLabel, LevelSize size, final Random random) {
+    public ILevel getLevel(DesignLabel designLabel, LevelSize size, final Random random) {
         // playing field
         final NoiseArea playingArea = generateNoiseArea(size, random);
         LevelElement[][] elements = toLevelElementArray(playingArea);
-        Level generatedLevel = new Level(toTilesArray(elements, designLabel));
+        TileLevel generatedLevel = new TileLevel(toTilesArray(elements, designLabel));
 
         // end tile
         final Tile end = generatedLevel.getEndTile();

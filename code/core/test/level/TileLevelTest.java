@@ -5,8 +5,8 @@ import static org.mockito.Mockito.when;
 
 import basiselements.Entity;
 import com.badlogic.gdx.ai.pfa.GraphPath;
-import level.elements.Level;
 import level.elements.Tile;
+import level.elements.TileLevel;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
 import level.tools.LevelElement;
@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import tools.Point;
 
-public class LevelTest {
+public class TileLevelTest {
 
-    private Level level;
+    private TileLevel tileLevel;
     private Tile[][] layout;
     private Tile endTile;
     private Tile startTile;
@@ -25,27 +25,29 @@ public class LevelTest {
     @Before
     public void setup() {
         layout = new Tile[3][3];
-        for (int x = 0; x < 3; x++)
+        for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                if (x < 2)
+                if (x < 2) {
                     layout[y][x] =
                             new Tile(
                                     "",
                                     new Coordinate(x, y),
                                     LevelElement.FLOOR,
                                     DesignLabel.DEFAULT);
-                else
+                } else {
                     layout[y][x] =
                             new Tile(
                                     "",
                                     new Coordinate(x, y),
                                     LevelElement.WALL,
                                     DesignLabel.DEFAULT);
+                }
             }
+        }
 
-        level = new Level(layout);
-        endTile = level.getEndTile();
-        startTile = level.getStartTile();
+        tileLevel = new TileLevel(layout);
+        endTile = tileLevel.getEndTile();
+        startTile = tileLevel.getStartTile();
     }
 
     @Test
@@ -55,10 +57,10 @@ public class LevelTest {
         elementsLayout[0][1] = LevelElement.FLOOR;
         elementsLayout[1][0] = LevelElement.WALL;
         elementsLayout[1][1] = LevelElement.FLOOR;
-        level = new Level(elementsLayout, DesignLabel.DEFAULT);
-        Tile[][] layout = level.getLayout();
-        assertTrue(elementsLayout[0][0] == layout[0][0].getLevelElement());
-        assertTrue(elementsLayout[1][0] == layout[1][0].getLevelElement());
+        tileLevel = new TileLevel(elementsLayout, DesignLabel.DEFAULT);
+        Tile[][] layout = tileLevel.getLayout();
+        assertSame(elementsLayout[0][0], layout[0][0].getLevelElement());
+        assertSame(elementsLayout[1][0], layout[1][0].getLevelElement());
         assertTrue(
                 elementsLayout[0][1] == layout[0][1].getLevelElement()
                         || LevelElement.EXIT == layout[0][1].getLevelElement());
@@ -70,17 +72,19 @@ public class LevelTest {
     @Test
     public void test_findPath_onlyOnePathPossible() {
         layout = new Tile[3][3];
-        for (int x = 0; x < 3; x++)
-            for (int y = 0; y < 3; y++)
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
                 layout[y][x] =
                         new Tile("", new Coordinate(x, y), LevelElement.FLOOR, DesignLabel.DEFAULT);
+            }
+        }
         layout[1][1] = new Tile("", new Coordinate(1, 1), LevelElement.WALL, DesignLabel.DEFAULT);
         layout[0][1] = new Tile("", new Coordinate(0, 1), LevelElement.WALL, DesignLabel.DEFAULT);
-        level = new Level(layout);
-        level.setStartTile(layout[0][0]);
-        level.setEndTile(layout[0][2]);
-        /** How the level layout looks: (S=start, W=Wall,F=Floor,E=exit) SWE FWF FFF */
-        GraphPath<Tile> path = level.findPath(level.getStartTile(), level.getEndTile());
+        tileLevel = new TileLevel(layout);
+        tileLevel.setStartTile(layout[0][0]);
+        tileLevel.setEndTile(layout[0][2]);
+        /* How the level layout looks: (S=start, W=Wall,F=Floor,E=exit) SWE FWF FFF */
+        GraphPath<Tile> path = tileLevel.findPath(tileLevel.getStartTile(), tileLevel.getEndTile());
         assertEquals(7, path.getCount());
         assertEquals(layout[0][0], path.get(0));
         assertEquals(layout[1][0], path.get(1));
@@ -94,17 +98,19 @@ public class LevelTest {
     @Test
     public void test_findPath_moreThanOnePathPossible() {
         layout = new Tile[3][3];
-        for (int x = 0; x < 3; x++)
-            for (int y = 0; y < 3; y++)
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
                 layout[y][x] =
                         new Tile("", new Coordinate(x, y), LevelElement.FLOOR, DesignLabel.DEFAULT);
+            }
+        }
         layout[0][1] = new Tile("", new Coordinate(0, 1), LevelElement.WALL, DesignLabel.DEFAULT);
-        level = new Level(layout);
-        level.setStartTile(layout[0][0]);
-        level.setEndTile(layout[0][2]);
-        /** How the level layout looks: (S=start, W=Wall,F=Floor,E=exit) SWE FFF FFF */
+        tileLevel = new TileLevel(layout);
+        tileLevel.setStartTile(layout[0][0]);
+        tileLevel.setEndTile(layout[0][2]);
+        /* How the level layout looks: (S=start, W=Wall,F=Floor,E=exit) SWE FFF FFF */
         // should take the shortest path
-        GraphPath<Tile> path = level.findPath(level.getStartTile(), level.getEndTile());
+        GraphPath<Tile> path = tileLevel.findPath(tileLevel.getStartTile(), tileLevel.getEndTile());
         assertEquals(5, path.getCount());
         assertEquals(layout[0][0], path.get(0));
         assertEquals(layout[1][0], path.get(1));
@@ -117,85 +123,84 @@ public class LevelTest {
     public void test_isOnEndTile() {
         Entity entity = Mockito.mock(Entity.class);
         when(entity.getPosition()).thenReturn(endTile.getCoordinate().toPoint());
-        assertTrue(level.isOnEndTile(entity));
+        assertTrue(tileLevel.isOnEndTile(entity));
         when(entity.getPosition()).thenReturn(startTile.getCoordinate().toPoint());
-        assertFalse(level.isOnEndTile(entity));
+        assertFalse(tileLevel.isOnEndTile(entity));
     }
 
     @Test
     public void test_getTileAt() {
-        assertEquals(layout[1][2], level.getTileAt(new Coordinate(2, 1)));
+        assertEquals(layout[1][2], tileLevel.getTileAt(new Coordinate(2, 1)));
     }
 
     @Test
     public void test_getRandomTile() {
-        assertNotNull(level.getRandomTile());
+        assertNotNull(tileLevel.getRandomTile());
     }
 
     @Test
     public void test_getRandomTile_WithElementType() {
-        Point randomWallPoint = level.getRandomTilePoint(LevelElement.WALL);
+        Point randomWallPoint = tileLevel.getRandomTilePoint(LevelElement.WALL);
         assertNotNull(randomWallPoint);
-        Tile randomWall = level.getTileAt(randomWallPoint.toCoordinate());
+        Tile randomWall = tileLevel.getTileAt(randomWallPoint.toCoordinate());
         assertNotNull(randomWall);
         assertEquals(LevelElement.WALL, randomWall.getLevelElement());
-        /* Point randomFloorPoint = level.getRandomTilePoint(LevelElement.FLOOR);
-        assertNotNull(randomFloorPoint);
-        Tile randomFloor = level.getTileAt(randomFloorPoint.toCoordinate());
-        assertNotNull(randomWall);
-        assertEquals(LevelElement.FLOOR, randomFloor.getLevelElement());*/
     }
 
     @Test
     public void test_getRandomTilePoint() {
-        Point randomPoint = level.getRandomTilePoint();
+        Point randomPoint = tileLevel.getRandomTilePoint();
         assertNotNull(randomPoint);
-        assertNotNull(level.getTileAt(randomPoint.toCoordinate()));
+        assertNotNull(tileLevel.getTileAt(randomPoint.toCoordinate()));
     }
 
     @Test
     public void test_getRandomTilePoint_WithElementType() {
-        Point randomWallPoint = level.getRandomTilePoint(LevelElement.WALL);
-        Point randomFloorPoint = level.getRandomTilePoint(LevelElement.FLOOR);
-        Tile randomWall = level.getTileAt(randomWallPoint.toCoordinate());
-        Tile randomFloor = level.getTileAt(randomFloorPoint.toCoordinate());
+        Point randomWallPoint = tileLevel.getRandomTilePoint(LevelElement.WALL);
+        Point randomFloorPoint = tileLevel.getRandomTilePoint(LevelElement.FLOOR);
+        Tile randomWall = tileLevel.getTileAt(randomWallPoint.toCoordinate());
+        Tile randomFloor = tileLevel.getTileAt(randomFloorPoint.toCoordinate());
         assertEquals(LevelElement.WALL, randomWall.getLevelElement());
         assertEquals(LevelElement.FLOOR, randomFloor.getLevelElement());
     }
 
     @Test
     public void test_getLayout() {
-        assertArrayEquals(layout, level.getLayout());
+        assertArrayEquals(layout, tileLevel.getLayout());
     }
 
     @Test
     public void test_setStartTile() {
         Tile newStart = layout[2][2];
-        level.setStartTile(newStart);
+        tileLevel.setStartTile(newStart);
         assertEquals(LevelElement.FLOOR, newStart.getLevelElement());
-        assertEquals(newStart, level.getStartTile());
+        assertEquals(newStart, tileLevel.getStartTile());
     }
 
     @Test
     public void test_setEndTile() {
         Tile newEnd = layout[2][2];
-        level.setEndTile(newEnd);
+        tileLevel.setEndTile(newEnd);
         assertEquals(LevelElement.FLOOR, endTile.getLevelElement());
         assertEquals(LevelElement.EXIT, newEnd.getLevelElement());
-        assertEquals(newEnd, level.getEndTile());
+        assertEquals(newEnd, tileLevel.getEndTile());
     }
 
     @Test
     public void test_toString() {
-        String compareString = "";
-        for (int y = 0; y < layout.length; y++) {
+        StringBuilder compareString = new StringBuilder();
+        for (Tile[] tiles : layout) {
             for (int x = 0; x < layout[0].length; x++) {
-                if (layout[y][x].getLevelElement() == LevelElement.FLOOR) compareString += "F";
-                else if (layout[y][x].getLevelElement() == LevelElement.WALL) compareString += "W";
-                else compareString += "E";
+                if (tiles[x].getLevelElement() == LevelElement.FLOOR) {
+                    compareString.append("F");
+                } else if (tiles[x].getLevelElement() == LevelElement.WALL) {
+                    compareString.append("W");
+                } else {
+                    compareString.append("E");
+                }
             }
-            compareString += "\n";
+            compareString.append("\n");
         }
-        assertEquals(compareString, level.printLevel());
+        assertEquals(compareString.toString(), tileLevel.printLevel());
     }
 }

@@ -5,8 +5,9 @@ import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
-import level.elements.Level;
+import level.elements.ILevel;
 import level.elements.Tile;
+import level.elements.TileLevel;
 import level.generator.IGenerator;
 import level.tools.Coordinate;
 import level.tools.DesignLabel;
@@ -15,14 +16,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class LevelAPITest {
+public class TileLevelAPITest {
 
     private LevelAPI api;
     private IGenerator generator;
     private Painter painter;
     private SpriteBatch batch;
     private IOnLevelLoader onLevelLoader;
-    private Level level;
+    private ILevel level;
 
     @Before
     public void setup() {
@@ -30,7 +31,7 @@ public class LevelAPITest {
         painter = Mockito.mock(Painter.class);
         generator = Mockito.mock(IGenerator.class);
         onLevelLoader = Mockito.mock(IOnLevelLoader.class);
-        level = Mockito.mock(Level.class);
+        level = Mockito.mock(TileLevel.class);
         api = new LevelAPI(batch, painter, generator, onLevelLoader);
     }
 

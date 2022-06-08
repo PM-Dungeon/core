@@ -20,6 +20,11 @@ public final class Constants {
     /** 200% zoom. */
     public static final float DEFAULT_ZOOM_FACTOR = 0.5f;
 
+    /** Value for LevelElements that are accessible */
+    public static final boolean LEVELELEMENT_IS_ACCESSIBLE = true;
+    /** Value for LevelElements that are not accessible */
+    public static final boolean LEVELELEMENT_IS_NOT_ACCESSIBLE = false;
+
     /** Sets the window title for the LibGDX window. */
     public static final String WINDOW_TITLE = "PM-Dungeon";
 
@@ -30,6 +35,7 @@ public final class Constants {
      * @param path the relative path to the resource
      * @return the absolute path of the internal resource
      */
+    @SuppressWarnings("unused")
     private static String getResourceString(String path) {
         URL url = ClassLoader.getSystemClassLoader().getResource(path);
         assert (url != null);
