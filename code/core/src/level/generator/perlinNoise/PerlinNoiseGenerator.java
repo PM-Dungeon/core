@@ -1,7 +1,6 @@
 package level.generator.perlinNoise;
 
 import java.util.Random;
-import java.util.logging.Logger;
 import level.elements.ILevel;
 import level.elements.Tile;
 import level.elements.TileLevel;
@@ -138,7 +137,8 @@ public class PerlinNoiseGenerator implements IGenerator {
     private static int getWidthFromLevelSize(LevelSize size, Random random) {
         return switch (size) {
             case LARGE -> random.nextInt(BIG_MAX_X_SIZE - BIG_MIN_X_SIZE) + BIG_MIN_X_SIZE;
-            case MEDIUM -> random.nextInt(MEDIUM_MAX_X_SIZE - MEDIUM_MIN_X_SIZE) + MEDIUM_MIN_X_SIZE;
+            case MEDIUM -> random.nextInt(MEDIUM_MAX_X_SIZE - MEDIUM_MIN_X_SIZE)
+                    + MEDIUM_MIN_X_SIZE;
             default -> random.nextInt(SMALL_MAX_X_SIZE - SMALL_MIN_X_SIZE) + SMALL_MIN_X_SIZE;
         };
     }
@@ -146,7 +146,8 @@ public class PerlinNoiseGenerator implements IGenerator {
     private static int getHeightFromLevelSize(LevelSize size, Random random) {
         return switch (size) {
             case LARGE -> random.nextInt(BIG_MAX_Y_SIZE - BIG_MIN_Y_SIZE) + BIG_MIN_Y_SIZE;
-            case MEDIUM -> random.nextInt(MEDIUM_MAX_Y_SIZE - MEDIUM_MIN_Y_SIZE) + MEDIUM_MIN_Y_SIZE;
+            case MEDIUM -> random.nextInt(MEDIUM_MAX_Y_SIZE - MEDIUM_MIN_Y_SIZE)
+                    + MEDIUM_MIN_Y_SIZE;
             default -> random.nextInt(SMALL_MAX_Y_SIZE - SMALL_MIN_Y_SIZE) + SMALL_MIN_Y_SIZE;
         };
     }

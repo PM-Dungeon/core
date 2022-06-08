@@ -2,10 +2,11 @@ package level.generator.perlinNoise;
 
 import java.util.Random;
 
-/** 
+/**
  * Class generating a perlin noise array
- * 
- * Source: <a href="https://flafla2.github.io/2014/08/09/perlinnoise.html">Blog by Flafla2 (09 August 2014)</a>
+ *
+ * <p>Source: <a href="https://flafla2.github.io/2014/08/09/perlinnoise.html">Blog by Flafla2 (09
+ * August 2014)</a>
  */
 public class PerlinNoise {
     private final int repetitionWidth;
