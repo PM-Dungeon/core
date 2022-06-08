@@ -14,18 +14,18 @@ import level.tools.TileTextureFactory;
 
 public class PerlinNoiseGenerator implements IGenerator {
     public static final Logger LOG = Logger.getLogger(PerlinNoiseGenerator.class.getName());
-    private static final int SMALL_MIN_X_SIZE = 10;
-    private static final int SMALL_MIN_Y_SIZE = 10;
-    private static final int SMALL_MAX_X_SIZE = 30;
-    private static final int SMALL_MAX_Y_SIZE = 30;
-    private static final int MEDIUM_MIN_X_SIZE = 30;
-    private static final int MEDIUM_MIN_Y_SIZE = 30;
-    private static final int MEDIUM_MAX_X_SIZE = 100;
-    private static final int MEDIUM_MAX_Y_SIZE = 100;
-    private static final int BIG_MIN_X_SIZE = 100;
-    private static final int BIG_MIN_Y_SIZE = 100;
-    private static final int BIG_MAX_X_SIZE = 300;
-    private static final int BIG_MAX_Y_SIZE = 300;
+    private static final int SMALL_MIN_X_SIZE = 30;
+    private static final int SMALL_MIN_Y_SIZE = 30;
+    private static final int SMALL_MAX_X_SIZE = 40;
+    private static final int SMALL_MAX_Y_SIZE = 40;
+    private static final int MEDIUM_MIN_X_SIZE = 40;
+    private static final int MEDIUM_MIN_Y_SIZE = 40;
+    private static final int MEDIUM_MAX_X_SIZE = 80;
+    private static final int MEDIUM_MAX_Y_SIZE = 80;
+    private static final int BIG_MIN_X_SIZE = 80;
+    private static final int BIG_MIN_Y_SIZE = 80;
+    private static final int BIG_MAX_X_SIZE = 150;
+    private static final int BIG_MAX_Y_SIZE = 150;
 
     @Override
     public ILevel getLevel(DesignLabel designLabel, LevelSize size) {
