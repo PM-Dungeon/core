@@ -10,6 +10,10 @@ plugins {
     id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
     // OWASP, Vulnerability scanner for security in dependencies: "./gradlew dependencyCheckAnalyze"
     id "org.owasp.dependencycheck" version "7.+"
+    // HTML:
+    id "org.wisepersist.gwt" version "1.+"
+    id "org.gretty" version "4.+"
+    id "war"
 }
 
 group = "io.github.pm-dungeon"
@@ -53,6 +57,13 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: "com.google.code.gson", name: "gson", version: gsonVersion
+
+    // HTML:
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
 }
 
 test {
@@ -205,7 +216,10 @@ sourceSets.main.resources.srcDirs = ["assets/"]
 project.ext.assetsDir = new File("assets")
 project.ext.mainClassName = "starter.DefaultMainController"
 
+
+import org.akhikhl.gretty.AppBeforeIntegrationTestTask
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+import org.wisepersist.gradle.plugins.gwt.GwtSuperDev
 
 task run(dependsOn: classes, type: JavaExec) {
     mainClass = project.mainClassName
@@ -233,3 +247,90 @@ task debug(dependsOn: classes, type: JavaExec) {
         println(DefaultNativePlatform.currentOperatingSystem)
     }
 }
+
+// HTML:
+
+gwt {
+    gwtVersion = "2.9.0" // Should match the gwt version used for building the gwt backend
+    maxHeapSize = "1G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
+    minHeapSize = "1G"
+
+    src = files(file("src/")) // Needs to be in front of "modules" below.
+    modules "GdxDefinition"
+    devModules "GdxDefinitionSuperdev"
+    project.webAppDirName = "webapp"
+
+    compiler {
+        strict = true;
+        disableCastChecking = true;
+    }
+}
+
+gretty.httpPort = 8080
+gretty.resourceBase = project.buildDir.path + "/gwt/draftOut"
+gretty.contextPath = "/"
+gretty.portPropertiesFileName = "TEMP_PORTS.properties"
+
+task startHttpServer() {
+    dependsOn draftCompileGwt
+
+    doFirst {
+        copy {
+            from "webapp"
+            into gretty.resourceBase
+        }
+
+        copy {
+            from "war"
+            into gretty.resourceBase
+        }
+    }
+}
+
+task beforeRun(type: AppBeforeIntegrationTestTask, dependsOn: startHttpServer) {
+    // The next line allows ports to be reused instead of
+    // needing a process to be manually terminated.
+    file("build/TEMP_PORTS.properties").delete()
+    // Somewhat of a hack; uses Gretty"s support for wrapping a task in
+    // a start and then stop of a Jetty server that serves files while
+    // also running the SuperDev code server.
+    integrationTestTask "superDev"
+
+    interactive false
+}
+
+task superDev(type: GwtSuperDev) {
+    dependsOn startHttpServer
+    doFirst {
+        gwt.modules = gwt.devModules
+    }
+}
+
+task dist(dependsOn: [clean, compileGwt]) {
+    doLast {
+        file("build/dist").mkdirs()
+        copy {
+            from "build/gwt/out"
+            into "build/dist"
+        }
+        copy {
+            from "webapp"
+            into "build/dist"
+        }
+        copy {
+            from "war"
+            into "build/dist"
+        }
+    }
+}
+
+task addSource {
+    doLast {
+        sourceSets.main.compileClasspath += files(sourceSets.main.java.srcDirs)
+    }
+}
+
+tasks.compileGwt.dependsOn(addSource)
+tasks.draftCompileGwt.dependsOn(addSource)
+
+// eclipse.project.name = "pm-dungeon-html"
