@@ -15,6 +15,16 @@ public class DefaultMainController extends MainController {
     private int zoomLevel = 10;
     private MenuScreen menuScreen;
 
+    /**
+     * The program entry point to start the dungeon.
+     *
+     * @param args command line arguments, but not needed.
+     */
+    public static void main(String[] args) {
+        // start the game
+        DesktopLauncher.run(new DefaultMainController());
+    }
+
     @Override
     protected void setup() {
         // set the default generator
@@ -59,7 +69,6 @@ public class DefaultMainController extends MainController {
         }
     }
 
-    @Override
     public void onLevelLoad() {}
 
     private void createMenuScreen() {
@@ -82,15 +91,5 @@ public class DefaultMainController extends MainController {
         demoEntry.add(item1);
         demoEntry.add(item2);
         menuScreen.addMenuScreenEntry(demoEntry);
-    }
-
-    /**
-     * The program entry point to start the dungeon.
-     *
-     * @param args command line arguments, but not needed.
-     */
-    public static void main(String[] args) {
-        // start the game
-        DesktopLauncher.run(new DefaultMainController());
     }
 }
