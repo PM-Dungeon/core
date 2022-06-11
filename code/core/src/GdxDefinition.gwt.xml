@@ -5,11 +5,11 @@
     <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt"/>
     <inherits name="com.badlogic.gdx.physics.box2d.box2d-gwt"/>
 
-    <inherits name="GwtXmlFiles/GdxDefinition"/>
+    <inherits name="MyGdxGame"/>
+    <entry-point class="starterhtml.HtmlLauncher"/>
 
-    <collapse-all-properties/>
-
-    <add-linker name="xsiframe"/>
-    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
     <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
+    <set-configuration-property name="gdx.assetpath" value="assets"/>
+    <set-property name="user.agent" value="gecko1_8, safari"/>
+    <collapse-property name="user.agent" values="*"/>
 </module>
