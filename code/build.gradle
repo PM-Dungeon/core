@@ -255,7 +255,7 @@ gwt {
     maxHeapSize = "1G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
     minHeapSize = "1G"
 
-    src = files(file("src/")) // Needs to be in front of "modules" below.
+    src = files(file("core/src/GwtXmlFiles")) // Needs to be in front of "modules" below.
     modules "GdxDefinition"
     devModules "GdxDefinitionSuperdev"
     project.webAppDirName = "webapp"

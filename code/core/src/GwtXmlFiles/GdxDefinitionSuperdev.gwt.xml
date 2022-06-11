@@ -5,7 +5,7 @@
     <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt"/>
     <inherits name="com.badlogic.gdx.physics.box2d.box2d-gwt"/>
 
-    <inherits name="GdxDefinition"/>
+    <inherits name="GwtXmlFiles/GdxDefinition"/>
 
     <collapse-all-properties/>
 

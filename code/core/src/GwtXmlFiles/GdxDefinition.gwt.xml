@@ -5,7 +5,7 @@
     <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt"/>
     <inherits name="com.badlogic.gdx.physics.box2d.box2d-gwt"/>
 
-    <inherits name="MyGdxGame"/>
+    <inherits name="GwtXmlFiles/MyGdxGame"/>
     <entry-point class="starterhtml.HtmlLauncher"/>
 
     <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
