@@ -216,10 +216,11 @@ sourceSets.main.resources.srcDirs = ["assets/"]
 project.ext.assetsDir = new File("assets")
 project.ext.mainClassName = "starter.DefaultMainController"
 
-
 import org.akhikhl.gretty.AppBeforeIntegrationTestTask
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.wisepersist.gradle.plugins.gwt.GwtSuperDev
+
+// gretty and gwt are html imports
 
 task run(dependsOn: classes, type: JavaExec) {
     mainClass = project.mainClassName
@@ -252,8 +253,8 @@ task debug(dependsOn: classes, type: JavaExec) {
 
 gwt {
     gwtVersion = "2.9.0" // Should match the gwt version used for building the gwt backend
-    maxHeapSize = "1G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
-    minHeapSize = "1G"
+    maxHeapSize = "2G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
+    minHeapSize = "2G"
 
     src = files(file("core/src/GwtXmlFiles")) // Needs to be in front of "modules" below.
     modules "GdxDefinition"
