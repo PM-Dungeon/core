@@ -7,6 +7,9 @@
     <inherits name="controller"/>
     <inherits name="graphic"/>
     <inherits name="level"/>
+    <inherits name="starter"/>
+    <inherits name="starterhtml"/>
     <inherits name="textures"/>
     <inherits name="tools"/>
+
 </module>
