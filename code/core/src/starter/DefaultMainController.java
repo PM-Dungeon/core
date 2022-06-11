@@ -69,6 +69,7 @@ public class DefaultMainController extends MainController {
         }
     }
 
+    @Override
     public void onLevelLoad() {}
 
     private void createMenuScreen() {
