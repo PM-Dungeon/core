@@ -5,10 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import controller.MainController;
-import menu.EntryListener;
-import menu.MenuScreen;
-import menu.MenuScreenDropEntry;
-import menu.MenuScreenEntry;
+import menu.*;
 import tools.Point;
 
 public class DefaultMainController extends MainController {
@@ -73,22 +70,24 @@ public class DefaultMainController extends MainController {
     public void onLevelLoad() {}
 
     private void createMenuScreen() {
-        // Trick: Register a "fake" HUDElement
-        menuScreen = new MenuScreen(hudPainter, hudBatch);
-        hudController.add(menuScreen);
+        MenuController menuController = new MenuController();
+        menuScreen = new MenuScreen();
+
+        menuController.add(menuScreen);
+        controller.add(menuController);
     }
 
     private void addDemoMenuEntries() {
-        EntryListener listener =
-                new EntryListener() {
+        MenuScreenItemListener listener =
+                new MenuScreenItemListener() {
                     @Override
                     public void whenClicked(InputEvent event, float x, float y) {
                         Gdx.app.log("CLICK", "TODO: An item clicked.");
                     }
                 };
         MenuScreenEntry demoEntry = new MenuScreenEntry("Demo 1");
-        MenuScreenDropEntry item1 = new MenuScreenDropEntry("Item 1", listener);
-        MenuScreenDropEntry item2 = new MenuScreenDropEntry("Item 2", listener);
+        MenuScreenItem item1 = new MenuScreenItem("Item 1", listener);
+        MenuScreenItem item2 = new MenuScreenItem("Item 2", listener);
         demoEntry.add(item1);
         demoEntry.add(item2);
         menuScreen.addMenuScreenEntry(demoEntry);

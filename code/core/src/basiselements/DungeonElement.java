@@ -3,42 +3,29 @@ package basiselements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import tools.Point;
 
-public abstract class DungeonElement {
-    private SpriteBatch batch;
-
-    /**
-     * An object in the dungeon that can be drawn
-     *
-     * @param batch SpriteBatch to draw on
-     */
-    public DungeonElement(SpriteBatch batch) {
-        this.batch = batch;
-    }
-
+public interface DungeonElement {
     /** Will be executed every frame. */
-    public void update() {}
+    void update();
 
     /** Draws this instance on the batch. */
-    public void draw() {}
+    void draw();
 
     /**
      * @return <code>true</code>, if this instance can be deleted; <code>false</code> otherwise
      */
-    public boolean removable() {
+    default boolean removable() {
         return false;
     }
 
-    public SpriteBatch getBatch() {
-        return batch;
-    }
+    SpriteBatch getBatch();
 
     /**
      * @return the exact position in the dungeon of this instance
      */
-    public abstract Point getPosition();
+    Point getPosition();
 
     /**
      * @return the (current) Texture-Path of the object
      */
-    public abstract String getTexturePath();
+    String getTexturePath();
 }

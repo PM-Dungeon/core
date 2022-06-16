@@ -1,8 +1,8 @@
 package menu;
 
-import basiselements.HUDElement;
+import basiselements.DungeonElement;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,20 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import graphic.HUDPainter;
 import java.util.ArrayList;
 import java.util.List;
 import tools.Point;
 
-public class MenuScreen extends HUDElement implements Screen {
+public class MenuScreen extends ScreenAdapter implements DungeonElement {
+    private final SpriteBatch batch;
     private final Stage stage;
     private final Table table;
     private final List<MenuScreenEntry> menuScreenEntries = new ArrayList<>();
 
-    public MenuScreen(HUDPainter hudPainter, SpriteBatch hudBatch) {
-        super(hudPainter, hudBatch);
-
-        stage = new Stage(new ScreenViewport(), hudBatch);
+    public MenuScreen() {
+        batch = new SpriteBatch();
+        stage = new Stage(new ScreenViewport(), batch);
 
         // Create a Table to group the TextButton. Place the table in the bottom left corner. Each
         // TextButton should have a 20 pixel distance
@@ -40,9 +39,6 @@ public class MenuScreen extends HUDElement implements Screen {
     }
 
     @Override
-    public void show() {}
-
-    @Override
     public void render(float delta) {
         stage.act(delta);
         stage.draw();
@@ -55,18 +51,6 @@ public class MenuScreen extends HUDElement implements Screen {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void hide() {}
-
-    @Override
-    public void dispose() {}
 
     @Override
     public Point getPosition() {
@@ -87,6 +71,11 @@ public class MenuScreen extends HUDElement implements Screen {
     @Override
     public void draw() {
         // crop super call
+    }
+
+    @Override
+    public SpriteBatch getBatch() {
+        return batch;
     }
 
     // further methods
@@ -139,7 +128,7 @@ public class MenuScreen extends HUDElement implements Screen {
         if (menuScreenEntry.getMenuButton().isOver()) {
             return true;
         }
-        for (MenuScreenDropEntry e : menuScreenEntry.getEntryButtons()) {
+        for (MenuScreenItem e : menuScreenEntry.getEntryButtons()) {
             if (e.getButton().isOver()) {
                 return true;
             }
@@ -150,7 +139,7 @@ public class MenuScreen extends HUDElement implements Screen {
     public void setFontSizeRecursive(float scaleXY) {
         for (MenuScreenEntry entry : menuScreenEntries) {
             entry.setFontSize(scaleXY);
-            for (MenuScreenDropEntry de : entry.getEntryButtons()) {
+            for (MenuScreenItem de : entry.getEntryButtons()) {
                 de.setFontSize(scaleXY);
             }
         }

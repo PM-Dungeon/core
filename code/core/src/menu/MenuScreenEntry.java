@@ -10,7 +10,7 @@ import java.util.List;
 public class MenuScreenEntry {
     public static final float defaultScaleXY = 1f;
     private final TextButton menuButton;
-    private final List<MenuScreenDropEntry> entryButtons = new ArrayList<>();
+    private final List<MenuScreenItem> entryButtons = new ArrayList<>();
     private final VerticalGroup vg = new VerticalGroup();
 
     public MenuScreenEntry(String menuText) {
@@ -22,11 +22,11 @@ public class MenuScreenEntry {
         setFontSize(defaultScaleXY);
     }
 
-    public void add(MenuScreenDropEntry entry) {
+    public void add(MenuScreenItem entry) {
         entryButtons.add(entry);
     }
 
-    public void remove(MenuScreenDropEntry entry) {
+    public void remove(MenuScreenItem entry) {
         entryButtons.remove(entry);
     }
 
@@ -36,13 +36,13 @@ public class MenuScreenEntry {
 
     public void showVg() {
         vg.clear();
-        for (MenuScreenDropEntry e : entryButtons) {
+        for (MenuScreenItem e : entryButtons) {
             vg.addActor(e.getButton());
         }
     }
 
     public void hideVg() {
-        for (MenuScreenDropEntry e : entryButtons) {
+        for (MenuScreenItem e : entryButtons) {
             e.getButton().setChecked(false);
         }
         vg.clear();
@@ -58,7 +58,7 @@ public class MenuScreenEntry {
         return menuButton;
     }
 
-    public List<MenuScreenDropEntry> getEntryButtons() {
+    public List<MenuScreenItem> getEntryButtons() {
         return entryButtons;
     }
 

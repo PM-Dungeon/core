@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class MenuScreenDropEntry {
+public class MenuScreenItem {
     private final TextButton button;
 
-    public MenuScreenDropEntry(String text, EntryListener listener) {
+    public MenuScreenItem(String text, MenuScreenItemListener listener) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
         style.fontColor = Color.BLUE;

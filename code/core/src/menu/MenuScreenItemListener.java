@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public abstract class EntryListener extends ClickListener {
+public abstract class MenuScreenItemListener extends ClickListener {
     private TextButton button;
 
     public void setButton(TextButton button) {

@@ -3,7 +3,8 @@ package basiselements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
 
-public abstract class Entity extends DungeonElement {
+public abstract class Entity implements DungeonElement {
+    private SpriteBatch batch;
     private Painter painter;
 
     /**
@@ -14,7 +15,7 @@ public abstract class Entity extends DungeonElement {
      * @param batch Batch to draw on
      */
     public Entity(Painter painter, SpriteBatch batch) {
-        super(batch);
+        this.batch = batch;
         this.painter = painter;
     }
 

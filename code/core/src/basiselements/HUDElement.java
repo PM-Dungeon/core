@@ -3,7 +3,8 @@ package basiselements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.HUDPainter;
 
-public abstract class HUDElement extends DungeonElement {
+public abstract class HUDElement implements DungeonElement {
+    private SpriteBatch batch;
     private HUDPainter painter;
 
     /**
@@ -14,7 +15,7 @@ public abstract class HUDElement extends DungeonElement {
      * @param batch Batch to draw on
      */
     public HUDElement(HUDPainter painter, SpriteBatch batch) {
-        super(batch);
+        this.batch = batch;
         this.painter = painter;
     }
 
