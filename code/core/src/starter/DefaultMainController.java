@@ -29,8 +29,6 @@ public class DefaultMainController extends MainController {
         // levelAPI.setGenerator(new RandomWalkGenerator());
         // load the first level
         levelAPI.loadLevel();
-
-        // optional, uncomment this if you want a start menu:
         createMenuScreen();
         addDemoMenuEntries();
     }
@@ -79,8 +77,8 @@ public class DefaultMainController extends MainController {
     }
 
     private void addDemoMenuEntries() {
-        MenuScreenItemListener listener =
-                new MenuScreenItemListener() {
+        TextButtonListener listener =
+                new TextButtonListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         Gdx.app.log("CLICK", "TODO: One item was clicked.");

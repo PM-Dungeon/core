@@ -19,6 +19,11 @@ public abstract class Entity implements DungeonElement {
         this.painter = painter;
     }
 
+    @Override
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
     /** Each drawable should use this <code>Painter</code> to draw itself. */
     public Painter getPainter() {
         return painter;

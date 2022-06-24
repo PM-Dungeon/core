@@ -15,26 +15,20 @@ import java.util.List;
 import tools.Point;
 
 public class MenuScreen extends ScreenAdapter implements DungeonElement {
-    private final SpriteBatch batch;
     private final Stage stage;
     private final Table table;
     private final List<MenuScreenEntry> menuScreenEntries = new ArrayList<>();
 
     public MenuScreen() {
-        batch = new SpriteBatch();
+        SpriteBatch batch = new SpriteBatch();
         stage = new Stage(new ScreenViewport(), batch);
 
-        // Create a Table to group the TextButton. Place the table in the bottom left corner. Each
-        // TextButton should have a 20 pixel distance
-        // to the next one.
         table = new Table().bottom().left();
         table.defaults().padRight(20);
         table.padLeft(20);
 
-        // Add the table to the stage.
         stage.addActor(table);
 
-        // Register the InputProcessor to the stage and a ClickListener to button1.
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -44,9 +38,6 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
         stage.draw();
     }
 
-    /*
-    This method is not called because it is not registered yet, in LibgdxSetup.
-     */
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
@@ -54,17 +45,20 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
 
     @Override
     public Point getPosition() {
+        // We don't need the super class logic, so we can return null.
         return null;
     }
 
     @Override
     public String getTexturePath() {
+        // We don't need the super class logic, so we can return null.
         return null;
     }
 
     @Override
-    public void update() {
-        // crop super call
+    public SpriteBatch getBatch() {
+        // We don't need the super class logic, so we can return null.
+        return null;
     }
 
     @Override
@@ -73,11 +67,9 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
     }
 
     @Override
-    public SpriteBatch getBatch() {
-        return batch;
+    public void update() {
+        // We have nothing to update, so the method body is empty.
     }
-
-    // further methods
 
     public void addMenuScreenEntry(MenuScreenEntry entry) {
         menuScreenEntries.add(entry);
@@ -94,7 +86,16 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
         updateMenuScreenEntries();
     }
 
-    public void updateMenuScreenEntries() {
+    public void setFontSizeRecursive(float scaleXY) {
+        for (MenuScreenEntry entry : menuScreenEntries) {
+            entry.setFontSize(scaleXY);
+            for (MenuScreenItem de : entry.getEntryButtons()) {
+                de.setFontSize(scaleXY);
+            }
+        }
+    }
+
+    private void updateMenuScreenEntries() {
         table.clear();
         for (MenuScreenEntry menu : menuScreenEntries) {
             table.add(menu.getVg());
@@ -123,7 +124,7 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
         }
     }
 
-    public boolean checkIfMouseIsOverButton(MenuScreenEntry menuScreenEntry) {
+    private boolean checkIfMouseIsOverButton(MenuScreenEntry menuScreenEntry) {
         if (menuScreenEntry.getMenuButton().isOver()) {
             return true;
         }
@@ -133,14 +134,5 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
             }
         }
         return false;
-    }
-
-    public void setFontSizeRecursive(float scaleXY) {
-        for (MenuScreenEntry entry : menuScreenEntries) {
-            entry.setFontSize(scaleXY);
-            for (MenuScreenItem de : entry.getEntryButtons()) {
-                de.setFontSize(scaleXY);
-            }
-        }
     }
 }

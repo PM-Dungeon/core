@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class MenuScreenItem {
     private final TextButton button;
 
-    public MenuScreenItem(String text, MenuScreenItemListener listener) {
+    public MenuScreenItem(String text, TextButtonListener listener) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
         style.fontColor = Color.BLUE;
