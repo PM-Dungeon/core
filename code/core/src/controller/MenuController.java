@@ -1,5 +1,5 @@
-package menu;
+package controller;
 
-import controller.AbstractController;
+import menu.MenuScreen;
 
 public class MenuController extends AbstractController<MenuScreen> {}
