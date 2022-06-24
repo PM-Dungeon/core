@@ -89,7 +89,7 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
         updateMenuScreenEntries();
     }
 
-    public void clearMenuScreenEntry() {
+    public void clearMenuScreen() {
         menuScreenEntries.clear();
         updateMenuScreenEntries();
     }
