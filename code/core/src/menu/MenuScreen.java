@@ -65,12 +65,11 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
     @Override
     public void update() {
         // crop super call
-        render(Gdx.graphics.getDeltaTime());
     }
 
     @Override
     public void draw() {
-        // crop super call
+        render(Gdx.graphics.getDeltaTime());
     }
 
     @Override
