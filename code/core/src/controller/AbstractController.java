@@ -4,6 +4,14 @@ import basiselements.RemovableElement;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * A controller manages elements of a certain type and is based on a layer system.
+ *
+ * <p>Layer system means: All elements are listed in ascending order according to the layers in this
+ * controller and in the order they are arranged in the layer.
+ *
+ * @param <T> Type of elements to manage.
+ */
 public abstract class AbstractController<T extends RemovableElement> implements Iterable<T> {
     private final Map<ControllerLayer, List<T>> layerTreeMap = new TreeMap<>();
     private final Map<T, List<T>> elementHashMap = new HashMap<>();
