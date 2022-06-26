@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class HUDController extends AbstractController<HUDElement> {
+public class HUDDungeonElementController extends AbstractDungeonElementController<HUDElement> {
     private final Stage textStage;
 
     /**
@@ -17,7 +17,7 @@ public class HUDController extends AbstractController<HUDElement> {
      *
      * @param batch the batch for the HUD
      */
-    public HUDController(SpriteBatch batch) {
+    public HUDDungeonElementController(SpriteBatch batch) {
         textStage = new Stage(new ScreenViewport(), batch);
     }
 

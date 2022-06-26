@@ -1,6 +1,6 @@
 package menu;
 
-import basiselements.DungeonElement;
+import basiselements.ScreenElement;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,9 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.ArrayList;
 import java.util.List;
-import tools.Point;
 
-public class MenuScreen extends ScreenAdapter implements DungeonElement {
+public class MenuScreen extends ScreenAdapter implements ScreenElement {
     private final Stage stage;
     private final Table table;
     private final List<MenuScreenEntry> menuScreenEntries = new ArrayList<>();
@@ -44,31 +43,8 @@ public class MenuScreen extends ScreenAdapter implements DungeonElement {
     }
 
     @Override
-    public Point getPosition() {
-        // We don't need the super class logic, so we can return null.
-        return null;
-    }
-
-    @Override
-    public String getTexturePath() {
-        // We don't need the super class logic, so we can return null.
-        return null;
-    }
-
-    @Override
-    public SpriteBatch getBatch() {
-        // We don't need the super class logic, so we can return null.
-        return null;
-    }
-
-    @Override
-    public void draw() {
-        render(Gdx.graphics.getDeltaTime());
-    }
-
-    @Override
     public void update() {
-        // We have nothing to update, so the method body is empty.
+        render(Gdx.graphics.getDeltaTime());
     }
 
     public void addMenuScreenEntry(MenuScreenEntry entry) {

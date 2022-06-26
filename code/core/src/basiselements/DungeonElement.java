@@ -3,19 +3,12 @@ package basiselements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import tools.Point;
 
-public interface DungeonElement {
+public interface DungeonElement extends RemovableElement {
     /** Will be executed every frame. */
     void update();
 
     /** Draws this instance on the batch. */
     void draw();
-
-    /**
-     * @return <code>true</code>, if this instance can be deleted; <code>false</code> otherwise
-     */
-    default boolean removable() {
-        return false;
-    }
 
     SpriteBatch getBatch();
 
