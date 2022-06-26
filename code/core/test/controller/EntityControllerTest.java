@@ -21,18 +21,18 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({})
 public class EntityControllerTest {
     private Entity entity1, entity2;
-    private EntityDungeonElementController controller;
+    private EntityController controller;
 
     @Before
     public void setUp() {
         entity1 = Mockito.mock(Entity.class);
         entity2 = Mockito.mock(Entity.class);
-        controller = new EntityDungeonElementController();
+        controller = new EntityController();
     }
 
     @Test
     public void test_update_withEmptyController() {
-        EntityDungeonElementController ecSpy = Mockito.spy(new EntityDungeonElementController());
+        EntityController ecSpy = Mockito.spy(new EntityController());
         PowerMockito.doNothing().when(ecSpy).forEach(any());
         assumeTrue(ecSpy.isEmpty());
         verify(ecSpy).isEmpty();

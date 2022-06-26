@@ -37,18 +37,18 @@ class MainControllerTest {
 
         Whitebox.setInternalState(Gdx.class, "gl", Mockito.mock(GL20.class));
 
-        PowerMockito.whenNew(EntityDungeonElementController.class)
+        PowerMockito.whenNew(EntityController.class)
                 .withNoArguments()
-                .thenReturn(Mockito.mock(EntityDungeonElementController.class));
+                .thenReturn(Mockito.mock(EntityController.class));
         PowerMockito.whenNew(Painter.class)
                 .withAnyArguments()
                 .thenReturn(Mockito.mock(Painter.class));
         PowerMockito.whenNew(SpriteBatch.class)
                 .withAnyArguments()
                 .thenReturn(Mockito.mock(SpriteBatch.class));
-        PowerMockito.whenNew(HUDDungeonElementController.class)
+        PowerMockito.whenNew(HUDController.class)
                 .withAnyArguments()
-                .thenReturn(Mockito.mock(HUDDungeonElementController.class));
+                .thenReturn(Mockito.mock(HUDController.class));
         PowerMockito.whenNew(LevelAPI.class)
                 .withAnyArguments()
                 .thenReturn(Mockito.mock(LevelAPI.class));

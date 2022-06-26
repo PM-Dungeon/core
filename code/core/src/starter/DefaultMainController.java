@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import controller.MainController;
-import controller.MenuScreenElementController;
+import controller.ScreenController;
 import menu.*;
 import tools.Point;
 
@@ -69,11 +69,11 @@ public class DefaultMainController extends MainController {
     public void onLevelLoad() {}
 
     private void createMenuScreen() {
-        MenuScreenElementController menuScreenElementController = new MenuScreenElementController();
+        ScreenController screenController = new ScreenController();
         menuScreen = new MenuScreen();
 
-        menuScreenElementController.add(menuScreen);
-        controller.add(menuScreenElementController);
+        screenController.add(menuScreen);
+        controller.add(screenController);
     }
 
     private void addDemoMenuEntries() {

@@ -27,14 +27,14 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     /** Contais all Controller of the Dungeon */
     protected List<AbstractController<?>> controller;
 
-    protected EntityDungeonElementController entityController;
+    protected EntityController entityController;
     protected DungeonCamera camera;
     /** Draws objects */
     protected Painter painter;
     /** This batch is used to draw the HUD elements on it. */
     protected SpriteBatch hudBatch;
 
-    protected HUDDungeonElementController hudController;
+    protected HUDController hudController;
     /** Draws hud */
     protected HUDPainter hudPainter;
 
@@ -89,11 +89,11 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     private void firstFrame() {
         doFirstFrame = false;
         controller = new ArrayList<>();
-        entityController = new EntityDungeonElementController();
+        entityController = new EntityController();
         setupCameras();
         painter = new Painter(camera);
         hudPainter = new HUDPainter();
-        hudController = new HUDDungeonElementController(hudBatch);
+        hudController = new HUDController(hudBatch);
         controller.add(entityController);
         controller.add(hudController);
         generator = new RandomWalkGenerator();

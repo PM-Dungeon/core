@@ -23,14 +23,14 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({HUDDungeonElementController.class})
+@PrepareForTest({HUDController.class})
 public class HUDControllerTest {
     private SpriteBatch batch;
     private HUDElement element1;
     private HUDElement element2;
     private Stage textStage;
-    private HUDDungeonElementController controller;
-    private HUDDungeonElementController controllerSpy;
+    private HUDController controller;
+    private HUDController controllerSpy;
     private Label labelMock;
 
     @Before
@@ -41,7 +41,7 @@ public class HUDControllerTest {
         textStage = Mockito.mock(Stage.class);
         PowerMockito.whenNew(Stage.class).withAnyArguments().thenReturn(textStage);
 
-        controller = new HUDDungeonElementController(batch);
+        controller = new HUDController(batch);
 
         controllerSpy = Mockito.spy(controller);
         labelMock = Mockito.mock(Label.class);
