@@ -17,7 +17,7 @@ public class TileLevel implements ILevel {
     protected final TileHeuristic tileHeuristic = new TileHeuristic();
     protected Tile startTile;
     protected Tile endTile;
-    protected int nodeCount = 0;
+    protected int nodeCount = 1;
     protected Tile[][] layout;
 
     /**
