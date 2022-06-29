@@ -18,6 +18,10 @@ public class MenuScreen extends ScreenAdapter implements ScreenElement {
     private final Table table;
     private final List<MenuScreenEntry> menuScreenEntries = new ArrayList<>();
 
+    /**
+     * Constructs a new MenuScreen with Stage, ScreenViewport and SpriteBatch to add menu items. The
+     * menu is placed in the lower left corner.
+     */
     public MenuScreen() {
         SpriteBatch batch = new SpriteBatch();
         stage = new Stage(new ScreenViewport(), batch);
@@ -31,6 +35,11 @@ public class MenuScreen extends ScreenAdapter implements ScreenElement {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Updates and draws this MenuScreen resp. Stage.
+     *
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         stage.act(delta);
@@ -42,26 +51,43 @@ public class MenuScreen extends ScreenAdapter implements ScreenElement {
         stage.getViewport().update(width, height);
     }
 
+    /** Updates and draws this MenuScreen resp. Stage. */
     @Override
     public void update() {
         render(Gdx.graphics.getDeltaTime());
     }
 
+    /**
+     * Adds a MenuScreenEntry to this menu and updates the screen.
+     *
+     * @param entry to add.
+     */
     public void addMenuScreenEntry(MenuScreenEntry entry) {
         menuScreenEntries.add(entry);
         updateMenuScreenEntries();
     }
 
+    /**
+     * Removes the given MenuScreenEntry, if it exists, and updates the screen.
+     *
+     * @param entry to remove.
+     */
     public void removeMenuScreenEntry(MenuScreenEntry entry) {
         menuScreenEntries.remove(entry);
         updateMenuScreenEntries();
     }
 
+    /** Removes all menu screen entries and updates the screen. */
     public void clearMenuScreen() {
         menuScreenEntries.clear();
         updateMenuScreenEntries();
     }
 
+    /**
+     * Sets the font size for each menu screen entry and their sub menus.
+     *
+     * @param scaleXY the scale factor (1 = no rescaling).
+     */
     public void setFontSizeRecursive(float scaleXY) {
         for (MenuScreenEntry entry : menuScreenEntries) {
             entry.setFontSize(scaleXY);
