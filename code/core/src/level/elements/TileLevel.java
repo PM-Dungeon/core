@@ -98,7 +98,7 @@ public class TileLevel implements ILevel {
                     new Coordinate(
                             checkTile.getCoordinate().x + v.x, checkTile.getCoordinate().y + v.y);
             Tile t = getTileAt(c);
-            if (t != null && t.isAccessible()) { 
+            if (t != null && t.isAccessible()) {
                 checkTile.addConnection(t);
             }
         }
