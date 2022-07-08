@@ -1,4 +1,5 @@
 # Quickstart
+**FÜR DIE VERSION 4.x.x**
 
 Dieses Dokument liefert einen Einstieg in das PM-Dungeon. Es erläutert die Installation des Frameworks und die ersten Schritte, um eigene Inhalte zum Dungeon hinzuzufügen. Es dient als Grundlage für alle weiteren Praktika. Lesen Sie das Dokument daher aufmerksam durch und versuchen Sie sich zusätzlich selbst mit dem Aufbau vertraut zu machen.
 Das Framework ist in [`core`](https://github.com/PM-Dungeon/core) und [`dungeon-starter`](https://github.com/PM-Dungeon/dungeon-starter) aufgeteilt, wobei `core` das Framework und `dungeon-starter` ein Basis-Starter ist.
