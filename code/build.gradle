@@ -116,7 +116,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = "io.github.pm-dungeon"
-            artifactId = "core"
+            artifactId = "pm-dungeon"
             version = project.version
 
             from components.java
@@ -124,11 +124,11 @@ publishing {
             pom {
                 name = "PM-Dungeon core"
                 description = "The pmdungeon is a lightweight, libgdx based, Java framework for the development of a 2D rogue like."
-                url = "https://github.com/PM-Dungeon/core"
+                url = "https://github.com/Programmiermethoden/pm-dungeon"
                 licenses {
                     license {
                         name = "MIT License"
-                        url = "https://github.com/PM-Dungeon/core/blob/master/LICENSE.md"
+                        url = "https://github.com/Programmiermethoden/pm-dungeon/blob/master/LICENSE.md"
                     }
                 }
                 developers {
@@ -149,9 +149,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "scm:git:https://github.com/PM-Dungeon/core.git"
+                    connection = "scm:git:https://github.com/Programmiermethoden/pm-dungeon.git"
                     developerConnection = ""
-                    url = "https://github.com/PM-Dungeon/core"
+                    url = "https://github.com/Programmiermethoden/pm-dungeon.git"
                 }
             }
         }
