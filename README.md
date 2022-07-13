@@ -1,6 +1,8 @@
 [![Java CI](https://github.com/PM-Dungeon/core/actions/workflows/github_ci.yml/badge.svg)](https://github.com/PM-Dungeon/core/actions/workflows/github_ci.yml)
 
-# PM-Dungeon-Framework
+# PM-Dungeon-Framework v.4
+
+Note: This version is deprecated and will not be supported anymore.
 
 ## About
 
