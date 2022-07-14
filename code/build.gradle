@@ -122,7 +122,7 @@ publishing {
             from components.java
 
             pom {
-                name = "PM-Dungeon core"
+                name = "PM-Dungeon"
                 description = "The PM-Dungeon is a lightweight Java framework for the development of a 2D-Rouge-like game. It is designed for educational purposes and is especially aimed at inexperienced Java developers."
                 url = "https://github.com/Programmiermethoden/PM-Dungeon"
                 licenses {

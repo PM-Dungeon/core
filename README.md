@@ -1,4 +1,4 @@
-[![Java CI](https://github.com/Programmiermethoden/pm-dungeon/actions/workflows/github_ci.yml/badge.svg)](https://github.com/Programmiermethoden/pm-dungeon/actions/workflows/github_ci.yml)
+[![Java CI](https://github.com/Programmiermethoden/PM-Dungeon/actions/workflows/github_ci.yml/badge.svg)](https://github.com/Programmiermethoden/PM-Dungeon/actions/workflows/github_ci.yml)
 
 # PM-Dungeon-Framework
 
@@ -17,7 +17,7 @@ To create your own game using the PM-Dungeon framework, check out the quick star
 
 - [German]tbd
 - [English]tbd
-- [Javadoc](https://javadoc.io/doc/io.github.pm-dungeon/core/latest/index.html)
+- [Javadoc](https://javadoc.io/doc/io.github.programmiermethoden/pm-dungeon/latest/index.html)
 
 ## Contributing
 
