@@ -1,15 +1,9 @@
 package starter;
 
-import basiselements.hud.ScreenButton;
-import basiselements.hud.ScreenImage;
-import basiselements.hud.ScreenText;
-import basiselements.hud.TextButtonListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import controller.MainController;
-import controller.ScreenController;
 import tools.Point;
 
 public class DefaultMainController extends MainController {
@@ -31,7 +25,6 @@ public class DefaultMainController extends MainController {
         // levelAPI.setGenerator(new RandomWalkGenerator());
         // load the first level
         levelAPI.loadLevel();
-        createBetterMenu();
     }
 
     @Override
@@ -68,25 +61,4 @@ public class DefaultMainController extends MainController {
 
     @Override
     public void onLevelLoad() {}
-
-    ScreenButton button;
-
-    private void createBetterMenu() {
-        ScreenController screenController = new ScreenController(hudBatch);
-        screenController.add(new ScreenImage("assets/hud/ui_heart_half.png", new Point(1, 1)));
-        button =
-                new ScreenButton(
-                        "Dies ist der Text",
-                        new Point(100, 100),
-                        new TextButtonListener() {
-                            @Override
-                            public void clicked(InputEvent event, float x, float y) {
-                                System.out.println("Hey ich wurde gedrückt!");
-                            }
-                        });
-        screenController.add(button);
-        screenController.add(ScreenText.build("blub", new Point(100, 0), 2));
-
-        controller.add(screenController);
-    }
 }
