@@ -1,17 +1,19 @@
 package starter;
 
+import basiselements.hud.ScreenButton;
+import basiselements.hud.ScreenImage;
+import basiselements.hud.ScreenText;
+import basiselements.hud.TextButtonListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import controller.MainController;
 import controller.ScreenController;
-import menu.*;
 import tools.Point;
 
 public class DefaultMainController extends MainController {
     private int zoomLevel = 10;
-    private MenuScreen menuScreen;
 
     /**
      * The program entry point to start the dungeon.
@@ -29,8 +31,7 @@ public class DefaultMainController extends MainController {
         // levelAPI.setGenerator(new RandomWalkGenerator());
         // load the first level
         levelAPI.loadLevel();
-        createMenuScreen();
-        addDemoMenuEntries();
+        createBetterMenu();
     }
 
     @Override
@@ -68,27 +69,24 @@ public class DefaultMainController extends MainController {
     @Override
     public void onLevelLoad() {}
 
-    private void createMenuScreen() {
-        ScreenController screenController = new ScreenController();
-        menuScreen = new MenuScreen();
+    ScreenButton button;
 
-        screenController.add(menuScreen);
+    private void createBetterMenu() {
+        ScreenController screenController = new ScreenController(hudBatch);
+        screenController.add(new ScreenImage("assets/hud/ui_heart_half.png", new Point(1, 1)));
+        button =
+                new ScreenButton(
+                        "Dies ist der Text",
+                        new Point(100, 100),
+                        new TextButtonListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                System.out.println("Hey ich wurde gedrückt!");
+                            }
+                        });
+        screenController.add(button);
+        screenController.add(ScreenText.build("blub", new Point(100, 0), 2));
+
         controller.add(screenController);
-    }
-
-    private void addDemoMenuEntries() {
-        TextButtonListener listener =
-                new TextButtonListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        Gdx.app.log("CLICK", "TODO: One item was clicked.");
-                    }
-                };
-        MenuScreenEntry demoEntry = new MenuScreenEntry("Demo 1");
-        MenuScreenItem item1 = new MenuScreenItem("Item 1", listener);
-        MenuScreenItem item2 = new MenuScreenItem("Item 2", listener);
-        demoEntry.add(item1);
-        demoEntry.add(item2);
-        menuScreen.addMenuScreenEntry(demoEntry);
     }
 }
