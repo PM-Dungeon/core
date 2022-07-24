@@ -1,7 +1,6 @@
-package menu;
+package basiselements.hud;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -9,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * need to implement the clicked event method.
  */
 public abstract class TextButtonListener extends ClickListener {
-    public void setButton(TextButton button) {
-        button.addListener(this);
-    }
 
     @Override
     public abstract void clicked(InputEvent event, float x, float y);
