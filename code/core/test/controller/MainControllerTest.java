@@ -38,7 +38,7 @@ class MainControllerTest {
         Whitebox.setInternalState(Gdx.class, "gl", Mockito.mock(GL20.class));
 
         PowerMockito.whenNew(EntityController.class)
-                .withNoArguments()
+                .withAnyArguments()
                 .thenReturn(Mockito.mock(EntityController.class));
         PowerMockito.whenNew(Painter.class)
                 .withAnyArguments()

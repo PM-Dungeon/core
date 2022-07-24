@@ -1,6 +1,7 @@
 package controller;
 
 import basiselements.RemovableElement;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -15,6 +16,12 @@ import java.util.function.Consumer;
 public abstract class AbstractController<T extends RemovableElement> implements Iterable<T> {
     private final Map<ControllerLayer, List<T>> layerTreeMap = new TreeMap<>();
     private final Map<T, List<T>> elementHashMap = new HashMap<>();
+
+    protected SpriteBatch batch;
+
+    public AbstractController(SpriteBatch batch) {
+        this.batch = batch;
+    }
 
     public abstract void process(T e);
 
@@ -104,7 +111,7 @@ public abstract class AbstractController<T extends RemovableElement> implements 
      * @param t Element to remove.
      * @return true, if this was successful.
      */
-    public boolean remove(Object t) {
+    public boolean remove(T t) {
         assert (t != null);
         if (!contains(t)) {
             return false;

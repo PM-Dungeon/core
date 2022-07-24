@@ -84,7 +84,7 @@ public abstract class MainController extends ScreenAdapter implements IOnLevelLo
     private void firstFrame() {
         doFirstFrame = false;
         controller = new ArrayList<>();
-        entityController = new EntityController();
+        entityController = new EntityController(painter, batch);
         setupCameras();
         painter = new Painter(camera);
         controller.add(entityController);

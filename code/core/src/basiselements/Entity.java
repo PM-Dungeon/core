@@ -4,34 +4,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import graphic.Painter;
 
 public abstract class Entity implements DungeonElement {
-    private SpriteBatch batch;
-    private Painter painter;
 
     /**
      * A object that can be controlled by the <code>EntityController
      * </code>.
+     */
+    public Entity() {}
+
+    /**
+     * Draws this instance on the batch.
      *
      * @param painter Painter that draws this object
      * @param batch Batch to draw on
      */
-    public Entity(Painter painter, SpriteBatch batch) {
-        this.batch = batch;
-        this.painter = painter;
-    }
-
     @Override
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
-    /** Each drawable should use this <code>Painter</code> to draw itself. */
-    public Painter getPainter() {
-        return painter;
-    }
-
-    /** Draws this instance on the batch. */
-    @Override
-    public void draw() {
-        getPainter().draw(getTexturePath(), getPosition(), getBatch());
+    public void draw(Painter painter, SpriteBatch batch) {
+        painter.draw(getTexturePath(), getPosition(), batch);
     }
 }
