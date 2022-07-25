@@ -55,8 +55,9 @@ public class ScreenText extends Label implements ScreenElement {
         FreeTypeFontGenerator.FreeTypeFontParameter parameters =
                 new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameters.size = 16;
-        parameters.borderWidth = 1;
-        parameters.color = Color.SKY;
+        parameters.borderWidth = borderWith;
+        parameters.color = fontColor;
+        parameters.borderColor = borderColor;
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
         labelStyle.font = generator.generateFont(parameters);
