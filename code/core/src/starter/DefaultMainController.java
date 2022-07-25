@@ -2,10 +2,22 @@ package starter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector3;
 import controller.MainController;
+import tools.Point;
 
 public class DefaultMainController extends MainController {
     private int zoomLevel = 10;
+
+    /**
+     * The program entry point to start the dungeon.
+     *
+     * @param args command line arguments, but not needed.
+     */
+    public static void main(String[] args) {
+        // start the game
+        DesktopLauncher.run(new DefaultMainController());
+    }
 
     @Override
     protected void setup() {
@@ -28,18 +40,25 @@ public class DefaultMainController extends MainController {
             }
             camera.zoom = 0.05f * zoomLevel;
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.U)) {
+            Vector3 position = camera.position;
+            camera.setFocusPoint(new Point(position.x, position.y + 1));
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+            Vector3 position = camera.position;
+            camera.setFocusPoint(new Point(position.x, position.y - 1));
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+            Vector3 position = camera.position;
+            camera.setFocusPoint(new Point(position.x - 1, position.y));
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            Vector3 position = camera.position;
+            camera.setFocusPoint(new Point(position.x + 1, position.y));
+        }
     }
 
     @Override
     public void onLevelLoad() {}
-
-    /**
-     * The program entry point to start the dungeon.
-     *
-     * @param args command line arguments, but not needed.
-     */
-    public static void main(String[] args) {
-        // start the game
-        DesktopLauncher.run(new DefaultMainController());
-    }
 }

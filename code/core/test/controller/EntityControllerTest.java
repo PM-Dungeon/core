@@ -7,6 +7,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import basiselements.Entity;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import graphic.Painter;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Before;
@@ -22,17 +24,21 @@ import org.powermock.modules.junit4.PowerMockRunner;
 public class EntityControllerTest {
     private Entity entity1, entity2;
     private EntityController controller;
+    private Painter painter;
+    private SpriteBatch batch;
 
     @Before
     public void setUp() {
         entity1 = Mockito.mock(Entity.class);
         entity2 = Mockito.mock(Entity.class);
-        controller = new EntityController();
+        painter = Mockito.mock(Painter.class);
+        batch = Mockito.mock(SpriteBatch.class);
+        controller = new EntityController(painter, batch);
     }
 
     @Test
     public void test_update_withEmptyController() {
-        EntityController ecSpy = Mockito.spy(new EntityController());
+        EntityController ecSpy = Mockito.spy(new EntityController(painter, batch));
         PowerMockito.doNothing().when(ecSpy).forEach(any());
         assumeTrue(ecSpy.isEmpty());
         verify(ecSpy).isEmpty();
@@ -83,7 +89,7 @@ public class EntityControllerTest {
         controller.update();
         verify(entity1).removable();
         verify(entity1).update();
-        verify(entity1).draw();
+        verify(entity1).draw(painter, batch);
         Mockito.verifyNoMoreInteractions(entity1);
         assertTrue(controller.contains(entity1));
         assertFalse(controller.contains(entity2));
@@ -101,10 +107,10 @@ public class EntityControllerTest {
         controller.update();
         verify(entity1).removable();
         verify(entity1).update();
-        verify(entity1).draw();
+        verify(entity1).draw(painter, batch);
         verify(entity2).removable();
         verify(entity2).update();
-        verify(entity2).draw();
+        verify(entity2).draw(painter, batch);
         Mockito.verifyNoMoreInteractions(entity1, entity2);
         assertTrue(controller.contains(entity1));
         assertTrue(controller.contains(entity2));
@@ -124,10 +130,10 @@ public class EntityControllerTest {
         controller.update();
         verify(entity1).removable();
         verify(entity1).update();
-        verify(entity1).draw();
+        verify(entity1).draw(painter, batch);
         verify(entity2).removable();
         verify(entity2).update();
-        verify(entity2).draw();
+        verify(entity2).draw(painter, batch);
         Mockito.verifyNoMoreInteractions(entity1, entity2);
         assertTrue(controller.contains(entity1));
         assertTrue(controller.contains(entity2));
@@ -153,10 +159,10 @@ public class EntityControllerTest {
 
         verify(entity1, times(2)).removable();
         verify(entity1, times(2)).update();
-        verify(entity1, times(2)).draw();
+        verify(entity1, times(2)).draw(painter, batch);
         verify(entity2, times(2)).removable();
         verify(entity2, times(1)).update();
-        verify(entity2, times(1)).draw();
+        verify(entity2, times(1)).draw(painter, batch);
         Mockito.verifyNoMoreInteractions(entity1, entity2);
 
         assertTrue(controller.contains(entity1));

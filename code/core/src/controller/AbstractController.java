@@ -1,6 +1,7 @@
 package controller;
 
-import basiselements.DungeonElement;
+import basiselements.RemovableElement;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -12,22 +13,24 @@ import java.util.function.Consumer;
  *
  * @param <T> Type of elements to manage.
  */
-public abstract class AbstractController<T extends DungeonElement> implements Iterable<T> {
-
+public abstract class AbstractController<T extends RemovableElement> implements Iterable<T> {
     private final Map<ControllerLayer, List<T>> layerTreeMap = new TreeMap<>();
     private final Map<T, List<T>> elementHashMap = new HashMap<>();
 
-    /**
-     * Updates all elements that are registered at this controller, removes deletable elements and
-     * calls the update and draw method for every registered element.
-     */
+    protected SpriteBatch batch;
+
+    public AbstractController(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public abstract void process(T e);
+
     public void update() {
         for (T e : this) {
             if (e.removable()) {
                 remove(e);
             } else {
-                e.update();
-                e.draw();
+                process(e);
             }
         }
     }
@@ -108,7 +111,7 @@ public abstract class AbstractController<T extends DungeonElement> implements It
      * @param t Element to remove.
      * @return true, if this was successful.
      */
-    public boolean remove(Object t) {
+    public boolean remove(T t) {
         assert (t != null);
         if (!contains(t)) {
             return false;
